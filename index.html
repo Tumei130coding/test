@@ -410,7 +410,7 @@ footer b{color:var(--accent)}
 </div>
 
 <div class="ctrlbar">
-  <span class="lab">每批 15 题，随机抽取、顺序打乱</span>
+  <span class="lab">每批 15 题，随机抽取、顺序打乱　<b>选好后点「对答案」提交，提交后不能改</b></span>
   <button class="bigbtn" id="btnNew">换一批</button>
   <div class="bar-spacer" style="flex:1"></div>
   <span class="coverage"><span class="coverbar"><i id="coverBar"></i></span><span id="coverTxt">—</span></span>
@@ -442,11 +442,19 @@ footer b{color:var(--accent)}
 <footer>
   <p>题目来自「测试-语法情动非谓语1」，共 25 题（1–5 情态动词，6–25 非谓语动词）。</p>
   <p>每批题目<b>随机抽取、顺序打乱</b>；「换一批」会优先抽本轮还没做过的题，一轮练完自动重新开始。</p>
+  <p>每题<b>只能提交一次</b>，提交后展开解析并锁定 —— 成绩单反映的是真实作答情况。</p>
   <p>作答进度保存在本机浏览器里，关掉再打开不会丢；点右上角「重置」可清空重来。</p>
   <p style="margin-top:10px"><b>土妹英语</b> ｜ 定制课程 让每一分努力都不被辜负</p>
 </footer>
 
 <script>
+
+/* ================================================================
+   考试模式：单选也要先选后交，判分后永久锁死、不给「再做一遍」。
+   —— 这一页是测试，成绩单要反映真实正确率。
+   （讲义各节不开这个开关，保留重做，但正确率同样只按第一次算。）
+   ================================================================ */
+const EXAM_MODE = true;
 
 /* ================================================================
    题 库 —— 25 题（1–5 情态动词，6–25 非谓语动词）
@@ -654,12 +662,27 @@ function checkText(input, blank){
 
 /* ---- 记录 ---- */
 const registry = [];   // {key, no, label, sec, stemText, ansText, exHtml, flag}
+
+/* 成绩单永远按【第一次作答】算 —— 看完解析再做一遍，练习价值保留，
+   但正确率不会被洗掉。firstOk 一旦写入就不再变，只有「重做」才清。 */
 function record(key, ok){
   state[key] = state[key] || {};
   state[key].done = true;
   state[key].ok = ok;
+  if(state[key].firstOk === undefined) state[key].firstOk = ok;
   save(); refreshTally();
 }
+
+/* 点「再做一遍」：清掉本次作答，但保住第一次的对错 */
+function resetQ(key){
+  const fo = (state[key] || {}).firstOk;
+  if(fo === undefined) delete state[key];
+  else state[key] = { firstOk: fo };
+  save();
+}
+
+/* 考试模式：单选也要先选后交，判分后不给重做（由各页面自己定义 EXAM_MODE） */
+const EXAM = (typeof EXAM_MODE !== "undefined") && EXAM_MODE;
 
 /* ---- 渲染：判断题 ---- */
 function renderJudge(){
@@ -765,7 +788,7 @@ function renderMark(){
       toks.forEach(s => s.classList.remove("r-hit","r-miss","r-over","sel"));
       card.classList.remove("locked","reveal","correct","wrong");
       vd.className="verdict"; btn.style.display=""; again.style.display="none";
-      delete state[key]; save(); refreshTally();
+      resetQ(key); refreshTally();
     });
     if(state[key] && state[key].done){
       toks.forEach(s => { if(s.dataset.p==="1") s.classList.add("sel"); });
@@ -800,6 +823,7 @@ function renderQ(q, host, secName){
     /* 偶数个短选项才排两列，避免出现落单的一行 */
     ul.className = "opts" + (q.opts.length % 2 === 0 && q.opts.every(o=>o.length<18) ? " two" : "");
     const lis = [];
+    let picked = -1;
     q.opts.forEach((o, i) => {
       const li = document.createElement("li"); li.className="opt";
       li.innerHTML = '<span class="k">'+"ABCD"[i]+'</span><span>'+o+'</span>';
@@ -807,15 +831,20 @@ function renderQ(q, host, secName){
         if(card.classList.contains("locked")) return;
         lis.forEach(x=>x.classList.remove("picked"));
         li.classList.add("picked");
-        gradeChoice(i, false);
+        picked = i;
+        if(!EXAM) gradeChoice(i, false);     /* 讲义：点了就判；考试：等点「对答案」 */
       });
       ul.appendChild(li); lis.push(li);
     });
     stem.appendChild(ul);
     ansText = "ABCD"[q.a] + ". " + q.opts[q.a];
 
-    foot.innerHTML = '<span class="verdict"></span><button class="go ghost" style="display:none">再做一遍</button>';
-    const vd = foot.querySelector(".verdict"), again = foot.querySelector(".go");
+    foot.innerHTML = EXAM
+      ? '<button class="go">对答案</button><span class="verdict"></span>'
+      : '<span class="verdict"></span><button class="go ghost" style="display:none">再做一遍</button>';
+    const vd = foot.querySelector(".verdict");
+    const subBtn = EXAM ? foot.querySelector(".go") : null;
+    const again  = EXAM ? null : foot.querySelector(".go");
 
     function gradeChoice(pick, silent){
       const ok = pick === q.a;
@@ -825,16 +854,22 @@ function renderQ(q, host, secName){
       card.classList.add("locked","reveal", ok?"correct":"wrong");
       vd.className="verdict show "+(ok?"v-ok":"v-no");
       vd.textContent = ok ? "对了" : "选错了，看解析";
-      again.style.display="";
-      if(!silent) record(q.id, ok);
+      if(subBtn) subBtn.style.display = "none";
+      if(again)  again.style.display = "";
+      if(!silent){ record(q.id, ok); state[q.id].pick = pick; save(); }
     }
-    again.addEventListener("click", () => {
+    if(subBtn) subBtn.addEventListener("click", () => {
+      if(picked < 0){ vd.className = "verdict show v-near"; vd.textContent = "先选一个答案"; return; }
+      gradeChoice(picked, false);
+    });
+    if(again) again.addEventListener("click", () => {
       lis.forEach(x=>x.classList.remove("is-ok","is-no","picked"));
       card.classList.remove("locked","reveal","correct","wrong");
       vd.className="verdict"; again.style.display="none";
-      delete state[q.id]; save(); refreshTally();
+      resetQ(q.id); refreshTally();
     });
-    if(state[q.id] && state[q.id].done) gradeChoice(state[q.id].ok ? q.a : -1, true);
+    if(state[q.id] && state[q.id].done)
+      gradeChoice(state[q.id].pick !== undefined ? state[q.id].pick : (state[q.id].ok ? q.a : -1), true);
 
   } else if(q.type === "sentence"){   /* 连词成句：给一堆打乱的词，写出完整句子 */
     stem.innerHTML = q.stem || "";
@@ -862,7 +897,7 @@ function renderQ(q, host, secName){
     foot.innerHTML = '<button class="go">对答案</button><span class="verdict"></span>'+
                      '<span style="flex:1"></span>'+
                      '<button class="go ghost" data-a="clear">清空</button>'+
-                     '<button class="go ghost" data-a="redo" style="display:none">再做一遍</button>';
+                     (EXAM ? '' : '<button class="go ghost" data-a="redo" style="display:none">再做一遍</button>');
     const btn = foot.querySelector(".go"), vd = foot.querySelector(".verdict"),
           clr = foot.querySelector('[data-a="clear"]'), redo = foot.querySelector('[data-a="redo"]');
 
@@ -885,18 +920,18 @@ function renderQ(q, host, secName){
         vd.textContent = got ? (sameWords ? "词都用对了，是语序不对。" : "用的词对不上，检查有没有漏词或多词。") : "还没写。";
         ansLine.innerHTML = "答案：" + [q.a].concat(q.alt || []).join("<br>答案：");
       }
-      btn.style.display = "none"; clr.style.display = "none"; redo.style.display = "";
+      btn.style.display = "none"; clr.style.display = "none"; if(redo) redo.style.display = "";
       if(!silent) record(q.id, ok);
     };
     btn.addEventListener("click", () => grade(false));
     line.addEventListener("keydown", e => { if(e.key === "Enter") grade(false); });
     clr.addEventListener("click", () => { line.value = ""; line.focus(); });
-    redo.addEventListener("click", () => {
+    if(redo) redo.addEventListener("click", () => {
       line.disabled = false; line.value = ""; line.classList.remove("is-ok","is-no");
       ansLine.innerHTML = "";
       card.classList.remove("locked","reveal","correct","wrong");
       vd.className = "verdict"; btn.style.display = ""; clr.style.display = ""; redo.style.display = "none";
-      delete state[q.id]; save(); refreshTally();
+      resetQ(q.id); refreshTally();
     });
     if(state[q.id] && state[q.id].done){
       if(state[q.id].ok) line.value = q.a;
@@ -947,8 +982,9 @@ function renderQ(q, host, secName){
     ansText = q.blanks.map(b => b.a + (b.alt&&b.alt.length ? "（也可：" + b.alt.join(" / ") + "）" : "")).join(" ／ ");
 
     foot.innerHTML = '<button class="go">对答案</button><span class="verdict"></span>'+
-                     '<button class="go ghost" style="display:none">再做一遍</button>';
-    const btn = foot.querySelector(".go"), vd = foot.querySelector(".verdict"), again = foot.querySelectorAll(".go")[1];
+                     (EXAM ? '' : '<button class="go ghost" style="display:none">再做一遍</button>');
+    const btn = foot.querySelector(".go"), vd = foot.querySelector(".verdict"),
+          again = EXAM ? null : foot.querySelectorAll(".go")[1];
 
     const grade = (silent) => {
       let allOk = true, anyNear = false, anyHard = false, anyForm = false;
@@ -969,16 +1005,16 @@ function renderQ(q, host, secName){
       vd.className = "verdict show " + (allOk ? "v-ok" : (anyNear && !anyHard ? "v-near" : "v-no"));
       vd.innerHTML = allOk ? "对了"
         : note + '答案：<span class="ansline">'+q.blanks.map(b=>b.a).join(" / ")+"</span>";
-      btn.style.display="none"; again.style.display="";
+      btn.style.display="none"; if(again) again.style.display="";
       if(!silent) record(q.id, allOk);
     };
     btn.addEventListener("click", () => grade(false));
     inputs.forEach(el => el.addEventListener("keydown", e => { if(e.key==="Enter") grade(false); }));
-    again.addEventListener("click", () => {
+    if(again) again.addEventListener("click", () => {
       inputs.forEach(el => { el.disabled=false; el.value=""; el.classList.remove("is-ok","is-no"); });
       card.classList.remove("locked","reveal","correct","wrong");
       vd.className="verdict"; btn.style.display=""; again.style.display="none";
-      delete state[q.id]; save(); refreshTally();
+      resetQ(q.id); refreshTally();
     });
     if(state[q.id] && state[q.id].done){
       if(state[q.id].ok) inputs.forEach((el,i)=>{ el.value = q.blanks[i].a; });
@@ -1063,9 +1099,9 @@ function renderBatch(){
 /* 本页的成绩统计（题目每批都换，所以只统计本批 + 题库覆盖） */
 function refreshTally(){
   const total = registry.length;
-  const done  = registry.filter(r => state[r.key] && state[r.key].done);
-  const ok    = done.filter(r => state[r.key].ok);
-  const bad   = done.filter(r => !state[r.key].ok);
+  const done  = registry.filter(r => state[r.key] && state[r.key].firstOk !== undefined);
+  const ok    = done.filter(r => state[r.key].firstOk === true);
+  const bad   = done.filter(r => state[r.key].firstOk !== true);
 
   document.getElementById("ptext").textContent = done.length + " / " + total;
   document.getElementById("pbar").style.width = (total ? done.length / total * 100 : 0) + "%";
