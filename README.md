@@ -1,16 +1,29 @@
 # 土妹英语 · 在线练习
 
-| 练习 | 打开 |
+全部练习入口：**https://tumei130coding.github.io/test/**
+
+| 练习 | 链接 |
 |---|---|
-| 情态动词 ＋ 非谓语动词（随机练习，题库 25 题） | [点这里](https://tumei130coding.github.io/test/) |
+| 情态动词 ＋ 非谓语动词 | [打开](https://tumei130coding.github.io/test/ceshi-qingdong-feiweiyu/) |
+| 判断谓语 ＋ 一般过去时 | [打开](https://tumei130coding.github.io/test/sjsd-00-panduan-weiyu/) |
+| 一般现在时 | [打开](https://tumei130coding.github.io/test/sjsd-01-yiban-xianzai/) |
+| 一般将来时 | [打开](https://tumei130coding.github.io/test/sjsd-02-yiban-jianglai/) |
+| 现在进行时 | [打开](https://tumei130coding.github.io/test/sjsd-03-xianzai-jinxing/) |
+| 过去进行时 | [打开](https://tumei130coding.github.io/test/sjsd-04-guoqu-jinxing/) |
+| 现在完成时 | [打开](https://tumei130coding.github.io/test/sjsd-05-xianzai-wancheng/) |
+| 一般过去时 vs 现在完成时 | [打开](https://tumei130coding.github.io/test/sjsd-06-guoqu-vs-wancheng/) |
+| 主被动判断 | [打开](https://tumei130coding.github.io/test/sjsd-07-zhu-beidong/) |
+| 单复判断（There be 句型） | [打开](https://tumei130coding.github.io/test/sjsd-08-danfu-therebe/) |
+| There be 句型 | [打开](https://tumei130coding.github.io/test/sjsd-09-therebe-juxing/) |
+| 单复判断 · 难 | [打开](https://tumei130coding.github.io/test/sjsd-10-danfu-nan/) |
+| 三看三定总复习 | [打开](https://tumei130coding.github.io/test/sjsd-11-zongfuxi/) |
 
 ## 说明
 
-- 每批随机抽 **15 题**，顺序打乱；点「换一批」重抽，会优先抽本轮还没做过的题
-- **每题只能提交一次**：选好后点「对答案」，提交后展开解析并锁定，不能修改
-- 成绩单反映真实作答情况，没有「再做一遍」可以刷分
-- 作答进度存在浏览器本地，关掉再打开不会丢；点右上角「重置」清空重来
-- 手机、平板、电脑都能打开，不需要联网以外的任何东西
+- 每题做完立刻判对错并展开解析
+- 讲义各节可「再做一遍」巩固，**正确率按第一次作答算**
+- 随堂测试**每题只能提交一次**，提交后锁定
+- 答题进度存在学生自己的浏览器里，不上传任何数据
 
 ---
 

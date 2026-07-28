@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>一般过去时 vs 现在完成时 · 三看三定（交互版）</title>
+<style>
+:root{
+  --ink:#1f2328; --ink-2:#4a5158; --ink-3:#8b939b;
+  --paper:#faf9f7; --card:#ffffff; --line:#e6e2dc;
+  --accent:#c0392b; --accent-soft:#fdf1ef;
+  --ok:#15803d; --ok-soft:#eefaf1; --ok-line:#b7e4c7;
+  --no:#c62828; --no-soft:#fdf0ef; --no-line:#f2c4c0;
+  --warn:#b45309; --warn-soft:#fff8e8;
+  --radius:10px;
+  --serif:"Georgia","Times New Roman","Songti SC",serif;
+  --sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--paper); color:var(--ink);
+  font-family:var(--sans); font-size:16px; line-height:1.7;
+  -webkit-text-size-adjust:100%;
+}
+img{max-width:100%}
+
+/* ---------- 页眉 ---------- */
+.brandbar{
+  position:sticky; top:0; z-index:40;
+  background:rgba(250,249,247,.94); backdrop-filter:saturate(1.4) blur(8px);
+  border-bottom:1px solid var(--line);
+}
+.brandbar-in{
+  max-width:860px; margin:0 auto; padding:10px 18px;
+  display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+}
+.brand{font-size:13px; letter-spacing:.06em; color:var(--ink-2); white-space:nowrap}
+.brand b{color:var(--accent); font-weight:700}
+.brand span{color:var(--ink-3)}
+.bar-spacer{flex:1}
+.progwrap{display:flex; align-items:center; gap:8px; font-size:12px; color:var(--ink-2)}
+.progbar{width:110px; height:6px; border-radius:99px; background:#e9e5df; overflow:hidden}
+.progbar i{display:block; height:100%; width:0; background:var(--accent); transition:width .3s}
+.tbtn{
+  font:inherit; font-size:12px; padding:4px 10px; border-radius:99px;
+  border:1px solid var(--line); background:var(--card); color:var(--ink-2); cursor:pointer;
+}
+.tbtn:hover{border-color:var(--ink-3)}
+.tbtn.on{background:var(--ink); color:#fff; border-color:var(--ink)}
+
+/* ---------- 目录 ---------- */
+nav.toc{
+  max-width:860px; margin:0 auto; padding:0 18px;
+  display:flex; gap:6px; overflow-x:auto; scrollbar-width:none;
+  border-bottom:1px solid var(--line); background:var(--paper);
+  position:sticky; top:43px; z-index:39;
+}
+nav.toc::-webkit-scrollbar{display:none}
+nav.toc a{
+  flex:0 0 auto; padding:9px 12px; font-size:13px; color:var(--ink-2);
+  text-decoration:none; border-bottom:2px solid transparent; white-space:nowrap;
+}
+nav.toc a.active{color:var(--accent); border-bottom-color:var(--accent); font-weight:600}
+
+/* ---------- 主体 ---------- */
+main{max-width:860px; margin:0 auto; padding:26px 18px 90px}
+h1.doc{font-size:26px; margin:8px 0 4px; letter-spacing:.02em}
+.doc-sub{color:var(--ink-3); font-size:13px; margin:0 0 26px}
+
+section.chap{margin:0 0 44px; scroll-margin-top:96px}
+h2.chap-t{
+  font-size:19px; color:var(--accent); margin:0 0 4px;
+  display:flex; align-items:center; gap:10px;
+}
+h2.chap-t .n{
+  font-size:12px; font-weight:700; color:#fff; background:var(--accent);
+  border-radius:4px; padding:1px 7px; letter-spacing:.04em;
+}
+.chap-lead{color:var(--ink-2); font-size:14px; margin:0 0 18px}
+
+.block-t{
+  font-size:14px; font-weight:700; color:var(--ink-2); margin:30px 0 12px;
+  padding-bottom:6px; border-bottom:1px dashed var(--line);
+  display:flex; align-items:baseline; gap:8px;
+}
+.block-t em{font-style:normal; font-weight:400; color:var(--ink-3); font-size:12px}
+
+/* 二维码：做成右侧小胶囊，不参与正文排版，点开可放大 */
+.qr{
+  margin-left:auto; flex:0 0 auto; display:inline-flex; align-items:center; gap:7px;
+  padding:4px 10px 4px 5px; border:1px solid var(--line); border-radius:99px;
+  background:var(--card); cursor:zoom-in; align-self:center;
+}
+.qr:hover{border-color:var(--accent)}
+.qr img{width:30px; height:30px; display:block; border-radius:4px; background:#fff}
+.qr small{font-size:11.5px; color:var(--ink-3); white-space:nowrap}
+.qr:hover small{color:var(--accent)}
+.qr-modal{
+  position:fixed; inset:0; z-index:100; background:rgba(20,20,20,.72);
+  display:none; align-items:center; justify-content:center; padding:24px;
+}
+.qr-modal.show{display:flex}
+.qr-modal img{width:min(78vw,340px); background:#fff; padding:14px; border-radius:12px}
+.qr-modal p{color:#fff; font-size:13px; text-align:center; margin:14px 0 0}
+
+/* 参考卡片 */
+.ref{
+  background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+  padding:0; margin:14px 0 22px; overflow:hidden;
+}
+.ref>summary{
+  cursor:pointer; padding:12px 16px; font-size:14px; font-weight:600; color:var(--ink-2);
+  list-style:none; display:flex; align-items:center; gap:8px;
+}
+.ref>summary::-webkit-details-marker{display:none}
+.ref>summary::before{content:"▸"; color:var(--accent); transition:transform .2s; display:inline-block}
+.ref[open]>summary::before{transform:rotate(90deg)}
+.ref .ref-body{padding:0 16px 16px}
+table.g{width:100%; border-collapse:collapse; font-size:13px; margin:6px 0}
+table.g th,table.g td{border:1px solid var(--line); padding:6px 8px; text-align:center}
+table.g th{background:#f4f1ec; font-weight:600; color:var(--ink-2)}
+table.g td.lab{background:#faf8f5; font-weight:600; color:var(--ink-2)}
+table.g td.en{font-family:var(--serif)}
+.tablescroll{overflow-x:auto; -webkit-overflow-scrolling:touch; max-width:100%}
+
+/* 不规则动词挖空自测表 */
+table.drill{min-width:470px}
+table.drill td{vertical-align:middle; padding:5px 7px}
+table.drill td.zh{color:var(--ink-2); font-size:12.5px}
+.blank.cell{width:100%; text-align:center; font-size:14.5px; padding:3px 4px}
+.corr{font-family:var(--serif); font-size:12.5px; color:var(--ok); font-weight:700; line-height:1.5; min-height:0}
+.drillbar{
+  display:flex; align-items:center; gap:8px; flex-wrap:wrap;
+  font-size:12.5px; color:var(--ink-3); margin:-4px 0 12px;
+}
+.drillbar button{
+  font:inherit; font-size:12.5px; padding:4px 12px; border-radius:99px; cursor:pointer;
+  border:1px solid var(--line); background:var(--card); color:var(--ink-2);
+}
+.drillbar button:hover{border-color:var(--accent); color:var(--accent)}
+/* 窄屏：压紧字号让四列塞进手机，不用横向滚 */
+@media(max-width:600px){
+  table.drill{min-width:0; table-layout:fixed}
+  table.drill th{padding:5px 3px; font-size:11.5px}
+  table.drill td{padding:4px 3px}
+  table.drill td.en{font-size:13.5px; word-break:break-word}
+  table.drill td.zh{font-size:11px; line-height:1.35}
+  .blank.cell{font-size:13.5px; padding:2px 1px}
+  .corr{font-size:11.5px}
+}
+.rules{font-size:13px; color:var(--ink-2); margin:12px 0 0; padding-left:20px}
+.rules li{margin:5px 0}
+.rules code{font-family:var(--serif); font-size:13px; background:#f4f1ec; padding:1px 4px; border-radius:3px}
+
+/* ---------- 题目 ---------- */
+.q{
+  background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+  padding:16px 18px; margin:0 0 12px; scroll-margin-top:96px;
+  transition:border-color .2s, box-shadow .2s;
+}
+.q.correct{border-color:var(--ok-line); background:var(--ok-soft)}
+.q.wrong{border-color:var(--no-line); background:var(--no-soft)}
+.q-head{display:flex; gap:10px; align-items:flex-start}
+.q-no{
+  flex:0 0 auto; font-size:12px; font-weight:700; color:var(--ink-3);
+  background:#f2efea; border-radius:5px; padding:2px 7px; margin-top:3px; min-width:30px; text-align:center;
+}
+.q.correct .q-no{background:#d5f0de; color:var(--ok)}
+.q.wrong .q-no{background:#f8d9d6; color:var(--no)}
+.q-stem{flex:1; min-width:0; font-family:var(--serif); font-size:16px; line-height:1.85}
+.q-stem .zh{font-family:var(--sans); font-size:14px; color:var(--ink-2)}
+.q-stem .dash{color:var(--ink-3)}
+
+/* 选择题 */
+.opts{list-style:none; margin:12px 0 0; padding:0; display:grid; gap:7px}
+.opts.two{grid-template-columns:1fr 1fr}
+@media(max-width:560px){.opts.two{grid-template-columns:1fr}}
+.opt{
+  display:flex; gap:9px; align-items:center; padding:8px 12px; cursor:pointer;
+  border:1px solid var(--line); border-radius:8px; background:#fff;
+  font-family:var(--serif); font-size:15px; transition:.15s;
+}
+.opt:hover{border-color:var(--ink-3); background:#fbfaf8}
+.opt .k{
+  flex:0 0 auto; width:21px; height:21px; border-radius:50%; border:1px solid var(--line);
+  display:grid; place-items:center; font-family:var(--sans); font-size:11px; font-weight:700; color:var(--ink-3);
+}
+.opt.picked{border-color:var(--ink); background:#f6f4f1}
+.opt.picked .k{background:var(--ink); color:#fff; border-color:var(--ink)}
+.opt.is-ok{border-color:var(--ok-line); background:var(--ok-soft)}
+.opt.is-ok .k{background:var(--ok); color:#fff; border-color:var(--ok)}
+.opt.is-no{border-color:var(--no-line); background:var(--no-soft)}
+.opt.is-no .k{background:var(--no); color:#fff; border-color:var(--no)}
+.q.locked .opt{cursor:default}
+
+/* 填空 */
+.blank{
+  font-family:var(--serif); font-size:15px; width:9.5em; padding:2px 8px;
+  border:none; border-bottom:1.5px solid var(--ink-3); background:transparent;
+  color:var(--accent); text-align:center; outline:none;
+}
+.blank:focus{border-bottom-color:var(--accent); background:#fffdf9}
+.blank.is-ok{color:var(--ok); border-bottom-color:var(--ok)}
+.blank.is-no{color:var(--no); border-bottom-color:var(--no); text-decoration:line-through}
+/* 拼写差一点：同样判错，但用橙色区别于纯粹答错，让学生一眼看出“只差一点” */
+.blank.is-near{color:var(--warn); border-bottom-color:var(--warn); text-decoration:underline wavy var(--warn) 1px; text-underline-offset:3px}
+.blank.wide{width:13em}
+.hintw{font-family:var(--sans); font-size:13px; color:var(--ink-3)}
+
+/* 选词填空的词框 */
+.wordbank{
+  display:flex; flex-wrap:wrap; gap:7px; align-items:center;
+  border:1.5px solid var(--accent); border-radius:8px; background:#fff;
+  padding:9px 11px; margin:0 0 12px;
+}
+.wordbank .wb{
+  font-family:var(--serif); font-size:15px; padding:3px 12px; border-radius:6px; cursor:pointer;
+  border:1px solid var(--line); background:var(--paper); color:var(--ink);
+}
+.wordbank .wb:hover{border-color:var(--accent); color:var(--accent); background:#fff}
+.wordbank .wb.used{opacity:.35; text-decoration:line-through}
+.q.locked .wordbank .wb{cursor:default; opacity:.5}
+.wb-tip{font-family:var(--sans); font-size:12px; color:var(--ink-3); flex-basis:100%; margin-top:2px}
+
+/* 连词成句 */
+.sentline{
+  display:block; width:100%; margin-top:12px; font-family:var(--serif); font-size:16px;
+  padding:8px 12px; border:1px solid var(--line); border-radius:8px; background:#fffdf9;
+  color:var(--accent); outline:none;
+}
+.sentline:focus{border-color:var(--accent)}
+.sentline.is-ok{color:var(--ok); border-color:var(--ok-line); background:var(--ok-soft)}
+.sentline.is-no{color:var(--no); border-color:var(--no-line); background:var(--no-soft)}
+.sentans{font-family:var(--serif); font-size:15.5px; color:var(--ok); font-weight:700; margin-top:8px; display:none}
+.q.locked .sentans{display:block}
+
+/* 判断 */
+.jrow{
+  display:flex; align-items:center; gap:12px; padding:7px 0; flex-wrap:wrap;
+  border-bottom:1px dashed #efece7;
+}
+.jrow:last-child{border-bottom:none}
+.jrow .w{font-family:var(--serif); font-size:16px; flex:1 1 auto; min-width:8em}
+.jbtns{display:flex; gap:6px; flex:0 0 auto}
+.jb{
+  font:inherit; font-size:13px; padding:3px 12px; border-radius:99px; cursor:pointer;
+  white-space:nowrap;
+  border:1px solid var(--line); background:#fff; color:var(--ink-2);
+}
+.jb:hover{border-color:var(--ink-3)}
+.jb.sel{background:var(--ink); color:#fff; border-color:var(--ink)}
+.jb.good{background:var(--ok); color:#fff; border-color:var(--ok)}
+.jb.bad{background:var(--no); color:#fff; border-color:var(--no)}
+.jrow .why{
+  font-size:13px; color:var(--ink-2); flex:1 0 100%; margin:2px 0 4px; display:none;
+  padding-left:11px; border-left:2px solid var(--line); line-height:1.7;
+}
+.jrow.done .why{display:block}
+
+/* 点词标记 */
+.marksent{font-family:var(--serif); font-size:16.5px; line-height:2.2; margin:10px 0 0}
+.tok{
+  display:inline-block; padding:0 2px; margin:0; border-radius:4px; cursor:pointer;
+  border-bottom:2px dotted var(--ink-3); transition:.15s;
+}
+.tok:hover{background:#f2efea}
+.tok.sel{background:#fff2cc; border-bottom:2px solid var(--warn); font-weight:700}
+.q.locked .tok{cursor:default}
+.tok.r-hit{background:var(--ok-soft); border-bottom:2px solid var(--ok); color:var(--ok); font-weight:700}
+.tok.r-miss{background:var(--warn-soft); border-bottom:2px dashed var(--warn); color:var(--warn); font-weight:700}
+.tok.r-over{background:var(--no-soft); border-bottom:2px solid var(--no); color:var(--no); text-decoration:line-through}
+.marklegend{font-size:12px; color:var(--ink-3); margin-top:8px; display:none}
+.q.locked .marklegend{display:block}
+
+/* 反馈 / 解析 */
+.q-foot{display:flex; align-items:center; gap:10px; margin-top:13px; flex-wrap:wrap}
+.go{
+  font:inherit; font-size:13.5px; font-weight:600; padding:6px 18px; border-radius:99px;
+  border:none; background:var(--ink); color:#fff; cursor:pointer;
+}
+.go:hover{background:#000}
+.go.ghost{background:transparent; color:var(--ink-3); border:1px solid var(--line); font-weight:400}
+.go.ghost:hover{background:#f4f1ec; color:var(--ink-2)}
+.verdict{font-size:13.5px; font-weight:700; display:none}
+.verdict.show{display:inline}
+.verdict.v-ok{color:var(--ok)}
+.verdict.v-no{color:var(--no)}
+.verdict.v-near{color:var(--warn)}
+
+
+.explain{
+  display:none; margin-top:12px; padding:13px 15px; border-radius:8px;
+  background:#f7f5f1; border-left:3px solid var(--accent); font-size:14px; line-height:1.8;
+}
+.q.reveal .explain{display:block}
+.explain .lab{
+  display:inline-block; font-size:11px; font-weight:700; color:#fff; background:var(--accent);
+  border-radius:3px; padding:0 6px; margin-right:6px; vertical-align:1px; letter-spacing:.05em;
+}
+.explain .lab.k2{background:var(--ink-2)}
+.explain .lab.k3{background:var(--warn)}
+.explain p{margin:0 0 7px}
+.explain p:last-child{margin-bottom:0}
+.explain b{color:var(--accent)}
+.yes{color:var(--ok); font-weight:700}
+.no{color:var(--no); font-weight:700}
+.rulebar{
+  background:var(--accent-soft); border-left:3px solid var(--accent); border-radius:8px;
+  padding:12px 15px; margin:0 0 14px; font-size:14px; line-height:1.8; color:var(--ink-2);
+}
+.rulebar b{color:var(--accent)}
+.rulebar code{font-family:var(--serif); background:#fff; padding:1px 5px; border-radius:3px; font-size:13.5px}
+.explain code{font-family:var(--serif); background:#eae6e0; padding:1px 5px; border-radius:3px; font-size:13.5px}
+.ansline{font-family:var(--serif); font-size:15px; color:var(--ok); font-weight:700}
+
+.flag{
+  display:none; margin-top:10px; padding:9px 13px; border-radius:8px; font-size:13px;
+  background:var(--warn-soft); border-left:3px solid var(--warn); color:#7c4a09;
+}
+
+/* ---------- 结算 ---------- */
+.tally{
+  background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+  padding:22px; margin-top:14px;
+}
+.tally h3{margin:0 0 4px; font-size:17px}
+.tally .sub{color:var(--ink-3); font-size:13px; margin:0 0 18px}
+.stats{display:flex; gap:26px; flex-wrap:wrap; margin-bottom:18px}
+.stat b{display:block; font-size:27px; line-height:1.2; font-family:var(--serif)}
+.stat span{font-size:12px; color:var(--ink-3)}
+.stat.ok b{color:var(--ok)} .stat.no b{color:var(--no)}
+.wronglist{list-style:none; padding:0; margin:0; font-size:14px}
+.wronglist li{padding:7px 0; border-top:1px dashed var(--line)}
+.wronglist a{color:var(--accent); text-decoration:none}
+.wronglist a:hover{text-decoration:underline}
+.wronglist .tag{font-size:11px; color:var(--ink-3); margin-right:8px}
+.empty{color:var(--ink-3); font-size:14px}
+
+/* 截图打卡 */
+.checkin{
+  margin-top:22px; padding:16px 18px 13px; border-radius:10px; text-align:center;
+  border:1.5px dashed var(--line); background:#fbfaf8; transition:.25s;
+}
+.checkin.ready{border-color:var(--ok); border-style:solid; background:var(--ok-soft)}
+.ci-title{font-size:15px; font-weight:700; color:var(--ink-2); margin-bottom:5px}
+.checkin.ready .ci-title{color:var(--ok)}
+.ci-text{font-size:13.5px; color:var(--ink-2); margin:0 0 13px; line-height:1.7}
+.ci-meta{
+  font-size:12px; color:var(--ink-3); display:flex; gap:6px 14px; justify-content:center;
+  flex-wrap:wrap; padding-top:11px; border-top:1px dashed var(--line);
+}
+.checkin.ready .ci-meta{border-top-color:var(--ok-line)}
+.ci-brand{font-size:11.5px; color:var(--ink-3); margin-top:7px; letter-spacing:.04em}
+.ci-brand b{color:var(--accent); font-weight:700}
+
+footer{
+  max-width:860px; margin:0 auto; padding:26px 18px 50px;
+  border-top:1px solid var(--line); color:var(--ink-3); font-size:12.5px; line-height:1.8;
+}
+footer b{color:var(--accent)}
+
+
+@media print{
+  .brandbar,nav.toc,.q-foot,.go{display:none!important}
+  .explain{display:block!important}
+  body{background:#fff}
+}
+</style>
+</head>
+<body>
+
+<div class="brandbar">
+  <div class="brandbar-in">
+    <div class="brand"><b>土妹英语</b> <span>｜定制课程 让每一分努力都不被辜负</span></div>
+    <div class="bar-spacer"></div>
+    <div class="progwrap"><div class="progbar"><i id="pbar"></i></div><span id="ptext">0 / 0</span></div>
+    <button class="tbtn" id="btnReset">重做</button>
+  </div>
+</div>
+
+<nav class="toc" id="toc">
+  <a href="#c0" class="active">两个时态的边界</a>
+  <a href="#c1">短暂性→延续性</a>
+  <a href="#c2">本节小结</a>
+</nav>
+
+<main>
+  <h1 class="doc">一般过去时 vs 现在完成时</h1>
+  <p class="doc-sub">初中语法 · 三看三定 第 6 节 · 对应讲义 P20 · 共 <span id="totalHint">—</span> 个判分点</p>
+
+  <section class="chap" id="c0">
+    <h2 class="chap-t"><span class="n">辨析</span>一般过去时 vs 现在完成时
+      <span class="qr"><img src="qr:jieti" alt="讲解二维码"><small>扫码看讲解</small></span>
+    </h2>
+    <p class="chap-lead">这两个时态说的都是“过去发生的事”，区别只在<b>要不要管现在</b>。</p>
+
+    <div class="rulebar">
+      <table class="g" style="margin:6px 0 10px">
+        <thead><tr><th style="width:18%"></th><th>一般过去时</th><th>现在完成时</th></tr></thead>
+        <tbody>
+          <tr><td class="lab">说什么</td><td>过去的事，<b>只说过去</b></td><td>过去的事，<b>但影响到现在</b></td></tr>
+          <tr><td class="lab">长什么样</td><td class="en">did</td><td class="en">has / have done</td></tr>
+          <tr><td class="lab">配什么词</td>
+              <td class="en">yesterday　last…　…ago<br>in 2020　just now　When…?</td>
+              <td class="en">since　for　already　yet　ever<br>never　just　so far　…times</td></tr>
+        </tbody>
+      </table>
+      <b>三条铁律：</b><br>
+      ① 现在完成时<b>绝不能</b>和 <code>yesterday</code> / <code>last…</code> / <code>…ago</code> 连用<br>
+      ② <code>When…?</code> 提问只能用一般过去时（问“何时”与“不强调时间”天然冲突）<br>
+      ③ <b>短暂性动词</b>不能跟 <code>for / since</code> 连用，必须换成延续性说法（见下一节）
+    </div>
+
+    <div class="rulebar" style="background:#fff8e8; border-left-color:var(--warn)">
+      <b>说明：</b>原讲义这一节只有标题和二维码，<b>没有题目</b>。下面 10 道辨析题和下一节的动词表是补充的。
+    </div>
+
+    <div class="block-t">辨析题 <em>十道题把两个时态的边界划清楚</em></div>
+    <div id="mount-li"></div>
+  </section>
+
+  <section class="chap" id="c1">
+    <h2 class="chap-t"><span class="n">重点</span>短暂性动词 → 延续性说法</h2>
+    <p class="chap-lead">这是本节最容易丢分的地方。<b>一瞬间就结束的动作，不能说“持续了多久”</b> —— 想说多久，就得换成表示<b>状态</b>的说法。</p>
+
+    <div class="rulebar">
+      <code>He <s>has died</s> for five years.</code>　✗　死是一瞬间的事，不能持续五年<br>
+      <code>He <b>has been dead</b> for five years.</code>　✓　“处于去世的状态”五年了<br><br>
+      <b>判断方法：</b>把动词和 <code>for two years</code> 连起来念一遍 —— 念着别扭的，就是短暂性动词。
+    </div>
+
+    <details class="ref" id="drillref">
+      <summary>展开／收起 转换全表</summary>
+      <div class="ref-body"><div class="tablescroll"><table class="g" id="reftable"></table></div></div>
+    </details>
+
+    <div class="block-t">挖空自测 <em>从上面全表里随机抽，填延续性说法</em></div>
+    <div class="drillbar">
+      <span id="drillPool">—</span>
+      <button id="btnFoldRef">收起上面的全表</button>
+      <button id="btnNewAll">全部换一批</button>
+    </div>
+    <div id="mount-drill"></div>
+  </section>
+
+  <section class="chap" id="c2">
+    <h2 class="chap-t"><span class="n">小结</span>本节成绩单</h2>
+    <div class="tally">
+      <h3 id="tallyTitle">还没开始</h3>
+      <p class="sub" id="tallySub">答完题目后，这里会自动汇总你的正确率和错题。</p>
+      <div class="stats">
+        <div class="stat"><b id="sDone">0</b><span>已作答</span></div>
+        <div class="stat ok"><b id="sOk">0</b><span>答对</span></div>
+        <div class="stat no"><b id="sNo">0</b><span>答错</span></div>
+        <div class="stat"><b id="sRate">—</b><span>正确率</span></div>
+      </div>
+      <div class="block-t" style="margin-top:6px">错题清单 <em>点题号跳回去重看解析 · 正确率按<b>第一次作答</b>算，重做不影响成绩</em></div>
+      <ul class="wronglist" id="wrongList"><li class="empty" style="border:none">暂无错题。</li></ul>
+
+      <div class="checkin" id="checkin">
+        <div class="ci-title" id="ciTitle">截图打卡</div>
+        <p class="ci-text" id="ciText">全部做完后截图这张成绩单发到你的学习群吧。</p>
+        <div class="ci-meta">
+          <span>初中语法 · 三看三定</span>
+          <span>第 6 节 · 一般过去时 vs 现在完成时</span>
+          <span id="ciDate"></span>
+        </div>
+        <div class="ci-brand"><b>土妹英语</b> ｜ 定制课程 让每一分努力都不被辜负</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>本页为「初中语法 · 三看三定」讲义电子化第 <b>6</b> 节，内容与排版依据原讲义 PDF 第 20 页。</p>
+  <p>答题进度自动保存在本机浏览器里，关掉再打开不会丢；点右上角「重做」可清空重来。</p>
+  <p style="margin-top:10px"><b>土妹英语</b> ｜ 定制课程 让每一分努力都不被辜负</p>
+</footer>
+
+
+<div class="qr-modal" id="qrModal"><div><img src="" alt="二维码"><p>用手机相机或微信扫一扫，点页面任意处关闭</p></div></div>
+
+<script>
+
+/* ================================================================
+   构建时注入：二维码资源 + 是否教师版
+   ================================================================ */
+const QR = {"jieti": "data:image/png;base64,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"};
+const TEACHER = false;
+
+/* ================================================================
+   题 库 数 据 —— 老师审核区
+   ⚠️ 本节题目为补充，讲义原文没有题。请重点审。
+   ================================================================ */
+
+const BANK = {
+
+li: [
+  { id:"li1", type:"choice", no:"辨1",
+    stem:"My uncle ____ to Shanghai last month. He ____ there for three weeks.",
+    opts:["went; has been","has gone; was","went; has gone","has been; went"], a:0,
+    ex:"<p><b>一句话考两个时态。</b></p><p>第一空：<code>last month</code> 是明确的过去时间 → <b>一般过去时 went</b>。现在完成时<b>绝不能</b>和 last / yesterday / ago 连用。</p><p>第二空：<code>for three weeks</code> → 现在完成时。但 <code>go</code> 是<b>短暂性动词</b>，不能说 has gone for three weeks —— 要换成延续性的 <code>be there</code> → <b>has been</b>。</p>" },
+
+  { id:"li2", type:"choice", no:"辨2",
+    stem:"—____ you ____ your homework yet?<br>—Yes, I ____ it half an hour ago.",
+    opts:["Did; do; finished","Have; done; finished","Have; done; have finished","Did; do; have finished"], a:1,
+    ex:"<p>第一空：<code>yet</code>（还、已经）只用于现在完成时的<b>疑问句和否定句</b> → <b>Have you done</b>。</p><p>第二空：<code>half an hour ago</code> → 一般过去时 <b>finished</b>。</p><p><b>这题最能说明两种时态怎么配合：</b>先用完成时问“做完没有”，再用过去时说“什么时候做完的”。</p>" },
+
+  { id:"li3", type:"choice", no:"辨3",
+    stem:"Mr. Green ____ in this city since 2010.",
+    opts:["lived","has lived","lives","was living"], a:1,
+    ex:"<p><code>since + 时间点</code> 是现在完成时的<b>硬标志</b> → <b>has lived</b>。</p><p>意思是“从 2010 年一直住到现在”。如果用 <code>lived</code>，就只说明过去住过，现在还住不住不知道。</p>" },
+
+  { id:"li4", type:"choice", no:"辨4",
+    stem:"—When ____ you ____ the book?<br>—Last Friday.",
+    opts:["have; borrowed","did; borrow","do; borrow","have; borrow"], a:1,
+    ex:"<p><b>记死这一条：<code>When</code> 提问不能用现在完成时。</b></p><p><code>When</code> 问的是“<b>什么时候</b>”这个具体的过去时间点，而现在完成时不强调具体时间 —— 两者天然冲突 → 用<b>一般过去时</b> <code>did you borrow</code>。</p><p><b>对照：</b>问“借了<b>多久</b>”要用 <code>How long have you kept the book?</code>（注意 borrow 是短暂性动词，要换成 keep）。</p>" },
+
+  { id:"li5", type:"fill", no:"辨5",
+    stem:"I __1__ <span class='hintw'>(lose)</span> my key. I can't open the door now.",
+    blanks:[{a:"have lost"}],
+    ex:"<p>句子里<b>没有</b>过去时间状语，但后半句 <code>I can't open the door <b>now</b></code> 点明了<b>对现在的影响</b>（现在进不了门）→ 用<b>现在完成时</b> <b>have lost</b>。</p><p>这就是现在完成时的核心：<b>过去的动作，现在的结果。</b></p>" },
+
+  { id:"li6", type:"fill", no:"辨6",
+    stem:"I __1__ <span class='hintw'>(lose)</span> my key yesterday, but I found it later.",
+    blanks:[{a:"lost"}],
+    ex:"<p><b>和上一题对照着看。</b>同样是丢钥匙，这题有 <code>yesterday</code>，而且后面说 <code>I found it later</code>（后来找到了）—— 对现在<b>没有影响</b>了 → 用<b>一般过去时</b> <b>lost</b>。</p><p><b>两题连起来就是本节的全部要点：</b>看有没有过去时间状语，看对现在还有没有影响。</p>" },
+
+  { id:"li7", type:"choice", no:"辨7",
+    stem:"—Where is Tom?<br>—He ____ to the library. He ____ there ten minutes ago.",
+    opts:["has gone; went","has been; has gone","went; has gone","has gone; has been"], a:0,
+    ex:"<p>第一空：问“Tom 在哪儿”，答“他去图书馆了”—— 人<b>还没回来</b> → <b>has gone to</b>。</p><p>第二空：<code>ten minutes ago</code> → 一般过去时 <b>went</b>。</p><p><b>再复习一遍：</b><code>has gone to</code> 人不在；<code>has been to</code> 去过、已回来。</p>" },
+
+  { id:"li8", type:"fill", no:"辨8",
+    stem:"My grandfather __1__ <span class='hintw'>(die)</span> for five years.",
+    blanks:[{a:"has been dead"}],
+    ex:"<p><b>这题专考短暂性动词的转换。</b></p><p><code>die</code>（去世）是一瞬间就完成的<b>短暂性动词</b>，不能跟 <code>for + 一段时间</code> 连用 —— 不能说 has died for five years。</p><p>要换成表示<b>状态</b>的延续性说法：<code>be dead</code>（处于去世的状态）→ <b>has been dead</b>。</p><p>句意：我爷爷去世五年了。</p>" },
+
+  { id:"li9", type:"choice", no:"辨9",
+    stem:"—I ____ this book three times.<br>—Really? When ____ you ____ it first?",
+    opts:["have read; did; read","read; have; read","have read; have; read","read; did; read"], a:0,
+    ex:"<p>第一空：<code>three times</code>（三次）表示<b>到目前为止的经历次数</b> → 现在完成时 <b>have read</b>。</p><p>第二空：<code>When</code> 提问 → <b>一般过去时</b> <code>did you read</code>。</p><p>又是“完成时说经历，过去时说具体时间”的组合。</p>" },
+
+  { id:"li10", type:"fill", no:"辨10",
+    stem:"Jack __1__ <span class='hintw'>(join)</span> the army in 2020. He __2__ <span class='hintw'>(be)</span> a soldier for four years.",
+    blanks:[{a:"joined"},{a:"has been"}],
+    ex:"<p>第一空：<code>in 2020</code> 是明确的过去时间 → <b>joined</b>。</p><p>第二空：<code>for four years</code> → 现在完成时。<code>join</code> 是短暂性动词，不能说 has joined for four years —— 讲义给了 <code>be</code>，正好用延续性说法 <code>be a soldier</code>（当兵这个状态）→ <b>has been</b>。</p><p><b>“参军四年了”的三种正确说法：</b><br><code>He has been a soldier for four years.</code><br><code>He has been in the army for four years.</code><br><code>It is four years since he joined the army.</code></p>" }
+]
+};
+
+/* ---------- 短暂性动词 → 延续性说法：参考表 + 挖空自测 ---------- */
+const DRILL_SEC  = "延续性说法挖空";
+const DRILL_MSG_OVERRIDE = {
+  base: "。注意有的格子把短暂性动词照抄过去了，没换成延续性说法",
+  form: "。有的说法没对上，回上面的表里查一眼"
+};
+const DRILL_BASE = 0;
+const DRILL_COLS = [
+  { h:"短暂性动词",       i:0, w:"28%" },
+  { h:"词义",             i:2, w:"20%", zh:true },
+  { h:"延续性说法（跟 for / since 连用）", i:1, w:"52%", fill:true }
+];
+const DRILL_ROWS = [
+  ["表示“得到”的，换成“拥有”"],
+  ["buy","have","买"],
+  ["borrow","keep","借入"],
+  ["get","have","得到"],
+  ["receive","have","收到"],
+  ["表示“进入某状态”的，换成“处于该状态”"],
+  ["die","be dead","去世"],
+  ["marry","be married","结婚"],
+  ["fall asleep","be asleep","入睡"],
+  ["catch a cold","have a cold","感冒"],
+  ["get up","be up","起床"],
+  ["put on","wear","穿上"],
+  ["表示“到／离”的，换成“在／不在”"],
+  ["come","be here","来"],
+  ["go","be there","去"],
+  ["arrive","be here / be there","到达"],
+  ["leave","be away","离开"],
+  ["move to","live in","搬到"],
+  ["表示“开始／结束”的"],
+  ["join","be in / be a member of","加入"],
+  ["begin","be on","开始"],
+  ["start","be on","开始"],
+  ["finish","be over","结束"],
+  ["open","be open","打开"],
+  ["close","be closed","关上"]
+];
+
+const STORE_KEY = "tumei-sjsd-06-guoqu-vs-wancheng-v1";
+let state = {};
+try { state = JSON.parse(localStorage.getItem(STORE_KEY) || "{}"); } catch(e){ state = {}; }
+const save = () => { try{ localStorage.setItem(STORE_KEY, JSON.stringify(state)); }catch(e){} };
+
+/* ---- 判题：文本规范化 ---- */
+function norm(s){
+  return (s||"").toLowerCase()
+    .replace(/[’‘]/g,"'").replace(/[“”]/g,'"')
+    .replace(/[.。,，;；!！?？]+$/,"")
+    .replace(/\s+/g," ").trim();
+}
+function lev(a,b){
+  const m=a.length,n=b.length; if(!m) return n; if(!n) return m;
+  let prev=Array.from({length:n+1},(_,j)=>j), cur=new Array(n+1);
+  for(let i=1;i<=m;i++){ cur[0]=i;
+    for(let j=1;j<=n;j++) cur[j]=Math.min(prev[j]+1, cur[j-1]+1, prev[j-1]+(a[i-1]===b[j-1]?0:1));
+    [prev,cur]=[cur,prev];
+  }
+  return prev[n];
+}
+/* 常见的词尾变化。两个词去掉公共前缀后，剩下的都在这个表里，
+   说明它们是同一个词的不同形式（continue / continues / continued），
+   那就是【词形·时态错】，不是【拼写错】——这两种要分开对待，
+   否则学生把 continues 填进一般过去时的空，却被告知“检查拼写”，就教反了。 */
+const INFLECT = ["", "s", "es", "d", "ed", "ing", "e", "y", "ies", "ied"];
+function sameWordDifferentForm(a, b){
+  if(!a || !b) return false;
+  let i = 0; while(i < a.length && i < b.length && a[i] === b[i]) i++;
+  if(i === 0) return false;
+  return INFLECT.indexOf(a.slice(i)) >= 0 && INFLECT.indexOf(b.slice(i)) >= 0;
+}
+
+/* 手滑：差一个字母，或者相邻两个字母打颠倒了（caugth / caught）。
+   这个判断永远排在 sameWordDifferentForm 后面，
+   所以 studyed（时态对、拼写不规范）会走到这里，continues（时态错）不会。 */
+function isTypo(a, b){
+  if(lev(a, b) <= 1 && Math.abs(a.length - b.length) <= 1) return true;
+  if(a.length === b.length){
+    for(let i = 0; i < a.length - 1; i++)
+      if(a.slice(0,i) + a[i+1] + a[i] + a.slice(i+2) === b) return true;
+  }
+  return false;
+}
+
+/* 返回 'ok' | 'form' | 'near' | 'no'
+   ok   = 对
+   form = 词形／时态错（判错，提示回去看时间状语）
+   near = 拼写差一个字母（不判错，可以改完再对一次）
+   no   = 错 */
+function checkText(input, blank){
+  const got = norm(input);
+  if(!got) return "no";
+  const pool = [blank.a].concat(blank.alt||[]).map(norm);
+  /* 首字母提示题：学生把首字母也打进去、或只补后半截，都算对 */
+  if(blank.pre) pool.push(...pool.slice().map(p => p.startsWith(norm(blank.pre)) ? p.slice(blank.pre.length) : p));
+  if(pool.indexOf(got) >= 0) return "ok";
+  /* 原封不动填了括号里的原形（sit → sat、make → made）→ 时态错，不是手滑。
+     这里只认「完全等于原形」，不能放宽到 study+ed，
+     否则 studyed 这种“时态对、拼写不规范”的会被误判成时态错。 */
+  const base = blank.base ? norm(blank.base) : "";
+  if(base && got === base) return "form";
+  if(pool.some(p => sameWordDifferentForm(got, p))) return "form";
+  if(pool.some(p => isTypo(got, p))) return "near";
+  return "no";
+}
+
+/* ---- 记录 ---- */
+const registry = [];   // {key, no, label, sec, stemText, ansText, exHtml, flag}
+
+/* 成绩单永远按【第一次作答】算 —— 看完解析再做一遍，练习价值保留，
+   但正确率不会被洗掉。firstOk 一旦写入就不再变，只有「重做」才清。 */
+function record(key, ok){
+  state[key] = state[key] || {};
+  state[key].done = true;
+  state[key].ok = ok;
+  if(state[key].firstOk === undefined) state[key].firstOk = ok;
+  save(); refreshTally();
+}
+
+/* 点「再做一遍」：清掉本次作答，但保住第一次的对错 */
+function resetQ(key){
+  const fo = (state[key] || {}).firstOk;
+  if(fo === undefined) delete state[key];
+  else state[key] = { firstOk: fo };
+  save();
+}
+
+/* 考试模式：单选也要先选后交，判分后不给重做（由各页面自己定义 EXAM_MODE） */
+const EXAM = (typeof EXAM_MODE !== "undefined") && EXAM_MODE;
+
+/* ---- 渲染：判断题 ---- */
+function renderJudge(){
+  const host = document.getElementById("mount-judge");
+  const card = document.createElement("div"); card.className = "q locked-none";
+  const inner = document.createElement("div");
+  BANK.judge.items.forEach((it, i) => {
+    const key = "j"+i;
+    const row = document.createElement("div"); row.className = "jrow"; row.id = "q-"+key;
+    row.innerHTML =
+      '<span class="w">'+it.w+'</span>'+
+      '<span class="jbtns">'+
+        '<button class="jb" data-v="1">是谓语</button>'+
+        '<button class="jb" data-v="0">不是</button>'+
+      '</span>'+
+      '<span class="why">'+it.ex+'</span>';
+    const btns = row.querySelectorAll(".jb");
+    btns.forEach(b => { if((b.dataset.v === "1") === it.a) b.classList.add("iscorrect"); });
+    const lock = (picked) => {
+      row.classList.add("done");
+      btns.forEach(b=>{
+        const v = b.dataset.v === "1";
+        b.classList.remove("sel","good","bad");
+        if(v === it.a) b.classList.add("good");
+        else if(picked !== null && (picked===v)) b.classList.add("bad");
+        b.disabled = true;
+      });
+    };
+    btns.forEach(b => b.addEventListener("click", () => {
+      const v = b.dataset.v === "1";
+      record(key, v === it.a);
+      lock(v);
+    }));
+    if(state[key] && state[key].done) lock(null);
+    registry.push({key, no:"判断"+(i+1), label:it.w, sec:"判断谓语",
+      stemText:it.w, ansText: it.a?"是谓语":"不是谓语", exHtml:it.ex});
+    inner.appendChild(row);
+  });
+  card.appendChild(inner);
+  const tip = document.createElement("div");
+  tip.className = "explain"; tip.style.display="block"; tip.innerHTML = BANK.judge.tip;
+  card.appendChild(tip);
+  host.appendChild(card);
+}
+
+/* ---- 渲染：点词标记 ---- */
+function renderMark(){
+  const host = document.getElementById("mount-mark");
+  BANK.mark.items.forEach((it, i) => {
+    const key = it.id;
+    const card = document.createElement("div"); card.className="q"; card.id = "q-"+key;
+    const head = document.createElement("div"); head.className="q-head";
+    head.innerHTML = '<span class="q-no">'+(i+1)+'</span><div class="q-stem" style="padding-top:0"></div>';
+    const stem = head.querySelector(".q-stem");
+    const sent = document.createElement("p"); sent.className="marksent"; sent.style.margin="0";
+    const toks = [];
+    let plainText = "";
+    it.parts.forEach(p => {
+      if(typeof p === "string"){ sent.appendChild(document.createTextNode(p)); plainText += p; }
+      else {
+        const s = document.createElement("span"); s.className="tok"; s.textContent = p.v;
+        s.dataset.p = p.p ? "1":"0";
+        s.addEventListener("click", () => {
+          if(card.classList.contains("locked")) return;
+          s.classList.toggle("sel");
+        });
+        sent.appendChild(s); toks.push(s);
+        plainText += "["+p.v+"]";
+      }
+    });
+    stem.appendChild(sent);
+    const lg = document.createElement("div"); lg.className="marklegend";
+    lg.innerHTML = '<span style="color:var(--ok)">■ 选对</span>　<span style="color:var(--warn)">■ 漏选（它也是谓语）</span>　<span style="color:var(--no)">■ 多选（它不是谓语）</span>';
+    stem.appendChild(lg);
+    card.appendChild(head);
+
+    const foot = document.createElement("div"); foot.className="q-foot";
+    foot.innerHTML = '<button class="go">对答案</button><span class="verdict"></span>'+
+                     '<button class="go ghost" style="display:none">再做一遍</button>';
+    const [btn, vd, again] = [foot.querySelector(".go"), foot.querySelector(".verdict"), foot.querySelectorAll(".go")[1]];
+    const ex = document.createElement("div"); ex.className="explain"; ex.innerHTML = it.ex;
+    card.appendChild(foot); card.appendChild(ex);
+
+    const grade = (silent) => {
+      let ok = true;
+      toks.forEach(s => {
+        const should = s.dataset.p === "1";
+        const picked = s.classList.contains("sel");
+        s.classList.remove("sel","r-hit","r-miss","r-over");
+        if(should && picked) s.classList.add("r-hit");
+        else if(should && !picked){ s.classList.add("r-miss"); ok = false; }
+        else if(!should && picked){ s.classList.add("r-over"); ok = false; }
+      });
+      card.classList.add("locked","reveal", ok?"correct":"wrong");
+      vd.className = "verdict show " + (ok?"v-ok":"v-no");
+      vd.textContent = ok ? "全对，谓语找准了" : "有出入，看下面的颜色";
+      btn.style.display="none"; again.style.display="";
+      if(!silent) record(key, ok);
+      return ok;
+    };
+    btn.addEventListener("click", () => grade(false));
+    again.addEventListener("click", () => {
+      toks.forEach(s => s.classList.remove("r-hit","r-miss","r-over","sel"));
+      card.classList.remove("locked","reveal","correct","wrong");
+      vd.className="verdict"; btn.style.display=""; again.style.display="none";
+      resetQ(key); refreshTally();
+    });
+    if(state[key] && state[key].done){
+      toks.forEach(s => { if(s.dataset.p==="1") s.classList.add("sel"); });
+      grade(true);
+      if(!state[key].ok){ card.classList.remove("correct"); card.classList.add("wrong");
+        vd.className="verdict show v-no"; vd.textContent="上次做错了，可点「再做一遍」"; }
+    }
+    registry.push({key, no:"勾画"+(i+1), sec:"勾画谓语", stemText:plainText,
+      ansText: it.parts.filter(p=>typeof p!=="string" && p.p).map(p=>p.v).join(" / "), exHtml:it.ex});
+    host.appendChild(card);
+  });
+}
+
+/* ---- 渲染：选择 / 填空 ---- */
+function renderQ(q, host, secName){
+  const card = document.createElement("div"); card.className="q"; card.id = "q-"+q.id;
+  const head = document.createElement("div"); head.className="q-head";
+  const noTxt = (q.star?"*":"") + q.no;
+  head.innerHTML = '<span class="q-no">'+noTxt+'</span><div class="q-stem"></div>';
+  const stem = head.querySelector(".q-stem");
+  card.appendChild(head);
+
+  const foot = document.createElement("div"); foot.className="q-foot";
+  const ex = document.createElement("div"); ex.className="explain"; ex.innerHTML = q.ex;
+  const flag = document.createElement("div");
+
+  let ansText = "";
+
+  if(q.type === "choice"){
+    stem.innerHTML = q.stem;
+    const ul = document.createElement("ul");
+    /* 偶数个短选项才排两列，避免出现落单的一行 */
+    ul.className = "opts" + (q.opts.length % 2 === 0 && q.opts.every(o=>o.length<18) ? " two" : "");
+    const lis = [];
+    let picked = -1;
+    q.opts.forEach((o, i) => {
+      const li = document.createElement("li"); li.className="opt";
+      li.innerHTML = '<span class="k">'+"ABCD"[i]+'</span><span>'+o+'</span>';
+      li.addEventListener("click", () => {
+        if(card.classList.contains("locked")) return;
+        lis.forEach(x=>x.classList.remove("picked"));
+        li.classList.add("picked");
+        picked = i;
+        if(!EXAM) gradeChoice(i, false);     /* 讲义：点了就判；考试：等点「对答案」 */
+      });
+      ul.appendChild(li); lis.push(li);
+    });
+    stem.appendChild(ul);
+    ansText = "ABCD"[q.a] + ". " + q.opts[q.a];
+
+    foot.innerHTML = EXAM
+      ? '<button class="go">对答案</button><span class="verdict"></span>'
+      : '<span class="verdict"></span><button class="go ghost" style="display:none">再做一遍</button>';
+    const vd = foot.querySelector(".verdict");
+    const subBtn = EXAM ? foot.querySelector(".go") : null;
+    const again  = EXAM ? null : foot.querySelector(".go");
+
+    function gradeChoice(pick, silent){
+      const ok = pick === q.a;
+      lis.forEach((x,i)=>{ x.classList.remove("picked");
+        if(i===q.a) x.classList.add("is-ok");
+        else if(i===pick) x.classList.add("is-no"); });
+      card.classList.add("locked","reveal", ok?"correct":"wrong");
+      vd.className="verdict show "+(ok?"v-ok":"v-no");
+      vd.textContent = ok ? "对了" : "选错了，看解析";
+      if(subBtn) subBtn.style.display = "none";
+      if(again)  again.style.display = "";
+      if(!silent){ record(q.id, ok); state[q.id].pick = pick; save(); }
+    }
+    if(subBtn) subBtn.addEventListener("click", () => {
+      if(picked < 0){ vd.className = "verdict show v-near"; vd.textContent = "先选一个答案"; return; }
+      gradeChoice(picked, false);
+    });
+    if(again) again.addEventListener("click", () => {
+      lis.forEach(x=>x.classList.remove("is-ok","is-no","picked"));
+      card.classList.remove("locked","reveal","correct","wrong");
+      vd.className="verdict"; again.style.display="none";
+      resetQ(q.id); refreshTally();
+    });
+    if(state[q.id] && state[q.id].done)
+      gradeChoice(state[q.id].pick !== undefined ? state[q.id].pick : (state[q.id].ok ? q.a : -1), true);
+
+  } else if(q.type === "sentence"){   /* 连词成句：给一堆打乱的词，写出完整句子 */
+    stem.innerHTML = q.stem || "";
+    const box = document.createElement("div"); box.className = "wordbank";
+    const line = document.createElement("input");
+    line.className = "sentline"; line.autocomplete = "off"; line.spellcheck = false;
+    q.words.forEach(w => {
+      const chip = document.createElement("button");
+      chip.type = "button"; chip.className = "wb"; chip.textContent = w;
+      chip.addEventListener("click", () => {
+        if(card.classList.contains("locked")) return;
+        line.value = (line.value.trim() + " " + w).trim();
+        line.focus();
+      });
+      box.appendChild(chip);
+    });
+    const tip = document.createElement("div"); tip.className = "wb-tip";
+    tip.textContent = "点词可以按顺序拼进下面的横线里；大小写和标点不计较，词序错了才算错。";
+    box.appendChild(tip);
+    stem.appendChild(box); stem.appendChild(line);
+    const ansLine = document.createElement("div"); ansLine.className = "sentans";
+    stem.appendChild(ansLine);
+    ansText = [q.a].concat(q.alt || []).join("　或　");
+
+    foot.innerHTML = '<button class="go">对答案</button><span class="verdict"></span>'+
+                     '<span style="flex:1"></span>'+
+                     '<button class="go ghost" data-a="clear">清空</button>'+
+                     (EXAM ? '' : '<button class="go ghost" data-a="redo" style="display:none">再做一遍</button>');
+    const btn = foot.querySelector(".go"), vd = foot.querySelector(".verdict"),
+          clr = foot.querySelector('[data-a="clear"]'), redo = foot.querySelector('[data-a="redo"]');
+
+    const normSent = v => norm(v).replace(/[.?!,;:'"“”‘’]/g, "").replace(/\s+/g, " ").trim();
+    const wordSet  = v => normSent(v).split(" ").filter(Boolean).sort().join("|");
+
+    const grade = (silent) => {
+      const got = normSent(line.value);
+      const pool = [q.a].concat(q.alt || []).map(normSent);
+      const ok = pool.indexOf(got) >= 0;
+      line.classList.remove("is-ok","is-no");
+      line.classList.add(ok ? "is-ok" : "is-no");
+      line.disabled = true;
+      card.classList.add("locked","reveal", ok ? "correct" : "wrong");
+      vd.className = "verdict show " + (ok ? "v-ok" : "v-no");
+      if(ok) vd.textContent = "对了";
+      else {
+        /* 用的词对不对、只是顺序错了？分开说，学生才知道错在哪 */
+        const sameWords = pool.some(p => wordSet(p) === wordSet(got));
+        vd.textContent = got ? (sameWords ? "词都用对了，是语序不对。" : "用的词对不上，检查有没有漏词或多词。") : "还没写。";
+        ansLine.innerHTML = "答案：" + [q.a].concat(q.alt || []).join("<br>答案：");
+      }
+      btn.style.display = "none"; clr.style.display = "none"; if(redo) redo.style.display = "";
+      if(!silent) record(q.id, ok);
+    };
+    btn.addEventListener("click", () => grade(false));
+    line.addEventListener("keydown", e => { if(e.key === "Enter") grade(false); });
+    clr.addEventListener("click", () => { line.value = ""; line.focus(); });
+    if(redo) redo.addEventListener("click", () => {
+      line.disabled = false; line.value = ""; line.classList.remove("is-ok","is-no");
+      ansLine.innerHTML = "";
+      card.classList.remove("locked","reveal","correct","wrong");
+      vd.className = "verdict"; btn.style.display = ""; clr.style.display = ""; redo.style.display = "none";
+      resetQ(q.id); refreshTally();
+    });
+    if(state[q.id] && state[q.id].done){
+      if(state[q.id].ok) line.value = q.a;
+      grade(true);
+      if(!state[q.id].ok){ card.classList.remove("correct"); card.classList.add("wrong");
+        vd.className = "verdict show v-no"; vd.textContent = "上次没写对，可点「再做一遍」"; }
+    }
+    card._fill = () => { if(!line.disabled) line.value = q.a; };
+
+  } else { /* fill */
+    let html = q.stem;
+    const inputs = [];
+    /* 把题干里 (sit)(begin) 这类括号提示识别出来，作为该空的原形，
+       用于区分“填了原形”（时态错）和“打错字”（拼写错）。
+       中文括号（表扬）和 (树皮) 不会被匹配到。 */
+    const hints = (q.stem.match(/\(([a-zA-Z]+)\)/g) || []).map(h => h.slice(1, -1));
+    if(hints.length === q.blanks.length) q.blanks.forEach((b, i) => { if(!b.base) b.base = hints[i]; });
+    q.blanks.forEach((b, i) => {
+      const pre = b.pre ? '<span style="font-family:var(--serif)">'+b.pre+'</span>' : "";
+      html = html.replace("__"+(i+1)+"__",
+        pre+'<input class="blank'+(b.a.length>10?" wide":"")+'" data-i="'+i+'" autocomplete="off" autocapitalize="off" spellcheck="false">');
+    });
+    stem.innerHTML = html;
+    stem.querySelectorAll(".blank").forEach(el => inputs.push(el));
+
+    /* 选词填空：题干上方给一个词框，点词直接填进空里（形式还得自己改） */
+    if(q.bank){
+      const box = document.createElement("div"); box.className = "wordbank";
+      q.bank.forEach(w => {
+        const chip = document.createElement("button");
+        chip.type = "button"; chip.className = "wb"; chip.textContent = w;
+        chip.addEventListener("click", () => {
+          if(card.classList.contains("locked")) return;
+          const tgt = inputs.filter(el => !el.disabled && !el.value)[0] || inputs[0];
+          if(tgt){ tgt.value = w; tgt.focus(); }
+          box.querySelectorAll(".wb").forEach(c => c.classList.remove("used"));
+          inputs.forEach(el => box.querySelectorAll(".wb").forEach(c => {
+            if(norm(c.textContent) && norm(el.value).indexOf(norm(c.textContent)) === 0) c.classList.add("used");
+          }));
+        });
+        box.appendChild(chip);
+      });
+      const tip = document.createElement("div"); tip.className = "wb-tip";
+      tip.textContent = "从上面选一个词填进空里 —— 点一下就能填，但别忘了改成正确的形式。";
+      box.appendChild(tip);
+      stem.insertBefore(box, stem.firstChild);
+    }
+    ansText = q.blanks.map(b => b.a + (b.alt&&b.alt.length ? "（也可：" + b.alt.join(" / ") + "）" : "")).join(" ／ ");
+
+    foot.innerHTML = '<button class="go">对答案</button><span class="verdict"></span>'+
+                     (EXAM ? '' : '<button class="go ghost" style="display:none">再做一遍</button>');
+    const btn = foot.querySelector(".go"), vd = foot.querySelector(".verdict"),
+          again = EXAM ? null : foot.querySelectorAll(".go")[1];
+
+    const grade = (silent) => {
+      let allOk = true, anyNear = false, anyHard = false, anyForm = false;
+      inputs.forEach((el, i) => {
+        const r = checkText(el.value, q.blanks[i]);
+        el.classList.remove("is-ok","is-no","is-near");
+        if(r === "ok"){ el.classList.add("is-ok"); return; }
+        allOk = false;
+        if(r === "near"){ anyNear = true; el.classList.add("is-near"); }
+        else { anyHard = true; el.classList.add("is-no"); if(r === "form") anyForm = true; }
+      });
+      inputs.forEach(el => { el.disabled = true; });
+      card.classList.add("locked","reveal", allOk?"correct":"wrong");
+      /* 拼写差一点也算错，只是把话说得准一点，让学生知道错在哪一层 */
+      let note = "";
+      if(anyForm) note = "词形不对，先回去看时间状语定时态。";
+      else if(anyNear && !anyHard) note = "思路对了，拼写再检查一下。";
+      vd.className = "verdict show " + (allOk ? "v-ok" : (anyNear && !anyHard ? "v-near" : "v-no"));
+      vd.innerHTML = allOk ? "对了"
+        : note + '答案：<span class="ansline">'+q.blanks.map(b=>b.a).join(" / ")+"</span>";
+      btn.style.display="none"; if(again) again.style.display="";
+      if(!silent) record(q.id, allOk);
+    };
+    btn.addEventListener("click", () => grade(false));
+    inputs.forEach(el => el.addEventListener("keydown", e => { if(e.key==="Enter") grade(false); }));
+    if(again) again.addEventListener("click", () => {
+      inputs.forEach(el => { el.disabled=false; el.value=""; el.classList.remove("is-ok","is-no"); });
+      card.classList.remove("locked","reveal","correct","wrong");
+      vd.className="verdict"; btn.style.display=""; again.style.display="none";
+      resetQ(q.id); refreshTally();
+    });
+    if(state[q.id] && state[q.id].done){
+      if(state[q.id].ok) inputs.forEach((el,i)=>{ el.value = q.blanks[i].a; });
+      grade(true);
+      if(!state[q.id].ok){ card.classList.remove("correct"); card.classList.add("wrong");
+        vd.className="verdict show v-no";
+        vd.innerHTML = '上次做错了。答案：<span class="ansline">'+q.blanks.map(b=>b.a).join(" / ")+"</span>"; }
+    }
+    card._fill = () => inputs.forEach((el,i)=>{ if(!el.disabled) el.value = q.blanks[i].a; });
+  }
+
+  card.appendChild(foot); card.appendChild(ex);
+  host.appendChild(card);
+  registry.push({key:q.id, no:noTxt, sec:secName,
+    stemText: q.stem.replace(/<[^>]+>/g,"").replace(/__\d+__/g,"____").replace(/\s+/g," ").trim() +
+              (q.type==="choice" ? "　"+q.opts.map((o,i)=>"ABCD"[i]+". "+o).join("  ") : ""),
+    ansText, exHtml:q.ex, flag:q.flag});
+}
+
+/* ---- 不规则动词表 ---- */
+
+/* ================================================================
+   挖空自测（通用组件）
+   ----------------------------------------------------------------
+   DRILL_ROWS  每行一个数组；长度为 1 的行当作分类标题
+   DRILL_COLS  描述每一列：
+                 h    表头
+                 i    取 DRILL_ROWS 里的第几个元素
+                 fill true 表示这一列挖空让学生填
+                 zh   true 表示中文列（字号小一号）
+                 w    列宽百分比
+   DRILL_BASE  哪一列是“原形”，用来识别学生把原形直接抄过来
+   DRILL_GROUPS / DRILL_SIZE  几张表、每张几行
+   ================================================================ */
+const DRILL_GROUPS = 3, DRILL_SIZE = 8;
+
+/* 表里没写、但也想判对的额外写法：{原形: {列下标: [写法…]}} */
+const DRILL_EXTRA = {};
+
+/* 整表反馈里的追加提示。各节讲的东西不同，话术要跟着换：
+   base = 学生把原形直接抄进了要填的格子
+   form = 变形规则用错了（该加 es 的加了 s 之类） */
+const DRILL_MSG = (typeof DRILL_MSG_OVERRIDE !== "undefined") ? DRILL_MSG_OVERRIDE : {
+  base: "。注意有的格子把原形直接抄过来了",
+  form: "。有的变化规则没对上，回上面的表里查一眼"
+};
+
+const DRILL_IDX = DRILL_ROWS.map((r,i)=>i).filter(i => DRILL_ROWS[i].length > 1);
+/* 词表不够分时自动缩小每组的行数，否则最后一组抽不满，
+   每次打开页面都会因为“行数不等于 DRILL_SIZE”而重抽一遍。 */
+const DRILL_N = Math.max(1, Math.min(DRILL_SIZE, Math.floor(DRILL_IDX.length / DRILL_GROUPS)));
+
+function samplePicks(exclude, n){
+  const avail = DRILL_IDX.filter(i => exclude.indexOf(i) < 0);
+  const out = [];
+  while(out.length < n && avail.length)
+    out.push(avail.splice(Math.floor(Math.random()*avail.length), 1)[0]);
+  return out;
+}
+function otherPicks(g){
+  let used = [];
+  for(let k = 0; k < DRILL_GROUPS; k++)
+    if(k !== g && state["drill"+k] && state["drill"+k].picks) used = used.concat(state["drill"+k].picks);
+  return used;
+}
+
+/* 单元格判题：支持 "learnt / learned" 这类多写法。
+   返回 'ok' | 'form'（把原形抄过来了／词形不对）| 'near'（拼写差一个字母）| 'no' */
+function cellOk(input, cell, base, col){
+  const got = norm(input).replace(/\s*\/\s*/g, "/");
+  if(!got) return "no";
+  const opts = String(cell).split("/").map(norm).filter(Boolean);
+  const pool = opts.concat([opts.join("/")]);
+  const ex = DRILL_EXTRA[base];
+  if(ex && ex[col]) ex[col].forEach(v => pool.push(norm(v)));
+  if(pool.indexOf(got) >= 0) return "ok";     /* cost/cost/cost、AAA 型在这里就判对了 */
+  if(got === norm(base)) return "base";       /* 直接把原形抄过来 */
+  if(opts.some(p => sameWordDifferentForm(got, p))) return "form";
+  if(pool.some(p => isTypo(got, p))) return "near";
+  return "no";
+}
+
+function buildDrill(g){
+  const key = "drill" + g;
+  state[key] = state[key] || {};
+  if(!Array.isArray(state[key].picks) || state[key].picks.length !== DRILL_N)
+    state[key].picks = samplePicks(otherPicks(g), DRILL_N);
+  save();
+
+  const card = document.createElement("div"); card.className = "q"; card.id = "q-" + key;
+  const head = document.createElement("div"); head.className = "q-head";
+  head.innerHTML = '<span class="q-no">第'+(g+1)+'组</span><div class="q-stem"><div class="tablescroll">'+
+    '<table class="g drill"><thead><tr>'+
+    DRILL_COLS.map(c => '<th'+(c.w?' style="width:'+c.w+'"':'')+'>'+c.h+'</th>').join("")+
+    '</tr></thead><tbody></tbody></table></div></div>';
+  const tbody = head.querySelector("tbody");
+  card.appendChild(head);
+
+  const foot = document.createElement("div"); foot.className = "q-foot";
+  foot.innerHTML = '<button class="go" data-a="check">对答案</button><span class="verdict"></span>'+
+                   '<span style="flex:1"></span><button class="go ghost" data-a="new">换一批</button>';
+  card.appendChild(foot);
+  const btn = foot.querySelector('[data-a="check"]'),
+        vd  = foot.querySelector(".verdict"),
+        neo = foot.querySelector('[data-a="new"]');
+
+  let inputs = [];
+  function paint(){
+    tbody.innerHTML = ""; inputs = [];
+    state[key].picks.forEach(idx => {
+      const row = DRILL_ROWS[idx];
+      const tr = document.createElement("tr");
+      tr.innerHTML = DRILL_COLS.map(c => c.fill
+        ? '<td><input class="blank cell" data-i="'+c.i+'" autocomplete="off" autocapitalize="off" spellcheck="false"><div class="corr"></div></td>'
+        : '<td class="'+(c.zh ? "zh" : "en")+'">'+row[c.i]+'</td>').join("");
+      tr.querySelectorAll("input").forEach(el => {
+        el.dataset.base = row[DRILL_BASE];
+        el.dataset.ans  = row[+el.dataset.i];
+        el.addEventListener("keydown", e => { if(e.key === "Enter") grade(false); });
+        inputs.push(el);
+      });
+      tbody.appendChild(tr);
+    });
+    card.classList.remove("locked","reveal","correct","wrong");
+    vd.className = "verdict"; btn.style.display = "";
+  }
+  function grade(silent){
+    let allOk = true, anyNear = false, anyHard = false, anyForm = false, anyBase = false;
+    inputs.forEach(el => {
+      const r = cellOk(el.value, el.dataset.ans, el.dataset.base, +el.dataset.i);
+      el.classList.remove("is-ok","is-no","is-near");
+      el.nextElementSibling.textContent = "";
+      if(r === "ok"){ el.classList.add("is-ok"); return; }
+      allOk = false;
+      el.nextElementSibling.textContent = el.dataset.ans;
+      if(r === "near"){ anyNear = true; el.classList.add("is-near"); }
+      else { anyHard = true; el.classList.add("is-no");
+             if(r === "base") anyBase = true; else if(r === "form") anyForm = true; }
+    });
+    inputs.forEach(el => { el.disabled = true; });
+    const n = inputs.filter(el => el.classList.contains("is-ok")).length;
+    card.classList.add("locked", allOk ? "correct" : "wrong");
+    vd.className = "verdict show " + (allOk ? "v-ok" : (anyNear && !anyHard ? "v-near" : "v-no"));
+    vd.textContent = allOk ? ("全对 "+n+"/"+inputs.length)
+      : ("对 "+n+" / "+inputs.length+"，格子下面是正确答案"
+         + (anyNear ? "。橙色的思路对了，只是拼写再检查一下" : "")
+         + (anyBase ? DRILL_MSG.base : "")
+         + (anyForm ? DRILL_MSG.form : "") + "。");
+    btn.style.display = "none";
+    if(!silent) record(key, allOk);
+  }
+  function reroll(){
+    state[key] = { picks: samplePicks(otherPicks(g), DRILL_N) };
+    save(); paint(); refreshTally();
+  }
+  btn.addEventListener("click", () => grade(false));
+  neo.addEventListener("click", reroll);
+  card._reroll = reroll;
+  card._fill = () => inputs.forEach(el => { if(!el.disabled) el.value = el.dataset.ans; });
+
+  paint();
+  if(state[key].done){
+    if(state[key].ok) inputs.forEach(el => el.value = el.dataset.ans);
+    grade(true);
+    if(!state[key].ok){
+      card.classList.remove("correct"); card.classList.add("wrong");
+      vd.className = "verdict show v-no"; vd.textContent = "上次没全对，可点「换一批」再练";
+    }
+  }
+  registry.push({ key, no:"第"+(g+1)+"组", sec:DRILL_SEC,
+    stemText:DRILL_SEC+" 第"+(g+1)+"组（从全表随机抽 "+DRILL_N+" 个）",
+    ansText:"随机抽题，答案取自上方全表" });
+  return card;
+}
+
+function renderDrills(){
+  const host = document.getElementById("mount-drill");
+  for(let g = 0; g < DRILL_GROUPS; g++) host.appendChild(buildDrill(g));
+  document.getElementById("drillPool").textContent =
+    "题库共 " + DRILL_IDX.length + " 个词，分 " + DRILL_GROUPS + " 组、每组随机抽 " + DRILL_N +
+    " 个，各组不重复；答完可无限「换一批」。";
+  document.getElementById("btnNewAll").addEventListener("click", () => {
+    for(let g = 0; g < DRILL_GROUPS; g++) delete state["drill"+g];
+    save();
+    document.querySelectorAll('#mount-drill .q').forEach(c => { if(c._reroll) c._reroll(); });
+  });
+  const ref = document.getElementById("drillref"), fold = document.getElementById("btnFoldRef");
+  const syncFold = () => { fold.textContent = ref.open ? "收起上面的全表" : "展开上面的全表"; };
+  fold.addEventListener("click", () => { ref.open = !ref.open; syncFold(); });
+  ref.addEventListener("toggle", syncFold);
+  syncFold();
+}
+
+/* 参考全表 */
+function renderRefTable(){
+  const t = document.getElementById("reftable");
+  let h = "<thead><tr>" + DRILL_COLS.map(c => "<th>"+c.h+"</th>").join("") + "</tr></thead><tbody>";
+  DRILL_ROWS.forEach(r => {
+    if(r.length === 1) h += '<tr><td class="lab" colspan="'+DRILL_COLS.length+'">'+r[0]+"</td></tr>";
+    else h += "<tr>" + DRILL_COLS.map(c => '<td class="'+(c.zh?"zh":"en")+'">'+r[c.i]+"</td>").join("") + "</tr>";
+  });
+  t.innerHTML = h + "</tbody>";
+}
+
+/* ---- 结算 ---- */
+function refreshTally(){
+  const total = registry.length;
+  /* 统计一律用 firstOk —— 重做不影响成绩单 */
+  const done = registry.filter(r => state[r.key] && state[r.key].firstOk !== undefined);
+  const ok = done.filter(r => state[r.key].firstOk === true);
+  const bad = done.filter(r => state[r.key].firstOk !== true);
+  document.getElementById("sDone").textContent = done.length;
+  document.getElementById("sOk").textContent = ok.length;
+  document.getElementById("sNo").textContent = bad.length;
+  document.getElementById("sRate").textContent = done.length ? Math.round(ok.length/done.length*100)+"%" : "—";
+  document.getElementById("ptext").textContent = done.length + " / " + total;
+  document.getElementById("pbar").style.width = (total? done.length/total*100 : 0) + "%";
+  document.getElementById("totalHint").textContent = total;
+
+  const t = document.getElementById("tallyTitle"), s = document.getElementById("tallySub");
+  if(!done.length){ t.textContent = "还没开始"; s.textContent = "答完题目后，这里会自动汇总你的正确率和错题。"; }
+  else if(done.length < total){ t.textContent = "进行中"; s.textContent = "还剩 " + (total-done.length) + " 题没做。"; }
+  else {
+    const rate = Math.round(ok.length/total*100);
+    t.textContent = rate>=90 ? "全部做完 · 很稳" : rate>=75 ? "全部做完 · 不错" : "全部做完 · 错题要过一遍";
+    s.textContent = "错题清单在下面，建议逐条重看解析，再点「再做一遍」。";
+  }
+  /* 截图打卡：全部做完才变绿，并盖上完成时间 */
+  const box = document.getElementById("checkin");
+  const left = total - done.length;
+  if(done.length === total && total > 0){
+    if(!state.finishedAt){ state.finishedAt = Date.now(); save(); }
+    box.classList.add("ready");
+    document.getElementById("ciTitle").textContent = "全部做完，可以打卡了";
+    document.getElementById("ciText").innerHTML =
+      "截图这张成绩单发到你的学习群吧。" + (bad.length ? "错题清单也一起截进去，上课好挑重点讲。" : "");
+    const t = new Date(state.finishedAt);
+    const pad = n => (n < 10 ? "0" : "") + n;
+    document.getElementById("ciDate").textContent =
+      "完成于 " + t.getFullYear() + "-" + pad(t.getMonth()+1) + "-" + pad(t.getDate()) +
+      " " + pad(t.getHours()) + ":" + pad(t.getMinutes());
+  } else {
+    if(state.finishedAt){ delete state.finishedAt; save(); }
+    box.classList.remove("ready");
+    document.getElementById("ciTitle").textContent = "截图打卡";
+    document.getElementById("ciText").textContent = done.length
+      ? "还剩 " + left + " 题，全部做完后截图这张成绩单发到你的学习群吧。"
+      : "全部做完后截图这张成绩单发到你的学习群吧。";
+    document.getElementById("ciDate").textContent = "";
+  }
+
+  const ul = document.getElementById("wrongList");
+  if(!bad.length){ ul.innerHTML = '<li class="empty" style="border:none">'+(done.length?"没有错题，漂亮。":"暂无错题。")+"</li>"; return; }
+  ul.innerHTML = bad.map(r =>
+    '<li><span class="tag">'+r.sec+'</span><a href="#q-'+r.key+'">'+r.no+'</a>　'+
+    '<span style="color:var(--ink-2)">'+ (r.stemText.length>62 ? r.stemText.slice(0,62)+"…" : r.stemText) +'</span></li>'
+  ).join("");
+}
+
+
+
+/* ---- 启动 ---- */
+BANK.li.forEach(q => renderQ(q, document.getElementById("mount-li"), "过去时vs完成时·辨析"));
+renderRefTable();
+renderDrills();
+refreshTally();
+
+/* 二维码注入 + 放大 */
+(function(){
+  /* img 的 src 写成 qr:名字 ，名字就是 assets/<讲义名>/名字.png 的文件名 */
+  document.querySelectorAll(".qr").forEach(box => {
+    const img = box.querySelector("img");
+    const k = img.getAttribute("src") || "";
+    if(k.indexOf("qr:") === 0){
+      const v = QR[k.slice(3)];
+      if(v) img.src = v; else box.style.display = "none";   /* 没配图就不显示这个胶囊 */
+    }
+    box.addEventListener("click", () => {
+      const m = document.getElementById("qrModal");
+      m.querySelector("img").src = img.src; m.classList.add("show");
+    });
+  });
+  document.getElementById("qrModal").addEventListener("click", e => e.currentTarget.classList.remove("show"));
+})();
+
+document.getElementById("btnReset").addEventListener("click", () => {
+  if(!confirm("清空所有作答记录，重新开始？")) return;
+  try{ localStorage.removeItem(STORE_KEY); }catch(e){}
+  location.reload();
+});
+
+/* 目录高亮（老浏览器没有 IntersectionObserver 就跳过，不影响答题） */
+if(typeof IntersectionObserver !== "undefined"){
+  const links = [].slice.call(document.querySelectorAll("nav.toc a"));
+  const secs = links.map(a => document.querySelector(a.getAttribute("href")));
+  const io = new IntersectionObserver(es => {
+    es.forEach(e => { if(e.isIntersecting){
+      links.forEach(l=>l.classList.remove("active"));
+      const i = secs.indexOf(e.target); if(i>=0) links[i].classList.add("active");
+    }});
+  }, {rootMargin:"-40% 0px -55% 0px"});
+  secs.forEach(s => s && io.observe(s));
+}
+</script>
+</body>
+</html>
+
+</body>
+</html>

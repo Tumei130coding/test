@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>情态动词＋非谓语 · 随机练习</title>
+<style>
+:root{
+  --ink:#1f2328; --ink-2:#4a5158; --ink-3:#8b939b;
+  --paper:#faf9f7; --card:#ffffff; --line:#e6e2dc;
+  --accent:#c0392b; --accent-soft:#fdf1ef;
+  --ok:#15803d; --ok-soft:#eefaf1; --ok-line:#b7e4c7;
+  --no:#c62828; --no-soft:#fdf0ef; --no-line:#f2c4c0;
+  --warn:#b45309; --warn-soft:#fff8e8;
+  --radius:10px;
+  --serif:"Georgia","Times New Roman","Songti SC",serif;
+  --sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--paper); color:var(--ink);
+  font-family:var(--sans); font-size:16px; line-height:1.7;
+  -webkit-text-size-adjust:100%;
+}
+img{max-width:100%}
+
+/* ---------- 页眉 ---------- */
+.brandbar{
+  position:sticky; top:0; z-index:40;
+  background:rgba(250,249,247,.94); backdrop-filter:saturate(1.4) blur(8px);
+  border-bottom:1px solid var(--line);
+}
+.brandbar-in{
+  max-width:860px; margin:0 auto; padding:10px 18px;
+  display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+}
+.brand{font-size:13px; letter-spacing:.06em; color:var(--ink-2); white-space:nowrap}
+.brand b{color:var(--accent); font-weight:700}
+.brand span{color:var(--ink-3)}
+.bar-spacer{flex:1}
+.progwrap{display:flex; align-items:center; gap:8px; font-size:12px; color:var(--ink-2)}
+.progbar{width:110px; height:6px; border-radius:99px; background:#e9e5df; overflow:hidden}
+.progbar i{display:block; height:100%; width:0; background:var(--accent); transition:width .3s}
+.tbtn{
+  font:inherit; font-size:12px; padding:4px 10px; border-radius:99px;
+  border:1px solid var(--line); background:var(--card); color:var(--ink-2); cursor:pointer;
+}
+.tbtn:hover{border-color:var(--ink-3)}
+.tbtn.on{background:var(--ink); color:#fff; border-color:var(--ink)}
+
+/* ---------- 目录 ---------- */
+nav.toc{
+  max-width:860px; margin:0 auto; padding:0 18px;
+  display:flex; gap:6px; overflow-x:auto; scrollbar-width:none;
+  border-bottom:1px solid var(--line); background:var(--paper);
+  position:sticky; top:43px; z-index:39;
+}
+nav.toc::-webkit-scrollbar{display:none}
+nav.toc a{
+  flex:0 0 auto; padding:9px 12px; font-size:13px; color:var(--ink-2);
+  text-decoration:none; border-bottom:2px solid transparent; white-space:nowrap;
+}
+nav.toc a.active{color:var(--accent); border-bottom-color:var(--accent); font-weight:600}
+
+/* ---------- 主体 ---------- */
+main{max-width:860px; margin:0 auto; padding:26px 18px 90px}
+h1.doc{font-size:26px; margin:8px 0 4px; letter-spacing:.02em}
+.doc-sub{color:var(--ink-3); font-size:13px; margin:0 0 26px}
+
+section.chap{margin:0 0 44px; scroll-margin-top:96px}
+h2.chap-t{
+  font-size:19px; color:var(--accent); margin:0 0 4px;
+  display:flex; align-items:center; gap:10px;
+}
+h2.chap-t .n{
+  font-size:12px; font-weight:700; color:#fff; background:var(--accent);
+  border-radius:4px; padding:1px 7px; letter-spacing:.04em;
+}
+.chap-lead{color:var(--ink-2); font-size:14px; margin:0 0 18px}
+
+.block-t{
+  font-size:14px; font-weight:700; color:var(--ink-2); margin:30px 0 12px;
+  padding-bottom:6px; border-bottom:1px dashed var(--line);
+  display:flex; align-items:baseline; gap:8px;
+}
+.block-t em{font-style:normal; font-weight:400; color:var(--ink-3); font-size:12px}
+
+/* 二维码：做成右侧小胶囊，不参与正文排版，点开可放大 */
+.qr{
+  margin-left:auto; flex:0 0 auto; display:inline-flex; align-items:center; gap:7px;
+  padding:4px 10px 4px 5px; border:1px solid var(--line); border-radius:99px;
+  background:var(--card); cursor:zoom-in; align-self:center;
+}
+.qr:hover{border-color:var(--accent)}
+.qr img{width:30px; height:30px; display:block; border-radius:4px; background:#fff}
+.qr small{font-size:11.5px; color:var(--ink-3); white-space:nowrap}
+.qr:hover small{color:var(--accent)}
+.qr-modal{
+  position:fixed; inset:0; z-index:100; background:rgba(20,20,20,.72);
+  display:none; align-items:center; justify-content:center; padding:24px;
+}
+.qr-modal.show{display:flex}
+.qr-modal img{width:min(78vw,340px); background:#fff; padding:14px; border-radius:12px}
+.qr-modal p{color:#fff; font-size:13px; text-align:center; margin:14px 0 0}
+
+/* 参考卡片 */
+.ref{
+  background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+  padding:0; margin:14px 0 22px; overflow:hidden;
+}
+.ref>summary{
+  cursor:pointer; padding:12px 16px; font-size:14px; font-weight:600; color:var(--ink-2);
+  list-style:none; display:flex; align-items:center; gap:8px;
+}
+.ref>summary::-webkit-details-marker{display:none}
+.ref>summary::before{content:"▸"; color:var(--accent); transition:transform .2s; display:inline-block}
+.ref[open]>summary::before{transform:rotate(90deg)}
+.ref .ref-body{padding:0 16px 16px}
+table.g{width:100%; border-collapse:collapse; font-size:13px; margin:6px 0}
+table.g th,table.g td{border:1px solid var(--line); padding:6px 8px; text-align:center}
+table.g th{background:#f4f1ec; font-weight:600; color:var(--ink-2)}
+table.g td.lab{background:#faf8f5; font-weight:600; color:var(--ink-2)}
+table.g td.en{font-family:var(--serif)}
+.tablescroll{overflow-x:auto; -webkit-overflow-scrolling:touch; max-width:100%}
+
+/* 不规则动词挖空自测表 */
+table.drill{min-width:470px}
+table.drill td{vertical-align:middle; padding:5px 7px}
+table.drill td.zh{color:var(--ink-2); font-size:12.5px}
+.blank.cell{width:100%; text-align:center; font-size:14.5px; padding:3px 4px}
+.corr{font-family:var(--serif); font-size:12.5px; color:var(--ok); font-weight:700; line-height:1.5; min-height:0}
+.drillbar{
+  display:flex; align-items:center; gap:8px; flex-wrap:wrap;
+  font-size:12.5px; color:var(--ink-3); margin:-4px 0 12px;
+}
+.drillbar button{
+  font:inherit; font-size:12.5px; padding:4px 12px; border-radius:99px; cursor:pointer;
+  border:1px solid var(--line); background:var(--card); color:var(--ink-2);
+}
+.drillbar button:hover{border-color:var(--accent); color:var(--accent)}
+/* 窄屏：压紧字号让四列塞进手机，不用横向滚 */
+@media(max-width:600px){
+  table.drill{min-width:0; table-layout:fixed}
+  table.drill th{padding:5px 3px; font-size:11.5px}
+  table.drill td{padding:4px 3px}
+  table.drill td.en{font-size:13.5px; word-break:break-word}
+  table.drill td.zh{font-size:11px; line-height:1.35}
+  .blank.cell{font-size:13.5px; padding:2px 1px}
+  .corr{font-size:11.5px}
+}
+.rules{font-size:13px; color:var(--ink-2); margin:12px 0 0; padding-left:20px}
+.rules li{margin:5px 0}
+.rules code{font-family:var(--serif); font-size:13px; background:#f4f1ec; padding:1px 4px; border-radius:3px}
+
+/* ---------- 题目 ---------- */
+.q{
+  background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+  padding:16px 18px; margin:0 0 12px; scroll-margin-top:96px;
+  transition:border-color .2s, box-shadow .2s;
+}
+.q.correct{border-color:var(--ok-line); background:var(--ok-soft)}
+.q.wrong{border-color:var(--no-line); background:var(--no-soft)}
+.q-head{display:flex; gap:10px; align-items:flex-start}
+.q-no{
+  flex:0 0 auto; font-size:12px; font-weight:700; color:var(--ink-3);
+  background:#f2efea; border-radius:5px; padding:2px 7px; margin-top:3px; min-width:30px; text-align:center;
+}
+.q.correct .q-no{background:#d5f0de; color:var(--ok)}
+.q.wrong .q-no{background:#f8d9d6; color:var(--no)}
+.q-stem{flex:1; min-width:0; font-family:var(--serif); font-size:16px; line-height:1.85}
+.q-stem .zh{font-family:var(--sans); font-size:14px; color:var(--ink-2)}
+.q-stem .dash{color:var(--ink-3)}
+
+/* 选择题 */
+.opts{list-style:none; margin:12px 0 0; padding:0; display:grid; gap:7px}
+.opts.two{grid-template-columns:1fr 1fr}
+@media(max-width:560px){.opts.two{grid-template-columns:1fr}}
+.opt{
+  display:flex; gap:9px; align-items:center; padding:8px 12px; cursor:pointer;
+  border:1px solid var(--line); border-radius:8px; background:#fff;
+  font-family:var(--serif); font-size:15px; transition:.15s;
+}
+.opt:hover{border-color:var(--ink-3); background:#fbfaf8}
+.opt .k{
+  flex:0 0 auto; width:21px; height:21px; border-radius:50%; border:1px solid var(--line);
+  display:grid; place-items:center; font-family:var(--sans); font-size:11px; font-weight:700; color:var(--ink-3);
+}
+.opt.picked{border-color:var(--ink); background:#f6f4f1}
+.opt.picked .k{background:var(--ink); color:#fff; border-color:var(--ink)}
+.opt.is-ok{border-color:var(--ok-line); background:var(--ok-soft)}
+.opt.is-ok .k{background:var(--ok); color:#fff; border-color:var(--ok)}
+.opt.is-no{border-color:var(--no-line); background:var(--no-soft)}
+.opt.is-no .k{background:var(--no); color:#fff; border-color:var(--no)}
+.q.locked .opt{cursor:default}
+
+/* 填空 */
+.blank{
+  font-family:var(--serif); font-size:15px; width:9.5em; padding:2px 8px;
+  border:none; border-bottom:1.5px solid var(--ink-3); background:transparent;
+  color:var(--accent); text-align:center; outline:none;
+}
+.blank:focus{border-bottom-color:var(--accent); background:#fffdf9}
+.blank.is-ok{color:var(--ok); border-bottom-color:var(--ok)}
+.blank.is-no{color:var(--no); border-bottom-color:var(--no); text-decoration:line-through}
+/* 拼写差一点：同样判错，但用橙色区别于纯粹答错，让学生一眼看出“只差一点” */
+.blank.is-near{color:var(--warn); border-bottom-color:var(--warn); text-decoration:underline wavy var(--warn) 1px; text-underline-offset:3px}
+.blank.wide{width:13em}
+.hintw{font-family:var(--sans); font-size:13px; color:var(--ink-3)}
+
+/* 选词填空的词框 */
+.wordbank{
+  display:flex; flex-wrap:wrap; gap:7px; align-items:center;
+  border:1.5px solid var(--accent); border-radius:8px; background:#fff;
+  padding:9px 11px; margin:0 0 12px;
+}
+.wordbank .wb{
+  font-family:var(--serif); font-size:15px; padding:3px 12px; border-radius:6px; cursor:pointer;
+  border:1px solid var(--line); background:var(--paper); color:var(--ink);
+}
+.wordbank .wb:hover{border-color:var(--accent); color:var(--accent); background:#fff}
+.wordbank .wb.used{opacity:.35; text-decoration:line-through}
+.q.locked .wordbank .wb{cursor:default; opacity:.5}
+.wb-tip{font-family:var(--sans); font-size:12px; color:var(--ink-3); flex-basis:100%; margin-top:2px}
+
+/* 连词成句 */
+.sentline{
+  display:block; width:100%; margin-top:12px; font-family:var(--serif); font-size:16px;
+  padding:8px 12px; border:1px solid var(--line); border-radius:8px; background:#fffdf9;
+  color:var(--accent); outline:none;
+}
+.sentline:focus{border-color:var(--accent)}
+.sentline.is-ok{color:var(--ok); border-color:var(--ok-line); background:var(--ok-soft)}
+.sentline.is-no{color:var(--no); border-color:var(--no-line); background:var(--no-soft)}
+.sentans{font-family:var(--serif); font-size:15.5px; color:var(--ok); font-weight:700; margin-top:8px; display:none}
+.q.locked .sentans{display:block}
+
+/* 判断 */
+.jrow{
+  display:flex; align-items:center; gap:12px; padding:7px 0; flex-wrap:wrap;
+  border-bottom:1px dashed #efece7;
+}
+.jrow:last-child{border-bottom:none}
+.jrow .w{font-family:var(--serif); font-size:16px; flex:1 1 auto; min-width:8em}
+.jbtns{display:flex; gap:6px; flex:0 0 auto}
+.jb{
+  font:inherit; font-size:13px; padding:3px 12px; border-radius:99px; cursor:pointer;
+  white-space:nowrap;
+  border:1px solid var(--line); background:#fff; color:var(--ink-2);
+}
+.jb:hover{border-color:var(--ink-3)}
+.jb.sel{background:var(--ink); color:#fff; border-color:var(--ink)}
+.jb.good{background:var(--ok); color:#fff; border-color:var(--ok)}
+.jb.bad{background:var(--no); color:#fff; border-color:var(--no)}
+.jrow .why{
+  font-size:13px; color:var(--ink-2); flex:1 0 100%; margin:2px 0 4px; display:none;
+  padding-left:11px; border-left:2px solid var(--line); line-height:1.7;
+}
+.jrow.done .why{display:block}
+
+/* 点词标记 */
+.marksent{font-family:var(--serif); font-size:16.5px; line-height:2.2; margin:10px 0 0}
+.tok{
+  display:inline-block; padding:0 2px; margin:0; border-radius:4px; cursor:pointer;
+  border-bottom:2px dotted var(--ink-3); transition:.15s;
+}
+.tok:hover{background:#f2efea}
+.tok.sel{background:#fff2cc; border-bottom:2px solid var(--warn); font-weight:700}
+.q.locked .tok{cursor:default}
+.tok.r-hit{background:var(--ok-soft); border-bottom:2px solid var(--ok); color:var(--ok); font-weight:700}
+.tok.r-miss{background:var(--warn-soft); border-bottom:2px dashed var(--warn); color:var(--warn); font-weight:700}
+.tok.r-over{background:var(--no-soft); border-bottom:2px solid var(--no); color:var(--no); text-decoration:line-through}
+.marklegend{font-size:12px; color:var(--ink-3); margin-top:8px; display:none}
+.q.locked .marklegend{display:block}
+
+/* 反馈 / 解析 */
+.q-foot{display:flex; align-items:center; gap:10px; margin-top:13px; flex-wrap:wrap}
+.go{
+  font:inherit; font-size:13.5px; font-weight:600; padding:6px 18px; border-radius:99px;
+  border:none; background:var(--ink); color:#fff; cursor:pointer;
+}
+.go:hover{background:#000}
+.go.ghost{background:transparent; color:var(--ink-3); border:1px solid var(--line); font-weight:400}
+.go.ghost:hover{background:#f4f1ec; color:var(--ink-2)}
+.verdict{font-size:13.5px; font-weight:700; display:none}
+.verdict.show{display:inline}
+.verdict.v-ok{color:var(--ok)}
+.verdict.v-no{color:var(--no)}
+.verdict.v-near{color:var(--warn)}
+
+
+.explain{
+  display:none; margin-top:12px; padding:13px 15px; border-radius:8px;
+  background:#f7f5f1; border-left:3px solid var(--accent); font-size:14px; line-height:1.8;
+}
+.q.reveal .explain{display:block}
+.explain .lab{
+  display:inline-block; font-size:11px; font-weight:700; color:#fff; background:var(--accent);
+  border-radius:3px; padding:0 6px; margin-right:6px; vertical-align:1px; letter-spacing:.05em;
+}
+.explain .lab.k2{background:var(--ink-2)}
+.explain .lab.k3{background:var(--warn)}
+.explain p{margin:0 0 7px}
+.explain p:last-child{margin-bottom:0}
+.explain b{color:var(--accent)}
+.yes{color:var(--ok); font-weight:700}
+.no{color:var(--no); font-weight:700}
+.rulebar{
+  background:var(--accent-soft); border-left:3px solid var(--accent); border-radius:8px;
+  padding:12px 15px; margin:0 0 14px; font-size:14px; line-height:1.8; color:var(--ink-2);
+}
+.rulebar b{color:var(--accent)}
+.rulebar code{font-family:var(--serif); background:#fff; padding:1px 5px; border-radius:3px; font-size:13.5px}
+.explain code{font-family:var(--serif); background:#eae6e0; padding:1px 5px; border-radius:3px; font-size:13.5px}
+.ansline{font-family:var(--serif); font-size:15px; color:var(--ok); font-weight:700}
+
+.flag{
+  display:none; margin-top:10px; padding:9px 13px; border-radius:8px; font-size:13px;
+  background:var(--warn-soft); border-left:3px solid var(--warn); color:#7c4a09;
+}
+
+/* ---------- 结算 ---------- */
+.tally{
+  background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+  padding:22px; margin-top:14px;
+}
+.tally h3{margin:0 0 4px; font-size:17px}
+.tally .sub{color:var(--ink-3); font-size:13px; margin:0 0 18px}
+.stats{display:flex; gap:26px; flex-wrap:wrap; margin-bottom:18px}
+.stat b{display:block; font-size:27px; line-height:1.2; font-family:var(--serif)}
+.stat span{font-size:12px; color:var(--ink-3)}
+.stat.ok b{color:var(--ok)} .stat.no b{color:var(--no)}
+.wronglist{list-style:none; padding:0; margin:0; font-size:14px}
+.wronglist li{padding:7px 0; border-top:1px dashed var(--line)}
+.wronglist a{color:var(--accent); text-decoration:none}
+.wronglist a:hover{text-decoration:underline}
+.wronglist .tag{font-size:11px; color:var(--ink-3); margin-right:8px}
+.empty{color:var(--ink-3); font-size:14px}
+
+/* 截图打卡 */
+.checkin{
+  margin-top:22px; padding:16px 18px 13px; border-radius:10px; text-align:center;
+  border:1.5px dashed var(--line); background:#fbfaf8; transition:.25s;
+}
+.checkin.ready{border-color:var(--ok); border-style:solid; background:var(--ok-soft)}
+.ci-title{font-size:15px; font-weight:700; color:var(--ink-2); margin-bottom:5px}
+.checkin.ready .ci-title{color:var(--ok)}
+.ci-text{font-size:13.5px; color:var(--ink-2); margin:0 0 13px; line-height:1.7}
+.ci-meta{
+  font-size:12px; color:var(--ink-3); display:flex; gap:6px 14px; justify-content:center;
+  flex-wrap:wrap; padding-top:11px; border-top:1px dashed var(--line);
+}
+.checkin.ready .ci-meta{border-top-color:var(--ok-line)}
+.ci-brand{font-size:11.5px; color:var(--ink-3); margin-top:7px; letter-spacing:.04em}
+.ci-brand b{color:var(--accent); font-weight:700}
+
+footer{
+  max-width:860px; margin:0 auto; padding:26px 18px 50px;
+  border-top:1px solid var(--line); color:var(--ink-3); font-size:12.5px; line-height:1.8;
+}
+footer b{color:var(--accent)}
+
+
+@media print{
+  .brandbar,nav.toc,.q-foot,.go{display:none!important}
+  .explain{display:block!important}
+  body{background:#fff}
+}
+
+/* 随机练习页专用 */
+.ctrlbar{
+  max-width:860px; margin:0 auto; padding:12px 18px 14px;
+  display:flex; align-items:center; gap:10px 14px; flex-wrap:wrap;
+  border-bottom:1px solid var(--line);
+}
+.ctrlbar .lab{font-size:13px; color:var(--ink-2)}
+.sizesel{display:inline-flex; border:1px solid var(--line); border-radius:99px; overflow:hidden; background:var(--card)}
+.sizesel button{
+  font:inherit; font-size:13px; padding:5px 14px; border:none; cursor:pointer;
+  background:transparent; color:var(--ink-2); border-right:1px solid var(--line);
+}
+.sizesel button:last-child{border-right:none}
+.sizesel button.on{background:var(--ink); color:#fff}
+.bigbtn{
+  font:inherit; font-size:14px; font-weight:600; padding:7px 20px; border-radius:99px;
+  border:none; background:var(--accent); color:#fff; cursor:pointer;
+}
+.bigbtn:hover{background:#a5322a}
+.bigbtn.ghost{background:transparent; color:var(--ink-3); border:1px solid var(--line); font-weight:400}
+.bigbtn.ghost:hover{background:#f4f1ec; color:var(--ink-2)}
+.coverage{font-size:12.5px; color:var(--ink-3)}
+.coverbar{display:inline-block; width:90px; height:6px; border-radius:99px; background:#e9e5df; overflow:hidden; vertical-align:-1px; margin:0 6px}
+.coverbar i{display:block; height:100%; background:var(--ok); width:0; transition:width .3s}
+.batchtag{
+  display:inline-block; font-size:11.5px; color:var(--ink-3); background:#f2efea;
+  border-radius:4px; padding:1px 7px; margin-left:8px;
+}
+
+</style>
+</head>
+<body>
+
+<div class="brandbar">
+  <div class="brandbar-in">
+    <div class="brand"><b>土妹英语</b> <span>｜定制课程 让每一分努力都不被辜负</span></div>
+    <div class="bar-spacer"></div>
+    <div class="progwrap"><div class="progbar"><i id="pbar"></i></div><span id="ptext">0 / 0</span></div>
+    <button class="tbtn" id="btnReset">重置</button>
+  </div>
+</div>
+
+<div class="ctrlbar">
+  <span class="lab">每批 15 题，随机抽取、顺序打乱　<b>选好后点「对答案」提交，提交后不能改</b></span>
+  <button class="bigbtn" id="btnNew">换一批</button>
+  <div class="bar-spacer" style="flex:1"></div>
+  <span class="coverage"><span class="coverbar"><i id="coverBar"></i></span><span id="coverTxt">—</span></span>
+</div>
+
+<main>
+  <h1 class="doc">情态动词 ＋ 非谓语动词</h1>
+  <p class="doc-sub">随机练习 · 题库 25 题 · 每次随机抽一批、顺序打乱，答完可以「换一批」</p>
+
+  <div id="mount"></div>
+
+  <div class="tally" style="margin-top:26px">
+    <h3 id="tallyTitle">本批还没开始</h3>
+    <p class="sub" id="tallySub">答完题目后，这里会汇总本批的正确率和错题。</p>
+    <div class="stats">
+      <div class="stat"><b id="sDone">0</b><span>已作答</span></div>
+      <div class="stat ok"><b id="sOk">0</b><span>答对</span></div>
+      <div class="stat no"><b id="sNo">0</b><span>答错</span></div>
+      <div class="stat"><b id="sRate">—</b><span>正确率</span></div>
+    </div>
+    <div class="block-t" style="margin-top:6px">错题清单 <em>点题号跳回去重看解析</em></div>
+    <ul class="wronglist" id="wrongList"><li class="empty" style="border:none">暂无错题。</li></ul>
+    <div style="margin-top:20px; text-align:center">
+      <button class="bigbtn" id="btnNew2">换一批</button>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <p>题目来自「测试-语法情动非谓语1」，共 25 题（1–5 情态动词，6–25 非谓语动词）。</p>
+  <p>每批题目<b>随机抽取、顺序打乱</b>；「换一批」会优先抽本轮还没做过的题，一轮练完自动重新开始。</p>
+  <p>每题<b>只能提交一次</b>，提交后展开解析并锁定 —— 成绩单反映的是真实作答情况。</p>
+  <p>作答进度保存在本机浏览器里，关掉再打开不会丢；点右上角「重置」可清空重来。</p>
+  <p style="margin-top:10px"><b>土妹英语</b> ｜ 定制课程 让每一分努力都不被辜负</p>
+</footer>
+
+<script>
+
+/* ================================================================
+   考试模式：单选也要先选后交，判分后永久锁死、不给「再做一遍」。
+   —— 这一页是测试，成绩单要反映真实正确率。
+   （讲义各节不开这个开关，保留重做，但正确率同样只按第一次算。）
+   ================================================================ */
+const EXAM_MODE = true;
+
+/* ================================================================
+   题 库 —— 25 题（1–5 情态动词，6–25 非谓语动词）
+   顺序在页面上是随机打乱的，这里按原卷编号排放，方便对照修改。
+   ================================================================ */
+const BANK = [
+
+/* ---------- 情态动词 ---------- */
+{ id:"q1", type:"choice", src:"1", topic:"情态动词",
+  stem:"—Whose dictionary is this?<br>—It ____ be Sarah's. Look! Her name is on it.",
+  opts:["must","need","mustn't","needn't"], a:0,
+  ex:"<p>后面 <code>Look! Her name is on it.</code> 是<b>确凿证据</b> → 表示<b>非常肯定的推测</b>“一定是” → <b>must</b>。</p><p><b>推测三兄弟，把握从大到小：</b><br>· <code>must be</code>　一定是（肯定推测）<br>· <code>may / might be</code>　可能是<br>· <code>can't be</code>　不可能是（否定推测）</p><p>C 项 <code>mustn't</code> 是“禁止”，不能用来表示否定推测。</p>" },
+
+{ id:"q2", type:"choice", src:"2", topic:"情态动词",
+  stem:"—Must I bring my student card every time I enter the library?<br>—I'm afraid you ____. It is open only to teachers and students in our school.",
+  opts:["have to","mustn't","needn't","don't have to"], a:0,
+  ex:"<p><b>先看理由：</b><code>It is open only to teachers and students</code>（只对本校师生开放）→ 那就<b>必须</b>带证件证明身份 → 肯定回答。</p><p><code>I'm afraid you <b>have to</b>.</code>（恐怕你必须带）</p><p><b>Must I…? 的回答有讲究：</b><br>· 肯定 → <code>Yes, you must.</code> / <code>you have to</code><br>· 否定 → <code>No, you <b>needn't</b>.</code> / <code>you don't have to</code>（不必），<b>不能</b>用 mustn't（那是“禁止”）</p>" },
+
+{ id:"q3", type:"choice", src:"3", topic:"情态动词",
+  stem:"—Dad, I want to learn to play an instrument.<br>—That's OK, but remember once you make up your mind, you ____ hold on to it.",
+  opts:["must","may","could","would"], a:0,
+  ex:"<p><code>but remember…</code>（但要记住）语气很重 —— 爸爸在强调“一旦下定决心就<b>必须</b>坚持” → <b>must</b>。</p><p>B、C、D 都是“可能／可以／会”，语气太弱，撑不起 <code>remember</code> 这个提醒。</p>" },
+
+{ id:"q4", type:"choice", src:"4", topic:"情态动词",
+  stem:"—AI <span class='zh'>(Artificial Intelligence 人工智能)</span> ____ help us a lot in many ways.<br>—That's interesting!",
+  opts:["have to","need","can"], a:2,
+  ex:"<p>说的是 AI <b>有能力</b>在很多方面帮到我们 → 表示“能、会” → <b>can</b>。</p><p>A <code>have to</code> 是“不得不”，B <code>need</code> 是“需要”，都不是在说能力。</p>" },
+
+{ id:"q5", type:"choice", src:"5", topic:"情态动词",
+  stem:"Having an ice-cream in the hot summer ____ be cool.",
+  opts:["must","need","can't"], a:0,
+  ex:"<p>大热天吃冰淇淋<b>一定</b>很爽 —— 这是有把握的<b>肯定推测</b> → <b>must be</b>。</p><p>C <code>can't be</code> 是“不可能”，意思正好反了。</p><p>注意主语 <code>Having an ice-cream…</code> 是<b>动名词短语作主语</b>，当第三人称单数看 —— 不过情态动词后面永远跟原形，不受影响。</p>" },
+
+/* ---------- 非谓语：接 to do ---------- */
+{ id:"q6", type:"choice", src:"6", topic:"非谓语",
+  stem:"Our headmaster will invite a scientist ____ us a speech on space technology.",
+  opts:["give","given","giving","to give"], a:3,
+  ex:"<p>固定搭配 <code>invite sb <b>to do</b> sth</code>（邀请某人做某事）→ <b>to give</b>。</p><p><b>同样接 to do 的还有：</b><code>ask / tell / want / allow / teach / advise sb to do sth</code>。</p>" },
+
+{ id:"q7", type:"choice", src:"7", topic:"非谓语",
+  stem:"Lily has decided ____ in Beijing for a week.",
+  opts:["stays","stayed","staying","to stay"], a:3,
+  ex:"<p><code>decide <b>to do</b> sth</code>（决定做某事）→ <b>to stay</b>。</p>" },
+
+{ id:"q8", type:"choice", src:"8", topic:"非谓语",
+  stem:"My pen friend Andrew found ____ difficult ____ Chinese well.",
+  opts:["it is; to learn","it; learning","it; to learn","that; to learn"], a:2,
+  ex:"<p><b>形式宾语句型：</b><code>find / think / make it + 形容词 + <b>to do</b> sth</code></p><p>这里的 <code>it</code> 是<b>形式宾语</b>，本身没有意思，真正的宾语是后面的 <code>to learn Chinese well</code>。</p><p>A 项多了 <code>is</code>（宾语位置不能放句子），D 项不能用 that 代替 it。答案 <b>it; to learn</b>。</p>" },
+
+{ id:"q13", type:"choice", src:"13", topic:"非谓语",
+  stem:"—Is your school rule strict?<br>—Yes. For example, our school doesn't allow us ____ mobile phones <span class='zh'>(手机)</span> to school.",
+  opts:["bring","bringing","to bring"], a:2,
+  ex:"<p><code>allow sb <b>to do</b> sth</code>（允许某人做某事）→ <b>to bring</b>。</p><p><b>对比记：</b>没有宾语时用 <code>allow doing</code> —— <code>We don't allow smoking here.</code></p>" },
+
+{ id:"q14", type:"choice", src:"14", topic:"非谓语",
+  stem:"—The passenger refused ____ after taking another one's seat!<br>—What a shame <span class='zh'>(羞愧)</span>!",
+  opts:["move","to move","moving"], a:1,
+  ex:"<p><code>refuse <b>to do</b> sth</code>（拒绝做某事）→ <b>to move</b>。</p>" },
+
+{ id:"q15", type:"choice", src:"15", topic:"非谓语",
+  stem:"Qiqi hopes ____ medicine in Sichuan University.",
+  opts:["studies","studying","to study"], a:2,
+  ex:"<p><code>hope <b>to do</b> sth</code>（希望做某事）→ <b>to study</b>。</p><p><b>注意：</b>hope 没有 <code>hope sb to do</code> 的用法，要说“希望某人做某事”得用 <code>hope that…</code>。</p>" },
+
+{ id:"q16", type:"choice", src:"16", topic:"非谓语",
+  stem:"To save energy, don't forget ____ the light before you leave the room.",
+  opts:["turn off","turning off","to turn off"], a:2,
+  ex:"<p><b>forget 的两种用法意思完全不同：</b><br>· <code>forget <b>to do</b></code>　忘记<b>要去做</b>（事还没做）<br>· <code>forget <b>doing</b></code>　忘记<b>做过了</b>（事已经做了）</p><p>本句是“离开房间前<b>别忘了关灯</b>”—— 灯还没关 → <b>to turn off</b>。</p><p><b>同样有这种区别的还有：</b><code>remember</code>（记得要做／记得做过）、<code>stop</code>（停下来去做／停止做）、<code>try</code>（设法做／试着做）。</p>" },
+
+/* ---------- 非谓语：接 doing ---------- */
+{ id:"q10", type:"choice", src:"10", topic:"非谓语",
+  stem:"—Mo Yan received little education when he was young. How was he able to win the Nobel Prize for Literature?<br>—He spent as much free time as he could ____ books, which helped him improve his writing skills.",
+  opts:["read","to read","reading","was reading"], a:2,
+  ex:"<p><code>spend + 时间/金钱 + (in) <b>doing</b> sth</code>（花时间做某事）→ <b>reading</b>。</p><p>中间的 <code>as much free time as he could</code> 只是把“时间”说得长了一点，句型没变。</p><p><b>对比记：</b><code>It takes sb + 时间 + <b>to do</b> sth</code> —— 主语是 it 时用不定式。</p>" },
+
+{ id:"q11", type:"choice", src:"11", topic:"非谓语",
+  stem:"After ten minutes' rest, we kept ____ in office.",
+  opts:["work","works","working","worked"], a:2,
+  ex:"<p><code>keep <b>doing</b> sth</code>（一直做、继续做）→ <b>working</b>。</p><p><b>只接 doing 的常见动词：</b><code>keep / finish / enjoy / mind / practise / suggest / avoid / consider / can't help</code>。</p>" },
+
+{ id:"q12", type:"choice", src:"12", topic:"非谓语",
+  stem:"He is considering ____ action against this hospital.",
+  opts:["take","taking","to take","took"], a:1,
+  ex:"<p><code>consider <b>doing</b> sth</code>（考虑做某事）→ <b>taking</b>。</p><p><code>take action against…</code> 对……采取行动。</p>" },
+
+{ id:"q18", type:"choice", src:"18", topic:"非谓语",
+  stem:"____ your sister good at ____ stories?",
+  opts:["Does, writing","Is, write","Is, writing","Does, write"], a:2,
+  ex:"<p><b>两步走。</b></p><p>第一空：<code>good at</code> 是“<b>be</b> good at”的一部分，句子的谓语是 be 动词 → 疑问句用 <b>Is</b>，不是 Does。</p><p>第二空：<code>at</code> 是<b>介词</b>，介词后面只能跟<b>动名词</b> → <b>writing</b>。</p><p>答案 <b>Is, writing</b>。</p>" },
+
+{ id:"q19", type:"choice", src:"19", topic:"非谓语",
+  stem:"I can't stop ____ every time I watch the funny cartoons.",
+  opts:["laughing","to laugh","laugh"], a:0,
+  ex:"<p><code>can't stop <b>doing</b></code> = 忍不住做某事、停不下来 → <b>laughing</b>。</p><p><b>stop 的两种用法：</b><br>· <code>stop <b>doing</b></code>　停止正在做的事<br>· <code>stop <b>to do</b></code>　停下来<b>去做另一件事</b></p><p>本句是“每次看动画片都笑个不停”，笑这个动作停不下来 → doing。</p>" },
+
+{ id:"q20", type:"choice", src:"20", topic:"非谓语",
+  stem:"—Did you enjoy ____ in Sanya during the Spring Festival?<br>—Yes, we had a good time ____ in the sea.",
+  opts:["you; swims","yourself; swim","yourselves; swimming"], a:2,
+  ex:"<p>第一空：<code>enjoy <b>oneself</b></code> = 玩得开心。答话人说 <code>we</code>（我们）→ 问的是“你们” → 反身代词用 <b>yourselves</b>（复数）。</p><p>第二空：<code>have a good time <b>doing</b> sth</code>（做某事很开心）→ <b>swimming</b>。</p><p>答案 <b>yourselves; swimming</b>。</p>" },
+
+/* ---------- 非谓语：混合 ---------- */
+{ id:"q9", type:"choice", src:"9", topic:"非谓语",
+  stem:"He wants ____ a pianist. So he practices ____ the piano every day.",
+  opts:["to; play","be; to play","to be; playing","to do; playing"], a:2,
+  ex:"<p><b>一句话考两个搭配：</b></p><p>第一空 <code>want <b>to do</b> sth</code>（想要做某事）→ <code>to be</code>（想成为一名钢琴家）。</p><p>第二空 <code>practise <b>doing</b> sth</code>（练习做某事）→ <code>playing</code>。</p><p>答案 <b>to be; playing</b>。</p>" },
+
+{ id:"q17", type:"choice", src:"17", topic:"非谓语",
+  stem:"I watched them ____ basketball just now.",
+  opts:["played","playing","to play"], a:1,
+  ex:"<p><b>感官动词的固定用法：</b><code>watch / see / hear / feel / notice sb <b>do</b> sth</code>（看全过程）或 <code>sb <b>doing</b> sth</code>（看到正在做）—— <b>都不能跟 to do</b> → 排除 C。</p><p>A 项 <code>played</code> 是过去式，句子已经有谓语 <code>watched</code> 了，不能再放一个 → 排除。</p><p>答案 <b>playing</b>：刚才看见他们<b>正在</b>打篮球。</p>" },
+
+/* ---------- 用所给词的适当形式填空 ---------- */
+{ id:"q21", type:"fill", src:"21", topic:"非谓语",
+  stem:"I can't help __1__ <span class='hintw'>(laugh)</span> when I watch <i>Tom and Jerry</i>.",
+  blanks:[{a:"laughing"}],
+  ex:"<p><code>can't help <b>doing</b> sth</code> = 忍不住做某事 → <b>laughing</b>。</p><p><b>别和这个搞混：</b><code>can't help <b>to do</b></code> 是“不能帮忙做某事”，意思完全不同。</p>" },
+
+{ id:"q22", type:"fill", src:"22", topic:"非谓语",
+  stem:"—Do you drink much coffee as before?<br>—No, none at all. Now my __1__ <span class='hintw'>(sleep)</span> problem is getting better.",
+  blanks:[{a:"sleeping"}],
+  ex:"<p>空后面是名词 <code>problem</code>，空里要填一个<b>修饰它的词</b> → 用<b>动名词作定语</b> → <b>sleeping</b> problem（睡眠问题）。</p><p><b>动名词作定语说明“用途、性质”：</b><code>sleeping bag</code> 睡袋、<code>swimming pool</code> 游泳池、<code>reading room</code> 阅览室。</p>" },
+
+{ id:"q23", type:"fill", src:"23", topic:"非谓语",
+  stem:"Some scientists believe that we could get ill from __1__ <span class='hintw'>(live)</span> on Mars.",
+  blanks:[{a:"living"}],
+  ex:"<p><code>from</code> 是<b>介词</b>，介词后面只能跟<b>动名词</b> → <b>living</b>。</p><p><b>这条规则最好用：</b>看到 <code>in / on / at / from / of / about / for / without / by</code> 后面要填动词，一律变 doing。</p>" },
+
+{ id:"q24", type:"fill", src:"24", topic:"非谓语",
+  stem:"__1__ <span class='hintw'>(travel)</span> in space is very exciting but uncomfortable.",
+  blanks:[{a:"Travelling", alt:["Traveling","To travel"]}],
+  ex:"<p>句子缺主语，谓语是 <code>is</code> → 用<b>动名词作主语</b> → <b>Travelling</b>（美式拼写 <code>Traveling</code> 也对）。</p><p><b>注意句首要大写。</b></p><p>不定式 <code>To travel</code> 作主语在语法上也成立，同样判对；但初中阶段动名词作主语更常见。</p>" },
+
+{ id:"q25", type:"fill", src:"25", topic:"非谓语",
+  stem:"We must stop the farmers from __1__ <span class='hintw'>(cut)</span> down the trees.",
+  blanks:[{a:"cutting"}],
+  ex:"<p><code>stop sb <b>from doing</b> sth</code> = 阻止某人做某事 → <b>cutting</b>。</p><p><code>cut</code> 是<b>重读闭音节</b>，变 doing 要<b>双写 t</b> → cutting。</p><p><b>同类句型：</b><code>keep / prevent sb from doing sth</code>。</p>" }
+];
+
+const STORE_KEY = "tumei-test-qingdong-feiweiyu-1-v1";
+let state = {};
+try { state = JSON.parse(localStorage.getItem(STORE_KEY) || "{}"); } catch(e){ state = {}; }
+const save = () => { try{ localStorage.setItem(STORE_KEY, JSON.stringify(state)); }catch(e){} };
+
+/* ---- 判题：文本规范化 ---- */
+function norm(s){
+  return (s||"").toLowerCase()
+    .replace(/[’‘]/g,"'").replace(/[“”]/g,'"')
+    .replace(/[.。,，;；!！?？]+$/,"")
+    .replace(/\s+/g," ").trim();
+}
+function lev(a,b){
+  const m=a.length,n=b.length; if(!m) return n; if(!n) return m;
+  let prev=Array.from({length:n+1},(_,j)=>j), cur=new Array(n+1);
+  for(let i=1;i<=m;i++){ cur[0]=i;
+    for(let j=1;j<=n;j++) cur[j]=Math.min(prev[j]+1, cur[j-1]+1, prev[j-1]+(a[i-1]===b[j-1]?0:1));
+    [prev,cur]=[cur,prev];
+  }
+  return prev[n];
+}
+/* 常见的词尾变化。两个词去掉公共前缀后，剩下的都在这个表里，
+   说明它们是同一个词的不同形式（continue / continues / continued），
+   那就是【词形·时态错】，不是【拼写错】——这两种要分开对待，
+   否则学生把 continues 填进一般过去时的空，却被告知“检查拼写”，就教反了。 */
+const INFLECT = ["", "s", "es", "d", "ed", "ing", "e", "y", "ies", "ied"];
+function sameWordDifferentForm(a, b){
+  if(!a || !b) return false;
+  let i = 0; while(i < a.length && i < b.length && a[i] === b[i]) i++;
+  if(i === 0) return false;
+  return INFLECT.indexOf(a.slice(i)) >= 0 && INFLECT.indexOf(b.slice(i)) >= 0;
+}
+
+/* 手滑：差一个字母，或者相邻两个字母打颠倒了（caugth / caught）。
+   这个判断永远排在 sameWordDifferentForm 后面，
+   所以 studyed（时态对、拼写不规范）会走到这里，continues（时态错）不会。 */
+function isTypo(a, b){
+  if(lev(a, b) <= 1 && Math.abs(a.length - b.length) <= 1) return true;
+  if(a.length === b.length){
+    for(let i = 0; i < a.length - 1; i++)
+      if(a.slice(0,i) + a[i+1] + a[i] + a.slice(i+2) === b) return true;
+  }
+  return false;
+}
+
+/* 返回 'ok' | 'form' | 'near' | 'no'
+   ok   = 对
+   form = 词形／时态错（判错，提示回去看时间状语）
+   near = 拼写差一个字母（不判错，可以改完再对一次）
+   no   = 错 */
+function checkText(input, blank){
+  const got = norm(input);
+  if(!got) return "no";
+  const pool = [blank.a].concat(blank.alt||[]).map(norm);
+  /* 首字母提示题：学生把首字母也打进去、或只补后半截，都算对 */
+  if(blank.pre) pool.push(...pool.slice().map(p => p.startsWith(norm(blank.pre)) ? p.slice(blank.pre.length) : p));
+  if(pool.indexOf(got) >= 0) return "ok";
+  /* 原封不动填了括号里的原形（sit → sat、make → made）→ 时态错，不是手滑。
+     这里只认「完全等于原形」，不能放宽到 study+ed，
+     否则 studyed 这种“时态对、拼写不规范”的会被误判成时态错。 */
+  const base = blank.base ? norm(blank.base) : "";
+  if(base && got === base) return "form";
+  if(pool.some(p => sameWordDifferentForm(got, p))) return "form";
+  if(pool.some(p => isTypo(got, p))) return "near";
+  return "no";
+}
+
+/* ---- 记录 ---- */
+const registry = [];   // {key, no, label, sec, stemText, ansText, exHtml, flag}
+
+/* 成绩单永远按【第一次作答】算 —— 看完解析再做一遍，练习价值保留，
+   但正确率不会被洗掉。firstOk 一旦写入就不再变，只有「重做」才清。 */
+function record(key, ok){
+  state[key] = state[key] || {};
+  state[key].done = true;
+  state[key].ok = ok;
+  if(state[key].firstOk === undefined) state[key].firstOk = ok;
+  save(); refreshTally();
+}
+
+/* 点「再做一遍」：清掉本次作答，但保住第一次的对错 */
+function resetQ(key){
+  const fo = (state[key] || {}).firstOk;
+  if(fo === undefined) delete state[key];
+  else state[key] = { firstOk: fo };
+  save();
+}
+
+/* 考试模式：单选也要先选后交，判分后不给重做（由各页面自己定义 EXAM_MODE） */
+const EXAM = (typeof EXAM_MODE !== "undefined") && EXAM_MODE;
+
+/* ---- 渲染：判断题 ---- */
+function renderJudge(){
+  const host = document.getElementById("mount-judge");
+  const card = document.createElement("div"); card.className = "q locked-none";
+  const inner = document.createElement("div");
+  BANK.judge.items.forEach((it, i) => {
+    const key = "j"+i;
+    const row = document.createElement("div"); row.className = "jrow"; row.id = "q-"+key;
+    row.innerHTML =
+      '<span class="w">'+it.w+'</span>'+
+      '<span class="jbtns">'+
+        '<button class="jb" data-v="1">是谓语</button>'+
+        '<button class="jb" data-v="0">不是</button>'+
+      '</span>'+
+      '<span class="why">'+it.ex+'</span>';
+    const btns = row.querySelectorAll(".jb");
+    btns.forEach(b => { if((b.dataset.v === "1") === it.a) b.classList.add("iscorrect"); });
+    const lock = (picked) => {
+      row.classList.add("done");
+      btns.forEach(b=>{
+        const v = b.dataset.v === "1";
+        b.classList.remove("sel","good","bad");
+        if(v === it.a) b.classList.add("good");
+        else if(picked !== null && (picked===v)) b.classList.add("bad");
+        b.disabled = true;
+      });
+    };
+    btns.forEach(b => b.addEventListener("click", () => {
+      const v = b.dataset.v === "1";
+      record(key, v === it.a);
+      lock(v);
+    }));
+    if(state[key] && state[key].done) lock(null);
+    registry.push({key, no:"判断"+(i+1), label:it.w, sec:"判断谓语",
+      stemText:it.w, ansText: it.a?"是谓语":"不是谓语", exHtml:it.ex});
+    inner.appendChild(row);
+  });
+  card.appendChild(inner);
+  const tip = document.createElement("div");
+  tip.className = "explain"; tip.style.display="block"; tip.innerHTML = BANK.judge.tip;
+  card.appendChild(tip);
+  host.appendChild(card);
+}
+
+/* ---- 渲染：点词标记 ---- */
+function renderMark(){
+  const host = document.getElementById("mount-mark");
+  BANK.mark.items.forEach((it, i) => {
+    const key = it.id;
+    const card = document.createElement("div"); card.className="q"; card.id = "q-"+key;
+    const head = document.createElement("div"); head.className="q-head";
+    head.innerHTML = '<span class="q-no">'+(i+1)+'</span><div class="q-stem" style="padding-top:0"></div>';
+    const stem = head.querySelector(".q-stem");
+    const sent = document.createElement("p"); sent.className="marksent"; sent.style.margin="0";
+    const toks = [];
+    let plainText = "";
+    it.parts.forEach(p => {
+      if(typeof p === "string"){ sent.appendChild(document.createTextNode(p)); plainText += p; }
+      else {
+        const s = document.createElement("span"); s.className="tok"; s.textContent = p.v;
+        s.dataset.p = p.p ? "1":"0";
+        s.addEventListener("click", () => {
+          if(card.classList.contains("locked")) return;
+          s.classList.toggle("sel");
+        });
+        sent.appendChild(s); toks.push(s);
+        plainText += "["+p.v+"]";
+      }
+    });
+    stem.appendChild(sent);
+    const lg = document.createElement("div"); lg.className="marklegend";
+    lg.innerHTML = '<span style="color:var(--ok)">■ 选对</span>　<span style="color:var(--warn)">■ 漏选（它也是谓语）</span>　<span style="color:var(--no)">■ 多选（它不是谓语）</span>';
+    stem.appendChild(lg);
+    card.appendChild(head);
+
+    const foot = document.createElement("div"); foot.className="q-foot";
+    foot.innerHTML = '<button class="go">对答案</button><span class="verdict"></span>'+
+                     '<button class="go ghost" style="display:none">再做一遍</button>';
+    const [btn, vd, again] = [foot.querySelector(".go"), foot.querySelector(".verdict"), foot.querySelectorAll(".go")[1]];
+    const ex = document.createElement("div"); ex.className="explain"; ex.innerHTML = it.ex;
+    card.appendChild(foot); card.appendChild(ex);
+
+    const grade = (silent) => {
+      let ok = true;
+      toks.forEach(s => {
+        const should = s.dataset.p === "1";
+        const picked = s.classList.contains("sel");
+        s.classList.remove("sel","r-hit","r-miss","r-over");
+        if(should && picked) s.classList.add("r-hit");
+        else if(should && !picked){ s.classList.add("r-miss"); ok = false; }
+        else if(!should && picked){ s.classList.add("r-over"); ok = false; }
+      });
+      card.classList.add("locked","reveal", ok?"correct":"wrong");
+      vd.className = "verdict show " + (ok?"v-ok":"v-no");
+      vd.textContent = ok ? "全对，谓语找准了" : "有出入，看下面的颜色";
+      btn.style.display="none"; again.style.display="";
+      if(!silent) record(key, ok);
+      return ok;
+    };
+    btn.addEventListener("click", () => grade(false));
+    again.addEventListener("click", () => {
+      toks.forEach(s => s.classList.remove("r-hit","r-miss","r-over","sel"));
+      card.classList.remove("locked","reveal","correct","wrong");
+      vd.className="verdict"; btn.style.display=""; again.style.display="none";
+      resetQ(key); refreshTally();
+    });
+    if(state[key] && state[key].done){
+      toks.forEach(s => { if(s.dataset.p==="1") s.classList.add("sel"); });
+      grade(true);
+      if(!state[key].ok){ card.classList.remove("correct"); card.classList.add("wrong");
+        vd.className="verdict show v-no"; vd.textContent="上次做错了，可点「再做一遍」"; }
+    }
+    registry.push({key, no:"勾画"+(i+1), sec:"勾画谓语", stemText:plainText,
+      ansText: it.parts.filter(p=>typeof p!=="string" && p.p).map(p=>p.v).join(" / "), exHtml:it.ex});
+    host.appendChild(card);
+  });
+}
+
+/* ---- 渲染：选择 / 填空 ---- */
+function renderQ(q, host, secName){
+  const card = document.createElement("div"); card.className="q"; card.id = "q-"+q.id;
+  const head = document.createElement("div"); head.className="q-head";
+  const noTxt = (q.star?"*":"") + q.no;
+  head.innerHTML = '<span class="q-no">'+noTxt+'</span><div class="q-stem"></div>';
+  const stem = head.querySelector(".q-stem");
+  card.appendChild(head);
+
+  const foot = document.createElement("div"); foot.className="q-foot";
+  const ex = document.createElement("div"); ex.className="explain"; ex.innerHTML = q.ex;
+  const flag = document.createElement("div");
+
+  let ansText = "";
+
+  if(q.type === "choice"){
+    stem.innerHTML = q.stem;
+    const ul = document.createElement("ul");
+    /* 偶数个短选项才排两列，避免出现落单的一行 */
+    ul.className = "opts" + (q.opts.length % 2 === 0 && q.opts.every(o=>o.length<18) ? " two" : "");
+    const lis = [];
+    let picked = -1;
+    q.opts.forEach((o, i) => {
+      const li = document.createElement("li"); li.className="opt";
+      li.innerHTML = '<span class="k">'+"ABCD"[i]+'</span><span>'+o+'</span>';
+      li.addEventListener("click", () => {
+        if(card.classList.contains("locked")) return;
+        lis.forEach(x=>x.classList.remove("picked"));
+        li.classList.add("picked");
+        picked = i;
+        if(!EXAM) gradeChoice(i, false);     /* 讲义：点了就判；考试：等点「对答案」 */
+      });
+      ul.appendChild(li); lis.push(li);
+    });
+    stem.appendChild(ul);
+    ansText = "ABCD"[q.a] + ". " + q.opts[q.a];
+
+    foot.innerHTML = EXAM
+      ? '<button class="go">对答案</button><span class="verdict"></span>'
+      : '<span class="verdict"></span><button class="go ghost" style="display:none">再做一遍</button>';
+    const vd = foot.querySelector(".verdict");
+    const subBtn = EXAM ? foot.querySelector(".go") : null;
+    const again  = EXAM ? null : foot.querySelector(".go");
+
+    function gradeChoice(pick, silent){
+      const ok = pick === q.a;
+      lis.forEach((x,i)=>{ x.classList.remove("picked");
+        if(i===q.a) x.classList.add("is-ok");
+        else if(i===pick) x.classList.add("is-no"); });
+      card.classList.add("locked","reveal", ok?"correct":"wrong");
+      vd.className="verdict show "+(ok?"v-ok":"v-no");
+      vd.textContent = ok ? "对了" : "选错了，看解析";
+      if(subBtn) subBtn.style.display = "none";
+      if(again)  again.style.display = "";
+      if(!silent){ record(q.id, ok); state[q.id].pick = pick; save(); }
+    }
+    if(subBtn) subBtn.addEventListener("click", () => {
+      if(picked < 0){ vd.className = "verdict show v-near"; vd.textContent = "先选一个答案"; return; }
+      gradeChoice(picked, false);
+    });
+    if(again) again.addEventListener("click", () => {
+      lis.forEach(x=>x.classList.remove("is-ok","is-no","picked"));
+      card.classList.remove("locked","reveal","correct","wrong");
+      vd.className="verdict"; again.style.display="none";
+      resetQ(q.id); refreshTally();
+    });
+    if(state[q.id] && state[q.id].done)
+      gradeChoice(state[q.id].pick !== undefined ? state[q.id].pick : (state[q.id].ok ? q.a : -1), true);
+
+  } else if(q.type === "sentence"){   /* 连词成句：给一堆打乱的词，写出完整句子 */
+    stem.innerHTML = q.stem || "";
+    const box = document.createElement("div"); box.className = "wordbank";
+    const line = document.createElement("input");
+    line.className = "sentline"; line.autocomplete = "off"; line.spellcheck = false;
+    q.words.forEach(w => {
+      const chip = document.createElement("button");
+      chip.type = "button"; chip.className = "wb"; chip.textContent = w;
+      chip.addEventListener("click", () => {
+        if(card.classList.contains("locked")) return;
+        line.value = (line.value.trim() + " " + w).trim();
+        line.focus();
+      });
+      box.appendChild(chip);
+    });
+    const tip = document.createElement("div"); tip.className = "wb-tip";
+    tip.textContent = "点词可以按顺序拼进下面的横线里；大小写和标点不计较，词序错了才算错。";
+    box.appendChild(tip);
+    stem.appendChild(box); stem.appendChild(line);
+    const ansLine = document.createElement("div"); ansLine.className = "sentans";
+    stem.appendChild(ansLine);
+    ansText = [q.a].concat(q.alt || []).join("　或　");
+
+    foot.innerHTML = '<button class="go">对答案</button><span class="verdict"></span>'+
+                     '<span style="flex:1"></span>'+
+                     '<button class="go ghost" data-a="clear">清空</button>'+
+                     (EXAM ? '' : '<button class="go ghost" data-a="redo" style="display:none">再做一遍</button>');
+    const btn = foot.querySelector(".go"), vd = foot.querySelector(".verdict"),
+          clr = foot.querySelector('[data-a="clear"]'), redo = foot.querySelector('[data-a="redo"]');
+
+    const normSent = v => norm(v).replace(/[.?!,;:'"“”‘’]/g, "").replace(/\s+/g, " ").trim();
+    const wordSet  = v => normSent(v).split(" ").filter(Boolean).sort().join("|");
+
+    const grade = (silent) => {
+      const got = normSent(line.value);
+      const pool = [q.a].concat(q.alt || []).map(normSent);
+      const ok = pool.indexOf(got) >= 0;
+      line.classList.remove("is-ok","is-no");
+      line.classList.add(ok ? "is-ok" : "is-no");
+      line.disabled = true;
+      card.classList.add("locked","reveal", ok ? "correct" : "wrong");
+      vd.className = "verdict show " + (ok ? "v-ok" : "v-no");
+      if(ok) vd.textContent = "对了";
+      else {
+        /* 用的词对不对、只是顺序错了？分开说，学生才知道错在哪 */
+        const sameWords = pool.some(p => wordSet(p) === wordSet(got));
+        vd.textContent = got ? (sameWords ? "词都用对了，是语序不对。" : "用的词对不上，检查有没有漏词或多词。") : "还没写。";
+        ansLine.innerHTML = "答案：" + [q.a].concat(q.alt || []).join("<br>答案：");
+      }
+      btn.style.display = "none"; clr.style.display = "none"; if(redo) redo.style.display = "";
+      if(!silent) record(q.id, ok);
+    };
+    btn.addEventListener("click", () => grade(false));
+    line.addEventListener("keydown", e => { if(e.key === "Enter") grade(false); });
+    clr.addEventListener("click", () => { line.value = ""; line.focus(); });
+    if(redo) redo.addEventListener("click", () => {
+      line.disabled = false; line.value = ""; line.classList.remove("is-ok","is-no");
+      ansLine.innerHTML = "";
+      card.classList.remove("locked","reveal","correct","wrong");
+      vd.className = "verdict"; btn.style.display = ""; clr.style.display = ""; redo.style.display = "none";
+      resetQ(q.id); refreshTally();
+    });
+    if(state[q.id] && state[q.id].done){
+      if(state[q.id].ok) line.value = q.a;
+      grade(true);
+      if(!state[q.id].ok){ card.classList.remove("correct"); card.classList.add("wrong");
+        vd.className = "verdict show v-no"; vd.textContent = "上次没写对，可点「再做一遍」"; }
+    }
+    card._fill = () => { if(!line.disabled) line.value = q.a; };
+
+  } else { /* fill */
+    let html = q.stem;
+    const inputs = [];
+    /* 把题干里 (sit)(begin) 这类括号提示识别出来，作为该空的原形，
+       用于区分“填了原形”（时态错）和“打错字”（拼写错）。
+       中文括号（表扬）和 (树皮) 不会被匹配到。 */
+    const hints = (q.stem.match(/\(([a-zA-Z]+)\)/g) || []).map(h => h.slice(1, -1));
+    if(hints.length === q.blanks.length) q.blanks.forEach((b, i) => { if(!b.base) b.base = hints[i]; });
+    q.blanks.forEach((b, i) => {
+      const pre = b.pre ? '<span style="font-family:var(--serif)">'+b.pre+'</span>' : "";
+      html = html.replace("__"+(i+1)+"__",
+        pre+'<input class="blank'+(b.a.length>10?" wide":"")+'" data-i="'+i+'" autocomplete="off" autocapitalize="off" spellcheck="false">');
+    });
+    stem.innerHTML = html;
+    stem.querySelectorAll(".blank").forEach(el => inputs.push(el));
+
+    /* 选词填空：题干上方给一个词框，点词直接填进空里（形式还得自己改） */
+    if(q.bank){
+      const box = document.createElement("div"); box.className = "wordbank";
+      q.bank.forEach(w => {
+        const chip = document.createElement("button");
+        chip.type = "button"; chip.className = "wb"; chip.textContent = w;
+        chip.addEventListener("click", () => {
+          if(card.classList.contains("locked")) return;
+          const tgt = inputs.filter(el => !el.disabled && !el.value)[0] || inputs[0];
+          if(tgt){ tgt.value = w; tgt.focus(); }
+          box.querySelectorAll(".wb").forEach(c => c.classList.remove("used"));
+          inputs.forEach(el => box.querySelectorAll(".wb").forEach(c => {
+            if(norm(c.textContent) && norm(el.value).indexOf(norm(c.textContent)) === 0) c.classList.add("used");
+          }));
+        });
+        box.appendChild(chip);
+      });
+      const tip = document.createElement("div"); tip.className = "wb-tip";
+      tip.textContent = "从上面选一个词填进空里 —— 点一下就能填，但别忘了改成正确的形式。";
+      box.appendChild(tip);
+      stem.insertBefore(box, stem.firstChild);
+    }
+    ansText = q.blanks.map(b => b.a + (b.alt&&b.alt.length ? "（也可：" + b.alt.join(" / ") + "）" : "")).join(" ／ ");
+
+    foot.innerHTML = '<button class="go">对答案</button><span class="verdict"></span>'+
+                     (EXAM ? '' : '<button class="go ghost" style="display:none">再做一遍</button>');
+    const btn = foot.querySelector(".go"), vd = foot.querySelector(".verdict"),
+          again = EXAM ? null : foot.querySelectorAll(".go")[1];
+
+    const grade = (silent) => {
+      let allOk = true, anyNear = false, anyHard = false, anyForm = false;
+      inputs.forEach((el, i) => {
+        const r = checkText(el.value, q.blanks[i]);
+        el.classList.remove("is-ok","is-no","is-near");
+        if(r === "ok"){ el.classList.add("is-ok"); return; }
+        allOk = false;
+        if(r === "near"){ anyNear = true; el.classList.add("is-near"); }
+        else { anyHard = true; el.classList.add("is-no"); if(r === "form") anyForm = true; }
+      });
+      inputs.forEach(el => { el.disabled = true; });
+      card.classList.add("locked","reveal", allOk?"correct":"wrong");
+      /* 拼写差一点也算错，只是把话说得准一点，让学生知道错在哪一层 */
+      let note = "";
+      if(anyForm) note = "词形不对，先回去看时间状语定时态。";
+      else if(anyNear && !anyHard) note = "思路对了，拼写再检查一下。";
+      vd.className = "verdict show " + (allOk ? "v-ok" : (anyNear && !anyHard ? "v-near" : "v-no"));
+      vd.innerHTML = allOk ? "对了"
+        : note + '答案：<span class="ansline">'+q.blanks.map(b=>b.a).join(" / ")+"</span>";
+      btn.style.display="none"; if(again) again.style.display="";
+      if(!silent) record(q.id, allOk);
+    };
+    btn.addEventListener("click", () => grade(false));
+    inputs.forEach(el => el.addEventListener("keydown", e => { if(e.key==="Enter") grade(false); }));
+    if(again) again.addEventListener("click", () => {
+      inputs.forEach(el => { el.disabled=false; el.value=""; el.classList.remove("is-ok","is-no"); });
+      card.classList.remove("locked","reveal","correct","wrong");
+      vd.className="verdict"; btn.style.display=""; again.style.display="none";
+      resetQ(q.id); refreshTally();
+    });
+    if(state[q.id] && state[q.id].done){
+      if(state[q.id].ok) inputs.forEach((el,i)=>{ el.value = q.blanks[i].a; });
+      grade(true);
+      if(!state[q.id].ok){ card.classList.remove("correct"); card.classList.add("wrong");
+        vd.className="verdict show v-no";
+        vd.innerHTML = '上次做错了。答案：<span class="ansline">'+q.blanks.map(b=>b.a).join(" / ")+"</span>"; }
+    }
+    card._fill = () => inputs.forEach((el,i)=>{ if(!el.disabled) el.value = q.blanks[i].a; });
+  }
+
+  card.appendChild(foot); card.appendChild(ex);
+  host.appendChild(card);
+  registry.push({key:q.id, no:noTxt, sec:secName,
+    stemText: q.stem.replace(/<[^>]+>/g,"").replace(/__\d+__/g,"____").replace(/\s+/g," ").trim() +
+              (q.type==="choice" ? "　"+q.opts.map((o,i)=>"ABCD"[i]+". "+o).join("  ") : ""),
+    ansText, exHtml:q.ex, flag:q.flag});
+}
+
+/* ---- 不规则动词表 ---- */
+
+/* ================================================================
+   随机抽题控制
+   ================================================================ */
+const K_SEEN = "__seen", K_BATCH = "__batch";
+const BATCH_SIZE = 15;
+
+/* 抽一批：
+   先把本轮还没做过的抽进来；不够 15 题就开新一轮，
+   从剩下的题里补齐（补进来的算新一轮的进度）。
+   这样 25 题的库配 15 题一批，第二批一定会包含上一批漏下的那 10 题。 */
+function drawBatch(){
+  const all = BANK.map(q => q.id);
+  const n = Math.min(BATCH_SIZE, all.length);
+  let seen = Array.isArray(state[K_SEEN]) ? state[K_SEEN] : [];
+  let unseen = all.filter(id => seen.indexOf(id) < 0);
+
+  const pick = [];
+  while(pick.length < n && unseen.length)
+    pick.push(unseen.splice(Math.floor(Math.random() * unseen.length), 1)[0]);
+
+  if(pick.length < n){                       /* 本轮抽完了，开新一轮 */
+    const carried = pick.length;             /* 上一轮漏下的这几题 */
+    let rest = all.filter(id => pick.indexOf(id) < 0);
+    while(pick.length < n && rest.length)
+      pick.push(rest.splice(Math.floor(Math.random() * rest.length), 1)[0]);
+    seen = pick.slice(carried);              /* 新一轮的进度只算补进来的 */
+  } else {
+    seen = seen.concat(pick);
+  }
+
+  for(let i = pick.length - 1; i > 0; i--){  /* 批内再洗一次牌 */
+    const j = Math.floor(Math.random() * (i + 1));
+    const t = pick[i]; pick[i] = pick[j]; pick[j] = t;
+  }
+
+  (state[K_BATCH] || []).forEach(id => { delete state[id]; });
+  state[K_SEEN] = seen;
+  state[K_BATCH] = pick;
+  save();
+}
+
+function renderBatch(){
+  const host = document.getElementById("mount");
+  host.innerHTML = "";
+  registry.length = 0;
+  state[K_BATCH].forEach((id, i) => {
+    const q = BANK.filter(x => x.id === id)[0];
+    const shown = {};
+    for(const k in q) shown[k] = q[k];
+    shown.no = String(i + 1);                                 /* 批内重新编号 */
+    renderQ(shown, host, q.topic);
+    const card = document.getElementById("q-" + q.id);
+    const tag = document.createElement("span");
+    tag.className = "batchtag"; tag.textContent = q.topic + " · 原卷第 " + q.src + " 题";
+    card.querySelector(".q-stem").appendChild(tag);
+  });
+  try{ window.scrollTo({ top: 0, behavior: "smooth" }); }catch(e){ try{ window.scrollTo(0,0); }catch(e2){} }
+  refreshTally();
+}
+
+/* 本页的成绩统计（题目每批都换，所以只统计本批 + 题库覆盖） */
+function refreshTally(){
+  const total = registry.length;
+  const done  = registry.filter(r => state[r.key] && state[r.key].firstOk !== undefined);
+  const ok    = done.filter(r => state[r.key].firstOk === true);
+  const bad   = done.filter(r => state[r.key].firstOk !== true);
+
+  document.getElementById("ptext").textContent = done.length + " / " + total;
+  document.getElementById("pbar").style.width = (total ? done.length / total * 100 : 0) + "%";
+  document.getElementById("sDone").textContent = done.length;
+  document.getElementById("sOk").textContent   = ok.length;
+  document.getElementById("sNo").textContent   = bad.length;
+  document.getElementById("sRate").textContent = done.length ? Math.round(ok.length / done.length * 100) + "%" : "—";
+
+  const seen = (state[K_SEEN] || []).length, lib = BANK.length;
+  document.getElementById("coverTxt").textContent = "题库 " + lib + " 题，本轮已抽 " + seen + " 题";
+  document.getElementById("coverBar").style.width = (seen / lib * 100) + "%";
+
+  const t = document.getElementById("tallyTitle"), s = document.getElementById("tallySub");
+  if(!done.length){ t.textContent = "本批还没开始"; s.textContent = "答完题目后，这里会汇总本批的正确率和错题。"; }
+  else if(done.length < total){ t.textContent = "本批进行中"; s.textContent = "还剩 " + (total - done.length) + " 题没做。"; }
+  else {
+    const rate = Math.round(ok.length / total * 100);
+    t.textContent = rate >= 90 ? "本批做完 · 很稳" : rate >= 75 ? "本批做完 · 不错" : "本批做完 · 错题要过一遍";
+    s.textContent = bad.length ? "先把下面的错题逐条看完解析，再点「换一批」。" : "全对，可以点「换一批」继续。";
+  }
+
+  const ul = document.getElementById("wrongList");
+  if(!bad.length){ ul.innerHTML = '<li class="empty" style="border:none">' + (done.length ? "本批没有错题，漂亮。" : "暂无错题。") + "</li>"; }
+  else ul.innerHTML = bad.map(r =>
+    '<li><span class="tag">' + r.sec + '</span><a href="#q-' + r.key + '">第 ' + r.no + ' 题</a>　' +
+    '<span style="color:var(--ink-2)">' + (r.stemText.length > 62 ? r.stemText.slice(0, 62) + "…" : r.stemText) + '</span></li>'
+  ).join("");
+}
+
+/* ---- 启动 ---- */
+(function(){
+  if(!Array.isArray(state[K_BATCH]) || state[K_BATCH].length !== Math.min(BATCH_SIZE, BANK.length))
+    drawBatch();
+  renderBatch();
+
+  document.getElementById("btnNew").addEventListener("click", () => { drawBatch(); renderBatch(); });
+  document.getElementById("btnNew2").addEventListener("click", () => { drawBatch(); renderBatch(); });
+  document.getElementById("btnReset").addEventListener("click", () => {
+    if(!confirm("清空所有作答记录和抽题进度，重新开始？")) return;
+    try{ localStorage.removeItem(STORE_KEY); }catch(e){}
+    location.reload();
+  });
+})();
+
+</script>
+</body>
+</html>
