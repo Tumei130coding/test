@@ -387,10 +387,11 @@ a.card .idx{
 }
 a.card:hover .idx{background:var(--accent-soft); color:var(--accent)}
 a.card .txt{flex:1; min-width:0}
-a.card .t{font-size:16px; color:var(--ink); font-weight:600; margin-bottom:2px}
-a.card .s{font-size:12.5px; color:var(--ink-3)}
-a.card .go{flex:0 0 auto; color:var(--ink-3); font-size:18px}
-a.card:hover .go{color:var(--accent)}
+/* 注意：不能用 .go 当类名 —— 引擎样式里 .go 是黑色圆角按钮，会串味 */
+a.card .t{display:block; font-size:16px; color:var(--ink); font-weight:600; margin-bottom:3px; line-height:1.4}
+a.card .s{display:block; font-size:12.5px; color:var(--ink-3); line-height:1.5}
+a.card .arrow{flex:0 0 auto; color:var(--line); font-size:22px; line-height:1}
+a.card:hover .arrow{color:var(--accent)}
 .tip{
   background:var(--accent-soft); border-left:3px solid var(--accent); border-radius:8px;
   padding:13px 16px; margin:22px 0 0; font-size:13.5px; color:var(--ink-2); line-height:1.85;
@@ -417,7 +418,7 @@ a.card:hover .go{color:var(--accent)}
     <a class="card" href="ceshi-qingdong-feiweiyu/">
       <span class="idx">01</span>
       <span class="txt"><span class="t">情态动词 ＋ 非谓语动词</span><span class="s">随机练习 · 题库 25 题 · 每批随机抽 15 题，可无限换一批</span></span>
-      <span class="go">›</span>
+      <span class="arrow">›</span>
     </a>
   </div>
   <div class="grp">初中语法 · 三看三定<span>一看时间定时态　二看主语定单复数　三看主被动定语态</span></div>
@@ -425,62 +426,62 @@ a.card:hover .go{color:var(--accent)}
     <a class="card" href="sjsd-00-panduan-weiyu/">
       <span class="idx">02</span>
       <span class="txt"><span class="t">判断谓语 ＋ 一般过去时</span><span class="s">讲义 P1–P7 · 49 个判分点</span></span>
-      <span class="go">›</span>
+      <span class="arrow">›</span>
     </a>
     <a class="card" href="sjsd-01-yiban-xianzai/">
       <span class="idx">03</span>
       <span class="txt"><span class="t">一般现在时</span><span class="s">讲义 P8–P10 · 32 个判分点</span></span>
-      <span class="go">›</span>
+      <span class="arrow">›</span>
     </a>
     <a class="card" href="sjsd-02-yiban-jianglai/">
       <span class="idx">04</span>
       <span class="txt"><span class="t">一般将来时</span><span class="s">讲义 P10–P13 · 34 个判分点</span></span>
-      <span class="go">›</span>
+      <span class="arrow">›</span>
     </a>
     <a class="card" href="sjsd-03-xianzai-jinxing/">
       <span class="idx">05</span>
       <span class="txt"><span class="t">现在进行时</span><span class="s">讲义 P13–P15 · 27 个判分点</span></span>
-      <span class="go">›</span>
+      <span class="arrow">›</span>
     </a>
     <a class="card" href="sjsd-04-guoqu-jinxing/">
       <span class="idx">06</span>
       <span class="txt"><span class="t">过去进行时</span><span class="s">讲义 P15–P18 · 26 个判分点</span></span>
-      <span class="go">›</span>
+      <span class="arrow">›</span>
     </a>
     <a class="card" href="sjsd-05-xianzai-wancheng/">
       <span class="idx">07</span>
       <span class="txt"><span class="t">现在完成时</span><span class="s">讲义 P18–P20 · 29 个判分点</span></span>
-      <span class="go">›</span>
+      <span class="arrow">›</span>
     </a>
     <a class="card" href="sjsd-06-guoqu-vs-wancheng/">
       <span class="idx">08</span>
       <span class="txt"><span class="t">一般过去时 vs 现在完成时</span><span class="s">讲义 P20 · 13 个判分点</span></span>
-      <span class="go">›</span>
+      <span class="arrow">›</span>
     </a>
     <a class="card" href="sjsd-07-zhu-beidong/">
       <span class="idx">09</span>
       <span class="txt"><span class="t">主被动判断</span><span class="s">讲义 P20–P21 · 8 个判分点</span></span>
-      <span class="go">›</span>
+      <span class="arrow">›</span>
     </a>
     <a class="card" href="sjsd-08-danfu-therebe/">
       <span class="idx">10</span>
       <span class="txt"><span class="t">单复判断（There be 句型）</span><span class="s">讲义 P21–P22 · 10 个判分点</span></span>
-      <span class="go">›</span>
+      <span class="arrow">›</span>
     </a>
     <a class="card" href="sjsd-09-therebe-juxing/">
       <span class="idx">11</span>
       <span class="txt"><span class="t">There be 句型</span><span class="s">讲义 P22–P24 · 20 个判分点</span></span>
-      <span class="go">›</span>
+      <span class="arrow">›</span>
     </a>
     <a class="card" href="sjsd-10-danfu-nan/">
       <span class="idx">12</span>
       <span class="txt"><span class="t">单复判断 · 难</span><span class="s">讲义 P24–P25 · 14 个判分点</span></span>
-      <span class="go">›</span>
+      <span class="arrow">›</span>
     </a>
     <a class="card" href="sjsd-11-zongfuxi/">
       <span class="idx">13</span>
       <span class="txt"><span class="t">三看三定总复习</span><span class="s">讲义 P26–P28 · 29 个判分点</span></span>
-      <span class="go">›</span>
+      <span class="arrow">›</span>
     </a>
   </div>
 
