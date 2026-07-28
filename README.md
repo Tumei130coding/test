@@ -17,6 +17,18 @@
 | There be 句型 | [打开](https://tumei130coding.github.io/test/sjsd-09-therebe-juxing/) |
 | 单复判断 · 难 | [打开](https://tumei130coding.github.io/test/sjsd-10-danfu-nan/) |
 | 三看三定总复习 | [打开](https://tumei130coding.github.io/test/sjsd-11-zongfuxi/) |
+| 人称代词 | [打开](https://tumei130coding.github.io/test/dgm-01-rencheng-daici/) |
+| 易混词的区分 | [打开](https://tumei130coding.github.io/test/dgm-02-yihunci/) |
+| 冠词的区分 | [打开](https://tumei130coding.github.io/test/dgm-03-guanci/) |
+| 可数名词不裸奔 | [打开](https://tumei130coding.github.io/test/dgm-04-mingci/) |
+| and 是天平 | [打开](https://tumei130coding.github.io/test/dgm-05-and-tianping/) |
+| 时间介词 in / on / at | [打开](https://tumei130coding.github.io/test/dgm-06-jieci-on-tian/) |
+| 其他常用介词 | [打开](https://tumei130coding.github.io/test/dgm-07-qita-jieci/) |
+| 形容词 ＋ 名词 | [打开](https://tumei130coding.github.io/test/xf-01-xingrongci-mingci/) |
+| 名词所有格 | [打开](https://tumei130coding.github.io/test/xf-02-mingci-suoyouge/) |
+| 比较级 · 最高级 | [打开](https://tumei130coding.github.io/test/xf-03-bijiaoji-zuigaoji/) |
+| 副词修饰动词 | [打开](https://tumei130coding.github.io/test/xf-04-fuci-dongci/) |
+| 副词修饰形容词 | [打开](https://tumei130coding.github.io/test/xf-05-fuci-xingrongci/) |
 
 ## 说明
 

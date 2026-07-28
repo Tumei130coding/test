@@ -701,8 +701,11 @@ function checkText(input, blank){
   /* 原封不动填了括号里的原形（sit → sat、make → made）→ 时态错，不是手滑。
      这里只认「完全等于原形」，不能放宽到 study+ed，
      否则 studyed 这种“时态对、拼写不规范”的会被误判成时态错。 */
-  const base = blank.base ? norm(blank.base) : "";
-  if(base && got === base) return "form";
+  const bases = blank.base ? [].concat(blank.base).map(norm) : [];
+  if(bases.indexOf(got) >= 0) return "form";
+  /* 撇号位置错／漏了撇号（students ↔ students' ↔ student's）是知识点错，不是手滑，
+     所以要抢在 isTypo 前面判成 form */
+  if(pool.some(p => p.indexOf("'") >= 0 && p.replace(/'/g,"") === got.replace(/'/g,""))) return "form";
   if(pool.some(p => sameWordDifferentForm(got, p))) return "form";
   if(pool.some(p => isTypo(got, p))) return "near";
   return "no";
@@ -1048,7 +1051,8 @@ function renderQ(q, host, secName){
       card.classList.add("locked","reveal", allOk?"correct":"wrong");
       /* 拼写差一点也算错，只是把话说得准一点，让学生知道错在哪一层 */
       let note = "";
-      if(anyForm) note = "词形不对，先回去看时间状语定时态。";
+      /* 各讲主题不同，词形错的提示可以由题库用 MSG_FORM 覆盖 */
+      if(anyForm) note = (typeof MSG_FORM !== "undefined") ? MSG_FORM : "词形不对，先回去看时间状语定时态。";
       else if(anyNear && !anyHard) note = "思路对了，拼写再检查一下。";
       vd.className = "verdict show " + (allOk ? "v-ok" : (anyNear && !anyHard ? "v-near" : "v-no"));
       vd.innerHTML = allOk ? "对了"
