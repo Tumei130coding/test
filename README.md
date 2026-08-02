@@ -55,6 +55,10 @@
 | 初级语法-疑问词3-从句类型与开头词 | [打开](https://tumei130coding.github.io/test/yw-03-leixing-kaitou/) |
 | 初级语法-疑问词4-逻辑词的区分 | [打开](https://tumei130coding.github.io/test/yw-04-luojici/) |
 | 初级语法-疑问词5-更多习题 | [打开](https://tumei130coding.github.io/test/yw-05-gengduo/) |
+| 初级语法-祈使感叹1-祈使句 | [打开](https://tumei130coding.github.io/test/qs-01-qishiju/) |
+| 初级语法-祈使感叹2-祈使句更多习题 | [打开](https://tumei130coding.github.io/test/qs-02-qishiju-gengduo/) |
+| 初级语法-祈使感叹3-感叹句 | [打开](https://tumei130coding.github.io/test/qs-03-gantanju/) |
+| 初级语法-祈使感叹4-感叹句更多习题 | [打开](https://tumei130coding.github.io/test/qs-04-gantanju-gengduo/) |
 | 初级语法-不规则动词1-过去式过去分词 | [打开](https://tumei130coding.github.io/test/verb-drill/) |
 
 ---

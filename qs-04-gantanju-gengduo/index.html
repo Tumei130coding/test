@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>感叹句 · 更多习题 · 初级语法 祈使感叹（交互版）</title>
+<style>
+:root{
+  --ink:#1f2328; --ink-2:#4a5158; --ink-3:#8b939b;
+  --paper:#faf9f7; --card:#ffffff; --line:#e6e2dc;
+  --accent:#c0392b; --accent-soft:#fdf1ef;
+  --ok:#15803d; --ok-soft:#eefaf1; --ok-line:#b7e4c7;
+  --no:#c62828; --no-soft:#fdf0ef; --no-line:#f2c4c0;
+  --warn:#b45309; --warn-soft:#fff8e8;
+  --radius:10px;
+  --serif:"Georgia","Times New Roman","Songti SC",serif;
+  --sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--paper); color:var(--ink);
+  font-family:var(--sans); font-size:16px; line-height:1.7;
+  -webkit-text-size-adjust:100%;
+}
+img{max-width:100%}
+
+/* ---------- 页眉 ---------- */
+.brandbar{
+  position:sticky; top:0; z-index:40;
+  background:rgba(250,249,247,.94); backdrop-filter:saturate(1.4) blur(8px);
+  border-bottom:1px solid var(--line);
+}
+.brandbar-in{
+  max-width:860px; margin:0 auto; padding:10px 18px;
+  display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+}
+.brand{font-size:13px; letter-spacing:.06em; color:var(--ink-2); white-space:nowrap}
+.brand b{color:var(--accent); font-weight:700}
+.brand span{color:var(--ink-3)}
+.bar-spacer{flex:1}
+.progwrap{display:flex; align-items:center; gap:8px; font-size:12px; color:var(--ink-2)}
+.progbar{width:110px; height:6px; border-radius:99px; background:#e9e5df; overflow:hidden}
+.progbar i{display:block; height:100%; width:0; background:var(--accent); transition:width .3s}
+.tbtn{
+  font:inherit; font-size:12px; padding:4px 10px; border-radius:99px;
+  border:1px solid var(--line); background:var(--card); color:var(--ink-2); cursor:pointer;
+}
+.tbtn:hover{border-color:var(--ink-3)}
+.tbtn.on{background:var(--ink); color:#fff; border-color:var(--ink)}
+
+/* ---------- 目录 ---------- */
+nav.toc{
+  max-width:860px; margin:0 auto; padding:0 18px;
+  display:flex; gap:6px; overflow-x:auto; scrollbar-width:none;
+  border-bottom:1px solid var(--line); background:var(--paper);
+  position:sticky; top:43px; z-index:39;
+}
+nav.toc::-webkit-scrollbar{display:none}
+nav.toc a{
+  flex:0 0 auto; padding:9px 12px; font-size:13px; color:var(--ink-2);
+  text-decoration:none; border-bottom:2px solid transparent; white-space:nowrap;
+}
+nav.toc a.active{color:var(--accent); border-bottom-color:var(--accent); font-weight:600}
+
+/* ---------- 主体 ---------- */
+main{max-width:860px; margin:0 auto; padding:26px 18px 90px}
+h1.doc{font-size:26px; margin:8px 0 4px; letter-spacing:.02em}
+.doc-sub{color:var(--ink-3); font-size:13px; margin:0 0 26px}
+
+section.chap{margin:0 0 44px; scroll-margin-top:96px}
+h2.chap-t{
+  font-size:19px; color:var(--accent); margin:0 0 4px;
+  display:flex; align-items:center; gap:10px;
+}
+h2.chap-t .n{
+  font-size:12px; font-weight:700; color:#fff; background:var(--accent);
+  border-radius:4px; padding:1px 7px; letter-spacing:.04em;
+}
+.chap-lead{color:var(--ink-2); font-size:14px; margin:0 0 18px}
+
+.block-t{
+  font-size:14px; font-weight:700; color:var(--ink-2); margin:30px 0 12px;
+  padding-bottom:6px; border-bottom:1px dashed var(--line);
+  display:flex; align-items:baseline; gap:8px;
+}
+.block-t em{font-style:normal; font-weight:400; color:var(--ink-3); font-size:12px}
+
+/* 二维码：做成右侧小胶囊，不参与正文排版，点开可放大 */
+.qr{
+  margin-left:auto; flex:0 0 auto; display:inline-flex; align-items:center; gap:7px;
+  padding:4px 10px 4px 5px; border:1px solid var(--line); border-radius:99px;
+  background:var(--card); cursor:zoom-in; align-self:center;
+}
+.qr:hover{border-color:var(--accent)}
+.qr img{width:30px; height:30px; display:block; border-radius:4px; background:#fff}
+.qr small{font-size:11.5px; color:var(--ink-3); white-space:nowrap}
+.qr:hover small{color:var(--accent)}
+.qr-modal{
+  position:fixed; inset:0; z-index:100; background:rgba(20,20,20,.72);
+  display:none; align-items:center; justify-content:center; padding:24px;
+}
+.qr-modal.show{display:flex}
+.qr-modal img{width:min(78vw,340px); background:#fff; padding:14px; border-radius:12px}
+.qr-modal p{color:#fff; font-size:13px; text-align:center; margin:14px 0 0}
+
+/* 参考卡片 */
+.ref{
+  background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+  padding:0; margin:14px 0 22px; overflow:hidden;
+}
+.ref>summary{
+  cursor:pointer; padding:12px 16px; font-size:14px; font-weight:600; color:var(--ink-2);
+  list-style:none; display:flex; align-items:center; gap:8px;
+}
+.ref>summary::-webkit-details-marker{display:none}
+.ref>summary::before{content:"▸"; color:var(--accent); transition:transform .2s; display:inline-block}
+.ref[open]>summary::before{transform:rotate(90deg)}
+.ref .ref-body{padding:0 16px 16px}
+table.g{width:100%; border-collapse:collapse; font-size:13px; margin:6px 0}
+table.g th,table.g td{border:1px solid var(--line); padding:6px 8px; text-align:center}
+table.g th{background:#f4f1ec; font-weight:600; color:var(--ink-2)}
+table.g td.lab{background:#faf8f5; font-weight:600; color:var(--ink-2)}
+table.g td.en{font-family:var(--serif)}
+.tablescroll{overflow-x:auto; -webkit-overflow-scrolling:touch; max-width:100%}
+
+/* 不规则动词挖空自测表 */
+table.drill{width:100%; min-width:470px}
+table.drill td{vertical-align:middle; padding:5px 7px}
+table.drill td.zh{color:var(--ink-2); font-size:12.5px}
+.blank.cell{width:100%; text-align:center; font-size:14.5px; padding:3px 4px}
+.corr{font-family:var(--serif); font-size:12.5px; color:var(--ok); font-weight:700; line-height:1.5; min-height:0}
+.drillbar{
+  display:flex; align-items:center; gap:8px; flex-wrap:wrap;
+  font-size:12.5px; color:var(--ink-3); margin:-4px 0 12px;
+}
+.drillbar button{
+  font:inherit; font-size:12.5px; padding:4px 12px; border-radius:99px; cursor:pointer;
+  border:1px solid var(--line); background:var(--card); color:var(--ink-2);
+}
+.drillbar button:hover{border-color:var(--accent); color:var(--accent)}
+/* 窄屏：压紧字号让四列塞进手机，不用横向滚 */
+@media(max-width:600px){
+  table.drill{width:100%; min-width:0; table-layout:fixed}
+  /* 题目插图（饼图、价目表）*/
+  .qfig{margin:10px 0 2px; text-align:center}
+  .qfig img{max-width:100%; border:1px solid var(--line); border-radius:8px; cursor:zoom-in; background:#fff}
+  .qfig figcaption{margin-top:5px; font-size:12px; color:var(--ink-3)}
+  /* 题干里的数据表 —— 一律做成两列（标签／数值），窄屏也放得下，不用横滑 */
+  table.qtab{width:100%; border-collapse:collapse; margin:10px 0 2px; font-size:13px; table-layout:fixed}
+  table.qtab td,table.qtab th{word-break:break-word}
+  table.qtab th,table.qtab td{border:1px solid var(--line); padding:5px 8px; text-align:center}
+  table.qtab th{background:#f4f1ec; font-weight:600; color:var(--ink-2)}
+  table.qtab caption{caption-side:top; text-align:left; font-size:12.5px;
+    color:var(--ink-2); font-weight:600; padding-bottom:5px}
+  table.qtab td.lab{text-align:left; background:#faf9f7; font-weight:600}
+  .qnote{font-size:12px; color:var(--ink-3); margin:3px 0 0}
+  table.drill th{padding:5px 3px; font-size:11.5px}
+  table.drill td{padding:4px 3px}
+  table.drill td.en{font-size:13.5px; word-break:break-word}
+  table.drill td.zh{font-size:11px; line-height:1.35}
+  .blank.cell{font-size:13.5px; padding:2px 1px}
+  .corr{font-size:11.5px}
+}
+.rules{font-size:13px; color:var(--ink-2); margin:12px 0 0; padding-left:20px}
+.rules li{margin:5px 0}
+.rules code{font-family:var(--serif); font-size:13px; background:#f4f1ec; padding:1px 4px; border-radius:3px}
+
+/* ---------- 题目 ---------- */
+.q{
+  background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+  padding:16px 18px; margin:0 0 12px; scroll-margin-top:96px;
+  transition:border-color .2s, box-shadow .2s;
+}
+.q.correct{border-color:var(--ok-line); background:var(--ok-soft)}
+.q.wrong{border-color:var(--no-line); background:var(--no-soft)}
+.q-head{display:flex; gap:10px; align-items:flex-start}
+.q-no{
+  flex:0 0 auto; font-size:12px; font-weight:700; color:var(--ink-3);
+  background:#f2efea; border-radius:5px; padding:2px 7px; margin-top:3px; min-width:30px; text-align:center;
+}
+.q.correct .q-no{background:#d5f0de; color:var(--ok)}
+.q.wrong .q-no{background:#f8d9d6; color:var(--no)}
+.q-stem{flex:1; min-width:0; font-family:var(--serif); font-size:16px; line-height:1.85}
+.q-stem .zh{font-family:var(--sans); font-size:14px; color:var(--ink-2)}
+.q-stem .dash{color:var(--ink-3)}
+
+/* 选择题 */
+.opts{list-style:none; margin:12px 0 0; padding:0; display:grid; gap:7px}
+.opts.two{grid-template-columns:1fr 1fr}
+@media(max-width:560px){.opts.two{grid-template-columns:1fr}}
+.opt{
+  display:flex; gap:9px; align-items:center; padding:8px 12px; cursor:pointer;
+  border:1px solid var(--line); border-radius:8px; background:#fff;
+  font-family:var(--serif); font-size:15px; transition:.15s;
+}
+.opt:hover{border-color:var(--ink-3); background:#fbfaf8}
+.opt .k{
+  flex:0 0 auto; width:21px; height:21px; border-radius:50%; border:1px solid var(--line);
+  display:grid; place-items:center; font-family:var(--sans); font-size:11px; font-weight:700; color:var(--ink-3);
+}
+.opt.picked{border-color:var(--ink); background:#f6f4f1}
+.opt.picked .k{background:var(--ink); color:#fff; border-color:var(--ink)}
+.opt.is-ok{border-color:var(--ok-line); background:var(--ok-soft)}
+.opt.is-ok .k{background:var(--ok); color:#fff; border-color:var(--ok)}
+.opt.is-no{border-color:var(--no-line); background:var(--no-soft)}
+.opt.is-no .k{background:var(--no); color:#fff; border-color:var(--no)}
+.q.locked .opt{cursor:default}
+
+/* 填空 */
+.blank{
+  font-family:var(--serif); font-size:15px; width:9.5em; padding:2px 8px;
+  border:none; border-bottom:1.5px solid var(--ink-3); background:transparent;
+  color:var(--accent); text-align:center; outline:none;
+}
+.blank:focus{border-bottom-color:var(--accent); background:#fffdf9}
+.blank.is-ok{color:var(--ok); border-bottom-color:var(--ok)}
+.blank.is-no{color:var(--no); border-bottom-color:var(--no); text-decoration:line-through}
+/* 拼写差一点：同样判错，但用橙色区别于纯粹答错，让学生一眼看出“只差一点” */
+.blank.is-near{color:var(--warn); border-bottom-color:var(--warn); text-decoration:underline wavy var(--warn) 1px; text-underline-offset:3px}
+.blank.wide{width:13em}
+.hintw{font-family:var(--sans); font-size:13px; color:var(--ink-3)}
+
+/* 选词填空的词框 */
+.wordbank{
+  display:flex; flex-wrap:wrap; gap:7px; align-items:center;
+  border:1.5px solid var(--accent); border-radius:8px; background:#fff;
+  padding:9px 11px; margin:0 0 12px;
+}
+.wordbank .wb{
+  font-family:var(--serif); font-size:15px; padding:3px 12px; border-radius:6px; cursor:pointer;
+  border:1px solid var(--line); background:var(--paper); color:var(--ink);
+}
+.wordbank .wb:hover{border-color:var(--accent); color:var(--accent); background:#fff}
+.wordbank .wb.used{opacity:.35; text-decoration:line-through}
+.q.locked .wordbank .wb{cursor:default; opacity:.5}
+.wb-tip{font-family:var(--sans); font-size:12px; color:var(--ink-3); flex-basis:100%; margin-top:2px}
+
+/* 连词成句 */
+.sentline{
+  display:block; width:100%; margin-top:12px; font-family:var(--serif); font-size:16px;
+  padding:8px 12px; border:1px solid var(--line); border-radius:8px; background:#fffdf9;
+  color:var(--accent); outline:none;
+}
+.sentline:focus{border-color:var(--accent)}
+.sentline.is-ok{color:var(--ok); border-color:var(--ok-line); background:var(--ok-soft)}
+.sentline.is-no{color:var(--no); border-color:var(--no-line); background:var(--no-soft)}
+.sentans{font-family:var(--serif); font-size:15.5px; color:var(--ok); font-weight:700; margin-top:8px; display:none}
+.q.locked .sentans{display:block}
+
+/* 判断 */
+.jrow{
+  display:flex; align-items:center; gap:12px; padding:7px 0; flex-wrap:wrap;
+  border-bottom:1px dashed #efece7;
+}
+.jrow:last-child{border-bottom:none}
+.jrow .w{font-family:var(--serif); font-size:16px; flex:1 1 auto; min-width:8em}
+.jbtns{display:flex; gap:6px; flex:0 0 auto}
+.jb{
+  font:inherit; font-size:13px; padding:3px 12px; border-radius:99px; cursor:pointer;
+  white-space:nowrap;
+  border:1px solid var(--line); background:#fff; color:var(--ink-2);
+}
+.jb:hover{border-color:var(--ink-3)}
+.jb.sel{background:var(--ink); color:#fff; border-color:var(--ink)}
+.jb.good{background:var(--ok); color:#fff; border-color:var(--ok)}
+.jb.bad{background:var(--no); color:#fff; border-color:var(--no)}
+.jrow .why{
+  font-size:13px; color:var(--ink-2); flex:1 0 100%; margin:2px 0 4px; display:none;
+  padding-left:11px; border-left:2px solid var(--line); line-height:1.7;
+}
+.jrow.done .why{display:block}
+
+/* 点词标记 */
+.marksent{font-family:var(--serif); font-size:16.5px; line-height:2.2; margin:10px 0 0}
+.tok{
+  display:inline-block; padding:0 2px; margin:0; border-radius:4px; cursor:pointer;
+  border-bottom:2px dotted var(--ink-3); transition:.15s;
+}
+.tok:hover{background:#f2efea}
+.tok.sel{background:#fff2cc; border-bottom:2px solid var(--warn); font-weight:700}
+.q.locked .tok{cursor:default}
+.tok.r-hit{background:var(--ok-soft); border-bottom:2px solid var(--ok); color:var(--ok); font-weight:700}
+.tok.r-miss{background:var(--warn-soft); border-bottom:2px dashed var(--warn); color:var(--warn); font-weight:700}
+.tok.r-over{background:var(--no-soft); border-bottom:2px solid var(--no); color:var(--no); text-decoration:line-through}
+.marklegend{font-size:12px; color:var(--ink-3); margin-top:8px; display:none}
+.q.locked .marklegend{display:block}
+
+/* 反馈 / 解析 */
+.q-foot{display:flex; align-items:center; gap:10px; margin-top:13px; flex-wrap:wrap}
+.go{
+  font:inherit; font-size:13.5px; font-weight:600; padding:6px 18px; border-radius:99px;
+  border:none; background:var(--ink); color:#fff; cursor:pointer;
+}
+.go:hover{background:#000}
+.go.ghost{background:transparent; color:var(--ink-3); border:1px solid var(--line); font-weight:400}
+.go.ghost:hover{background:#f4f1ec; color:var(--ink-2)}
+.verdict{font-size:13.5px; font-weight:700; display:none}
+.verdict.show{display:inline}
+.verdict.v-ok{color:var(--ok)}
+.verdict.v-no{color:var(--no)}
+.verdict.v-near{color:var(--warn)}
+
+
+.explain{
+  display:none; margin-top:12px; padding:13px 15px; border-radius:8px;
+  background:#f7f5f1; border-left:3px solid var(--accent); font-size:14px; line-height:1.8;
+}
+.q.reveal .explain{display:block}
+.explain .lab{
+  display:inline-block; font-size:11px; font-weight:700; color:#fff; background:var(--accent);
+  border-radius:3px; padding:0 6px; margin-right:6px; vertical-align:1px; letter-spacing:.05em;
+}
+.explain .lab.k2{background:var(--ink-2)}
+.explain .lab.k3{background:var(--warn)}
+.explain p{margin:0 0 7px}
+.explain p:last-child{margin-bottom:0}
+.explain b{color:var(--accent)}
+.yes{color:var(--ok); font-weight:700}
+.no{color:var(--no); font-weight:700}
+.rulebar{
+  background:var(--accent-soft); border-left:3px solid var(--accent); border-radius:8px;
+  padding:12px 15px; margin:0 0 14px; font-size:14px; line-height:1.8; color:var(--ink-2);
+}
+.rulebar b{color:var(--accent)}
+.rulebar code{font-family:var(--serif); background:#fff; padding:1px 5px; border-radius:3px; font-size:13.5px}
+.explain code{font-family:var(--serif); background:#eae6e0; padding:1px 5px; border-radius:3px; font-size:13.5px}
+.ansline{font-family:var(--serif); font-size:15px; color:var(--ok); font-weight:700}
+
+.flag{
+  display:none; margin-top:10px; padding:9px 13px; border-radius:8px; font-size:13px;
+  background:var(--warn-soft); border-left:3px solid var(--warn); color:#7c4a09;
+}
+
+/* ---------- 结算 ---------- */
+.tally{
+  background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+  padding:22px; margin-top:14px;
+}
+.tally h3{margin:0 0 4px; font-size:17px}
+.tally .sub{color:var(--ink-3); font-size:13px; margin:0 0 18px}
+.stats{display:flex; gap:26px; flex-wrap:wrap; margin-bottom:18px}
+.stat b{display:block; font-size:27px; line-height:1.2; font-family:var(--serif)}
+.stat span{font-size:12px; color:var(--ink-3)}
+.stat.ok b{color:var(--ok)} .stat.no b{color:var(--no)}
+.wronglist{list-style:none; padding:0; margin:0; font-size:14px}
+.wronglist li{padding:7px 0; border-top:1px dashed var(--line)}
+.wronglist a{color:var(--accent); text-decoration:none}
+.wronglist a:hover{text-decoration:underline}
+.wronglist .tag{font-size:11px; color:var(--ink-3); margin-right:8px}
+.empty{color:var(--ink-3); font-size:14px}
+
+/* 截图打卡 */
+.checkin{
+  margin-top:22px; padding:16px 18px 13px; border-radius:10px; text-align:center;
+  border:1.5px dashed var(--line); background:#fbfaf8; transition:.25s;
+}
+.checkin.ready{border-color:var(--ok); border-style:solid; background:var(--ok-soft)}
+.ci-title{font-size:15px; font-weight:700; color:var(--ink-2); margin-bottom:5px}
+.checkin.ready .ci-title{color:var(--ok)}
+.ci-text{font-size:13.5px; color:var(--ink-2); margin:0 0 13px; line-height:1.7}
+.ci-meta{
+  font-size:12px; color:var(--ink-3); display:flex; gap:6px 14px; justify-content:center;
+  flex-wrap:wrap; padding-top:11px; border-top:1px dashed var(--line);
+}
+.checkin.ready .ci-meta{border-top-color:var(--ok-line)}
+.ci-brand{font-size:11.5px; color:var(--ink-3); margin-top:7px; letter-spacing:.04em}
+.ci-brand b{color:var(--accent); font-weight:700}
+
+footer{
+  max-width:860px; margin:0 auto; padding:26px 18px 50px;
+  border-top:1px solid var(--line); color:var(--ink-3); font-size:12.5px; line-height:1.8;
+}
+footer b{color:var(--accent)}
+
+
+@media print{
+  .brandbar,nav.toc,.q-foot,.go{display:none!important}
+  .explain{display:block!important}
+  body{background:#fff}
+}
+</style>
+</head>
+<body>
+
+<div class="brandbar">
+  <div class="brandbar-in">
+    <div class="brand"><b>土妹英语</b> <span>｜定制课程 让每一分努力都不被辜负</span></div>
+    <div class="bar-spacer"></div>
+    <div class="progwrap"><div class="progbar"><i id="pbar"></i></div><span id="ptext">0 / 0</span></div>
+    <button class="tbtn" id="btnReset">重做</button>
+  </div>
+</div>
+
+<nav class="toc" id="toc">
+  <a href="#c0" class="active">更多习题</a>
+  <a href="#c1">本节小结</a>
+</nav>
+
+<main>
+  <h1 class="doc">感叹句 · 更多习题</h1>
+  <p class="doc-sub">初级语法 · 祈使句 感叹句 第 4 节 · 对应讲义 P4–P5 · 共 <span id="totalHint">—</span> 个判分点</p>
+
+  <section class="chap" id="c0">
+    <h2 class="chap-t"><span class="n">巩固</span>感叹句 · 更多习题
+      <span class="qr"><img src="qr:gengduo" alt="讲解二维码"><small>扫码看讲解</small></span>
+    </h2>
+    <p class="chap-lead">20 题，题号和纸质讲义完全对得上。<b>1–10 选择、11–20 填空</b>，考的全是同一件事 ——
+      <b>中心词是名词还是形容词，以及加不加 a/an。</b></p>
+
+    <div class="rulebar">
+      <b>两秒判断法：</b>看空<b>后面</b>那一串<br>
+      · 里面有<b>名词</b> → <code>What</code>　　<small>What exciting <b>news</b> it is!</small><br>
+      · 形容词后面<b>直接是主谓</b> → <code>How</code>　　<small>How exciting <b>the news is</b>!</small><br><br>
+      <b>用 What 时再决定冠词：</b>可数单数加 a/an，<b>不可数和复数都不加</b>。<br>
+      　a 还是 an，看<b>紧跟其后那个词的读音</b>：<code>What <b>an</b> interesting poem!</code><br><br>
+      <b>这几个不可数名词是本组的主角，前面永远不加 a：</b>
+      <code>weather</code>　<code>news</code>　<code>advice</code>　<code>progress</code>　<code>music</code>　<code>time</code>
+    </div>
+
+    <div id="mount-more"></div>
+  </section>
+
+  <section class="chap" id="c1">
+    <h2 class="chap-t"><span class="n">小结</span>本节成绩单</h2>
+    <div class="tally">
+      <h3 id="tallyTitle">还没开始</h3>
+      <p class="sub" id="tallySub">答完题目后，这里会自动汇总你的正确率和错题。</p>
+      <div class="stats">
+        <div class="stat"><b id="sDone">0</b><span>已作答</span></div>
+        <div class="stat ok"><b id="sOk">0</b><span>答对</span></div>
+        <div class="stat no"><b id="sNo">0</b><span>答错</span></div>
+        <div class="stat"><b id="sRate">—</b><span>正确率</span></div>
+      </div>
+      <div class="block-t" style="margin-top:6px">错题清单 <em>点题号跳回去重看解析 · 正确率按<b>第一次作答</b>算，重做不影响成绩</em></div>
+      <ul class="wronglist" id="wrongList"><li class="empty" style="border:none">暂无错题。</li></ul>
+
+      <div class="checkin" id="checkin">
+        <div class="ci-title" id="ciTitle">截图打卡</div>
+        <p class="ci-text" id="ciText">全部做完后截图这张成绩单发到你的学习群吧。</p>
+        <div class="ci-meta">
+          <span>初级语法 · 祈使句 感叹句</span>
+          <span>第 4 节 · 感叹句 · 更多习题</span>
+          <span id="ciDate"></span>
+        </div>
+        <div class="ci-brand"><b>土妹英语</b> ｜ 定制课程 让每一分努力都不被辜负</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>本页为「初级语法 · 祈使句 感叹句」讲义电子化第 <b>4</b> 节，内容与排版依据原讲义 PDF 第 4–5 页。</p>
+  <p>答题进度自动保存在本机浏览器里，关掉再打开不会丢；点右上角「重做」可清空重来。</p>
+  <p style="margin-top:10px"><b>土妹英语</b> ｜ 定制课程 让每一分努力都不被辜负</p>
+</footer>
+
+
+<div class="qr-modal" id="qrModal"><div><img src="" alt="二维码"><p>用手机相机或微信扫一扫，点页面任意处关闭</p></div></div>
+
+<script>
+
+/* ================================================================
+   构建时注入：二维码资源 + 是否教师版
+   ================================================================ */
+const QR = {"gengduo": "data:image/png;base64,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7uMWndrrpiH9vfR9mpqftt3HLTq1101D+nvp+zQ1P227j1t0aq+bhvT30vdpan7adh+36NReNw3p76Xv09T8tO0+btGpvW4a0t9L36ep+WnbfdyiU3vdNKS/l75PU/PTtvu4Raf2umlIfy99n6bmp233cYtO7XXTkP5e+j5NzU/b7uMWndrrpiH9vfR9mpqftt3HLTq1101D+nvp+zQ1P227j1t0aq+bhvT30vdpan7adh+36NReNw3p76Xv09T8tO0+btGpvW4a0t9L36ep+WnbfdxiYWrP/+Iut/felue297rlUe/TeVJ0amVu770tz23vdcuj3qfzpOjUytzee1ue297rlke9T+dJ0amVub33tjy3vdctj3qfzpOiUytze+9teW57r1se9T6dJ0WnVub23tvy3PZetzzqfTpPik6tzO29t+W57b1uedT7dJ4UnVqZ23tvy3Pbe93yqPfpPCk6tTK3996W57b3uuVR79N5UnRqZW7vvS3Pbe91y6Pep/Ok6NTK3N57W57b3uuWR71P50nRqZW5vfe2PLe91y2Pep/Ok6JTK3N77215bnuvWx71Pp0nRadW5vbe2/Lc9l63POp9Ok+KTq3M7b235bntvW551Pt0nhSdWpnbe2/Lc9t73fKo9+k8KQIeRv9Ubvfd8qj3aUSHJ++l86jo/Lf1M8XuH9JPdJVu993yqPdpRIcn76XzqOj8t/Uzxe4f0k90lW733fKo92lEhyfvpfOo6Py39TPF7h/ST3SVbvfd8qj3aUSHJ++l86jo/Lf1M8XuH9JPdJVu993yqPdpRIcn76XzqOj8t/Uzxe4f0k90lW733fKo92lEhyfvpfOo6Py39TPF7h/ST3SVbvfd8qj3aUSHJ++l86jo/Lf1M8XuH9JPdJVu993yqPdpRIcn76XzqOj8t/Uzxe4f0k90lW733fKo92lEhyfvpfOo6Py39TPF7h/ST3SVbvfd8qj3aUSHJ++l86jo/Lf1M8XuH9JPdJVu993yqPdpRIcn76XzqOj8t/Uzxe4f0k90lW733fKo92lEhyfvpfOo6Py39TPF7h/ST3SVbvfd8qj3aUSHJ++l86jo/Lf1M8XuH9JPdJVu993yqPdpRIcn76XzqOj8t/Uzxe4f0k90lW733fKo92lEhyfvpfOo6Py39TPF7h/ST3SVbvfd8qj3aUSHJ++l86jo/Lf1M2XhD29X/W3pfdL5aXQ/t9n+PV+l5O/U4tL7pPPT6H5us/17vkrJ36nFpfdJ56fR/dxm+/d8lZK/U4tL75POT6P7uc327/kqJX+nFpfeJ52fRvdzm+3f81VK/k4tLr1POj+N7uc227/nq5T8nVpcep90fhrdz222f89XKfk7tbj0Pun8NLqf22z/nq9S8ndqcel90vlpdD+32f49X6Xk79Ti0vuk89Pofm6z/Xu+SsnfqcWl90nnp9H93Gb793yVkr9Ti0vvk85Po/u5zfbv+Solf6cWl94nnZ9G93Ob7d/zVUr+Ti0uvU86P43u5zbbv+erlPydWlx6n3R+Gt3PbbZ/z1cp+Tu1uPQ+6fw0up/bbP+er1LyP3Bq3fKoiM6/+V46D9HJCaLDb76XzkN0cpJnS6e2U7ucn75PIzr85nvpPEQnJ3m2dGo7tcv56fs0osNvvpfOQ3RykmdLp7ZTu5yfvk8jOvzme+k8RCcnebZ0aju1y/np+zSiw2++l85DdHKSZ0untlO7nJ++TyM6/OZ76TxEJyd5tnRqO7XL+en7NKLDb76XzkN0cpJnS6e2U7ucn75PIzr85nvpPEQnJ3m2dGo7tcv56fs0osNvvpfOQ3RykmdLp7ZTu5yfvk8jOvzme+k8RCcnebZ0aju1y/np+zSiw2++l85DdHKSZ0untlO7nJ++TyM6/OZ76TxEJyd5tnRqO7XL+en7NKLDb76XzkN0cpJnS6e2U7ucn75PIzr85nvpPEQnJ3m2dGo7tcv56fs0osNvvpfOQ3RykmdLp7ZTu5yfvk8jOvzme+k8RCcnebYMBE2vhvj5T97rlofOn54n/b1u+VUp+Tu1dp+mWx46f3qe9Pe65Vel5O/U2n2abnno/Ol50t/rll+Vkr9Ta/dpuuWh86fnSX+vW35VSv5Ord2n6ZaHzp+eJ/29bvlVKfk7tXafplseOn96nvT3uuVXpeTv1Np9mm556PzpedLf65ZflZK/U2v3abrlofOn50l/r1t+VUr+Tq3dp+mWh86fnif9vW75VSn5O7V2n6ZbHjp/ep7097rlV6Xk79TafZpueej86XnS3+uWX5WSv1Nr92m65aHzp+dJf69bflVK/k6t3afplofOn54n/b1u+VUp+Tu1dp+mWx46f3qe9Pe65Vel5O/U2n2abnno/Ol50t/rll+Vkr9Ta/dp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"};
+const TEACHER = false;
+
+/* ================================================================
+   题 库 数 据 —— 老师审核区
+   ================================================================ */
+
+const MSG_FORM = "What 和 How 选反了，或者 a/an 加错了 —— 先看中心词是名词还是形容词。";
+
+const BANK = [
+
+{ id:"m1", type:"choice", no:"1",
+  stem:"____ fantastic it is to go for an outing on a cool sunny day!",
+  opts:["How","What","How a","What a"], a:0,
+  ex:"<p><code>fantastic</code> 后面直接跟 <code>it is</code>（主谓），中心词是<b>形容词</b> → <b>How</b>。</p><p>后面的 <code>to go for an outing…</code> 是真正的主语，<code>it</code> 只是形式主语。</p>" },
+
+{ id:"m2", type:"choice", no:"2",
+  stem:"____ big progress the government has made in protecting wild animals!",
+  opts:["How a","What a","How","What"], a:3,
+  ex:"<p>中心词是名词 <code>progress</code> → 用 What；<code>progress</code> 是<b>不可数名词</b> → <b>不加 a</b> → <b>What</b>。</p>" },
+
+{ id:"m3", type:"choice", no:"3",
+  stem:"—____ fine weather it is!<br>—Yes, it's neither too cold nor too hot at this time of year!",
+  opts:["What","How","What a"], a:0,
+  ex:"<p>中心词 <code>weather</code> 是<b>不可数名词</b> → <b>What</b>（不加 a）。</p>" },
+
+{ id:"m4", type:"choice", no:"4",
+  stem:"You got the first prize in the singing competition. ____ exciting news!",
+  opts:["How","What","What an","What a"], a:1,
+  ex:"<p>中心词 <code>news</code> 是<b>不可数名词</b> → <b>What</b>，不加冠词。</p><p><b>别被 exciting 的元音开头骗去选 What an</b> —— 不可数名词根本不加冠词。</p>" },
+
+{ id:"m5", type:"choice", no:"5",
+  stem:"____ beautiful music she sings!",
+  opts:["What a","How","What","How a"], a:2,
+  ex:"<p>中心词 <code>music</code> 是<b>不可数名词</b> → <b>What</b>。</p>" },
+
+{ id:"m6", type:"choice", no:"6",
+  stem:"____ interesting poem it is!",
+  opts:["How","How an","What","What an"], a:3,
+  ex:"<p>中心词 <code>poem</code> 是<b>可数名词单数</b> → What ＋ 冠词；<code>interesting</code> 以<b>元音音素</b>开头 → 用 <b>an</b> → <b>What an</b>。</p>" },
+
+{ id:"m7", type:"choice", no:"7",
+  stem:"—____ beautiful flowers they are!<br>—Yes, my grandmother plants them.",
+  opts:["What","What a","How"], a:0,
+  ex:"<p>中心词 <code>flowers</code> 是<b>复数</b> → 用 What，且<b>不加 a</b> → <b>What</b>。</p><p>句尾的 <code>they are</code> 也印证了是复数。</p>" },
+
+{ id:"m8", type:"choice", no:"8",
+  stem:"____ fine weather it is! The sun is shining brightly.",
+  opts:["What a","How a","How","What"], a:3,
+  ex:"<p>不可数名词 <code>weather</code> → <b>What</b>。和第 3 题同一个考点。</p>" },
+
+{ id:"m9", type:"choice", no:"9",
+  stem:"—____ great progress we are making! It's unbelievable.<br>—Listening carefully in class and reviewing the notes in time really make a difference.",
+  opts:["How","What","What a"], a:1,
+  ex:"<p>不可数名词 <code>progress</code> → <b>What</b>，不加 a。</p>" },
+
+{ id:"m10", type:"choice", no:"10",
+  stem:"____ awful weather we are having! It's raining again.",
+  opts:["What","What an","What a","How"], a:0,
+  ex:"<p>不可数名词 <code>weather</code> → <b>What</b>。<code>awful</code> 虽然元音开头，但不可数名词<b>不加冠词</b>。</p>" },
+
+{ id:"m11", type:"fill", no:"11",
+  stem:"<span class='zh'>The boy is rude to speak loudly in public.（改为感叹句）</span><br>__1__ the boy is to speak loudly in public!",
+  blanks:[{a:"How rude"}],
+  ex:"<p>原句的中心词是<b>形容词</b> <code>rude</code> → 用 <b>How</b>：<code>How + 形容词 + 主语 + 谓语!</code></p><p>→ <b>How rude</b> the boy is to speak loudly in public!</p>" },
+
+{ id:"m12", type:"fill", no:"12",
+  stem:"__1__ interesting it is to go sightseeing during the summer holiday!",
+  blanks:[{a:"How"}],
+  ex:"<p><code>interesting</code> 后面直接跟 <code>it is</code> → 中心词是形容词 → <b>How</b>。</p>" },
+
+{ id:"m13", type:"fill", no:"13",
+  stem:"__1__ a funny story! I can't help laughing when reading it.",
+  blanks:[{a:"What"}],
+  ex:"<p>空后面已经有 <code>a</code> 和名词 <code>story</code> → 中心词是名词 → <b>What</b>。</p>" },
+
+{ id:"m14", type:"fill", no:"14",
+  stem:"In Chinese traditional culture, the tiger is the king of all animals and a symbol of strength, courage and fearlessness. __1__ energetic words!",
+  blanks:[{a:"What"}],
+  ex:"<p>中心词 <code>words</code> 是<b>复数</b> → 用 What，不加 a → <b>What</b>。</p>" },
+
+{ id:"m15", type:"fill", no:"15",
+  stem:"__1__ time flies! I really enjoy the past three months we spent together.",
+  blanks:[{a:"How"}],
+  ex:"<p><code>time flies</code> 是「主语 + 谓语」，空里修饰的是<b>动词 flies</b>（时间过得<b>多快</b>）→ 用 <b>How</b>。</p><p><b>How 不只修饰形容词，也修饰副词和动词</b>：<code>How time flies!</code>（光阴似箭）是固定说法。</p>" },
+
+{ id:"m16", type:"fill", no:"16",
+  stem:"__1__ useful advice my teacher gave me!",
+  blanks:[{a:"What"}],
+  ex:"<p>中心词 <code>advice</code> 是<b>不可数名词</b> → <b>What</b>，不加 a。</p>" },
+
+{ id:"m17", type:"fill", no:"17",
+  stem:"__1__ a success the charity show was! We have collected a lot of money and books.",
+  blanks:[{a:"What"}],
+  ex:"<p>空后面有 <code>a</code> 和名词 <code>success</code> → <b>What</b>。</p><p><code>success</code> 本来是不可数的「成功」，但表示<b>「一件成功的事」</b>时是可数的，所以这里加了 a。</p>" },
+
+{ id:"m18", type:"fill", no:"18",
+  stem:"__1__ a great picture! Do you know who painted it?",
+  blanks:[{a:"What"}],
+  ex:"<p>空后面是 <code>a great picture</code>（可数名词单数）→ <b>What</b>。</p>" },
+
+{ id:"m19", type:"fill", no:"19",
+  stem:"—__1__ difficult this question is! I've spent two hours on it.<br>—Let me help you!",
+  blanks:[{a:"How"}],
+  ex:"<p><code>difficult</code> 后面直接跟主谓 <code>this question is</code> → 中心词是形容词 → <b>How</b>。</p>" },
+
+{ id:"m20", type:"fill", no:"20",
+  stem:"__1__ a lovely girl she is! Everyone wants to make friends with her.",
+  blanks:[{a:"What"}],
+  ex:"<p>空后面是 <code>a lovely girl</code>（可数名词单数）→ <b>What</b>。</p>" }
+];
+
+const STORE_KEY = "tumei-qs-04-gantanju-gengduo-v1";
+let state = {};
+try { state = JSON.parse(localStorage.getItem(STORE_KEY) || "{}"); } catch(e){ state = {}; }
+const save = () => { try{ localStorage.setItem(STORE_KEY, JSON.stringify(state)); }catch(e){} };
+
+/* ---- 判题：文本规范化 ---- */
+function norm(s){
+  return (s||"").toLowerCase()
+    .replace(/[’‘]/g,"'").replace(/[“”]/g,'"')
+    .replace(/[.。,，;；!！?？]+$/,"")
+    .replace(/\s+/g," ").trim();
+}
+function lev(a,b){
+  const m=a.length,n=b.length; if(!m) return n; if(!n) return m;
+  let prev=Array.from({length:n+1},(_,j)=>j), cur=new Array(n+1);
+  for(let i=1;i<=m;i++){ cur[0]=i;
+    for(let j=1;j<=n;j++) cur[j]=Math.min(prev[j]+1, cur[j-1]+1, prev[j-1]+(a[i-1]===b[j-1]?0:1));
+    [prev,cur]=[cur,prev];
+  }
+  return prev[n];
+}
+/* 常见的词尾变化。两个词去掉公共前缀后，剩下的都在这个表里，
+   说明它们是同一个词的不同形式（continue / continues / continued），
+   那就是【词形·时态错】，不是【拼写错】——这两种要分开对待，
+   否则学生把 continues 填进一般过去时的空，却被告知“检查拼写”，就教反了。 */
+const INFLECT = ["", "s", "es", "d", "ed", "ing", "e", "y", "ies", "ied"];
+function sameWordDifferentForm(a, b){
+  if(!a || !b) return false;
+  let i = 0; while(i < a.length && i < b.length && a[i] === b[i]) i++;
+  if(i === 0) return false;
+  return INFLECT.indexOf(a.slice(i)) >= 0 && INFLECT.indexOf(b.slice(i)) >= 0;
+}
+
+/* 手滑：差一个字母，或者相邻两个字母打颠倒了（caugth / caught）。
+   这个判断永远排在 sameWordDifferentForm 后面，
+   所以 studyed（时态对、拼写不规范）会走到这里，continues（时态错）不会。 */
+function isTypo(a, b){
+  if(lev(a, b) <= 1 && Math.abs(a.length - b.length) <= 1) return true;
+  if(a.length === b.length){
+    for(let i = 0; i < a.length - 1; i++)
+      if(a.slice(0,i) + a[i+1] + a[i] + a.slice(i+2) === b) return true;
+  }
+  return false;
+}
+
+/* 返回 'ok' | 'form' | 'near' | 'no'
+   ok   = 对
+   form = 词形／时态错（判错，提示回去看时间状语）
+   near = 拼写差一个字母（不判错，可以改完再对一次）
+   no   = 错 */
+function checkText(input, blank){
+  const got = norm(input);
+  if(!got) return "no";
+  const pool = [blank.a].concat(blank.alt||[]).map(norm);
+  /* 首字母提示题：学生把首字母也打进去、或只补后半截，都算对 */
+  if(blank.pre) pool.push(...pool.slice().map(p => p.startsWith(norm(blank.pre)) ? p.slice(blank.pre.length) : p));
+  if(pool.indexOf(got) >= 0) return "ok";
+  /* 原封不动填了括号里的原形（sit → sat、make → made）→ 时态错，不是手滑。
+     这里只认「完全等于原形」，不能放宽到 study+ed，
+     否则 studyed 这种“时态对、拼写不规范”的会被误判成时态错。 */
+  const bases = blank.base ? [].concat(blank.base).map(norm) : [];
+  if(bases.indexOf(got) >= 0) return "form";
+  /* 撇号位置错／漏了撇号（students ↔ students' ↔ student's）是知识点错，不是手滑，
+     所以要抢在 isTypo 前面判成 form */
+  if(pool.some(p => p.indexOf("'") >= 0 && p.replace(/'/g,"") === got.replace(/'/g,""))) return "form";
+  if(pool.some(p => sameWordDifferentForm(got, p))) return "form";
+  if(pool.some(p => isTypo(got, p))) return "near";
+  return "no";
+}
+
+/* ---- 记录 ---- */
+const registry = [];   // {key, no, label, sec, stemText, ansText, exHtml, flag}
+
+/* 成绩单永远按【第一次作答】算 —— 看完解析再做一遍，练习价值保留，
+   但正确率不会被洗掉。firstOk 一旦写入就不再变，只有「重做」才清。 */
+function record(key, ok){
+  state[key] = state[key] || {};
+  state[key].done = true;
+  state[key].ok = ok;
+  if(state[key].firstOk === undefined) state[key].firstOk = ok;
+  save(); refreshTally();
+}
+
+/* 点「再做一遍」：清掉本次作答，但保住第一次的对错 */
+function resetQ(key){
+  const fo = (state[key] || {}).firstOk;
+  if(fo === undefined) delete state[key];
+  else state[key] = { firstOk: fo };
+  save();
+}
+
+/* 考试模式：单选也要先选后交，判分后不给重做（由各页面自己定义 EXAM_MODE） */
+const EXAM = (typeof EXAM_MODE !== "undefined") && EXAM_MODE;
+
+/* ---- 渲染：判断题 ---- */
+function renderJudge(){
+  const host = document.getElementById("mount-judge");
+  const card = document.createElement("div"); card.className = "q locked-none";
+  const inner = document.createElement("div");
+  BANK.judge.items.forEach((it, i) => {
+    const key = "j"+i;
+    const row = document.createElement("div"); row.className = "jrow"; row.id = "q-"+key;
+    row.innerHTML =
+      '<span class="w">'+it.w+'</span>'+
+      '<span class="jbtns">'+
+        '<button class="jb" data-v="1">是谓语</button>'+
+        '<button class="jb" data-v="0">不是</button>'+
+      '</span>'+
+      '<span class="why">'+it.ex+'</span>';
+    const btns = row.querySelectorAll(".jb");
+    btns.forEach(b => { if((b.dataset.v === "1") === it.a) b.classList.add("iscorrect"); });
+    const lock = (picked) => {
+      row.classList.add("done");
+      btns.forEach(b=>{
+        const v = b.dataset.v === "1";
+        b.classList.remove("sel","good","bad");
+        if(v === it.a) b.classList.add("good");
+        else if(picked !== null && (picked===v)) b.classList.add("bad");
+        b.disabled = true;
+      });
+    };
+    btns.forEach(b => b.addEventListener("click", () => {
+      const v = b.dataset.v === "1";
+      record(key, v === it.a);
+      lock(v);
+    }));
+    if(state[key] && state[key].done) lock(null);
+    registry.push({key, no:"判断"+(i+1), label:it.w, sec:"判断谓语",
+      stemText:it.w, ansText: it.a?"是谓语":"不是谓语", exHtml:it.ex});
+    inner.appendChild(row);
+  });
+  card.appendChild(inner);
+  const tip = document.createElement("div");
+  tip.className = "explain"; tip.style.display="block"; tip.innerHTML = BANK.judge.tip;
+  card.appendChild(tip);
+  host.appendChild(card);
+}
+
+/* ---- 渲染：点词标记 ---- */
+function renderMark(){
+  const host = document.getElementById("mount-mark");
+  BANK.mark.items.forEach((it, i) => {
+    const key = it.id;
+    const card = document.createElement("div"); card.className="q"; card.id = "q-"+key;
+    const head = document.createElement("div"); head.className="q-head";
+    head.innerHTML = '<span class="q-no">'+(i+1)+'</span><div class="q-stem" style="padding-top:0"></div>';
+    const stem = head.querySelector(".q-stem");
+    const sent = document.createElement("p"); sent.className="marksent"; sent.style.margin="0";
+    const toks = [];
+    let plainText = "";
+    it.parts.forEach(p => {
+      if(typeof p === "string"){ sent.appendChild(document.createTextNode(p)); plainText += p; }
+      else {
+        const s = document.createElement("span"); s.className="tok"; s.textContent = p.v;
+        s.dataset.p = p.p ? "1":"0";
+        s.addEventListener("click", () => {
+          if(card.classList.contains("locked")) return;
+          s.classList.toggle("sel");
+        });
+        sent.appendChild(s); toks.push(s);
+        plainText += "["+p.v+"]";
+      }
+    });
+    stem.appendChild(sent);
+    const lg = document.createElement("div"); lg.className="marklegend";
+    lg.innerHTML = '<span style="color:var(--ok)">■ 选对</span>　<span style="color:var(--warn)">■ 漏选（它也是谓语）</span>　<span style="color:var(--no)">■ 多选（它不是谓语）</span>';
+    stem.appendChild(lg);
+    card.appendChild(head);
+
+    const foot = document.createElement("div"); foot.className="q-foot";
+    foot.innerHTML = '<button class="go">对答案</button><span class="verdict"></span>'+
+                     '<button class="go ghost" style="display:none">再做一遍</button>';
+    const [btn, vd, again] = [foot.querySelector(".go"), foot.querySelector(".verdict"), foot.querySelectorAll(".go")[1]];
+    const ex = document.createElement("div"); ex.className="explain"; ex.innerHTML = it.ex;
+    card.appendChild(foot); card.appendChild(ex);
+
+    const grade = (silent) => {
+      let ok = true;
+      toks.forEach(s => {
+        const should = s.dataset.p === "1";
+        const picked = s.classList.contains("sel");
+        s.classList.remove("sel","r-hit","r-miss","r-over");
+        if(should && picked) s.classList.add("r-hit");
+        else if(should && !picked){ s.classList.add("r-miss"); ok = false; }
+        else if(!should && picked){ s.classList.add("r-over"); ok = false; }
+      });
+      card.classList.add("locked","reveal", ok?"correct":"wrong");
+      vd.className = "verdict show " + (ok?"v-ok":"v-no");
+      vd.textContent = ok ? "全对，谓语找准了" : "有出入，看下面的颜色";
+      btn.style.display="none"; again.style.display="";
+      if(!silent) record(key, ok);
+      return ok;
+    };
+    btn.addEventListener("click", () => grade(false));
+    again.addEventListener("click", () => {
+      toks.forEach(s => s.classList.remove("r-hit","r-miss","r-over","sel"));
+      card.classList.remove("locked","reveal","correct","wrong");
+      vd.className="verdict"; btn.style.display=""; again.style.display="none";
+      resetQ(key); refreshTally();
+    });
+    if(state[key] && state[key].done){
+      toks.forEach(s => { if(s.dataset.p==="1") s.classList.add("sel"); });
+      grade(true);
+      if(!state[key].ok){ card.classList.remove("correct"); card.classList.add("wrong");
+        vd.className="verdict show v-no"; vd.textContent="上次做错了，可点「再做一遍」"; }
+    }
+    registry.push({key, no:"勾画"+(i+1), sec:"勾画谓语", stemText:plainText,
+      ansText: it.parts.filter(p=>typeof p!=="string" && p.p).map(p=>p.v).join(" / "), exHtml:it.ex});
+    host.appendChild(card);
+  });
+}
+
+/* ---- 渲染：选择 / 填空 ---- */
+function renderQ(q, host, secName){
+  const card = document.createElement("div"); card.className="q"; card.id = "q-"+q.id;
+  const head = document.createElement("div"); head.className="q-head";
+  const noTxt = (q.star?"*":"") + q.no;
+  head.innerHTML = '<span class="q-no">'+noTxt+'</span><div class="q-stem"></div>';
+  const stem = head.querySelector(".q-stem");
+  card.appendChild(head);
+
+  const foot = document.createElement("div"); foot.className="q-foot";
+  const ex = document.createElement("div"); ex.className="explain"; ex.innerHTML = q.ex;
+  const flag = document.createElement("div");
+
+  let ansText = "";
+
+  if(q.type === "choice"){
+    stem.innerHTML = q.stem;
+    const ul = document.createElement("ul");
+    /* 偶数个短选项才排两列，避免出现落单的一行 */
+    ul.className = "opts" + (q.opts.length % 2 === 0 && q.opts.every(o=>o.length<18) ? " two" : "");
+    const lis = [];
+    let picked = -1;
+    q.opts.forEach((o, i) => {
+      const li = document.createElement("li"); li.className="opt";
+      li.innerHTML = '<span class="k">'+"ABCD"[i]+'</span><span>'+o+'</span>';
+      li.addEventListener("click", () => {
+        if(card.classList.contains("locked")) return;
+        lis.forEach(x=>x.classList.remove("picked"));
+        li.classList.add("picked");
+        picked = i;
+        if(!EXAM) gradeChoice(i, false);     /* 讲义：点了就判；考试：等点「对答案」 */
+      });
+      ul.appendChild(li); lis.push(li);
+    });
+    stem.appendChild(ul);
+    ansText = "ABCD"[q.a] + ". " + q.opts[q.a];
+
+    foot.innerHTML = EXAM
+      ? '<button class="go">对答案</button><span class="verdict"></span>'
+      : '<span class="verdict"></span><button class="go ghost" style="display:none">再做一遍</button>';
+    const vd = foot.querySelector(".verdict");
+    const subBtn = EXAM ? foot.querySelector(".go") : null;
+    const again  = EXAM ? null : foot.querySelector(".go");
+
+    function gradeChoice(pick, silent){
+      const ok = pick === q.a;
+      lis.forEach((x,i)=>{ x.classList.remove("picked");
+        if(i===q.a) x.classList.add("is-ok");
+        else if(i===pick) x.classList.add("is-no"); });
+      card.classList.add("locked","reveal", ok?"correct":"wrong");
+      vd.className="verdict show "+(ok?"v-ok":"v-no");
+      vd.textContent = ok ? "对了" : "选错了，看解析";
+      if(subBtn) subBtn.style.display = "none";
+      if(again)  again.style.display = "";
+      if(!silent){ record(q.id, ok); state[q.id].pick = pick; save(); }
+    }
+    if(subBtn) subBtn.addEventListener("click", () => {
+      if(picked < 0){ vd.className = "verdict show v-near"; vd.textContent = "先选一个答案"; return; }
+      gradeChoice(picked, false);
+    });
+    if(again) again.addEventListener("click", () => {
+      lis.forEach(x=>x.classList.remove("is-ok","is-no","picked"));
+      card.classList.remove("locked","reveal","correct","wrong");
+      vd.className="verdict"; again.style.display="none";
+      resetQ(q.id); refreshTally();
+    });
+    if(state[q.id] && state[q.id].done)
+      gradeChoice(state[q.id].pick !== undefined ? state[q.id].pick : (state[q.id].ok ? q.a : -1), true);
+
+  } else if(q.type === "sentence"){   /* 连词成句：给一堆打乱的词，写出完整句子 */
+    stem.innerHTML = q.stem || "";
+    const box = document.createElement("div"); box.className = "wordbank";
+    const line = document.createElement("input");
+    line.className = "sentline"; line.autocomplete = "off"; line.spellcheck = false;
+    q.words.forEach(w => {
+      const chip = document.createElement("button");
+      chip.type = "button"; chip.className = "wb"; chip.textContent = w;
+      chip.addEventListener("click", () => {
+        if(card.classList.contains("locked")) return;
+        line.value = (line.value.trim() + " " + w).trim();
+        line.focus();
+      });
+      box.appendChild(chip);
+    });
+    const tip = document.createElement("div"); tip.className = "wb-tip";
+    tip.textContent = "点词可以按顺序拼进下面的横线里；大小写和标点不计较，词序错了才算错。";
+    box.appendChild(tip);
+    stem.appendChild(box); stem.appendChild(line);
+    const ansLine = document.createElement("div"); ansLine.className = "sentans";
+    stem.appendChild(ansLine);
+    ansText = [q.a].concat(q.alt || []).join("　或　");
+
+    foot.innerHTML = '<button class="go">对答案</button><span class="verdict"></span>'+
+                     '<span style="flex:1"></span>'+
+                     '<button class="go ghost" data-a="clear">清空</button>'+
+                     (EXAM ? '' : '<button class="go ghost" data-a="redo" style="display:none">再做一遍</button>');
+    const btn = foot.querySelector(".go"), vd = foot.querySelector(".verdict"),
+          clr = foot.querySelector('[data-a="clear"]'), redo = foot.querySelector('[data-a="redo"]');
+
+    const normSent = v => norm(v).replace(/[.?!,;:'"“”‘’]/g, "").replace(/\s+/g, " ").trim();
+    const wordSet  = v => normSent(v).split(" ").filter(Boolean).sort().join("|");
+
+    const grade = (silent) => {
+      const got = normSent(line.value);
+      const pool = [q.a].concat(q.alt || []).map(normSent);
+      const ok = pool.indexOf(got) >= 0;
+      line.classList.remove("is-ok","is-no");
+      line.classList.add(ok ? "is-ok" : "is-no");
+      line.disabled = true;
+      card.classList.add("locked","reveal", ok ? "correct" : "wrong");
+      vd.className = "verdict show " + (ok ? "v-ok" : "v-no");
+      if(ok) vd.textContent = "对了";
+      else {
+        /* 用的词对不对、只是顺序错了？分开说，学生才知道错在哪 */
+        const sameWords = pool.some(p => wordSet(p) === wordSet(got));
+        vd.textContent = got ? (sameWords ? "词都用对了，是语序不对。" : "用的词对不上，检查有没有漏词或多词。") : "还没写。";
+        ansLine.innerHTML = "答案：" + [q.a].concat(q.alt || []).join("<br>答案：");
+      }
+      btn.style.display = "none"; clr.style.display = "none"; if(redo) redo.style.display = "";
+      if(!silent) record(q.id, ok);
+    };
+    btn.addEventListener("click", () => grade(false));
+    line.addEventListener("keydown", e => { if(e.key === "Enter") grade(false); });
+    clr.addEventListener("click", () => { line.value = ""; line.focus(); });
+    if(redo) redo.addEventListener("click", () => {
+      line.disabled = false; line.value = ""; line.classList.remove("is-ok","is-no");
+      ansLine.innerHTML = "";
+      card.classList.remove("locked","reveal","correct","wrong");
+      vd.className = "verdict"; btn.style.display = ""; clr.style.display = ""; redo.style.display = "none";
+      resetQ(q.id); refreshTally();
+    });
+    if(state[q.id] && state[q.id].done){
+      if(state[q.id].ok) line.value = q.a;
+      grade(true);
+      if(!state[q.id].ok){ card.classList.remove("correct"); card.classList.add("wrong");
+        vd.className = "verdict show v-no"; vd.textContent = "上次没写对，可点「再做一遍」"; }
+    }
+    card._fill = () => { if(!line.disabled) line.value = q.a; };
+
+  } else { /* fill */
+    let html = q.stem;
+    const inputs = [];
+    /* 把题干里 (sit)(begin) 这类括号提示识别出来，作为该空的原形，
+       用于区分“填了原形”（时态错）和“打错字”（拼写错）。
+       中文括号（表扬）和 (树皮) 不会被匹配到。 */
+    const hints = (q.stem.match(/\(([a-zA-Z]+)\)/g) || []).map(h => h.slice(1, -1));
+    if(hints.length === q.blanks.length) q.blanks.forEach((b, i) => { if(!b.base) b.base = hints[i]; });
+    q.blanks.forEach((b, i) => {
+      const pre = b.pre ? '<span style="font-family:var(--serif)">'+b.pre+'</span>' : "";
+      html = html.replace("__"+(i+1)+"__",
+        pre+'<input class="blank'+(b.a.length>10?" wide":"")+'" data-i="'+i+'" autocomplete="off" autocapitalize="off" spellcheck="false">');
+    });
+    stem.innerHTML = html;
+    stem.querySelectorAll(".blank").forEach(el => inputs.push(el));
+
+    /* 选词填空：题干上方给一个词框，点词直接填进空里（形式还得自己改） */
+    if(q.bank){
+      const box = document.createElement("div"); box.className = "wordbank";
+      q.bank.forEach(w => {
+        const chip = document.createElement("button");
+        chip.type = "button"; chip.className = "wb"; chip.textContent = w;
+        chip.addEventListener("click", () => {
+          if(card.classList.contains("locked")) return;
+          const tgt = inputs.filter(el => !el.disabled && !el.value)[0] || inputs[0];
+          if(tgt){ tgt.value = w; tgt.focus(); }
+          box.querySelectorAll(".wb").forEach(c => c.classList.remove("used"));
+          inputs.forEach(el => box.querySelectorAll(".wb").forEach(c => {
+            if(norm(c.textContent) && norm(el.value).indexOf(norm(c.textContent)) === 0) c.classList.add("used");
+          }));
+        });
+        box.appendChild(chip);
+      });
+      const tip = document.createElement("div"); tip.className = "wb-tip";
+      tip.textContent = "从上面选一个词填进空里 —— 点一下就能填，但别忘了改成正确的形式。";
+      box.appendChild(tip);
+      stem.insertBefore(box, stem.firstChild);
+    }
+    ansText = q.blanks.map(b => b.a + (b.alt&&b.alt.length ? "（也可：" + b.alt.join(" / ") + "）" : "")).join(" ／ ");
+
+    foot.innerHTML = '<button class="go">对答案</button><span class="verdict"></span>'+
+                     (EXAM ? '' : '<button class="go ghost" style="display:none">再做一遍</button>');
+    const btn = foot.querySelector(".go"), vd = foot.querySelector(".verdict"),
+          again = EXAM ? null : foot.querySelectorAll(".go")[1];
+
+    const grade = (silent) => {
+      let allOk = true, anyNear = false, anyHard = false, anyForm = false;
+      inputs.forEach((el, i) => {
+        const r = checkText(el.value, q.blanks[i]);
+        el.classList.remove("is-ok","is-no","is-near");
+        if(r === "ok"){ el.classList.add("is-ok"); return; }
+        allOk = false;
+        if(r === "near"){ anyNear = true; el.classList.add("is-near"); }
+        else { anyHard = true; el.classList.add("is-no"); if(r === "form") anyForm = true; }
+      });
+      inputs.forEach(el => { el.disabled = true; });
+      card.classList.add("locked","reveal", allOk?"correct":"wrong");
+      /* 拼写差一点也算错，只是把话说得准一点，让学生知道错在哪一层 */
+      let note = "";
+      /* 各讲主题不同，词形错的提示可以由题库用 MSG_FORM 覆盖 */
+      if(anyForm) note = (typeof MSG_FORM !== "undefined") ? MSG_FORM : "词形不对，先回去看时间状语定时态。";
+      else if(anyNear && !anyHard) note = "思路对了，拼写再检查一下。";
+      vd.className = "verdict show " + (allOk ? "v-ok" : (anyNear && !anyHard ? "v-near" : "v-no"));
+      vd.innerHTML = allOk ? "对了"
+        : note + '答案：<span class="ansline">'+q.blanks.map(b=>b.a).join(" / ")+"</span>";
+      btn.style.display="none"; if(again) again.style.display="";
+      if(!silent) record(q.id, allOk);
+    };
+    btn.addEventListener("click", () => grade(false));
+    inputs.forEach(el => el.addEventListener("keydown", e => { if(e.key==="Enter") grade(false); }));
+    if(again) again.addEventListener("click", () => {
+      inputs.forEach(el => { el.disabled=false; el.value=""; el.classList.remove("is-ok","is-no"); });
+      card.classList.remove("locked","reveal","correct","wrong");
+      vd.className="verdict"; btn.style.display=""; again.style.display="none";
+      resetQ(q.id); refreshTally();
+    });
+    if(state[q.id] && state[q.id].done){
+      if(state[q.id].ok) inputs.forEach((el,i)=>{ el.value = q.blanks[i].a; });
+      grade(true);
+      if(!state[q.id].ok){ card.classList.remove("correct"); card.classList.add("wrong");
+        vd.className="verdict show v-no";
+        vd.innerHTML = '上次做错了。答案：<span class="ansline">'+q.blanks.map(b=>b.a).join(" / ")+"</span>"; }
+    }
+    card._fill = () => inputs.forEach((el,i)=>{ if(!el.disabled) el.value = q.blanks[i].a; });
+  }
+
+  card.appendChild(foot); card.appendChild(ex);
+  host.appendChild(card);
+  registry.push({key:q.id, no:noTxt, sec:secName,
+    stemText: q.stem.replace(/<[^>]+>/g,"").replace(/__\d+__/g,"____").replace(/\s+/g," ").trim() +
+              (q.type==="choice" ? "　"+q.opts.map((o,i)=>"ABCD"[i]+". "+o).join("  ") : ""),
+    ansText, exHtml:q.ex, flag:q.flag});
+}
+
+/* ---- 不规则动词表 ---- */
+/* ---- 结算 ---- */
+function refreshTally(){
+  const total = registry.length;
+  /* 统计一律用 firstOk —— 重做不影响成绩单 */
+  const done = registry.filter(r => state[r.key] && state[r.key].firstOk !== undefined);
+  const ok = done.filter(r => state[r.key].firstOk === true);
+  const bad = done.filter(r => state[r.key].firstOk !== true);
+  document.getElementById("sDone").textContent = done.length;
+  document.getElementById("sOk").textContent = ok.length;
+  document.getElementById("sNo").textContent = bad.length;
+  document.getElementById("sRate").textContent = done.length ? Math.round(ok.length/done.length*100)+"%" : "—";
+  document.getElementById("ptext").textContent = done.length + " / " + total;
+  document.getElementById("pbar").style.width = (total? done.length/total*100 : 0) + "%";
+  document.getElementById("totalHint").textContent = total;
+
+  const t = document.getElementById("tallyTitle"), s = document.getElementById("tallySub");
+  if(!done.length){ t.textContent = "还没开始"; s.textContent = "答完题目后，这里会自动汇总你的正确率和错题。"; }
+  else if(done.length < total){ t.textContent = "进行中"; s.textContent = "还剩 " + (total-done.length) + " 题没做。"; }
+  else {
+    const rate = Math.round(ok.length/total*100);
+    t.textContent = rate>=90 ? "全部做完 · 很稳" : rate>=75 ? "全部做完 · 不错" : "全部做完 · 错题要过一遍";
+    s.textContent = "错题清单在下面，建议逐条重看解析，再点「再做一遍」。";
+  }
+  /* 截图打卡：全部做完才变绿，并盖上完成时间 */
+  const box = document.getElementById("checkin");
+  const left = total - done.length;
+  if(done.length === total && total > 0){
+    if(!state.finishedAt){ state.finishedAt = Date.now(); save(); }
+    box.classList.add("ready");
+    document.getElementById("ciTitle").textContent = "全部做完，可以打卡了";
+    document.getElementById("ciText").innerHTML =
+      "截图这张成绩单发到你的学习群吧。" + (bad.length ? "错题清单也一起截进去，上课好挑重点讲。" : "");
+    const t = new Date(state.finishedAt);
+    const pad = n => (n < 10 ? "0" : "") + n;
+    document.getElementById("ciDate").textContent =
+      "完成于 " + t.getFullYear() + "-" + pad(t.getMonth()+1) + "-" + pad(t.getDate()) +
+      " " + pad(t.getHours()) + ":" + pad(t.getMinutes());
+  } else {
+    if(state.finishedAt){ delete state.finishedAt; save(); }
+    box.classList.remove("ready");
+    document.getElementById("ciTitle").textContent = "截图打卡";
+    document.getElementById("ciText").textContent = done.length
+      ? "还剩 " + left + " 题，全部做完后截图这张成绩单发到你的学习群吧。"
+      : "全部做完后截图这张成绩单发到你的学习群吧。";
+    document.getElementById("ciDate").textContent = "";
+  }
+
+  const ul = document.getElementById("wrongList");
+  if(!bad.length){ ul.innerHTML = '<li class="empty" style="border:none">'+(done.length?"没有错题，漂亮。":"暂无错题。")+"</li>"; return; }
+  ul.innerHTML = bad.map(r =>
+    '<li><span class="tag">'+r.sec+'</span><a href="#q-'+r.key+'">'+r.no+'</a>　'+
+    '<span style="color:var(--ink-2)">'+ (r.stemText.length>62 ? r.stemText.slice(0,62)+"…" : r.stemText) +'</span></li>'
+  ).join("");
+}
+
+
+
+/* ---- 启动 ---- */
+BANK.forEach(q => renderQ(q, document.getElementById("mount-more"), "感叹句·更多习题"));
+refreshTally();
+
+/* 二维码注入 + 放大 */
+(function(){
+  /* img 的 src 写成 qr:名字 ，名字就是 assets/<讲义名>/名字.png 的文件名 */
+  document.querySelectorAll(".qr").forEach(box => {
+    const img = box.querySelector("img");
+    const k = img.getAttribute("src") || "";
+    if(k.indexOf("qr:") === 0){
+      const v = QR[k.slice(3)];
+      if(v) img.src = v; else box.style.display = "none";   /* 没配图就不显示这个胶囊 */
+    }
+    box.addEventListener("click", () => {
+      const m = document.getElementById("qrModal");
+      m.querySelector("img").src = img.src; m.classList.add("show");
+    });
+  });
+  /* 题目里的插图（饼图、价目表这类）：一样用 qr:名字 引用，但不套 .qr 胶囊，
+     所以上面那轮扫不到 —— 这里单独补一遍。点一下同样能放大看。 */
+  document.querySelectorAll('img[src^="qr:"]').forEach(img => {
+    const v = QR[img.getAttribute("src").slice(3)];
+    if(v){
+      img.src = v;
+      img.addEventListener("click", () => {
+        const m = document.getElementById("qrModal");
+        m.querySelector("img").src = img.src; m.classList.add("show");
+      });
+    } else { img.style.display = "none"; }
+  });
+  document.getElementById("qrModal").addEventListener("click", e => e.currentTarget.classList.remove("show"));
+})();
+
+document.getElementById("btnReset").addEventListener("click", () => {
+  if(!confirm("清空所有作答记录，重新开始？")) return;
+  try{ localStorage.removeItem(STORE_KEY); }catch(e){}
+  location.reload();
+});
+
+/* 目录高亮（老浏览器没有 IntersectionObserver 就跳过，不影响答题） */
+if(typeof IntersectionObserver !== "undefined"){
+  const links = [].slice.call(document.querySelectorAll("nav.toc a"));
+  const secs = links.map(a => document.querySelector(a.getAttribute("href")));
+  const io = new IntersectionObserver(es => {
+    es.forEach(e => { if(e.isIntersecting){
+      links.forEach(l=>l.classList.remove("active"));
+      const i = secs.indexOf(e.target); if(i>=0) links[i].classList.add("active");
+    }});
+  }, {rootMargin:"-40% 0px -55% 0px"});
+  secs.forEach(s => s && io.observe(s));
+}
+</script>
+</body>
+</html>
+
+</body>
+</html>
