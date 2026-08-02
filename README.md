@@ -4,7 +4,20 @@
 
 | 练习 | 链接 |
 |---|---|
-| 情态动词 ＋ 非谓语动词 | [打开](https://tumei130coding.github.io/test/ceshi-qingdong-feiweiyu/) |
+| 三看三定 · 测试 1 | [打开](https://tumei130coding.github.io/test/ceshi-sjsd-1/) |
+| 三看三定 · 测试 2 | [打开](https://tumei130coding.github.io/test/ceshi-sjsd-2/) |
+| 代冠名天平介词 · 测试 1 | [打开](https://tumei130coding.github.io/test/ceshi-dgm-1/) |
+| 代冠名天平介词 · 测试 2 | [打开](https://tumei130coding.github.io/test/ceshi-dgm-2/) |
+| 形容词副词 · 测试 1 | [打开](https://tumei130coding.github.io/test/ceshi-xf-1/) |
+| 形容词副词 · 测试 2 | [打开](https://tumei130coding.github.io/test/ceshi-xf-2/) |
+| 情态动词与非谓语 · 测试 1 | [打开](https://tumei130coding.github.io/test/ceshi-qd-1/) |
+| 情态动词与非谓语 · 测试 2 | [打开](https://tumei130coding.github.io/test/ceshi-qd-2/) |
+| 数字 · 测试 1 | [打开](https://tumei130coding.github.io/test/ceshi-sz-1/) |
+| 数字 · 测试 2 | [打开](https://tumei130coding.github.io/test/ceshi-sz-2/) |
+| 祈使句感叹句 · 测试 1 | [打开](https://tumei130coding.github.io/test/ceshi-qs-1/) |
+| 祈使句感叹句 · 测试 2 | [打开](https://tumei130coding.github.io/test/ceshi-qs-2/) |
+| 疑问词从句开头词 · 测试 1 | [打开](https://tumei130coding.github.io/test/ceshi-yw-1/) |
+| 反意疑问句 · 小测 | [打开](https://tumei130coding.github.io/test/ceshi-fy-1/) |
 | 判断谓语 ＋ 一般过去时 | [打开](https://tumei130coding.github.io/test/sjsd-00-panduan-weiyu/) |
 | 一般现在时 | [打开](https://tumei130coding.github.io/test/sjsd-01-yiban-xianzai/) |
 | 一般将来时 | [打开](https://tumei130coding.github.io/test/sjsd-02-yiban-jianglai/) |
