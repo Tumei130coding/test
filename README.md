@@ -50,6 +50,11 @@
 | 初级语法-数字1-基数词序数词 | [打开](https://tumei130coding.github.io/test/sz-01-jishu-xushu/) |
 | 初级语法-数字2-分数频率of日期 | [打开](https://tumei130coding.github.io/test/sz-02-fenshu-pinlv/) |
 | 初级语法-数字3-更多习题 | [打开](https://tumei130coding.github.io/test/sz-03-gengduo/) |
+| 初级语法-疑问词1-疑问词的区分 | [打开](https://tumei130coding.github.io/test/yw-01-yiwenci/) |
+| 初级语法-疑问词2-从句的语序 | [打开](https://tumei130coding.github.io/test/yw-02-congju-yuxu/) |
+| 初级语法-疑问词3-从句类型与开头词 | [打开](https://tumei130coding.github.io/test/yw-03-leixing-kaitou/) |
+| 初级语法-疑问词4-逻辑词的区分 | [打开](https://tumei130coding.github.io/test/yw-04-luojici/) |
+| 初级语法-疑问词5-更多习题 | [打开](https://tumei130coding.github.io/test/yw-05-gengduo/) |
 | 初级语法-不规则动词1-过去式过去分词 | [打开](https://tumei130coding.github.io/test/verb-drill/) |
 
 ---
