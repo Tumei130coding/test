@@ -47,6 +47,9 @@
 | 初级语法-情动非谓语3-doing的三种用法 | [打开](https://tumei130coding.github.io/test/qd-03-doing/) |
 | 初级语法-情动非谓语4-be加adj加todo | [打开](https://tumei130coding.github.io/test/qd-04-be-adj-todo/) |
 | 初级语法-情动非谓语5-填todo | [打开](https://tumei130coding.github.io/test/qd-05-tian-todo/) |
+| 初级语法-数字1-基数词序数词 | [打开](https://tumei130coding.github.io/test/sz-01-jishu-xushu/) |
+| 初级语法-数字2-分数频率of日期 | [打开](https://tumei130coding.github.io/test/sz-02-fenshu-pinlv/) |
+| 初级语法-数字3-更多习题 | [打开](https://tumei130coding.github.io/test/sz-03-gengduo/) |
 
 ---
 

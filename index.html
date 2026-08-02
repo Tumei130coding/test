@@ -142,6 +142,19 @@ table.drill td.zh{color:var(--ink-2); font-size:12.5px}
 /* 窄屏：压紧字号让四列塞进手机，不用横向滚 */
 @media(max-width:600px){
   table.drill{min-width:0; table-layout:fixed}
+  /* 题目插图（饼图、价目表）*/
+  .qfig{margin:10px 0 2px; text-align:center}
+  .qfig img{max-width:100%; border:1px solid var(--line); border-radius:8px; cursor:zoom-in; background:#fff}
+  .qfig figcaption{margin-top:5px; font-size:12px; color:var(--ink-3)}
+  /* 题干里的数据表 —— 一律做成两列（标签／数值），窄屏也放得下，不用横滑 */
+  table.qtab{width:100%; border-collapse:collapse; margin:10px 0 2px; font-size:13px; table-layout:fixed}
+  table.qtab td,table.qtab th{word-break:break-word}
+  table.qtab th,table.qtab td{border:1px solid var(--line); padding:5px 8px; text-align:center}
+  table.qtab th{background:#f4f1ec; font-weight:600; color:var(--ink-2)}
+  table.qtab caption{caption-side:top; text-align:left; font-size:12.5px;
+    color:var(--ink-2); font-weight:600; padding-bottom:5px}
+  table.qtab td.lab{text-align:left; background:#faf9f7; font-weight:600}
+  .qnote{font-size:12px; color:var(--ink-3); margin:3px 0 0}
   table.drill th{padding:5px 3px; font-size:11.5px}
   table.drill td{padding:4px 3px}
   table.drill td.en{font-size:13.5px; word-break:break-word}
@@ -643,6 +656,24 @@ a.card:hover .arrow{color:var(--accent)}
       <span class="arrow">›</span>
     </a>
   </div>
+  <div class="grp">初级语法 · 数字<span>问「几个」用基数　问「第几」用序数</span></div>
+  <div class="cards">
+    <a class="card" href="sz-01-jishu-xushu/">
+      <span class="idx">44</span>
+      <span class="txt"><span class="t">初级语法-数字1-基数词序数词</span><span class="s">讲义 P1–P3 · 12 个判分点</span></span>
+      <span class="arrow">›</span>
+    </a>
+    <a class="card" href="sz-02-fenshu-pinlv/">
+      <span class="idx">45</span>
+      <span class="txt"><span class="t">初级语法-数字2-分数频率of日期</span><span class="s">讲义 P3–P4 · 6 个判分点</span></span>
+      <span class="arrow">›</span>
+    </a>
+    <a class="card" href="sz-03-gengduo/">
+      <span class="idx">46</span>
+      <span class="txt"><span class="t">初级语法-数字3-更多习题</span><span class="s">讲义 P4–P7 · 40 个判分点</span></span>
+      <span class="arrow">›</span>
+    </a>
+  </div>
 
   <div class="tip">
     <b>怎么用：</b>每题做完立刻判对错并展开解析；答题进度存在你自己的手机／电脑里，关掉再打开不会丢。<br>
@@ -653,7 +684,7 @@ a.card:hover .arrow{color:var(--accent)}
 </main>
 
 <footer>
-  <p>共 43 份练习。内容依据「土妹英语」定制讲义制作。</p>
+  <p>共 46 份练习。内容依据「土妹英语」定制讲义制作。</p>
   <p style="margin-top:8px"><b>土妹英语</b> ｜ 定制课程 让每一分努力都不被辜负</p>
 </footer>
 
