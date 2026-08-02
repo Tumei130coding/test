@@ -50,6 +50,7 @@
 | 初级语法-数字1-基数词序数词 | [打开](https://tumei130coding.github.io/test/sz-01-jishu-xushu/) |
 | 初级语法-数字2-分数频率of日期 | [打开](https://tumei130coding.github.io/test/sz-02-fenshu-pinlv/) |
 | 初级语法-数字3-更多习题 | [打开](https://tumei130coding.github.io/test/sz-03-gengduo/) |
+| 初级语法-不规则动词1-过去式过去分词 | [打开](https://tumei130coding.github.io/test/verb-drill/) |
 
 ---
 
