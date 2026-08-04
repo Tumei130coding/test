@@ -59,6 +59,12 @@
 | 初级语法-祈使感叹2-祈使句更多习题 | [打开](https://tumei130coding.github.io/test/qs-02-qishiju-gengduo/) |
 | 初级语法-祈使感叹3-感叹句 | [打开](https://tumei130coding.github.io/test/qs-03-gantanju/) |
 | 初级语法-祈使感叹4-感叹句更多习题 | [打开](https://tumei130coding.github.io/test/qs-04-gantanju-gengduo/) |
+| 初级写作-简单句1-主谓宾与加戏初阶 | [打开](https://tumei130coding.github.io/test/xzw-01-zhuweibin/) |
+| 初级写作-简单句2-双宾宾补主系表 | [打开](https://tumei130coding.github.io/test/xzw-02-shuangbin/) |
+| 初级写作-简单句3-加戏进阶 | [打开](https://tumei130coding.github.io/test/xzw-03-jiaxi-jinjie/) |
+| 初级写作-简单句4-疑问句与否定句 | [打开](https://tumei130coding.github.io/test/xzw-04-yiwen-fouding/) |
+| 初级写作-简单句5-特殊疑问句 | [打开](https://tumei130coding.github.io/test/xzw-05-teshu-yiwen/) |
+| 初级写作-简单句6-反意疑问句 | [打开](https://tumei130coding.github.io/test/xzw-06-fanyi-yiwen/) |
 | 初级语法-不规则动词1-过去式过去分词 | [打开](https://tumei130coding.github.io/test/verb-drill/) |
 
 ---

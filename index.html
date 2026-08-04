@@ -142,6 +142,20 @@ table.drill td.zh{color:var(--ink-2); font-size:12.5px}
 /* 窄屏：压紧字号让四列塞进手机，不用横向滚 */
 @media(max-width:600px){
   table.drill{width:100%; min-width:0; table-layout:fixed}
+  /* 本组对答案栏 */
+  .blockbar{
+    display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+    margin:2px 0 20px; padding:12px 16px;
+    background:var(--card); border:1px solid var(--line); border-radius:10px;
+  }
+  .blockbar .go{margin:0}
+  .bb-stat{font-size:13px; color:var(--ink-3)}
+  .bb-stat.warn{color:var(--warn); font-weight:600}
+  .bb-stat.sum{color:var(--ink); font-weight:600; font-size:13.5px}
+  /* 整块模式下，选中但还没判的选项／按钮 */
+  .opt.picked{border-color:var(--ink-2); background:#f4f1ec}
+  .jb.sel{background:var(--ink); color:#fff; border-color:var(--ink)}
+
   /* 题目插图（饼图、价目表）*/
   .qfig{margin:10px 0 2px; text-align:center}
   .qfig img{max-width:100%; border:1px solid var(--line); border-radius:8px; cursor:zoom-in; background:#fff}
@@ -725,10 +739,43 @@ a.card:hover .arrow{color:var(--accent)}
       <span class="arrow">›</span>
     </a>
   </div>
+  <div class="grp">初级写作 · 简单句<span>先搭主干，再加戏　写句子练的是成分顺序</span></div>
+  <div class="cards">
+    <a class="card" href="xzw-01-zhuweibin/">
+      <span class="idx">56</span>
+      <span class="txt"><span class="t">初级写作-简单句1-主谓宾与加戏初阶</span><span class="s">讲义 P1–P2 · 11 个判分点</span></span>
+      <span class="arrow">›</span>
+    </a>
+    <a class="card" href="xzw-02-shuangbin/">
+      <span class="idx">57</span>
+      <span class="txt"><span class="t">初级写作-简单句2-双宾宾补主系表</span><span class="s">讲义 P2–P4 · 18 个判分点</span></span>
+      <span class="arrow">›</span>
+    </a>
+    <a class="card" href="xzw-03-jiaxi-jinjie/">
+      <span class="idx">58</span>
+      <span class="txt"><span class="t">初级写作-简单句3-加戏进阶</span><span class="s">讲义 P4–P5 · 10 个判分点</span></span>
+      <span class="arrow">›</span>
+    </a>
+    <a class="card" href="xzw-04-yiwen-fouding/">
+      <span class="idx">59</span>
+      <span class="txt"><span class="t">初级写作-简单句4-疑问句与否定句</span><span class="s">讲义 P6–P7 · 21 个判分点</span></span>
+      <span class="arrow">›</span>
+    </a>
+    <a class="card" href="xzw-05-teshu-yiwen/">
+      <span class="idx">60</span>
+      <span class="txt"><span class="t">初级写作-简单句5-特殊疑问句</span><span class="s">讲义 P8 · 8 个判分点</span></span>
+      <span class="arrow">›</span>
+    </a>
+    <a class="card" href="xzw-06-fanyi-yiwen/">
+      <span class="idx">61</span>
+      <span class="txt"><span class="t">初级写作-简单句6-反意疑问句</span><span class="s">讲义 P9–P10 · 19 个判分点</span></span>
+      <span class="arrow">›</span>
+    </a>
+  </div>
   <div class="grp">初级语法 · 专项练习<span>配套纸质练习表的电子版，可无限换一批</span></div>
   <div class="cards">
     <a class="card" href="verb-drill/">
-      <span class="idx">56</span>
+      <span class="idx">62</span>
       <span class="txt"><span class="t">初级语法-不规则动词1-过去式过去分词</span><span class="s">82 个不规则动词 · 每行随机露一列 · 4 组 × 8 行</span></span>
       <span class="arrow">›</span>
     </a>
@@ -743,7 +790,7 @@ a.card:hover .arrow{color:var(--accent)}
 </main>
 
 <footer>
-  <p>共 56 份练习。内容依据「土妹英语」定制讲义制作。</p>
+  <p>共 62 份练习。内容依据「土妹英语」定制讲义制作。</p>
   <p style="margin-top:8px"><b>土妹英语</b> ｜ 定制课程 让每一分努力都不被辜负</p>
 </footer>
 

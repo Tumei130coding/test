@@ -142,6 +142,20 @@ table.drill td.zh{color:var(--ink-2); font-size:12.5px}
 /* 窄屏：压紧字号让四列塞进手机，不用横向滚 */
 @media(max-width:600px){
   table.drill{width:100%; min-width:0; table-layout:fixed}
+  /* 本组对答案栏 */
+  .blockbar{
+    display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+    margin:2px 0 20px; padding:12px 16px;
+    background:var(--card); border:1px solid var(--line); border-radius:10px;
+  }
+  .blockbar .go{margin:0}
+  .bb-stat{font-size:13px; color:var(--ink-3)}
+  .bb-stat.warn{color:var(--warn); font-weight:600}
+  .bb-stat.sum{color:var(--ink); font-weight:600; font-size:13.5px}
+  /* 整块模式下，选中但还没判的选项／按钮 */
+  .opt.picked{border-color:var(--ink-2); background:#f4f1ec}
+  .jb.sel{background:var(--ink); color:#fff; border-color:var(--ink)}
+
   /* 题目插图（饼图、价目表）*/
   .qfig{margin:10px 0 2px; text-align:center}
   .qfig img{max-width:100%; border:1px solid var(--line); border-radius:8px; cursor:zoom-in; background:#fff}
@@ -797,11 +811,17 @@ function resetQ(key){
 
 /* 考试模式：单选也要先选后交，判分后不给重做（由各页面自己定义 EXAM_MODE） */
 const EXAM = (typeof EXAM_MODE !== "undefined") && EXAM_MODE;
+/* 整块统一对答案：每题选完／填完只记录，不当场判；
+   每个板块末尾有一个「本组对答案」，一次判完整组。
+   默认「讲义开、测试关」—— 测试卷都设了 EXAM_MODE，那边每题只能提交一次，
+   不需要也不应该攒到最后一起判。个别讲义想关掉，写 BLOCK_SUBMIT = false 即可。 */
+const BLOCK = (typeof BLOCK_SUBMIT !== "undefined") ? BLOCK_SUBMIT : !EXAM;
 
 /* ---- 渲染：判断题 ---- */
 function renderJudge(){
   const host = document.getElementById("mount-judge");
   const card = document.createElement("div"); card.className = "q locked-none";
+  const rows = [];
   const inner = document.createElement("div");
   BANK.judge.items.forEach((it, i) => {
     const key = "j"+i;
@@ -825,12 +845,26 @@ function renderJudge(){
         b.disabled = true;
       });
     };
+    let picked = null;
     btns.forEach(b => b.addEventListener("click", () => {
+      if(row.classList.contains("done")) return;
       const v = b.dataset.v === "1";
+      if(BLOCK){                       /* 整块模式：先只选中，等统一对答案 */
+        picked = v;
+        btns.forEach(x => x.classList.toggle("sel", x === b));
+        return;
+      }
       record(key, v === it.a);
       lock(v);
     }));
     if(state[key] && state[key].done) lock(null);
+    /* 每一行都是一个判分点，所以整块的对答案要逐行调用 */
+    rows.push({ key,
+                answered: () => picked !== null,
+                grade: silent => { if(!silent) record(key, picked === it.a); lock(picked); },
+                reset: () => { picked = null; row.classList.remove("done");
+                               btns.forEach(x => { x.disabled = false;
+                                 x.classList.remove("sel","good","bad"); }); } });
     registry.push({key, no:"判断"+(i+1), label:it.w, sec:"判断谓语",
       stemText:it.w, ansText: it.a?"是谓语":"不是谓语", exHtml:it.ex});
     inner.appendChild(row);
@@ -839,6 +873,7 @@ function renderJudge(){
   const tip = document.createElement("div");
   tip.className = "explain"; tip.style.display="block"; tip.innerHTML = BANK.judge.tip;
   card.appendChild(tip);
+  card._rows = rows;                 /* 供「本组对答案」逐行判 */
   host.appendChild(card);
 }
 
@@ -893,11 +928,19 @@ function renderMark(){
       card.classList.add("locked","reveal", ok?"correct":"wrong");
       vd.className = "verdict show " + (ok?"v-ok":"v-no");
       vd.textContent = ok ? "全对，谓语找准了" : "有出入，看下面的颜色";
-      btn.style.display="none"; again.style.display="";
+      btn.style.display="none"; if(!BLOCK) again.style.display="";      /* 勾画题 */
       if(!silent) record(key, ok);
       return ok;
     };
     btn.addEventListener("click", () => grade(false));
+    if(BLOCK){
+      btn.style.display = "none"; again.style.display = "none";
+      card._answered = () => toks.some(s => s.classList.contains("sel"));
+      card._grade = grade;
+      card._reset = () => { toks.forEach(s => s.classList.remove("r-hit","r-miss","r-over","sel"));
+                            card.classList.remove("locked","reveal","correct","wrong");
+                            vd.className="verdict"; btn.style.display=""; };
+    }
     again.addEventListener("click", () => {
       toks.forEach(s => s.classList.remove("r-hit","r-miss","r-over","sel"));
       card.classList.remove("locked","reveal","correct","wrong");
@@ -946,19 +989,21 @@ function renderQ(q, host, secName){
         lis.forEach(x=>x.classList.remove("picked"));
         li.classList.add("picked");
         picked = i;
-        if(!EXAM) gradeChoice(i, false);     /* 讲义：点了就判；考试：等点「对答案」 */
+        /* 讲义：点了就判；考试／整块模式：等点「对答案」 */
+        if(!EXAM && !BLOCK) gradeChoice(i, false);
       });
       ul.appendChild(li); lis.push(li);
     });
     stem.appendChild(ul);
     ansText = "ABCD"[q.a] + ". " + q.opts[q.a];
 
-    foot.innerHTML = EXAM
-      ? '<button class="go">对答案</button><span class="verdict"></span>'
+    foot.innerHTML = (EXAM || BLOCK)
+      ? '<span class="verdict"></span>'
       : '<span class="verdict"></span><button class="go ghost" style="display:none">再做一遍</button>';
+    if(EXAM && !BLOCK) foot.innerHTML = '<button class="go">对答案</button><span class="verdict"></span>';
     const vd = foot.querySelector(".verdict");
-    const subBtn = EXAM ? foot.querySelector(".go") : null;
-    const again  = EXAM ? null : foot.querySelector(".go");
+    const subBtn = (EXAM && !BLOCK) ? foot.querySelector(".go") : null;
+    const again  = (EXAM || BLOCK) ? null : foot.querySelector(".go");
 
     function gradeChoice(pick, silent){
       const ok = pick === q.a;
@@ -969,7 +1014,7 @@ function renderQ(q, host, secName){
       vd.className="verdict show "+(ok?"v-ok":"v-no");
       vd.textContent = ok ? "对了" : "选错了，看解析";
       if(subBtn) subBtn.style.display = "none";
-      if(again)  again.style.display = "";
+      if(again && !BLOCK) again.style.display = "";
       if(!silent){ record(q.id, ok); state[q.id].pick = pick; save(); }
     }
     if(subBtn) subBtn.addEventListener("click", () => {
@@ -982,6 +1027,12 @@ function renderQ(q, host, secName){
       vd.className="verdict"; again.style.display="none";
       resetQ(q.id); refreshTally();
     });
+    /* 整块模式下由「本组对答案」统一调用 */
+    card._answered = () => picked >= 0;
+    card._grade = silent => { if(picked < 0){ lis.forEach(x=>x.classList.remove("picked")); }
+                              gradeChoice(picked, silent); };
+    card._reset = () => { lis.forEach(x=>x.classList.remove("is-ok","is-no","picked")); picked = -1;
+                          card.classList.remove("locked","reveal","correct","wrong"); vd.className="verdict"; };
     if(state[q.id] && state[q.id].done)
       gradeChoice(state[q.id].pick !== undefined ? state[q.id].pick : (state[q.id].ok ? q.a : -1), true);
 
@@ -1034,12 +1085,20 @@ function renderQ(q, host, secName){
         vd.textContent = got ? (sameWords ? "词都用对了，是语序不对。" : "用的词对不上，检查有没有漏词或多词。") : "还没写。";
         ansLine.innerHTML = "答案：" + [q.a].concat(q.alt || []).join("<br>答案：");
       }
-      btn.style.display = "none"; clr.style.display = "none"; if(redo) redo.style.display = "";
+      btn.style.display = "none"; clr.style.display = "none"; if(redo && !BLOCK) redo.style.display = "";
       if(!silent) record(q.id, ok);
     };
     btn.addEventListener("click", () => grade(false));
     line.addEventListener("keydown", e => { if(e.key === "Enter") grade(false); });
     clr.addEventListener("click", () => { line.value = ""; line.focus(); });
+    if(BLOCK){
+      btn.style.display = "none"; if(redo) redo.style.display = "none";
+      card._answered = () => !!line.value.trim();
+      card._grade = grade;
+      card._reset = () => { line.disabled=false; line.value=""; line.classList.remove("is-ok","is-no");
+                            ansLine.innerHTML=""; card.classList.remove("locked","reveal","correct","wrong");
+                            vd.className="verdict"; btn.style.display=""; clr.style.display=""; };
+    }
     if(redo) redo.addEventListener("click", () => {
       line.disabled = false; line.value = ""; line.classList.remove("is-ok","is-no");
       ansLine.innerHTML = "";
@@ -1120,7 +1179,7 @@ function renderQ(q, host, secName){
       vd.className = "verdict show " + (allOk ? "v-ok" : (anyNear && !anyHard ? "v-near" : "v-no"));
       vd.innerHTML = allOk ? "对了"
         : note + '答案：<span class="ansline">'+q.blanks.map(b=>b.a).join(" / ")+"</span>";
-      btn.style.display="none"; if(again) again.style.display="";
+      btn.style.display="none"; if(again && !BLOCK) again.style.display="";
       if(!silent) record(q.id, allOk);
     };
     btn.addEventListener("click", () => grade(false));
@@ -1131,6 +1190,14 @@ function renderQ(q, host, secName){
       vd.className="verdict"; btn.style.display=""; again.style.display="none";
       resetQ(q.id); refreshTally();
     });
+    if(BLOCK){
+      btn.style.display = "none"; if(again) again.style.display = "none";
+      card._answered = () => inputs.some(el => el.value.trim());
+      card._grade = grade;
+      card._reset = () => { inputs.forEach(el => { el.disabled=false; el.value="";
+                              el.classList.remove("is-ok","is-no","is-near"); });
+                            card.classList.remove("locked","reveal","correct","wrong"); vd.className="verdict"; };
+    }
     if(state[q.id] && state[q.id].done){
       if(state[q.id].ok) inputs.forEach((el,i)=>{ el.value = q.blanks[i].a; });
       grade(true);
@@ -1147,6 +1214,98 @@ function renderQ(q, host, secName){
     stemText: q.stem.replace(/<[^>]+>/g,"").replace(/__\d+__/g,"____").replace(/\s+/g," ").trim() +
               (q.type==="choice" ? "　"+q.opts.map((o,i)=>"ABCD"[i]+". "+o).join("  ") : ""),
     ansText, exHtml:q.ex, flag:q.flag});
+}
+
+/* ================================================================
+   本组对答案 —— 整块做完再统一判
+   ----------------------------------------------------------------
+   把一个挂载点里的所有题收成一组：判断题按行收，其余按卡片收。
+   没做完就点，先提醒一次；再点一次才判（空着的按错算）。
+   ================================================================ */
+function addBlockBar(hostId, label){
+  if(!BLOCK) return;
+  const host = document.getElementById(hostId);
+  if(!host) return;
+  const items = [];
+  host.querySelectorAll(".q").forEach(card => {
+    if(card._rows) card._rows.forEach(r => items.push(r));
+    else if(card._grade) items.push({ key: card.id.replace(/^q-/, ""),
+                                      answered: card._answered, grade: card._grade, reset: card._reset });
+  });
+  if(!items.length) return;
+
+  const bar = document.createElement("div"); bar.className = "blockbar";
+  bar.innerHTML = '<button class="go">本组对答案</button>'+
+                  '<span class="bb-stat"></span><span style="flex:1"></span>'+
+                  '<button class="go ghost bb-redo" style="display:none">本组再做一遍</button>';
+  const btn = bar.querySelector(".go"), stat = bar.querySelector(".bb-stat"),
+        redo = bar.querySelector(".bb-redo");
+  let warned = false, done = false;
+
+  const left = () => items.filter(it => !it.answered()).length;
+  const sync = () => {
+    if(done) return;
+    const n = items.length - left();
+    stat.className = "bb-stat";
+    stat.textContent = (label || "本组") + " 共 " + items.length + " 题，已作答 " + n + " 题";
+  };
+  host.addEventListener("click", sync);
+  host.addEventListener("input", sync);
+  host.addEventListener("keyup", sync);
+
+  btn.addEventListener("click", () => {
+    const miss = left();
+    if(miss && !warned){
+      warned = true;
+      stat.className = "bb-stat warn";
+      stat.textContent = "还有 " + miss + " 题没做 —— 再点一次直接对答案，空着的按错算";
+      return;
+    }
+    items.forEach(it => it.grade(false));
+    done = true;
+    const ok = items.filter(it => state[it.key] && state[it.key].ok).length;
+    stat.className = "bb-stat sum";
+    stat.textContent = (label || "本组") + " 共 " + items.length + " 题，对 " + ok + " 题，错 " + (items.length - ok) + " 题";
+    btn.style.display = "none";
+    if(!EXAM) redo.style.display = "";
+    refreshTally();
+  });
+  redo.addEventListener("click", () => {
+    items.forEach(it => { if(it.reset) it.reset(); });
+    done = false; warned = false;
+    btn.style.display = ""; redo.style.display = "none";
+    sync(); refreshTally();
+  });
+
+  /* 刷新回来时若整组都判过了，直接显示汇总，不用再点一次 */
+  if(items.every(it => state[it.key] && state[it.key].done)){
+    done = true;
+    const ok = items.filter(it => state[it.key].ok).length;
+    stat.className = "bb-stat sum";
+    stat.textContent = (label || "本组") + " 共 " + items.length + " 题，对 " + ok + " 题，错 " + (items.length - ok) + " 题";
+    btn.style.display = "none";
+    if(!EXAM) redo.style.display = "";
+  } else sync();
+  host.parentNode.insertBefore(bar, host.nextSibling);
+}
+
+/* 自动给页面上每个挂载点装一条「本组对答案」。
+   标题取挂载点上面那条 .block-t 的文字（去掉里面的小字和二维码）；
+   挖空自测那种本来就整表判的（mount-drill）跳过。 */
+function autoBlockBars(){
+  if(!BLOCK) return;
+  document.querySelectorAll('[id^="mount-"]').forEach(host => {
+    if(host.id === "mount-drill") return;
+    let label = "";
+    for(let el = host.previousElementSibling; el && !label; el = el.previousElementSibling){
+      if(el.classList.contains("block-t") || el.classList.contains("chap-t")){
+        label = [...el.childNodes].filter(n => n.nodeType === 3)
+                  .map(n => n.textContent).join("").replace(/\s+/g, " ").trim();
+      }
+      if(el.classList.contains("blockbar")) break;   /* 上一组的栏，别往上翻了 */
+    }
+    addBlockBar(host.id, label || "本组");
+  });
 }
 
 /* ---- 不规则动词表 ---- */
@@ -1399,6 +1558,7 @@ BANK.xi.forEach(q => renderQ(q, document.getElementById("mount-xi"), "人称代�
 renderRefTable();
 renderDrills();
 BANK.more.forEach(q => renderQ(q, document.getElementById("mount-more"), "更多习题"));
+autoBlockBars();      /* 每个板块末尾装一条「本组对答案」 */
 refreshTally();
 
 /* 二维码注入 + 放大 */
