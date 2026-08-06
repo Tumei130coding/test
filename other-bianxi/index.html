@@ -1,0 +1,1409 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>other ／ others ／ another 辨析 · 初级语法 代词辨析（交互版）</title>
+<style>
+:root{
+  --ink:#1f2328; --ink-2:#4a5158; --ink-3:#8b939b;
+  --paper:#faf9f7; --card:#ffffff; --line:#e6e2dc;
+  --accent:#c0392b; --accent-soft:#fdf1ef;
+  --ok:#15803d; --ok-soft:#eefaf1; --ok-line:#b7e4c7;
+  --no:#c62828; --no-soft:#fdf0ef; --no-line:#f2c4c0;
+  --warn:#b45309; --warn-soft:#fff8e8;
+  --radius:10px;
+  --serif:"Georgia","Times New Roman","Songti SC",serif;
+  --sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--paper); color:var(--ink);
+  font-family:var(--sans); font-size:16px; line-height:1.7;
+  -webkit-text-size-adjust:100%;
+}
+img{max-width:100%}
+
+/* ---------- 页眉 ---------- */
+.brandbar{
+  position:sticky; top:0; z-index:40;
+  background:rgba(250,249,247,.94); backdrop-filter:saturate(1.4) blur(8px);
+  border-bottom:1px solid var(--line);
+}
+.brandbar-in{
+  max-width:860px; margin:0 auto; padding:10px 18px;
+  display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+}
+.brand{font-size:13px; letter-spacing:.06em; color:var(--ink-2); white-space:nowrap}
+.brand b{color:var(--accent); font-weight:700}
+.brand span{color:var(--ink-3)}
+.bar-spacer{flex:1}
+.progwrap{display:flex; align-items:center; gap:8px; font-size:12px; color:var(--ink-2)}
+.progbar{width:110px; height:6px; border-radius:99px; background:#e9e5df; overflow:hidden}
+.progbar i{display:block; height:100%; width:0; background:var(--accent); transition:width .3s}
+.tbtn{
+  font:inherit; font-size:12px; padding:4px 10px; border-radius:99px;
+  border:1px solid var(--line); background:var(--card); color:var(--ink-2); cursor:pointer;
+}
+.tbtn:hover{border-color:var(--ink-3)}
+.tbtn.on{background:var(--ink); color:#fff; border-color:var(--ink)}
+
+/* ---------- 目录 ---------- */
+nav.toc{
+  max-width:860px; margin:0 auto; padding:0 18px;
+  display:flex; gap:6px; overflow-x:auto; scrollbar-width:none;
+  border-bottom:1px solid var(--line); background:var(--paper);
+  position:sticky; top:43px; z-index:39;
+}
+nav.toc::-webkit-scrollbar{display:none}
+nav.toc a{
+  flex:0 0 auto; padding:9px 12px; font-size:13px; color:var(--ink-2);
+  text-decoration:none; border-bottom:2px solid transparent; white-space:nowrap;
+}
+nav.toc a.active{color:var(--accent); border-bottom-color:var(--accent); font-weight:600}
+
+/* ---------- 主体 ---------- */
+main{max-width:860px; margin:0 auto; padding:26px 18px 90px}
+h1.doc{font-size:26px; margin:8px 0 4px; letter-spacing:.02em}
+.doc-sub{color:var(--ink-3); font-size:13px; margin:0 0 26px}
+
+section.chap{margin:0 0 44px; scroll-margin-top:96px}
+h2.chap-t{
+  font-size:19px; color:var(--accent); margin:0 0 4px;
+  display:flex; align-items:center; gap:10px;
+}
+h2.chap-t .n{
+  font-size:12px; font-weight:700; color:#fff; background:var(--accent);
+  border-radius:4px; padding:1px 7px; letter-spacing:.04em;
+}
+.chap-lead{color:var(--ink-2); font-size:14px; margin:0 0 18px}
+
+.block-t{
+  font-size:14px; font-weight:700; color:var(--ink-2); margin:30px 0 12px;
+  padding-bottom:6px; border-bottom:1px dashed var(--line);
+  display:flex; align-items:baseline; gap:8px;
+}
+.block-t em{font-style:normal; font-weight:400; color:var(--ink-3); font-size:12px}
+
+/* 二维码：做成右侧小胶囊，不参与正文排版，点开可放大 */
+.qr{
+  margin-left:auto; flex:0 0 auto; display:inline-flex; align-items:center; gap:7px;
+  padding:4px 10px 4px 5px; border:1px solid var(--line); border-radius:99px;
+  background:var(--card); cursor:zoom-in; align-self:center;
+}
+.qr:hover{border-color:var(--accent)}
+.qr img{width:30px; height:30px; display:block; border-radius:4px; background:#fff}
+.qr small{font-size:11.5px; color:var(--ink-3); white-space:nowrap}
+.qr:hover small{color:var(--accent)}
+.qr-modal{
+  position:fixed; inset:0; z-index:100; background:rgba(20,20,20,.72);
+  display:none; align-items:center; justify-content:center; padding:24px;
+}
+.qr-modal.show{display:flex}
+.qr-modal img{width:min(78vw,340px); background:#fff; padding:14px; border-radius:12px}
+.qr-modal p{color:#fff; font-size:13px; text-align:center; margin:14px 0 0}
+
+/* 参考卡片 */
+.ref{
+  background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+  padding:0; margin:14px 0 22px; overflow:hidden;
+}
+.ref>summary{
+  cursor:pointer; padding:12px 16px; font-size:14px; font-weight:600; color:var(--ink-2);
+  list-style:none; display:flex; align-items:center; gap:8px;
+}
+.ref>summary::-webkit-details-marker{display:none}
+.ref>summary::before{content:"▸"; color:var(--accent); transition:transform .2s; display:inline-block}
+.ref[open]>summary::before{transform:rotate(90deg)}
+.ref .ref-body{padding:0 16px 16px}
+table.g{width:100%; border-collapse:collapse; font-size:13px; margin:6px 0}
+table.g th,table.g td{border:1px solid var(--line); padding:6px 8px; text-align:center}
+table.g th{background:#f4f1ec; font-weight:600; color:var(--ink-2)}
+table.g td.lab{background:#faf8f5; font-weight:600; color:var(--ink-2)}
+table.g td.en{font-family:var(--serif)}
+.tablescroll{overflow-x:auto; -webkit-overflow-scrolling:touch; max-width:100%}
+
+/* 不规则动词挖空自测表 */
+table.drill{width:100%; min-width:470px}
+table.drill td{vertical-align:middle; padding:5px 7px}
+table.drill td.zh{color:var(--ink-2); font-size:12.5px}
+.blank.cell{width:100%; text-align:center; font-size:14.5px; padding:3px 4px}
+.corr{font-family:var(--serif); font-size:12.5px; color:var(--ok); font-weight:700; line-height:1.5; min-height:0}
+.drillbar{
+  display:flex; align-items:center; gap:8px; flex-wrap:wrap;
+  font-size:12.5px; color:var(--ink-3); margin:-4px 0 12px;
+}
+.drillbar button{
+  font:inherit; font-size:12.5px; padding:4px 12px; border-radius:99px; cursor:pointer;
+  border:1px solid var(--line); background:var(--card); color:var(--ink-2);
+}
+.drillbar button:hover{border-color:var(--accent); color:var(--accent)}
+/* 窄屏：压紧字号让四列塞进手机，不用横向滚 */
+@media(max-width:600px){
+  table.drill{width:100%; min-width:0; table-layout:fixed}
+  /* 本组对答案栏 */
+  .blockbar{
+    display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+    margin:2px 0 20px; padding:12px 16px;
+    background:var(--card); border:1px solid var(--line); border-radius:10px;
+  }
+  .blockbar .go{margin:0}
+  .bb-stat{font-size:13px; color:var(--ink-3)}
+  .bb-stat.warn{color:var(--warn); font-weight:600}
+  .bb-stat.sum{color:var(--ink); font-weight:600; font-size:13.5px}
+  /* 整块模式下，选中但还没判的选项／按钮 */
+  .opt.picked{border-color:var(--ink-2); background:#f4f1ec}
+  .jb.sel{background:var(--ink); color:#fff; border-color:var(--ink)}
+
+  /* 题目插图（饼图、价目表）*/
+  .qfig{margin:10px 0 2px; text-align:center}
+  .qfig img{max-width:100%; border:1px solid var(--line); border-radius:8px; cursor:zoom-in; background:#fff}
+  .qfig figcaption{margin-top:5px; font-size:12px; color:var(--ink-3)}
+  /* 题干里的数据表 —— 一律做成两列（标签／数值），窄屏也放得下，不用横滑 */
+  table.qtab{width:100%; border-collapse:collapse; margin:10px 0 2px; font-size:13px; table-layout:fixed}
+  table.qtab td,table.qtab th{word-break:break-word}
+  table.qtab th,table.qtab td{border:1px solid var(--line); padding:5px 8px; text-align:center}
+  table.qtab th{background:#f4f1ec; font-weight:600; color:var(--ink-2)}
+  table.qtab caption{caption-side:top; text-align:left; font-size:12.5px;
+    color:var(--ink-2); font-weight:600; padding-bottom:5px}
+  table.qtab td.lab{text-align:left; background:#faf9f7; font-weight:600}
+  .qnote{font-size:12px; color:var(--ink-3); margin:3px 0 0}
+  table.drill th{padding:5px 3px; font-size:11.5px}
+  table.drill td{padding:4px 3px}
+  table.drill td.en{font-size:13.5px; word-break:break-word}
+  table.drill td.zh{font-size:11px; line-height:1.35}
+  .blank.cell{font-size:13.5px; padding:2px 1px}
+  .corr{font-size:11.5px}
+}
+.rules{font-size:13px; color:var(--ink-2); margin:12px 0 0; padding-left:20px}
+.rules li{margin:5px 0}
+.rules code{font-family:var(--serif); font-size:13px; background:#f4f1ec; padding:1px 4px; border-radius:3px}
+
+/* ---------- 题目 ---------- */
+.q{
+  background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+  padding:16px 18px; margin:0 0 12px; scroll-margin-top:96px;
+  transition:border-color .2s, box-shadow .2s;
+}
+.q.correct{border-color:var(--ok-line); background:var(--ok-soft)}
+.q.wrong{border-color:var(--no-line); background:var(--no-soft)}
+.q-head{display:flex; gap:10px; align-items:flex-start}
+.q-no{
+  flex:0 0 auto; font-size:12px; font-weight:700; color:var(--ink-3);
+  background:#f2efea; border-radius:5px; padding:2px 7px; margin-top:3px; min-width:30px; text-align:center;
+}
+.q.correct .q-no{background:#d5f0de; color:var(--ok)}
+.q.wrong .q-no{background:#f8d9d6; color:var(--no)}
+.q-stem{flex:1; min-width:0; font-family:var(--serif); font-size:16px; line-height:1.85}
+.q-stem .zh{font-family:var(--sans); font-size:14px; color:var(--ink-2)}
+.q-stem .dash{color:var(--ink-3)}
+
+/* 选择题 */
+.opts{list-style:none; margin:12px 0 0; padding:0; display:grid; gap:7px}
+.opts.two{grid-template-columns:1fr 1fr}
+@media(max-width:560px){.opts.two{grid-template-columns:1fr}}
+.opt{
+  display:flex; gap:9px; align-items:center; padding:8px 12px; cursor:pointer;
+  border:1px solid var(--line); border-radius:8px; background:#fff;
+  font-family:var(--serif); font-size:15px; transition:.15s;
+}
+.opt:hover{border-color:var(--ink-3); background:#fbfaf8}
+.opt .k{
+  flex:0 0 auto; width:21px; height:21px; border-radius:50%; border:1px solid var(--line);
+  display:grid; place-items:center; font-family:var(--sans); font-size:11px; font-weight:700; color:var(--ink-3);
+}
+.opt.picked{border-color:var(--ink); background:#f6f4f1}
+.opt.picked .k{background:var(--ink); color:#fff; border-color:var(--ink)}
+.opt.is-ok{border-color:var(--ok-line); background:var(--ok-soft)}
+.opt.is-ok .k{background:var(--ok); color:#fff; border-color:var(--ok)}
+.opt.is-no{border-color:var(--no-line); background:var(--no-soft)}
+.opt.is-no .k{background:var(--no); color:#fff; border-color:var(--no)}
+.q.locked .opt{cursor:default}
+
+/* 填空 */
+.blank{
+  font-family:var(--serif); font-size:15px; width:9.5em; padding:2px 8px;
+  border:none; border-bottom:1.5px solid var(--ink-3); background:transparent;
+  color:var(--accent); text-align:center; outline:none;
+}
+.blank:focus{border-bottom-color:var(--accent); background:#fffdf9}
+.blank.is-ok{color:var(--ok); border-bottom-color:var(--ok)}
+.blank.is-no{color:var(--no); border-bottom-color:var(--no); text-decoration:line-through}
+/* 拼写差一点：同样判错，但用橙色区别于纯粹答错，让学生一眼看出“只差一点” */
+.blank.is-near{color:var(--warn); border-bottom-color:var(--warn); text-decoration:underline wavy var(--warn) 1px; text-underline-offset:3px}
+.blank.wide{width:13em}
+.hintw{font-family:var(--sans); font-size:13px; color:var(--ink-3)}
+
+/* 选词填空的词框 */
+.wordbank{
+  display:flex; flex-wrap:wrap; gap:7px; align-items:center;
+  border:1.5px solid var(--accent); border-radius:8px; background:#fff;
+  padding:9px 11px; margin:0 0 12px;
+}
+.wordbank .wb{
+  font-family:var(--serif); font-size:15px; padding:3px 12px; border-radius:6px; cursor:pointer;
+  border:1px solid var(--line); background:var(--paper); color:var(--ink);
+}
+.wordbank .wb:hover{border-color:var(--accent); color:var(--accent); background:#fff}
+.wordbank .wb.used{opacity:.35; text-decoration:line-through}
+.q.locked .wordbank .wb{cursor:default; opacity:.5}
+.wb-tip{font-family:var(--sans); font-size:12px; color:var(--ink-3); flex-basis:100%; margin-top:2px}
+
+/* 连词成句 */
+.sentline{
+  display:block; width:100%; margin-top:12px; font-family:var(--serif); font-size:16px;
+  padding:8px 12px; border:1px solid var(--line); border-radius:8px; background:#fffdf9;
+  color:var(--accent); outline:none;
+}
+.sentline:focus{border-color:var(--accent)}
+.sentline.is-ok{color:var(--ok); border-color:var(--ok-line); background:var(--ok-soft)}
+.sentline.is-no{color:var(--no); border-color:var(--no-line); background:var(--no-soft)}
+.sentans{font-family:var(--serif); font-size:15.5px; color:var(--ok); font-weight:700; margin-top:8px; display:none}
+.q.locked .sentans{display:block}
+
+/* 判断 */
+.jrow{
+  display:flex; align-items:center; gap:12px; padding:7px 0; flex-wrap:wrap;
+  border-bottom:1px dashed #efece7;
+}
+.jrow:last-child{border-bottom:none}
+.jrow .w{font-family:var(--serif); font-size:16px; flex:1 1 auto; min-width:8em}
+.jbtns{display:flex; gap:6px; flex:0 0 auto}
+.jb{
+  font:inherit; font-size:13px; padding:3px 12px; border-radius:99px; cursor:pointer;
+  white-space:nowrap;
+  border:1px solid var(--line); background:#fff; color:var(--ink-2);
+}
+.jb:hover{border-color:var(--ink-3)}
+.jb.sel{background:var(--ink); color:#fff; border-color:var(--ink)}
+.jb.good{background:var(--ok); color:#fff; border-color:var(--ok)}
+.jb.bad{background:var(--no); color:#fff; border-color:var(--no)}
+.jrow .why{
+  font-size:13px; color:var(--ink-2); flex:1 0 100%; margin:2px 0 4px; display:none;
+  padding-left:11px; border-left:2px solid var(--line); line-height:1.7;
+}
+.jrow.done .why{display:block}
+
+/* 点词标记 */
+.marksent{font-family:var(--serif); font-size:16.5px; line-height:2.2; margin:10px 0 0}
+.tok{
+  display:inline-block; padding:0 2px; margin:0; border-radius:4px; cursor:pointer;
+  border-bottom:2px dotted var(--ink-3); transition:.15s;
+}
+.tok:hover{background:#f2efea}
+.tok.sel{background:#fff2cc; border-bottom:2px solid var(--warn); font-weight:700}
+.q.locked .tok{cursor:default}
+.tok.r-hit{background:var(--ok-soft); border-bottom:2px solid var(--ok); color:var(--ok); font-weight:700}
+.tok.r-miss{background:var(--warn-soft); border-bottom:2px dashed var(--warn); color:var(--warn); font-weight:700}
+.tok.r-over{background:var(--no-soft); border-bottom:2px solid var(--no); color:var(--no); text-decoration:line-through}
+.marklegend{font-size:12px; color:var(--ink-3); margin-top:8px; display:none}
+.q.locked .marklegend{display:block}
+
+/* 反馈 / 解析 */
+.q-foot{display:flex; align-items:center; gap:10px; margin-top:13px; flex-wrap:wrap}
+.go{
+  font:inherit; font-size:13.5px; font-weight:600; padding:6px 18px; border-radius:99px;
+  border:none; background:var(--ink); color:#fff; cursor:pointer;
+}
+.go:hover{background:#000}
+.go.ghost{background:transparent; color:var(--ink-3); border:1px solid var(--line); font-weight:400}
+.go.ghost:hover{background:#f4f1ec; color:var(--ink-2)}
+.verdict{font-size:13.5px; font-weight:700; display:none}
+.verdict.show{display:inline}
+.verdict.v-ok{color:var(--ok)}
+.verdict.v-no{color:var(--no)}
+.verdict.v-near{color:var(--warn)}
+
+
+.explain{
+  display:none; margin-top:12px; padding:13px 15px; border-radius:8px;
+  background:#f7f5f1; border-left:3px solid var(--accent); font-size:14px; line-height:1.8;
+}
+.q.reveal .explain{display:block}
+.explain .lab{
+  display:inline-block; font-size:11px; font-weight:700; color:#fff; background:var(--accent);
+  border-radius:3px; padding:0 6px; margin-right:6px; vertical-align:1px; letter-spacing:.05em;
+}
+.explain .lab.k2{background:var(--ink-2)}
+.explain .lab.k3{background:var(--warn)}
+.explain p{margin:0 0 7px}
+.explain p:last-child{margin-bottom:0}
+.explain b{color:var(--accent)}
+.yes{color:var(--ok); font-weight:700}
+.no{color:var(--no); font-weight:700}
+.rulebar{
+  background:var(--accent-soft); border-left:3px solid var(--accent); border-radius:8px;
+  padding:12px 15px; margin:0 0 14px; font-size:14px; line-height:1.8; color:var(--ink-2);
+}
+.rulebar b{color:var(--accent)}
+.rulebar code{font-family:var(--serif); background:#fff; padding:1px 5px; border-radius:3px; font-size:13.5px}
+.explain code{font-family:var(--serif); background:#eae6e0; padding:1px 5px; border-radius:3px; font-size:13.5px}
+.ansline{font-family:var(--serif); font-size:15px; color:var(--ok); font-weight:700}
+
+.flag{
+  display:none; margin-top:10px; padding:9px 13px; border-radius:8px; font-size:13px;
+  background:var(--warn-soft); border-left:3px solid var(--warn); color:#7c4a09;
+}
+
+/* ---------- 结算 ---------- */
+.tally{
+  background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+  padding:22px; margin-top:14px;
+}
+.tally h3{margin:0 0 4px; font-size:17px}
+.tally .sub{color:var(--ink-3); font-size:13px; margin:0 0 18px}
+.stats{display:flex; gap:26px; flex-wrap:wrap; margin-bottom:18px}
+.stat b{display:block; font-size:27px; line-height:1.2; font-family:var(--serif)}
+.stat span{font-size:12px; color:var(--ink-3)}
+.stat.ok b{color:var(--ok)} .stat.no b{color:var(--no)}
+.wronglist{list-style:none; padding:0; margin:0; font-size:14px}
+.wronglist li{padding:7px 0; border-top:1px dashed var(--line)}
+.wronglist a{color:var(--accent); text-decoration:none}
+.wronglist a:hover{text-decoration:underline}
+.wronglist .tag{font-size:11px; color:var(--ink-3); margin-right:8px}
+.empty{color:var(--ink-3); font-size:14px}
+
+/* 截图打卡 */
+.checkin{
+  margin-top:22px; padding:16px 18px 13px; border-radius:10px; text-align:center;
+  border:1.5px dashed var(--line); background:#fbfaf8; transition:.25s;
+}
+.checkin.ready{border-color:var(--ok); border-style:solid; background:var(--ok-soft)}
+.ci-title{font-size:15px; font-weight:700; color:var(--ink-2); margin-bottom:5px}
+.checkin.ready .ci-title{color:var(--ok)}
+.ci-text{font-size:13.5px; color:var(--ink-2); margin:0 0 13px; line-height:1.7}
+.ci-meta{
+  font-size:12px; color:var(--ink-3); display:flex; gap:6px 14px; justify-content:center;
+  flex-wrap:wrap; padding-top:11px; border-top:1px dashed var(--line);
+}
+.checkin.ready .ci-meta{border-top-color:var(--ok-line)}
+.ci-brand{font-size:11.5px; color:var(--ink-3); margin-top:7px; letter-spacing:.04em}
+.ci-brand b{color:var(--accent); font-weight:700}
+
+footer{
+  max-width:860px; margin:0 auto; padding:26px 18px 50px;
+  border-top:1px solid var(--line); color:var(--ink-3); font-size:12.5px; line-height:1.8;
+}
+footer b{color:var(--accent)}
+
+
+@media print{
+  .brandbar,nav.toc,.q-foot,.go{display:none!important}
+  .explain{display:block!important}
+  body{background:#fff}
+}
+</style>
+</head>
+<body>
+
+<div class="brandbar">
+  <div class="brandbar-in">
+    <div class="brand"><b>土妹英语</b> <span>｜定制课程 让每一分努力都不被辜负</span></div>
+    <div class="bar-spacer"></div>
+    <div class="progwrap"><div class="progbar"><i id="pbar"></i></div><span id="ptext">0 / 0</span></div>
+    <button class="tbtn" id="btnReset">重做</button>
+  </div>
+</div>
+
+<nav class="toc" id="toc">
+  <a href="#c0" class="active">辨析规则</a>
+  <a href="#c1">专项练习</a>
+  <a href="#c2">本节小结</a>
+</nav>
+
+<main>
+  <h1 class="doc">other ／ others ／ another 辨析</h1>
+  <p class="doc-sub">初级语法 · 专项练习 第 1 节 · 对应讲义 专项练习 35 题 · 共 <span id="totalHint">—</span> 个判分点</p>
+
+  <section class="chap" id="c0">
+    <h2 class="chap-t"><span class="n">辨析</span>先看空后面有没有名词</h2>
+    <p class="chap-lead">这五个词长得像，但只要按两步走就不会乱：<b>第一步看空后面有没有名词，第二步看总数确不确定。</b></p>
+
+    <div class="rulebar">
+      <b>第一步 · 空后面有没有名词？</b><br><br>
+      <b>有名词</b>（后面还得跟着一个词）→ 只能用这三个：<br>
+      　<code><b>another</b> + 单数名词</code>　另一个（不确定）　<small>another pen</small><br>
+      　<code><b>other</b> + 复数名词</code>　别的一些（泛指）　<small>other students</small><br>
+      　<code><b>the other</b> + 名词</code>　特指剩下的　<small>the other students</small><br><br>
+
+      <b>没有名词</b>（自己就当代词用）→ 只能用这四个：<br>
+      　<code><b>another</b></code>　另一个（不确定）<br>
+      　<code><b>others</b></code>　另一些（泛指）　<small>＝ other + 复数名词</small><br>
+      　<code><b>the other</b></code>　两者中的另一个<br>
+      　<code><b>the others</b></code>　其余<b>全部</b>（总数确定）<br><br>
+
+      <b>一句话记死：</b><code>others</code> ＝ <code>other</code> ＋ 复数名词 —— 所以
+      <b>others 后面绝不能再跟名词</b>，这一条就能砍掉一半的错误选项。
+    </div>
+
+    <div class="rulebar">
+      <b>第二步 · 总数确不确定？</b><br><br>
+      · <b>总数是二</b> → <code>One is…, <b>the other</b> is…</code>　<small>两支笔、两个朋友、一副手套</small><br>
+      · <b>总数不确定</b> → <code><b>another</b></code>　<small>再来一个，不知道是哪个</small><br>
+      · <b>一部分 ＋ 另一部分（泛指）</b> → <code>Some…, <b>others</b>…</code><br>
+      · <b>一部分 ＋ 其余全部</b> → <code>Some…, <b>the others</b>…</code><br><br>
+
+      <b>三个要单独记的：</b><br>
+      ① <code><b>another</b> + 数词 + 复数名词</code> ＝ 再来……个　<small>another two pens　another three days</small><br>
+      ② <code>help <b>one another</b></code> ／ <code>each other</code> ＝ 互相<br>
+      ③ <code>else</code> 只跟在疑问词或不定代词后面　<small>something else　who else</small> —— <b>不能直接修饰名词</b>
+    </div>
+  </section>
+
+  <section class="chap" id="c1">
+    <h2 class="chap-t"><span class="n">练习</span>专项练习 · 35 题</h2>
+    <p class="chap-lead">题号和纸质练习完全对得上。<b>分成三组，一组做完对一次答案</b>，不用等到 35 题全做完。</p>
+
+    <div class="block-t">第一组 <em>第 1–12 题</em></div>
+    <div id="mount-g1"></div>
+
+    <div class="block-t">第二组 <em>第 13–24 题</em></div>
+    <div id="mount-g2"></div>
+
+    <div class="block-t">第三组 <em>第 25–35 题</em></div>
+    <div id="mount-g3"></div>
+  </section>
+
+  <section class="chap" id="c2">
+    <h2 class="chap-t"><span class="n">小结</span>本节成绩单</h2>
+    <div class="tally">
+      <h3 id="tallyTitle">还没开始</h3>
+      <p class="sub" id="tallySub">答完题目后，这里会自动汇总你的正确率和错题。</p>
+      <div class="stats">
+        <div class="stat"><b id="sDone">0</b><span>已作答</span></div>
+        <div class="stat ok"><b id="sOk">0</b><span>答对</span></div>
+        <div class="stat no"><b id="sNo">0</b><span>答错</span></div>
+        <div class="stat"><b id="sRate">—</b><span>正确率</span></div>
+      </div>
+      <div class="block-t" style="margin-top:6px">错题清单 <em>点题号跳回去重看解析 · 正确率按<b>第一次作答</b>算，重做不影响成绩</em></div>
+      <ul class="wronglist" id="wrongList"><li class="empty" style="border:none">暂无错题。</li></ul>
+
+      <div class="checkin" id="checkin">
+        <div class="ci-title" id="ciTitle">截图打卡</div>
+        <p class="ci-text" id="ciText">全部做完后截图这张成绩单发到你的学习群吧。</p>
+        <div class="ci-meta">
+          <span>初级语法 · 专项练习</span>
+          <span>第 1 节 · other ／ others ／ another 辨析</span>
+          <span id="ciDate"></span>
+        </div>
+        <div class="ci-brand"><b>土妹英语</b> ｜ 定制课程 让每一分努力都不被辜负</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>本页为「初级语法 · 专项练习」讲义电子化第 <b>1</b> 节，内容与排版依据原讲义 PDF 第 专项练习 35 题 页。</p>
+  <p>答题进度自动保存在本机浏览器里，关掉再打开不会丢；点右上角「重做」可清空重来。</p>
+  <p style="margin-top:10px"><b>土妹英语</b> ｜ 定制课程 让每一分努力都不被辜负</p>
+</footer>
+
+
+<div class="qr-modal" id="qrModal"><div><img src="" alt="二维码"><p>用手机相机或微信扫一扫，点页面任意处关闭</p></div></div>
+
+<script>
+
+/* ================================================================
+   构建时注入：二维码资源 + 是否教师版
+   ================================================================ */
+const QR = {};
+const TEACHER = false;
+
+/* ================================================================
+   题 库 数 据 —— 老师审核区
+   ================================================================ */
+
+const BANK = {
+
+g1: [
+{ id:"q1", type:"choice", no:"1",
+  stem:"This pen is too old. I want to buy ____ one.",
+  opts:["another","other","others","the others"], a:0,
+  ex:"<p>空后面是<b>单数名词</b> <code>one</code>，而且是「随便再买<b>另一支</b>」，没有确定范围 → <b>another</b>。</p><p><code>other</code> 后面要跟复数；<code>others</code> 和 <code>the others</code> 是代词，后面不能再跟名词。</p>" },
+
+{ id:"q2", type:"choice", no:"2",
+  stem:"I have two good pen friends. One is an American, ____ is in England.",
+  opts:["the other","another one","another","other"], a:0,
+  ex:"<p><b>一共就两个</b>，说完一个，剩下的那个是确定的 → <b>the other</b>。</p><p><b>记住这个句型：</b><code>One is…, <b>the other</b> is…</code> —— 只要总数是二，后面一定是 the other。</p>" },
+
+{ id:"q3", type:"choice", no:"3",
+  stem:"Lily is a good student. She works harder than ____ students in her class.",
+  opts:["any other","others","the other","another"], a:2,
+  ex:"<p>空后面是<b>复数名词</b> <code>students</code>，而且 <code>in her class</code> 划定了范围 → 特指班上<b>其余那些</b>学生 → <b>the other students</b>。</p><p>B <code>others</code> 是代词，后面不能再跟名词；D <code>another</code> 只能配单数。</p><p><b>顺带把 A 也弄清楚：</b><code>any other</code> 也是比较级里的常考搭配，但它后面只跟<b>单数</b> —— <code>harder than any other <b>student</b></code>。本题名词是复数 students，所以用 the other。</p>" },
+
+{ id:"q4", type:"choice", no:"4",
+  stem:"Some students like maths, ____ like history.",
+  opts:["other","others","the other","another"], a:1,
+  ex:"<p>空后面<b>没有名词</b>，单独作主语 → 只能用代词 <b>others</b>。</p><p><b>记住这个句型：</b><code>Some…, <b>others</b>…</code> = 有些……另一些…… —— 总数不确定，泛指。</p>" },
+
+{ id:"q5", type:"choice", no:"5",
+  stem:"This room is too small. We need ____ room for the meeting.",
+  opts:["another","other","others","the others"], a:0,
+  ex:"<p>空后面是<b>单数名词</b> <code>room</code>，「再要<b>一间别的</b>」不确定是哪间 → <b>another</b>。</p>" },
+
+{ id:"q6", type:"choice", no:"6",
+  stem:"I don't like the green cup. Please show me ____ one.",
+  opts:["another","other","others","the other"], a:0,
+  ex:"<p>单数 <code>one</code>，而且杯子不止两个（没说总数）→ <b>another</b>。</p><p><b>和 the other 的分界：</b>总数是<b>二</b>才用 the other；总数<b>不确定</b>就用 another。</p>" },
+
+{ id:"q7", type:"choice", no:"7",
+  stem:"There are two pens on the desk. One is red, ____ is blue.",
+  opts:["another","the other","others","other"], a:1,
+  ex:"<p><code>two pens</code> 明说了总数是二 → <code>One is…, <b>the other</b> is…</code> → <b>the other</b>。</p>" },
+
+{ id:"q8", type:"choice", no:"8",
+  stem:"—Mum, I want to wear my brown gloves, but there is only one.<br>—Wear ____ pair if you can't find ____ one, please.",
+  opts:["other; another","another; the other","the other; the other"], a:1,
+  ex:"<p>第一空：后面是单数 <code>pair</code>，「换<b>另外一双</b>」不确定哪双 → <b>another</b>。</p><p>第二空：手套一副就<b>两只</b>，找到一只，另一只是确定的 → <b>the other</b>。</p><p><b>一道题里 another 和 the other 各出现一次</b>，正好把两者的分界考透：不确定用 another，总数是二用 the other。</p>" },
+
+{ id:"q9", type:"choice", no:"9",
+  stem:"There is fruit, vegetables, meat and many ____ things in the shop.",
+  opts:["other","others","the other"], a:0,
+  ex:"<p>空后面是<b>复数名词</b> <code>things</code> → 用 <b>other</b>（other + 复数名词 = 别的一些……）。</p><p><code>others</code> 是代词，后面不能跟名词 —— <b>others ＝ other + 复数名词</b>，两者不能同时出现。</p>" },
+
+{ id:"q10", type:"choice", no:"10",
+  stem:"Three students finished early, and ____ were still writing.",
+  opts:["another","the other","others","the others"], a:3,
+  ex:"<p>说的是<b>一个班</b>里的学生：三个写完了，<b>其余全部</b>还在写 —— 总数确定、剩下的是一整批 → <b>the others</b>。</p><p><b>others 和 the others 的分界：</b><br>· <code>others</code> 另一些（泛指，剩下的不一定都算进来）<br>· <code>the others</code> 其余<b>全部</b>（总数确定）</p>" },
+
+{ id:"q11", type:"choice", no:"11",
+  stem:"I have two pens. One is black, ____ is blue.",
+  opts:["other","the other","another","others"], a:1,
+  ex:"<p>总数是二 → <code>One is…, <b>the other</b> is…</code>。</p>" },
+
+{ id:"q12", type:"choice", no:"12",
+  stem:"Some students like playing basketball, while <span class='zh'>(然而)</span> ____ like playing football better.",
+  opts:["the other","others","another"], a:1,
+  ex:"<p><code>Some…, <b>others</b>…</code>，空后面没有名词，单独作主语 → <b>others</b>。</p>" }
+],
+
+g2: [
+{ id:"q13", type:"choice", no:"13",
+  stem:"I don't like this shirt. Please show me ____. I have two shirts already. One is white, ____ is black.",
+  opts:["another; the other","other; another","another; others","others; another"], a:0,
+  ex:"<p>第一空：单独作宾语、店里衬衫不止两件 → <b>another</b>（可以单独当代词用）。</p><p>第二空：<code>two shirts</code> 总数是二 → <b>the other</b>。</p>" },
+
+{ id:"q14", type:"choice", no:"14",
+  stem:"The students helped ____ with their homework.",
+  opts:["one another","another","one other"], a:0,
+  ex:"<p><code>help <b>one another</b></code> = 互相帮助，固定搭配。</p><p><b>「互相」有两种说法：</b>两个人之间用 <code>each other</code>，三个及以上用 <code>one another</code>；口语里也常混用。</p>" },
+
+{ id:"q15", type:"choice", no:"15",
+  stem:"My aunt has two daughters. One is a middle school student, and ____ is a nine-month-old baby.",
+  opts:["other","the other","others","the others"], a:1,
+  ex:"<p><code>two daughters</code> 总数是二 → <b>the other</b>。</p>" },
+
+{ id:"q16", type:"choice", no:"16",
+  stem:"When ____ door closes, ____ opens. We should be always hopeful about life.",
+  opts:["one; the other","one; another","the one; others","other; the others"], a:1,
+  ex:"<p>这是一句谚语：<b>When one door closes, another opens.</b>（一扇门关上，<b>另一扇</b>会打开。）</p><p>门有<b>很多扇</b>，不是只有两扇，所以第二空<b>不能</b>用 the other → 用 <b>another</b>。</p><p><b>这题就是拿「总数是不是二」做文章</b> —— 别一看到 one 就条件反射填 the other。</p>" },
+
+{ id:"q17", type:"choice", no:"17",
+  stem:"I have two friends. One is Simon, and ____ is Sandy.",
+  opts:["other","the other","others","another"], a:1,
+  ex:"<p><code>two friends</code> 总数是二 → <b>the other</b>。</p>" },
+
+{ id:"q18", type:"choice", no:"18",
+  stem:"Some students love PE, but ____ students love Art.",
+  opts:["the other","other","others","the others"], a:1,
+  ex:"<p><b>注意空后面还有名词</b> <code>students</code> → 只能用 <code>other</code> 或 <code>the other</code>，<code>others</code>／<code>the others</code> 直接出局。</p><p>「另一些学生」是泛指，没说总共多少 → <b>other students</b>。</p><p><b>和第 4 题对照：</b><code>Some…, <b>others</b> like…</code>（后面没名词）／<code>Some…, but <b>other students</b> love…</code>（后面有名词）—— 意思一样，形式不同。</p>" },
+
+{ id:"q19", type:"choice", no:"19",
+  stem:"This carrot is too small for the rabbit. Please give it ____ bigger one.",
+  opts:["other","else","another","the other"], a:2,
+  ex:"<p>后面是单数 <code>one</code>，「<b>再给一根</b>大点的」不确定是哪根 → <b>another</b>。</p><p><code>else</code> 只能跟在疑问词或不定代词后面（<code>something else</code>、<code>who else</code>），不能直接修饰名词。</p>" },
+
+{ id:"q20", type:"choice", no:"20",
+  stem:"Some students like sports, ____ like reading in the library.",
+  opts:["other","others","the other","another"], a:1,
+  ex:"<p><code>Some…, <b>others</b>…</code>，空后面没名词 → <b>others</b>。</p>" },
+
+{ id:"q21", type:"choice", no:"21",
+  stem:"—How do you like the two pairs of shorts?<br>—They don't fit me well. One is too short, and ____ is too long.",
+  opts:["other","another","the other","others"], a:2,
+  ex:"<p><code>the two pairs</code> 总数是二 → <b>the other</b>。</p>" },
+
+{ id:"q22", type:"choice", no:"22",
+  stem:"In the park, some children are playing football, and ____ are flying kites.",
+  opts:["other","others","the other","another"], a:1,
+  ex:"<p><code>some…, <b>others</b>…</code>，公园里的孩子总数不确定 → <b>others</b>。</p>" },
+
+{ id:"q23", type:"choice", no:"23",
+  stem:"I have two pens. One is red, and ____ is blue.",
+  opts:["other","another","the other","others"], a:2,
+  ex:"<p>总数是二 → <b>the other</b>。</p>" },
+
+{ id:"q24", type:"choice", no:"24",
+  stem:"Students will be responsible for cleaning the classrooms, the hallways, and the ____ areas of the school.",
+  opts:["other","others","another","the other"], a:0,
+  ex:"<p><b>空前面已经有 the</b>，空后面是复数名词 <code>areas</code> → 中间只能放 <b>other</b>，凑成 <code>the other areas</code>。</p><p>D <code>the other</code> 会变成 <code>the the other areas</code>，重复了 the。</p>" }
+],
+
+g3: [
+{ id:"q25", type:"choice", no:"25",
+  stem:"—What ____ subjects do you like?<br>—I like English, too.",
+  opts:["others","another","other","any others"], a:2,
+  ex:"<p>空后面是<b>复数名词</b> <code>subjects</code> → 用 <b>other</b>。</p><p><code>What other subjects…?</code> = 你还喜欢<b>别的哪些</b>科目？</p>" },
+
+{ id:"q26", type:"choice", no:"26",
+  stem:"Some boys are playing football, and ____ are flying kites.",
+  opts:["another","other","the other","others"], a:3,
+  ex:"<p><code>Some…, <b>others</b>…</code> → <b>others</b>。和第 22 题同一个句型。</p>" },
+
+{ id:"q27", type:"choice", no:"27",
+  stem:"There are all kinds of books in the shop. Some are history books. ____ are science fiction.",
+  opts:["The other","Another","The others","Others"], a:3,
+  ex:"<p>关键在 <code>all kinds of books</code>（各种各样的书）—— 除了历史书，剩下的<b>不止科幻一类</b>。</p><p>所以不能用 <code>The others</code>（那会变成「其余<b>全部</b>都是科幻」），要用泛指的 <b>Others</b>（另一些是科幻）。</p><p><b>句首要大写。</b></p>" },
+
+{ id:"q28", type:"choice", no:"28",
+  stem:"Some kids start doing homework right after they get home, but many ____ choose <span class='zh'>(选择)</span> to watch short videos or play games first.",
+  opts:["others","the others","other","the other"], a:0,
+  ex:"<p><code>many <b>others</b></code> = 许多其他的孩子，是固定搭配。</p><p><code>other</code> 后面必须跟名词，这里后面直接是谓语 <code>choose</code>，所以只能用代词 <b>others</b>。</p>" },
+
+{ id:"q29", type:"choice", no:"29",
+  stem:"I have two brothers. One is a teacher, ____ is a doctor.",
+  opts:["one","the other","other","another"], a:1,
+  ex:"<p><code>two brothers</code> 总数是二 → <b>the other</b>。</p>" },
+
+{ id:"q30", type:"choice", no:"30",
+  stem:"Do you have ____ questions to ask me?",
+  opts:["else","other","another","others"], a:1,
+  ex:"<p>空后面是<b>复数名词</b> <code>questions</code> → 用 <b>other</b>。</p><p><code>else</code> 不能直接修饰名词，得说 <code>anything else</code>。</p>" },
+
+{ id:"q31", type:"choice", no:"31",
+  stem:"My father is caring and he always helps ____.",
+  opts:["other","others","another","the other"], a:1,
+  ex:"<p>空后面<b>没有名词</b>，单独作宾语 → <b>others</b>（＝ other people，别人）。</p><p><code>help others</code> 帮助别人，是很常见的搭配。</p>" },
+
+{ id:"q32", type:"choice", no:"32",
+  stem:"When a story ends, pick ____ piece of paper.",
+  opts:["other","others","another","the other"], a:2,
+  ex:"<p>后面是<b>单数</b> <code>piece</code>，纸有很多张、不确定拿哪张 → <b>another</b>。</p>" },
+
+{ id:"q33", type:"choice", no:"33",
+  stem:"I want ____ two pens for my little brothers.",
+  opts:["another","other","others","the other"], a:0,
+  ex:"<p><b>这题是个特例，要单独记：</b><code>another + 数词 + 复数名词</code> = <b>再来……个</b> → <code><b>another</b> two pens</code>（再要两支笔）。</p><p>平时说 another 只配单数，但<b>后面跟数词时可以配复数</b>：<code>another three days</code>（再过三天）、<code>another two weeks</code>。</p>" },
+
+{ id:"q34", type:"choice", no:"34",
+  stem:"My mother bought me a small toy, but I want ____ one.",
+  opts:["another","other","the other","others"], a:0,
+  ex:"<p>单数 <code>one</code>，玩具不止两个 → <b>another</b>。</p>" },
+
+{ id:"q35", type:"choice", no:"35",
+  stem:"I don't like this pet dog, please show me ____.",
+  opts:["the other","another","the others","other"], a:1,
+  ex:"<p>空后面没有名词，单独作宾语；狗不止两条 → <b>another</b>（可以单独当代词用，意思是「另一个」）。</p><p><b>和第 1、6、34 题一样</b>：不确定范围、指「另一个」，一律 another。</p>" }
+]
+};
+
+const STORE_KEY = "tumei-other-01-bianxi-v1";
+let state = {};
+try { state = JSON.parse(localStorage.getItem(STORE_KEY) || "{}"); } catch(e){ state = {}; }
+const save = () => { try{ localStorage.setItem(STORE_KEY, JSON.stringify(state)); }catch(e){} };
+
+/* ---- 判题：文本规范化 ---- */
+function norm(s){
+  return (s||"").toLowerCase()
+    .replace(/[’‘]/g,"'").replace(/[“”]/g,'"')
+    .replace(/[.。,，;；!！?？]+$/,"")
+    .replace(/\s+/g," ").trim();
+}
+function lev(a,b){
+  const m=a.length,n=b.length; if(!m) return n; if(!n) return m;
+  let prev=Array.from({length:n+1},(_,j)=>j), cur=new Array(n+1);
+  for(let i=1;i<=m;i++){ cur[0]=i;
+    for(let j=1;j<=n;j++) cur[j]=Math.min(prev[j]+1, cur[j-1]+1, prev[j-1]+(a[i-1]===b[j-1]?0:1));
+    [prev,cur]=[cur,prev];
+  }
+  return prev[n];
+}
+/* 常见的词尾变化。两个词去掉公共前缀后，剩下的都在这个表里，
+   说明它们是同一个词的不同形式（continue / continues / continued），
+   那就是【词形·时态错】，不是【拼写错】——这两种要分开对待，
+   否则学生把 continues 填进一般过去时的空，却被告知“检查拼写”，就教反了。 */
+const INFLECT = ["", "s", "es", "d", "ed", "ing", "e", "y", "ies", "ied"];
+function sameWordDifferentForm(a, b){
+  if(!a || !b) return false;
+  let i = 0; while(i < a.length && i < b.length && a[i] === b[i]) i++;
+  if(i === 0) return false;
+  return INFLECT.indexOf(a.slice(i)) >= 0 && INFLECT.indexOf(b.slice(i)) >= 0;
+}
+
+/* 手滑：差一个字母，或者相邻两个字母打颠倒了（caugth / caught）。
+   这个判断永远排在 sameWordDifferentForm 后面，
+   所以 studyed（时态对、拼写不规范）会走到这里，continues（时态错）不会。 */
+function isTypo(a, b){
+  if(lev(a, b) <= 1 && Math.abs(a.length - b.length) <= 1) return true;
+  if(a.length === b.length){
+    for(let i = 0; i < a.length - 1; i++)
+      if(a.slice(0,i) + a[i+1] + a[i] + a.slice(i+2) === b) return true;
+  }
+  return false;
+}
+
+/* 返回 'ok' | 'form' | 'near' | 'no'
+   ok   = 对
+   form = 词形／时态错（判错，提示回去看时间状语）
+   near = 拼写差一个字母（不判错，可以改完再对一次）
+   no   = 错 */
+function checkText(input, blank){
+  const got = norm(input);
+  if(!got) return "no";
+  const pool = [blank.a].concat(blank.alt||[]).map(norm);
+  /* 首字母提示题：学生把首字母也打进去、或只补后半截，都算对 */
+  if(blank.pre) pool.push(...pool.slice().map(p => p.startsWith(norm(blank.pre)) ? p.slice(blank.pre.length) : p));
+  if(pool.indexOf(got) >= 0) return "ok";
+  /* 原封不动填了括号里的原形（sit → sat、make → made）→ 时态错，不是手滑。
+     这里只认「完全等于原形」，不能放宽到 study+ed，
+     否则 studyed 这种“时态对、拼写不规范”的会被误判成时态错。 */
+  const bases = blank.base ? [].concat(blank.base).map(norm) : [];
+  if(bases.indexOf(got) >= 0) return "form";
+  /* 撇号位置错／漏了撇号（students ↔ students' ↔ student's）是知识点错，不是手滑，
+     所以要抢在 isTypo 前面判成 form */
+  if(pool.some(p => p.indexOf("'") >= 0 && p.replace(/'/g,"") === got.replace(/'/g,""))) return "form";
+  if(pool.some(p => sameWordDifferentForm(got, p))) return "form";
+  if(pool.some(p => isTypo(got, p))) return "near";
+  return "no";
+}
+
+/* ---- 记录 ---- */
+const registry = [];   // {key, no, label, sec, stemText, ansText, exHtml, flag}
+
+/* 成绩单永远按【第一次作答】算 —— 看完解析再做一遍，练习价值保留，
+   但正确率不会被洗掉。firstOk 一旦写入就不再变，只有「重做」才清。 */
+function record(key, ok){
+  state[key] = state[key] || {};
+  state[key].done = true;
+  state[key].ok = ok;
+  if(state[key].firstOk === undefined) state[key].firstOk = ok;
+  save(); refreshTally();
+}
+
+/* 点「再做一遍」：清掉本次作答，但保住第一次的对错 */
+function resetQ(key){
+  const fo = (state[key] || {}).firstOk;
+  if(fo === undefined) delete state[key];
+  else state[key] = { firstOk: fo };
+  save();
+}
+
+/* 考试模式：单选也要先选后交，判分后不给重做（由各页面自己定义 EXAM_MODE） */
+const EXAM = (typeof EXAM_MODE !== "undefined") && EXAM_MODE;
+/* 整块统一对答案：每题选完／填完只记录，不当场判；
+   每个板块末尾有一个「本组对答案」，一次判完整组。
+   默认「讲义开、测试关」—— 测试卷都设了 EXAM_MODE，那边每题只能提交一次，
+   不需要也不应该攒到最后一起判。个别讲义想关掉，写 BLOCK_SUBMIT = false 即可。 */
+const BLOCK = (typeof BLOCK_SUBMIT !== "undefined") ? BLOCK_SUBMIT : !EXAM;
+
+/* ---- 渲染：判断题 ---- */
+function renderJudge(){
+  const host = document.getElementById("mount-judge");
+  const card = document.createElement("div"); card.className = "q locked-none";
+  const rows = [];
+  const inner = document.createElement("div");
+  BANK.judge.items.forEach((it, i) => {
+    const key = "j"+i;
+    const row = document.createElement("div"); row.className = "jrow"; row.id = "q-"+key;
+    row.innerHTML =
+      '<span class="w">'+it.w+'</span>'+
+      '<span class="jbtns">'+
+        '<button class="jb" data-v="1">是谓语</button>'+
+        '<button class="jb" data-v="0">不是</button>'+
+      '</span>'+
+      '<span class="why">'+it.ex+'</span>';
+    const btns = row.querySelectorAll(".jb");
+    btns.forEach(b => { if((b.dataset.v === "1") === it.a) b.classList.add("iscorrect"); });
+    const lock = (picked) => {
+      row.classList.add("done");
+      btns.forEach(b=>{
+        const v = b.dataset.v === "1";
+        b.classList.remove("sel","good","bad");
+        if(v === it.a) b.classList.add("good");
+        else if(picked !== null && (picked===v)) b.classList.add("bad");
+        b.disabled = true;
+      });
+    };
+    let picked = null;
+    btns.forEach(b => b.addEventListener("click", () => {
+      if(row.classList.contains("done")) return;
+      const v = b.dataset.v === "1";
+      if(BLOCK){                       /* 整块模式：先只选中，等统一对答案 */
+        picked = v;
+        btns.forEach(x => x.classList.toggle("sel", x === b));
+        return;
+      }
+      record(key, v === it.a);
+      lock(v);
+    }));
+    if(state[key] && state[key].done) lock(null);
+    /* 每一行都是一个判分点，所以整块的对答案要逐行调用 */
+    rows.push({ key,
+                answered: () => picked !== null,
+                grade: silent => { if(!silent) record(key, picked === it.a); lock(picked); },
+                reset: () => { picked = null; row.classList.remove("done");
+                               btns.forEach(x => { x.disabled = false;
+                                 x.classList.remove("sel","good","bad"); }); } });
+    registry.push({key, no:"判断"+(i+1), label:it.w, sec:"判断谓语",
+      stemText:it.w, ansText: it.a?"是谓语":"不是谓语", exHtml:it.ex});
+    inner.appendChild(row);
+  });
+  card.appendChild(inner);
+  const tip = document.createElement("div");
+  tip.className = "explain"; tip.style.display="block"; tip.innerHTML = BANK.judge.tip;
+  card.appendChild(tip);
+  card._rows = rows;                 /* 供「本组对答案」逐行判 */
+  host.appendChild(card);
+}
+
+/* ---- 渲染：点词标记 ---- */
+function renderMark(){
+  const host = document.getElementById("mount-mark");
+  BANK.mark.items.forEach((it, i) => {
+    const key = it.id;
+    const card = document.createElement("div"); card.className="q"; card.id = "q-"+key;
+    const head = document.createElement("div"); head.className="q-head";
+    head.innerHTML = '<span class="q-no">'+(i+1)+'</span><div class="q-stem" style="padding-top:0"></div>';
+    const stem = head.querySelector(".q-stem");
+    const sent = document.createElement("p"); sent.className="marksent"; sent.style.margin="0";
+    const toks = [];
+    let plainText = "";
+    it.parts.forEach(p => {
+      if(typeof p === "string"){ sent.appendChild(document.createTextNode(p)); plainText += p; }
+      else {
+        const s = document.createElement("span"); s.className="tok"; s.textContent = p.v;
+        s.dataset.p = p.p ? "1":"0";
+        s.addEventListener("click", () => {
+          if(card.classList.contains("locked")) return;
+          s.classList.toggle("sel");
+        });
+        sent.appendChild(s); toks.push(s);
+        plainText += "["+p.v+"]";
+      }
+    });
+    stem.appendChild(sent);
+    const lg = document.createElement("div"); lg.className="marklegend";
+    lg.innerHTML = '<span style="color:var(--ok)">■ 选对</span>　<span style="color:var(--warn)">■ 漏选（它也是谓语）</span>　<span style="color:var(--no)">■ 多选（它不是谓语）</span>';
+    stem.appendChild(lg);
+    card.appendChild(head);
+
+    const foot = document.createElement("div"); foot.className="q-foot";
+    foot.innerHTML = '<button class="go">对答案</button><span class="verdict"></span>'+
+                     '<button class="go ghost" style="display:none">再做一遍</button>';
+    const [btn, vd, again] = [foot.querySelector(".go"), foot.querySelector(".verdict"), foot.querySelectorAll(".go")[1]];
+    const ex = document.createElement("div"); ex.className="explain"; ex.innerHTML = it.ex;
+    card.appendChild(foot); card.appendChild(ex);
+
+    const grade = (silent) => {
+      let ok = true;
+      toks.forEach(s => {
+        const should = s.dataset.p === "1";
+        const picked = s.classList.contains("sel");
+        s.classList.remove("sel","r-hit","r-miss","r-over");
+        if(should && picked) s.classList.add("r-hit");
+        else if(should && !picked){ s.classList.add("r-miss"); ok = false; }
+        else if(!should && picked){ s.classList.add("r-over"); ok = false; }
+      });
+      card.classList.add("locked","reveal", ok?"correct":"wrong");
+      vd.className = "verdict show " + (ok?"v-ok":"v-no");
+      vd.textContent = ok ? "全对，谓语找准了" : "有出入，看下面的颜色";
+      btn.style.display="none"; if(!BLOCK) again.style.display="";      /* 勾画题 */
+      if(!silent) record(key, ok);
+      return ok;
+    };
+    btn.addEventListener("click", () => grade(false));
+    if(BLOCK){
+      btn.style.display = "none"; again.style.display = "none";
+      card._answered = () => toks.some(s => s.classList.contains("sel"));
+      card._grade = grade;
+      card._reset = () => { toks.forEach(s => s.classList.remove("r-hit","r-miss","r-over","sel"));
+                            card.classList.remove("locked","reveal","correct","wrong");
+                            vd.className="verdict"; btn.style.display=""; };
+    }
+    again.addEventListener("click", () => {
+      toks.forEach(s => s.classList.remove("r-hit","r-miss","r-over","sel"));
+      card.classList.remove("locked","reveal","correct","wrong");
+      vd.className="verdict"; btn.style.display=""; again.style.display="none";
+      resetQ(key); refreshTally();
+    });
+    if(state[key] && state[key].done){
+      toks.forEach(s => { if(s.dataset.p==="1") s.classList.add("sel"); });
+      grade(true);
+      if(!state[key].ok){ card.classList.remove("correct"); card.classList.add("wrong");
+        vd.className="verdict show v-no"; vd.textContent="上次做错了，可点「再做一遍」"; }
+    }
+    registry.push({key, no:"勾画"+(i+1), sec:"勾画谓语", stemText:plainText,
+      ansText: it.parts.filter(p=>typeof p!=="string" && p.p).map(p=>p.v).join(" / "), exHtml:it.ex});
+    host.appendChild(card);
+  });
+}
+
+/* ---- 渲染：选择 / 填空 ---- */
+function renderQ(q, host, secName){
+  const card = document.createElement("div"); card.className="q"; card.id = "q-"+q.id;
+  const head = document.createElement("div"); head.className="q-head";
+  const noTxt = (q.star?"*":"") + q.no;
+  head.innerHTML = '<span class="q-no">'+noTxt+'</span><div class="q-stem"></div>';
+  const stem = head.querySelector(".q-stem");
+  card.appendChild(head);
+
+  const foot = document.createElement("div"); foot.className="q-foot";
+  const ex = document.createElement("div"); ex.className="explain"; ex.innerHTML = q.ex;
+  const flag = document.createElement("div");
+
+  let ansText = "";
+
+  if(q.type === "choice"){
+    stem.innerHTML = q.stem;
+    const ul = document.createElement("ul");
+    /* 偶数个短选项才排两列，避免出现落单的一行 */
+    ul.className = "opts" + (q.opts.length % 2 === 0 && q.opts.every(o=>o.length<18) ? " two" : "");
+    const lis = [];
+    let picked = -1;
+    q.opts.forEach((o, i) => {
+      const li = document.createElement("li"); li.className="opt";
+      li.innerHTML = '<span class="k">'+"ABCD"[i]+'</span><span>'+o+'</span>';
+      li.addEventListener("click", () => {
+        if(card.classList.contains("locked")) return;
+        lis.forEach(x=>x.classList.remove("picked"));
+        li.classList.add("picked");
+        picked = i;
+        /* 讲义：点了就判；考试／整块模式：等点「对答案」 */
+        if(!EXAM && !BLOCK) gradeChoice(i, false);
+      });
+      ul.appendChild(li); lis.push(li);
+    });
+    stem.appendChild(ul);
+    ansText = "ABCD"[q.a] + ". " + q.opts[q.a];
+
+    foot.innerHTML = (EXAM || BLOCK)
+      ? '<span class="verdict"></span>'
+      : '<span class="verdict"></span><button class="go ghost" style="display:none">再做一遍</button>';
+    if(EXAM && !BLOCK) foot.innerHTML = '<button class="go">对答案</button><span class="verdict"></span>';
+    const vd = foot.querySelector(".verdict");
+    const subBtn = (EXAM && !BLOCK) ? foot.querySelector(".go") : null;
+    const again  = (EXAM || BLOCK) ? null : foot.querySelector(".go");
+
+    function gradeChoice(pick, silent){
+      const ok = pick === q.a;
+      lis.forEach((x,i)=>{ x.classList.remove("picked");
+        if(i===q.a) x.classList.add("is-ok");
+        else if(i===pick) x.classList.add("is-no"); });
+      card.classList.add("locked","reveal", ok?"correct":"wrong");
+      vd.className="verdict show "+(ok?"v-ok":"v-no");
+      vd.textContent = ok ? "对了" : "选错了，看解析";
+      if(subBtn) subBtn.style.display = "none";
+      if(again && !BLOCK) again.style.display = "";
+      if(!silent){ record(q.id, ok); state[q.id].pick = pick; save(); }
+    }
+    if(subBtn) subBtn.addEventListener("click", () => {
+      if(picked < 0){ vd.className = "verdict show v-near"; vd.textContent = "先选一个答案"; return; }
+      gradeChoice(picked, false);
+    });
+    if(again) again.addEventListener("click", () => {
+      lis.forEach(x=>x.classList.remove("is-ok","is-no","picked"));
+      card.classList.remove("locked","reveal","correct","wrong");
+      vd.className="verdict"; again.style.display="none";
+      resetQ(q.id); refreshTally();
+    });
+    /* 整块模式下由「本组对答案」统一调用 */
+    card._answered = () => picked >= 0;
+    card._grade = silent => { if(picked < 0){ lis.forEach(x=>x.classList.remove("picked")); }
+                              gradeChoice(picked, silent); };
+    card._reset = () => { lis.forEach(x=>x.classList.remove("is-ok","is-no","picked")); picked = -1;
+                          card.classList.remove("locked","reveal","correct","wrong"); vd.className="verdict"; };
+    if(state[q.id] && state[q.id].done)
+      gradeChoice(state[q.id].pick !== undefined ? state[q.id].pick : (state[q.id].ok ? q.a : -1), true);
+
+  } else if(q.type === "sentence"){   /* 连词成句：给一堆打乱的词，写出完整句子 */
+    stem.innerHTML = q.stem || "";
+    const box = document.createElement("div"); box.className = "wordbank";
+    const line = document.createElement("input");
+    line.className = "sentline"; line.autocomplete = "off"; line.spellcheck = false;
+    q.words.forEach(w => {
+      const chip = document.createElement("button");
+      chip.type = "button"; chip.className = "wb"; chip.textContent = w;
+      chip.addEventListener("click", () => {
+        if(card.classList.contains("locked")) return;
+        line.value = (line.value.trim() + " " + w).trim();
+        line.focus();
+      });
+      box.appendChild(chip);
+    });
+    const tip = document.createElement("div"); tip.className = "wb-tip";
+    tip.textContent = "点词可以按顺序拼进下面的横线里；大小写和标点不计较，词序错了才算错。";
+    box.appendChild(tip);
+    stem.appendChild(box); stem.appendChild(line);
+    const ansLine = document.createElement("div"); ansLine.className = "sentans";
+    stem.appendChild(ansLine);
+    ansText = [q.a].concat(q.alt || []).join("　或　");
+
+    foot.innerHTML = '<button class="go">对答案</button><span class="verdict"></span>'+
+                     '<span style="flex:1"></span>'+
+                     '<button class="go ghost" data-a="clear">清空</button>'+
+                     (EXAM ? '' : '<button class="go ghost" data-a="redo" style="display:none">再做一遍</button>');
+    const btn = foot.querySelector(".go"), vd = foot.querySelector(".verdict"),
+          clr = foot.querySelector('[data-a="clear"]'), redo = foot.querySelector('[data-a="redo"]');
+
+    const normSent = v => norm(v).replace(/[.?!,;:'"“”‘’]/g, "").replace(/\s+/g, " ").trim();
+    const wordSet  = v => normSent(v).split(" ").filter(Boolean).sort().join("|");
+
+    const grade = (silent) => {
+      const got = normSent(line.value);
+      const pool = [q.a].concat(q.alt || []).map(normSent);
+      const ok = pool.indexOf(got) >= 0;
+      line.classList.remove("is-ok","is-no");
+      line.classList.add(ok ? "is-ok" : "is-no");
+      line.disabled = true;
+      card.classList.add("locked","reveal", ok ? "correct" : "wrong");
+      vd.className = "verdict show " + (ok ? "v-ok" : "v-no");
+      if(ok) vd.textContent = "对了";
+      else {
+        /* 用的词对不对、只是顺序错了？分开说，学生才知道错在哪 */
+        const sameWords = pool.some(p => wordSet(p) === wordSet(got));
+        vd.textContent = got ? (sameWords ? "词都用对了，是语序不对。" : "用的词对不上，检查有没有漏词或多词。") : "还没写。";
+        ansLine.innerHTML = "答案：" + [q.a].concat(q.alt || []).join("<br>答案：");
+      }
+      btn.style.display = "none"; clr.style.display = "none"; if(redo && !BLOCK) redo.style.display = "";
+      if(!silent) record(q.id, ok);
+    };
+    btn.addEventListener("click", () => grade(false));
+    line.addEventListener("keydown", e => { if(e.key === "Enter") grade(false); });
+    clr.addEventListener("click", () => { line.value = ""; line.focus(); });
+    if(BLOCK){
+      btn.style.display = "none"; if(redo) redo.style.display = "none";
+      card._answered = () => !!line.value.trim();
+      card._grade = grade;
+      card._reset = () => { line.disabled=false; line.value=""; line.classList.remove("is-ok","is-no");
+                            ansLine.innerHTML=""; card.classList.remove("locked","reveal","correct","wrong");
+                            vd.className="verdict"; btn.style.display=""; clr.style.display=""; };
+    }
+    if(redo) redo.addEventListener("click", () => {
+      line.disabled = false; line.value = ""; line.classList.remove("is-ok","is-no");
+      ansLine.innerHTML = "";
+      card.classList.remove("locked","reveal","correct","wrong");
+      vd.className = "verdict"; btn.style.display = ""; clr.style.display = ""; redo.style.display = "none";
+      resetQ(q.id); refreshTally();
+    });
+    if(state[q.id] && state[q.id].done){
+      if(state[q.id].ok) line.value = q.a;
+      grade(true);
+      if(!state[q.id].ok){ card.classList.remove("correct"); card.classList.add("wrong");
+        vd.className = "verdict show v-no"; vd.textContent = "上次没写对，可点「再做一遍」"; }
+    }
+    card._fill = () => { if(!line.disabled) line.value = q.a; };
+
+  } else { /* fill */
+    let html = q.stem;
+    const inputs = [];
+    /* 把题干里 (sit)(begin) 这类括号提示识别出来，作为该空的原形，
+       用于区分“填了原形”（时态错）和“打错字”（拼写错）。
+       中文括号（表扬）和 (树皮) 不会被匹配到。 */
+    const hints = (q.stem.match(/\(([a-zA-Z]+)\)/g) || []).map(h => h.slice(1, -1));
+    if(hints.length === q.blanks.length) q.blanks.forEach((b, i) => { if(!b.base) b.base = hints[i]; });
+    q.blanks.forEach((b, i) => {
+      const pre = b.pre ? '<span style="font-family:var(--serif)">'+b.pre+'</span>' : "";
+      html = html.replace("__"+(i+1)+"__",
+        pre+'<input class="blank'+(b.a.length>10?" wide":"")+'" data-i="'+i+'" autocomplete="off" autocapitalize="off" spellcheck="false">');
+    });
+    stem.innerHTML = html;
+    stem.querySelectorAll(".blank").forEach(el => inputs.push(el));
+
+    /* 选词填空：题干上方给一个词框，点词直接填进空里（形式还得自己改） */
+    if(q.bank){
+      const box = document.createElement("div"); box.className = "wordbank";
+      q.bank.forEach(w => {
+        const chip = document.createElement("button");
+        chip.type = "button"; chip.className = "wb"; chip.textContent = w;
+        chip.addEventListener("click", () => {
+          if(card.classList.contains("locked")) return;
+          const tgt = inputs.filter(el => !el.disabled && !el.value)[0] || inputs[0];
+          if(tgt){ tgt.value = w; tgt.focus(); }
+          box.querySelectorAll(".wb").forEach(c => c.classList.remove("used"));
+          inputs.forEach(el => box.querySelectorAll(".wb").forEach(c => {
+            if(norm(c.textContent) && norm(el.value).indexOf(norm(c.textContent)) === 0) c.classList.add("used");
+          }));
+        });
+        box.appendChild(chip);
+      });
+      const tip = document.createElement("div"); tip.className = "wb-tip";
+      tip.textContent = "从上面选一个词填进空里 —— 点一下就能填，但别忘了改成正确的形式。";
+      box.appendChild(tip);
+      stem.insertBefore(box, stem.firstChild);
+    }
+    ansText = q.blanks.map(b => b.a + (b.alt&&b.alt.length ? "（也可：" + b.alt.join(" / ") + "）" : "")).join(" ／ ");
+
+    foot.innerHTML = '<button class="go">对答案</button><span class="verdict"></span>'+
+                     (EXAM ? '' : '<button class="go ghost" style="display:none">再做一遍</button>');
+    const btn = foot.querySelector(".go"), vd = foot.querySelector(".verdict"),
+          again = EXAM ? null : foot.querySelectorAll(".go")[1];
+
+    const grade = (silent) => {
+      let allOk = true, anyNear = false, anyHard = false, anyForm = false;
+      inputs.forEach((el, i) => {
+        const r = checkText(el.value, q.blanks[i]);
+        el.classList.remove("is-ok","is-no","is-near");
+        if(r === "ok"){ el.classList.add("is-ok"); return; }
+        allOk = false;
+        if(r === "near"){ anyNear = true; el.classList.add("is-near"); }
+        else { anyHard = true; el.classList.add("is-no"); if(r === "form") anyForm = true; }
+      });
+      inputs.forEach(el => { el.disabled = true; });
+      card.classList.add("locked","reveal", allOk?"correct":"wrong");
+      /* 拼写差一点也算错，只是把话说得准一点，让学生知道错在哪一层 */
+      let note = "";
+      /* 各讲主题不同，词形错的提示可以由题库用 MSG_FORM 覆盖 */
+      if(anyForm) note = (typeof MSG_FORM !== "undefined") ? MSG_FORM : "词形不对，先回去看时间状语定时态。";
+      else if(anyNear && !anyHard) note = "思路对了，拼写再检查一下。";
+      vd.className = "verdict show " + (allOk ? "v-ok" : (anyNear && !anyHard ? "v-near" : "v-no"));
+      vd.innerHTML = allOk ? "对了"
+        : note + '答案：<span class="ansline">'+q.blanks.map(b=>b.a).join(" / ")+"</span>";
+      btn.style.display="none"; if(again && !BLOCK) again.style.display="";
+      if(!silent) record(q.id, allOk);
+    };
+    btn.addEventListener("click", () => grade(false));
+    inputs.forEach(el => el.addEventListener("keydown", e => { if(e.key==="Enter") grade(false); }));
+    if(again) again.addEventListener("click", () => {
+      inputs.forEach(el => { el.disabled=false; el.value=""; el.classList.remove("is-ok","is-no"); });
+      card.classList.remove("locked","reveal","correct","wrong");
+      vd.className="verdict"; btn.style.display=""; again.style.display="none";
+      resetQ(q.id); refreshTally();
+    });
+    if(BLOCK){
+      btn.style.display = "none"; if(again) again.style.display = "none";
+      card._answered = () => inputs.some(el => el.value.trim());
+      card._grade = grade;
+      card._reset = () => { inputs.forEach(el => { el.disabled=false; el.value="";
+                              el.classList.remove("is-ok","is-no","is-near"); });
+                            card.classList.remove("locked","reveal","correct","wrong"); vd.className="verdict"; };
+    }
+    if(state[q.id] && state[q.id].done){
+      if(state[q.id].ok) inputs.forEach((el,i)=>{ el.value = q.blanks[i].a; });
+      grade(true);
+      if(!state[q.id].ok){ card.classList.remove("correct"); card.classList.add("wrong");
+        vd.className="verdict show v-no";
+        vd.innerHTML = '上次做错了。答案：<span class="ansline">'+q.blanks.map(b=>b.a).join(" / ")+"</span>"; }
+    }
+    card._fill = () => inputs.forEach((el,i)=>{ if(!el.disabled) el.value = q.blanks[i].a; });
+  }
+
+  card.appendChild(foot); card.appendChild(ex);
+  host.appendChild(card);
+  registry.push({key:q.id, no:noTxt, sec:secName,
+    stemText: q.stem.replace(/<[^>]+>/g,"").replace(/__\d+__/g,"____").replace(/\s+/g," ").trim() +
+              (q.type==="choice" ? "　"+q.opts.map((o,i)=>"ABCD"[i]+". "+o).join("  ") : ""),
+    ansText, exHtml:q.ex, flag:q.flag});
+}
+
+/* ================================================================
+   本组对答案 —— 整块做完再统一判
+   ----------------------------------------------------------------
+   把一个挂载点里的所有题收成一组：判断题按行收，其余按卡片收。
+   没做完就点，先提醒一次；再点一次才判（空着的按错算）。
+   ================================================================ */
+function addBlockBar(hostId, label){
+  if(!BLOCK) return;
+  const host = document.getElementById(hostId);
+  if(!host) return;
+  const items = [];
+  host.querySelectorAll(".q").forEach(card => {
+    if(card._rows) card._rows.forEach(r => items.push(r));
+    else if(card._grade) items.push({ key: card.id.replace(/^q-/, ""),
+                                      answered: card._answered, grade: card._grade, reset: card._reset });
+  });
+  if(!items.length) return;
+
+  const bar = document.createElement("div"); bar.className = "blockbar";
+  bar.innerHTML = '<button class="go">本组对答案</button>'+
+                  '<span class="bb-stat"></span><span style="flex:1"></span>'+
+                  '<button class="go ghost bb-redo" style="display:none">本组再做一遍</button>';
+  const btn = bar.querySelector(".go"), stat = bar.querySelector(".bb-stat"),
+        redo = bar.querySelector(".bb-redo");
+  let warned = false, done = false;
+
+  const left = () => items.filter(it => !it.answered()).length;
+  const sync = () => {
+    if(done) return;
+    const n = items.length - left();
+    stat.className = "bb-stat";
+    stat.textContent = (label || "本组") + " 共 " + items.length + " 题，已作答 " + n + " 题";
+  };
+  host.addEventListener("click", sync);
+  host.addEventListener("input", sync);
+  host.addEventListener("keyup", sync);
+
+  btn.addEventListener("click", () => {
+    const miss = left();
+    if(miss && !warned){
+      warned = true;
+      stat.className = "bb-stat warn";
+      stat.textContent = "还有 " + miss + " 题没做 —— 再点一次直接对答案，空着的按错算";
+      return;
+    }
+    items.forEach(it => it.grade(false));
+    done = true;
+    const ok = items.filter(it => state[it.key] && state[it.key].ok).length;
+    stat.className = "bb-stat sum";
+    stat.textContent = (label || "本组") + " 共 " + items.length + " 题，对 " + ok + " 题，错 " + (items.length - ok) + " 题";
+    btn.style.display = "none";
+    if(!EXAM) redo.style.display = "";
+    refreshTally();
+  });
+  redo.addEventListener("click", () => {
+    items.forEach(it => { if(it.reset) it.reset(); });
+    done = false; warned = false;
+    btn.style.display = ""; redo.style.display = "none";
+    sync(); refreshTally();
+  });
+
+  /* 刷新回来时若整组都判过了，直接显示汇总，不用再点一次 */
+  if(items.every(it => state[it.key] && state[it.key].done)){
+    done = true;
+    const ok = items.filter(it => state[it.key].ok).length;
+    stat.className = "bb-stat sum";
+    stat.textContent = (label || "本组") + " 共 " + items.length + " 题，对 " + ok + " 题，错 " + (items.length - ok) + " 题";
+    btn.style.display = "none";
+    if(!EXAM) redo.style.display = "";
+  } else sync();
+  host.parentNode.insertBefore(bar, host.nextSibling);
+}
+
+/* 自动给页面上每个挂载点装一条「本组对答案」。
+   标题取挂载点上面那条 .block-t 的文字（去掉里面的小字和二维码）；
+   挖空自测那种本来就整表判的（mount-drill）跳过。 */
+function autoBlockBars(){
+  if(!BLOCK) return;
+  document.querySelectorAll('[id^="mount-"]').forEach(host => {
+    if(host.id === "mount-drill") return;
+    let label = "";
+    for(let el = host.previousElementSibling; el && !label; el = el.previousElementSibling){
+      if(el.classList.contains("block-t") || el.classList.contains("chap-t")){
+        label = [...el.childNodes].filter(n => n.nodeType === 3)
+                  .map(n => n.textContent).join("").replace(/\s+/g, " ").trim();
+      }
+      if(el.classList.contains("blockbar")) break;   /* 上一组的栏，别往上翻了 */
+    }
+    addBlockBar(host.id, label || "本组");
+  });
+}
+
+/* ---- 不规则动词表 ---- */
+/* ---- 结算 ---- */
+function refreshTally(){
+  const total = registry.length;
+  /* 统计一律用 firstOk —— 重做不影响成绩单 */
+  const done = registry.filter(r => state[r.key] && state[r.key].firstOk !== undefined);
+  const ok = done.filter(r => state[r.key].firstOk === true);
+  const bad = done.filter(r => state[r.key].firstOk !== true);
+  document.getElementById("sDone").textContent = done.length;
+  document.getElementById("sOk").textContent = ok.length;
+  document.getElementById("sNo").textContent = bad.length;
+  document.getElementById("sRate").textContent = done.length ? Math.round(ok.length/done.length*100)+"%" : "—";
+  document.getElementById("ptext").textContent = done.length + " / " + total;
+  document.getElementById("pbar").style.width = (total? done.length/total*100 : 0) + "%";
+  document.getElementById("totalHint").textContent = total;
+
+  const t = document.getElementById("tallyTitle"), s = document.getElementById("tallySub");
+  if(!done.length){ t.textContent = "还没开始"; s.textContent = "答完题目后，这里会自动汇总你的正确率和错题。"; }
+  else if(done.length < total){ t.textContent = "进行中"; s.textContent = "还剩 " + (total-done.length) + " 题没做。"; }
+  else {
+    const rate = Math.round(ok.length/total*100);
+    t.textContent = rate>=90 ? "全部做完 · 很稳" : rate>=75 ? "全部做完 · 不错" : "全部做完 · 错题要过一遍";
+    s.textContent = "错题清单在下面，建议逐条重看解析，再点「再做一遍」。";
+  }
+  /* 截图打卡：全部做完才变绿，并盖上完成时间 */
+  const box = document.getElementById("checkin");
+  const left = total - done.length;
+  if(done.length === total && total > 0){
+    if(!state.finishedAt){ state.finishedAt = Date.now(); save(); }
+    box.classList.add("ready");
+    document.getElementById("ciTitle").textContent = "全部做完，可以打卡了";
+    document.getElementById("ciText").innerHTML =
+      "截图这张成绩单发到你的学习群吧。" + (bad.length ? "错题清单也一起截进去，上课好挑重点讲。" : "");
+    const t = new Date(state.finishedAt);
+    const pad = n => (n < 10 ? "0" : "") + n;
+    document.getElementById("ciDate").textContent =
+      "完成于 " + t.getFullYear() + "-" + pad(t.getMonth()+1) + "-" + pad(t.getDate()) +
+      " " + pad(t.getHours()) + ":" + pad(t.getMinutes());
+  } else {
+    if(state.finishedAt){ delete state.finishedAt; save(); }
+    box.classList.remove("ready");
+    document.getElementById("ciTitle").textContent = "截图打卡";
+    document.getElementById("ciText").textContent = done.length
+      ? "还剩 " + left + " 题，全部做完后截图这张成绩单发到你的学习群吧。"
+      : "全部做完后截图这张成绩单发到你的学习群吧。";
+    document.getElementById("ciDate").textContent = "";
+  }
+
+  const ul = document.getElementById("wrongList");
+  if(!bad.length){ ul.innerHTML = '<li class="empty" style="border:none">'+(done.length?"没有错题，漂亮。":"暂无错题。")+"</li>"; return; }
+  ul.innerHTML = bad.map(r =>
+    '<li><span class="tag">'+r.sec+'</span><a href="#q-'+r.key+'">'+r.no+'</a>　'+
+    '<span style="color:var(--ink-2)">'+ (r.stemText.length>62 ? r.stemText.slice(0,62)+"…" : r.stemText) +'</span></li>'
+  ).join("");
+}
+
+
+
+/* ---- 启动 ---- */
+BANK.g1.forEach(q => renderQ(q, document.getElementById("mount-g1"), "第一组 1–12"));
+BANK.g2.forEach(q => renderQ(q, document.getElementById("mount-g2"), "第二组 13–24"));
+BANK.g3.forEach(q => renderQ(q, document.getElementById("mount-g3"), "第三组 25–35"));
+autoBlockBars();      /* 每个板块末尾装一条「本组对答案」 */
+refreshTally();
+
+/* 二维码注入 + 放大 */
+(function(){
+  /* img 的 src 写成 qr:名字 ，名字就是 assets/<讲义名>/名字.png 的文件名 */
+  document.querySelectorAll(".qr").forEach(box => {
+    const img = box.querySelector("img");
+    const k = img.getAttribute("src") || "";
+    if(k.indexOf("qr:") === 0){
+      const v = QR[k.slice(3)];
+      if(v) img.src = v; else box.style.display = "none";   /* 没配图就不显示这个胶囊 */
+    }
+    box.addEventListener("click", () => {
+      const m = document.getElementById("qrModal");
+      m.querySelector("img").src = img.src; m.classList.add("show");
+    });
+  });
+  /* 题目里的插图（饼图、价目表这类）：一样用 qr:名字 引用，但不套 .qr 胶囊，
+     所以上面那轮扫不到 —— 这里单独补一遍。点一下同样能放大看。 */
+  document.querySelectorAll('img[src^="qr:"]').forEach(img => {
+    const v = QR[img.getAttribute("src").slice(3)];
+    if(v){
+      img.src = v;
+      img.addEventListener("click", () => {
+        const m = document.getElementById("qrModal");
+        m.querySelector("img").src = img.src; m.classList.add("show");
+      });
+    } else { img.style.display = "none"; }
+  });
+  document.getElementById("qrModal").addEventListener("click", e => e.currentTarget.classList.remove("show"));
+})();
+
+document.getElementById("btnReset").addEventListener("click", () => {
+  if(!confirm("清空所有作答记录，重新开始？")) return;
+  try{ localStorage.removeItem(STORE_KEY); }catch(e){}
+  location.reload();
+});
+
+/* 目录高亮（老浏览器没有 IntersectionObserver 就跳过，不影响答题） */
+if(typeof IntersectionObserver !== "undefined"){
+  const links = [].slice.call(document.querySelectorAll("nav.toc a"));
+  const secs = links.map(a => document.querySelector(a.getAttribute("href")));
+  const io = new IntersectionObserver(es => {
+    es.forEach(e => { if(e.isIntersecting){
+      links.forEach(l=>l.classList.remove("active"));
+      const i = secs.indexOf(e.target); if(i>=0) links[i].classList.add("active");
+    }});
+  }, {rootMargin:"-40% 0px -55% 0px"});
+  secs.forEach(s => s && io.observe(s));
+}
+</script>
+</body>
+</html>
+
+</body>
+</html>

@@ -65,6 +65,7 @@
 | 初级写作-简单句4-疑问句与否定句 | [打开](https://tumei130coding.github.io/test/xzw-04-yiwen-fouding/) |
 | 初级写作-简单句5-特殊疑问句 | [打开](https://tumei130coding.github.io/test/xzw-05-teshu-yiwen/) |
 | 初级写作-简单句6-反意疑问句 | [打开](https://tumei130coding.github.io/test/xzw-06-fanyi-yiwen/) |
+| 初级语法-代词辨析1-other others another | [打开](https://tumei130coding.github.io/test/other-bianxi/) |
 | 初级语法-不规则动词1-过去式过去分词 | [打开](https://tumei130coding.github.io/test/verb-drill/) |
 
 ---
