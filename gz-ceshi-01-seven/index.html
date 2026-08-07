@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>高级语法填空精选 12 篇（交互版）</title>
+<title>一测 · 七选五 · 高级测试 · 一测（交互版）</title>
 <style>
 :root{
   --ink:#1f2328; --ink-2:#4a5158; --ink-3:#8b939b;
@@ -394,6 +394,124 @@ footer b{color:var(--accent)}
   body{background:#fff}
 }
 
+  /* 短文 */
+  .psg{border:1px solid var(--line); border-radius:12px; padding:15px 18px; background:#fff;
+       font-family:var(--serif); font-size:15.5px; line-height:2.05; margin:12px 0 4px}
+  .psg p{margin:0 0 10px} .psg p:last-child{margin-bottom:0}
+  .psg p.sub-h{font-weight:700; margin:14px 0 8px}
+  .psg .bk{display:inline-block; min-width:2.1em; text-align:center; font-family:var(--sans);
+           font-size:12.5px; font-weight:700; color:var(--accent); background:#fbeeec;
+           border-radius:4px; padding:0 4px; margin:0 2px; vertical-align:1px}
+  /* 七选五的选项表 */
+  .sevenopts{margin:14px 0 4px}
+  .sevenopts .og{list-style:none; margin:0; padding:14px 16px; display:grid; gap:9px;
+                 border:1px solid var(--line); border-radius:12px; background:#faf8f5}
+  .sevenopts .og li{font-family:var(--serif); font-size:14.5px; line-height:1.75;
+                    display:flex; gap:9px; align-items:baseline}
+  .sevenopts .og .k{flex:0 0 auto; font-family:var(--sans); font-size:12px; font-weight:700;
+                    color:#fff; background:var(--ink-2); border-radius:4px; padding:1px 6px}
+  /* 七选五的字母按钮 */
+  .pickrow{display:flex; gap:7px; flex-wrap:wrap; margin:12px 0 0}
+  .pk{font-family:var(--sans); font-size:14.5px; font-weight:700; min-width:40px;
+      padding:7px 0; border:1px solid var(--line); border-radius:8px; background:#fff;
+      color:var(--ink); cursor:pointer; transition:.15s}
+  .pk:hover{border-color:var(--accent); color:var(--accent)}
+  .pk.picked{border-color:var(--ink); background:var(--ink); color:#fff}
+  .pk.is-ok{border-color:var(--ok-line); background:#d5f0de; color:var(--ok)}
+  .pk.is-no{border-color:var(--no); background:#f8d9d6; color:var(--no)}
+  /* ---------- 七选五：点选 → 放置 ---------- */
+  /* 小标题的加粗在 .psg 里定义过，.cz-text 用的是另一套样式，要再写一遍 */
+  .cz-text p.sub-h{font-weight:700; margin:14px 0 8px}
+  .sv-text .sv-slot{
+    display:inline; border-bottom:2px dashed var(--line); border-radius:3px;
+    background:#faf8f5; padding:1px 4px; cursor:pointer; transition:.12s;
+  }
+  .sv-slot .sv-n{
+    font-style:normal; font-family:var(--sans); font-size:10.5px; font-weight:700; color:#fff;
+    background:var(--ink-3); border-radius:3px; padding:0 4px; vertical-align:3px; margin-right:4px;
+  }
+  .sv-slot .sv-k{font-family:var(--sans); font-size:11.5px; font-weight:700; color:var(--accent); margin-right:4px}
+  .sv-slot .sv-ph{font-family:var(--sans); font-size:12px; color:var(--ink-3)}
+  .sv-slot.hot{background:#fbeeec; border-bottom-color:var(--accent);
+               box-shadow:0 0 0 2px rgba(192,57,43,.14)}
+  .sv-slot.hot .sv-ph{color:var(--accent)}
+  .sv-slot.filled{background:#f3f7f4; border-bottom-style:solid}
+  .sv-slot.r-ok{background:var(--ok-soft); border-bottom-color:var(--ok)}
+  .sv-slot.r-ok .sv-n{background:var(--ok)}
+  .sv-slot.r-no{background:#fdf0ee; border-bottom-color:var(--no)}
+  .sv-slot.r-no .sv-n{background:var(--no)}
+  /* 选项池 */
+  .sv-pool{margin:16px 0 2px; border-top:1px dashed var(--line); padding-top:13px}
+  .sv-tip{font-size:12.5px; color:var(--ink-2); line-height:1.9; margin-bottom:9px}
+  .sv-tip b{color:var(--accent)}
+  .sv-opts{display:grid; gap:7px}
+  .sv-opt{
+    display:flex; gap:9px; align-items:baseline; padding:8px 11px;
+    border:1px solid var(--line); border-radius:9px; background:#fff;
+    cursor:pointer; user-select:none; transition:.12s;
+  }
+  .sv-opt .k{flex:0 0 auto; font-family:var(--sans); font-size:12px; font-weight:700;
+             color:#fff; background:var(--ink-2); border-radius:4px; padding:1px 6px}
+  .sv-opt .t{font-family:var(--serif); font-size:14.5px; line-height:1.7}
+  .sv-opt:hover{border-color:var(--accent)}
+  .sv-opt.armed{border-color:var(--ink); box-shadow:0 0 0 2px rgba(31,35,40,.12)}
+  .sv-opt.armed .k{background:var(--ink)}
+  .sv-opt.used{opacity:.32; cursor:default; background:#faf8f5}
+  .sv-opt.used:hover{border-color:var(--line)}
+  .sv-opt.is-key .k{background:var(--ok)}
+  /* ---------- 完形填空：短文里的空位 + 摊开的答案区 ---------- */
+  .mc-b{padding:0 1px}
+  .mc-b .mc-pick{font-family:var(--serif); font-weight:700; color:var(--ink-3);
+                 min-width:1.1em; display:inline-block; text-align:center}
+  .mc-b.filled .mc-pick{color:var(--ink)}
+  .mc-b.r-ok .mc-pick{color:var(--ok)}
+  .mc-b.r-no .mc-pick{color:var(--no)}
+  .mc-opts{margin:16px 0 2px; border-top:1px dashed var(--line); padding-top:14px}
+  .mc-row{display:flex; gap:10px; align-items:flex-start; padding:5px 0}
+  .mc-q{flex:0 0 auto; width:26px; height:22px; border-radius:5px; font-size:12px; font-weight:700;
+        display:grid; place-items:center; background:#e8e4de; color:var(--ink-2); margin-top:3px}
+  .mc-list{flex:1; min-width:0; display:grid; grid-template-columns:repeat(4,1fr); gap:6px}
+  .mo{display:flex; gap:6px; align-items:baseline; text-align:left; font:inherit;
+      font-size:14px; padding:5px 8px; border:1px solid var(--line); border-radius:8px;
+      background:#fff; color:var(--ink); cursor:pointer; transition:.12s}
+  .mo .k{flex:0 0 auto; font-family:var(--sans); font-size:11px; font-weight:700; color:var(--ink-3)}
+  .mo .t{font-family:var(--serif); word-break:break-word}
+  .mo:hover{border-color:var(--accent)}
+  .mo.picked{border-color:var(--ink); background:var(--ink); color:#fff}
+  .mo.picked .k{color:#fff}
+  .mo.is-ok{border-color:var(--ok-line); background:#d5f0de; color:var(--ok)}
+  .mo.is-ok .k{color:var(--ok)}
+  .mo.is-no{border-color:var(--no); background:#f8d9d6; color:var(--no)}
+  .mo.is-no .k{color:var(--no)}
+  .mo:disabled{cursor:default}
+  /* 题干里引的原句：用正文的衬线体，别落到浏览器默认的等宽字体上 */
+  .q-stem code{font-family:var(--serif); font-size:15px; background:#f7f4ef;
+               border-radius:3px; padding:1px 4px}
+  /* 短文改错 */
+  .ecline{font-family:var(--serif); font-size:15.5px; line-height:1.95; margin:0 0 9px}
+  .ecin{width:100%; font-size:14.5px; text-align:left}
+  .ansline{font-family:var(--serif); font-weight:700}
+  @media(max-width:600px){
+    .psg{padding:13px 13px; font-size:14.5px; line-height:1.95}
+    .q-stem code{font-size:14px}
+    /* 改错：行号标签独占一行，把整个宽度让给句子和输入框 */
+    #mount-main .q-head{flex-wrap:wrap}
+    #mount-main .q-head .q-stem{flex:1 0 100%; margin-top:7px}
+    .ecline{font-size:14.5px}
+    .sv-opt{padding:7px 9px}
+    .sv-opt .t{font-size:13.5px}
+    .sv-tip{font-size:12px}
+    .sv-slot .sv-ph{font-size:11.5px}
+    /* 手机上四个选项排两列；选项长的（self-conscious 那题）自己折行 */
+    .mc-list{grid-template-columns:repeat(2,1fr); gap:5px}
+    .mo{font-size:13px; padding:4px 6px}
+    .mc-q{width:22px; height:20px; font-size:11px}
+    .mc-row{gap:7px}
+    .sevenopts .og{padding:12px 12px}
+    .sevenopts .og li{font-size:13.5px}
+  }
+
+
 /* ---------- 语篇填空 ---------- */
 .cloze{padding:18px 20px 16px}
 .cz-bar{
@@ -477,115 +595,18 @@ footer b{color:var(--accent)}
 </div>
 
 <nav class="toc" id="toc">
-  <a href="#how" class="active">说明</a>
-  <a href="#p1">1 旧电脑回收</a>
-  <a href="#p2">2 彭阳县科普与非遗课</a>
-  <a href="#p3">3 hamburger 的由来</a>
-  <a href="#p4">4 冰城哈尔滨</a>
-  <a href="#p5">5 喝水能减肥吗</a>
-  <a href="#p6">6 中国古代铜钱</a>
-  <a href="#p7">7 竹林剧场</a>
-  <a href="#p8">8 云冈石窟的数字化</a>
-  <a href="#p9">9 沧源摸你黑狂欢节</a>
-  <a href="#p10">10 如何应对脱发</a>
-  <a href="#p11">11 没有手机的一周</a>
-  <a href="#p12">12 悉尼缤纷灯光节</a>
+  <a href="#main" class="active">七选五</a>
   <a href="#done">成绩单</a>
 </nav>
 
 <main>
-  <h1 class="doc">高级语法填空精选 12 篇</h1>
-  <p class="doc-sub">按难度递增 · 12 篇短文 · 共 <span id="totalHint">—</span> 个空，每空 1.5 分 · 满分 180</p>
+  <h1 class="doc">一测 · 七选五</h1>
+  <p class="doc-sub">高级测试 · 一测 · 七选五 36–40 · 共 <span id="totalHint">—</span> 个判分点</p>
 
-  <section class="chap" id="how">
-    <h2 class="chap-t"><span class="n">说明</span>怎么用这一份</h2>
-    <div class="rulebar">
-      <p style="margin:0 0 8px">12 篇按<b>难度递增</b>排列，一篇 10 空、共 120 空，
-      <b>每空 1.5 分</b>——一篇 15 分，全套 180 分，和高考的算法一样。
-      <b>一篇建议 3 分钟做完</b>，先掐表做，再对答案。</p>
-      <p style="margin:0">
-        <b>有提示词</b>（空后有括号，如 <code>__2__ (throw)</code>）→ 考的是<b>变形</b>：
-        先看这词在句中当什么成分，再定谓语／非谓语／词性。<br>
-        <b>无提示词</b>（纯空）→ 考的是<b>虚词</b>：冠词、介词、连词、从句引导词、代词。
-      </p>
-    </div>
-    <p class="chap-lead" style="margin-top:14px">
-      在空里打字，回车跳到下一个空；一篇填完点「本篇对答案」，
-      下面会逐空给出答案、考点和解析。计时从你点进第一个空开始走。
-      成绩单在最后，会按考点告诉你哪一类最该补。
-    </p>
-  </section>
-
-  <section class="chap" id="p1">
-    <h2 class="chap-t"><span class="n">第 1 篇</span>旧电脑回收</h2>
-    <p class="chap-lead">阅读下面短文，在空白处填入 1 个适当的单词或括号内单词的正确形式。</p>
-    <div id="mount-p1"></div>
-  </section>
-
-  <section class="chap" id="p2">
-    <h2 class="chap-t"><span class="n">第 2 篇</span>彭阳县科普与非遗课</h2>
-    <p class="chap-lead">阅读下面短文，在空白处填入 1 个适当的单词或括号内单词的正确形式。</p>
-    <div id="mount-p2"></div>
-  </section>
-
-  <section class="chap" id="p3">
-    <h2 class="chap-t"><span class="n">第 3 篇</span>hamburger 的由来</h2>
-    <p class="chap-lead">阅读下面短文，在空白处填入 1 个适当的单词或括号内单词的正确形式。</p>
-    <div id="mount-p3"></div>
-  </section>
-
-  <section class="chap" id="p4">
-    <h2 class="chap-t"><span class="n">第 4 篇</span>冰城哈尔滨</h2>
-    <p class="chap-lead">阅读下面短文，在空白处填入 1 个适当的单词或括号内单词的正确形式。</p>
-    <div id="mount-p4"></div>
-  </section>
-
-  <section class="chap" id="p5">
-    <h2 class="chap-t"><span class="n">第 5 篇</span>喝水能减肥吗</h2>
-    <p class="chap-lead">阅读下面短文，在空白处填入 1 个适当的单词或括号内单词的正确形式。</p>
-    <div id="mount-p5"></div>
-  </section>
-
-  <section class="chap" id="p6">
-    <h2 class="chap-t"><span class="n">第 6 篇</span>中国古代铜钱</h2>
-    <p class="chap-lead">阅读下面短文，在空白处填入 1 个适当的单词或括号内单词的正确形式。</p>
-    <div id="mount-p6"></div>
-  </section>
-
-  <section class="chap" id="p7">
-    <h2 class="chap-t"><span class="n">第 7 篇</span>竹林剧场</h2>
-    <p class="chap-lead">阅读下面短文，在空白处填入 1 个适当的单词或括号内单词的正确形式。</p>
-    <div id="mount-p7"></div>
-  </section>
-
-  <section class="chap" id="p8">
-    <h2 class="chap-t"><span class="n">第 8 篇</span>云冈石窟的数字化</h2>
-    <p class="chap-lead">阅读下面短文，在空白处填入 1 个适当的单词或括号内单词的正确形式。</p>
-    <div id="mount-p8"></div>
-  </section>
-
-  <section class="chap" id="p9">
-    <h2 class="chap-t"><span class="n">第 9 篇</span>沧源摸你黑狂欢节</h2>
-    <p class="chap-lead">阅读下面短文，在空白处填入 1 个适当的单词或括号内单词的正确形式。</p>
-    <div id="mount-p9"></div>
-  </section>
-
-  <section class="chap" id="p10">
-    <h2 class="chap-t"><span class="n">第 10 篇</span>如何应对脱发</h2>
-    <p class="chap-lead">阅读下面短文，在空白处填入 1 个适当的单词或括号内单词的正确形式。</p>
-    <div id="mount-p10"></div>
-  </section>
-
-  <section class="chap" id="p11">
-    <h2 class="chap-t"><span class="n">第 11 篇</span>没有手机的一周</h2>
-    <p class="chap-lead">阅读下面短文，在空白处填入 1 个适当的单词或括号内单词的正确形式。</p>
-    <div id="mount-p11"></div>
-  </section>
-
-  <section class="chap" id="p12">
-    <h2 class="chap-t"><span class="n">第 12 篇</span>悉尼缤纷灯光节</h2>
-    <p class="chap-lead">阅读下面短文，在空白处填入 1 个适当的单词或括号内单词的正确形式。</p>
-    <div id="mount-p12"></div>
+  <section class="chap" id="main">
+    <h2 class="chap-t"><span class="n">七选五</span>36–40</h2>
+    <p class="chap-lead">根据短文内容，从短文后的选项中选出能填入空白处的最佳选项。选项中有两项为多余选项。</p>
+    <div id="mount-main"></div>
   </section>
 
   <section class="chap" id="done">
@@ -597,22 +618,19 @@ footer b{color:var(--accent)}
         <div class="stat"><b id="sDone">0</b><span>已作答</span></div>
         <div class="stat ok"><b id="sOk">0</b><span>答对</span></div>
         <div class="stat no"><b id="sNo">0</b><span>答错</span></div>
-        <div class="stat score"><b id="sScore">0</b><span id="sScoreLab">得分 / 180</span></div>
+
         <div class="stat"><b id="sRate">—</b><span>正确率</span></div>
       </div>
 
-      <div class="block-t">考点分布 <em>正确率最低的排在最前面 · 按<b>第一次作答</b>算</em></div>
-      <div id="tagStats"></div>
-
-      <div class="block-t" style="margin-top:22px">错题清单 <em>点题号跳回原文那个空 · 重做不影响成绩</em></div>
+      <div class="block-t" style="margin-top:6px">错题清单 <em>点题号跳回去重看解析</em></div>
       <ul class="wronglist" id="wrongList"><li class="empty" style="border:none">暂无错题。</li></ul>
 
       <div class="checkin" id="checkin">
         <div class="ci-title" id="ciTitle">截图打卡</div>
         <p class="ci-text" id="ciText">全部做完后截图这张成绩单发到你的学习群吧。</p>
         <div class="ci-meta">
-          <span>高级语法填空 · 精选 12 篇</span>
-          <span>12 篇 · 120 空 · 满分 180</span>
+          <span>高级测试 · 一测</span>
+          <span>七选五 · 5 个判分点</span>
           <span id="ciDate"></span>
         </div>
         <div class="ci-brand"><b>土妹英语</b> ｜ 定制课程 让每一分努力都不被辜负</div>
@@ -622,8 +640,8 @@ footer b{color:var(--accent)}
 </main>
 
 <footer>
-  <p>本页是《高级语法填空精选12篇（按难度递增）》的交互版，短文、答案与解析与原 PDF 一一对应，考点分类与计时是电子版另加的。</p>
-  <p>答题进度自动保存在本机浏览器里，关掉再打开不会丢；点右上角「重做」可清空重来。正确率一律按<b>第一次作答</b>算，看完解析再做一遍不会洗分。</p>
+  <p>本页是「一测 · 七选五」的交互版，短文、题目、选项与答案键均照原卷抄录；<b>文字解析是电子版另写的</b>（原卷只有答案键和扫码看讲解的二维码），由老师逐题审核后定稿。</p>
+  <p>考试模式：每题只能提交一次，判分后锁死。答题进度自动保存在本机浏览器里，关掉再打开不会丢；点右上角「重做」可清空重来。一测的各个题型各是一页，<b>进度各记各的</b>。</p>
   <p style="margin-top:10px"><b>土妹英语</b> ｜ 定制课程 让每一分努力都不被辜负</p>
 </footer>
 
@@ -635,945 +653,57 @@ footer b{color:var(--accent)}
 /* 构建时注入 */
 const QR = {};
 const TEACHER = false;
-const CLOZE_MIN = 3;
-const SCORE_PER = 1.5;
-const TAG_ORDER = ["谓语动词", "非谓语", "名词", "形容词", "副词", "比较级最高级", "代词", "冠词", "介词", "连词与引导词"];
-const BANK = { passages: [
+const EXAM_MODE = true;   /* 每题只能提交一次，判完锁死 */
+const SEVEN_MIN = 8;
+const SEVEN_TEXT = "The rest of your daily routine is probably something like mine: Divided among streaming movies on Netflix, watching home improvement videos on YouTube and playing video games. There has to be more to life than this. With the holiday season upon us, now is a good time to take a breather and consider a digital detox（戒瘾）. __36__ Here's what we can do.\n\n## Come Up With a Plan\n\n__37__ after all, many students are attending school via videoconferencing apps. So Step One is assessing which parts of screen time feel toxic and make you unhappy. Step Two is creating a realistic plan to minimize consumption of the bad stuff.\n\n## Create No-Phone Zones\n\n\"My No. 1 piece of advice is no phones in the bedroom overnight,\" Dr. Twenge, a psychology professor at San Diego State University, said. \"Have a charging station outside the bedroom.\" __38__ The dinner table, for example, is a prime opportunity for families to agree to put phones away for at least 30 minutes and reconnect.\n\n__39__\n\nSocial media sites create goals to keep users engaged. Those include the number of likes and followers we accrue on Facebook or Twitter. YouTube automatically plays the next recommended video, not to mention the never-ending Facebook and Twitter scrolling. For starters, we can resist the hooks by making our phones less intrusive. Turn off notifications for all apps except those that are essential for work and keeping in touch with people you care about. __40__";
+const SEVEN_OPTS = [
+ "Resist the Hooks",
+ "Not all screen time is bad.",
+ "Say no to Facebook or Twitter",
+ "So I turned to psychology experts for their advice.",
+ "Whenever we are at home, we can put phones away.",
+ "Outside of our bedrooms, we can create other No-Phone Zones.",
+ "If you feel strongly addicted, take an extreme measure and turn the phone to gray scale mode."
+];
+const BANK = { items: [
  {
-  "no": 1,
-  "from": 1,
-  "to": 10,
-  "words": 188,
-  "text": "What do people do with their old, out-of-date but still useful computers? Most people don't know __1__ to do with them. Many old computers are put away in homes. Many more __2__ (throw) away as rubbish. __3__ (final), some companies are thinking of ways __4__ (bring) down the numerous old computers. A company has agreed to help recycle (回收利用) old __5__ (product). Some other companies now also take back some old computers. In some countries, laws have been passed, too. Computer companies have to pay for collecting and recycling their __6__ (use) products. And 70% of computer waste must be recycled. The idea behind the laws __7__ (be) that computer companies themselves should pay for the cost. That will encourage them to make computers __8__ (easy) to repair and upgrade (升级). Yet while many people are throwing away good computers, others cannot afford them at all. Hundreds __9__ organisations are working to solve this problem. They collect and repair old computers. Some also teach others how to repair computers. The computers then go to schools, charities and people who need them. Giving a used computer to one of these organisations can turn one person's rubbish __10__ someone else's useful things and cut down waste, too.",
-  "blanks": [
-   {
-    "n": 1,
-    "a": "what",
-    "tag": "连词与引导词",
-    "ex": "know 的宾语用\"疑问词+不定式\"结构；do with 后缺宾语且指物，故填 what。"
-   },
-   {
-    "n": 2,
-    "a": "are thrown",
-    "tag": "谓语动词",
-    "ex": "主语 Many more（computers）与 throw 是被动关系，陈述通常事实用一般现在时，主语为复数。",
-    "base": "throw"
-   },
-   {
-    "n": 3,
-    "a": "Finally",
-    "tag": "副词",
-    "ex": "修饰整个句子作状语，用副词；位于句首首字母大写。",
-    "base": "final",
-    "cap": true
-   },
-   {
-    "n": 4,
-    "a": "to bring",
-    "tag": "非谓语",
-    "ex": "名词 ways 后常用不定式作后置定语，表示\"⋯⋯的办法\"。",
-    "base": "bring"
-   },
-   {
-    "n": 5,
-    "a": "products",
-    "tag": "名词",
-    "ex": "product 是可数名词，此处泛指旧产品，用复数。",
-    "base": "product"
-   },
-   {
-    "n": 6,
-    "a": "used",
-    "tag": "非谓语",
-    "ex": "作定语修饰 products，used 表\"用过的、旧的\"。",
-    "base": "use"
-   },
-   {
-    "n": 7,
-    "a": "is",
-    "tag": "谓语动词",
-    "ex": "主语是 The idea（单数），陈述客观事实用一般现在时。",
-    "base": "be"
-   },
-   {
-    "n": 8,
-    "a": "easier",
-    "tag": "比较级最高级",
-    "ex": "make+宾语+宾补；此处含\"比以前更\"的比较意味，用比较级。",
-    "base": "easy"
-   },
-   {
-    "n": 9,
-    "a": "of",
-    "tag": "介词",
-    "ex": "hundreds of 表\"数百的\"。"
-   },
-   {
-    "n": 10,
-    "a": "into",
-    "tag": "介词",
-    "ex": "turn A into B 表\"把 A 变成 B\"。"
-   }
-  ]
+  "id": "s36",
+  "no": "36",
+  "a": 3,
+  "stem": "第 1 段末：<code>…now is a good time to take a breather and consider a digital detox. ______ Here's what we can do.</code>",
+  "ex": "<p>选 <b>D. So I turned to psychology experts for their advice.</b></p><p><b>空后一句是钥匙</b>：<code>Here's what we can do.</code>（下面就是我们能做的）—— 这个 <code>what we can do</code> 必须有来处，D 的「于是我去请教了心理学专家」正好把它引出来。</p><p>再往下看：第 3 段真的出现了 <code>Dr. Twenge, <b>a psychology professor</b></code>，和 D 里的 <code>psychology experts</code> 首尾呼应。<b>段末空看后文、看有没有同义词复现。</b></p>"
  },
  {
-  "no": 2,
-  "from": 11,
-  "to": 20,
-  "words": 183,
-  "text": "In Pengyang County, courses that promote science and traditional Chinese cultures have been offered to kindergartens, primary schools and middle schools in recent months. As a move to develop rural areas, the China Soong Ching Ling Science and Culture Center __11__ (launch) several charity projects to train students' hands-on ability and get students __12__ (close) to intangible cultural heritages in September. Nearly 1,200 students in Pengyang __13__ (participate) in the project so far. Teachers from __14__ center have integrated knowledge of history and fine arts into online courses. Besides, they sent raw materials for local students to make handicrafts on __15__ (they) own. On the one hand, instruction videos were made in advance for students __16__ (learn) the whole process step by step. On the other hand, students are encouraged to use their __17__ (imagine) and come up with creative ideas on making their own school things. All courses seek to ensure an immersive __18__ interactive learning experience for a wider group of students Teachers at local schools can help students fully understand __19__ they've learned. The center plans to carry out more online courses to provide students in remote places with an easier access __20__ high-quality educational resources.",
-  "blanks": [
-   {
-    "n": 11,
-    "a": "launched",
-    "tag": "谓语动词",
-    "ex": "时间状语 in September 表明动作发生在过去，用一般过去时。",
-    "base": "launch"
-   },
-   {
-    "n": 12,
-    "a": "closer",
-    "tag": "比较级最高级",
-    "ex": "get sb closer to 表\"让某人更接近⋯⋯\"，用比较级。",
-    "base": "close"
-   },
-   {
-    "n": 13,
-    "a": "have participated",
-    "tag": "谓语动词",
-    "ex": "so far（迄今为止）是现在完成时的标志。",
-    "base": "participate"
-   },
-   {
-    "n": 14,
-    "a": "the",
-    "tag": "冠词",
-    "ex": "特指前文提到的 China Soong Ching Ling Science and Culture Center。"
-   },
-   {
-    "n": 15,
-    "a": "their",
-    "tag": "代词",
-    "ex": "on one's own 表\"独自地\"；主语是 students，用形容词性物主代词。",
-    "base": "they"
-   },
-   {
-    "n": 16,
-    "a": "to learn",
-    "tag": "非谓语",
-    "ex": "for sb to do 结构，不定式表目的：供学生逐步学习整个流程。",
-    "base": "learn"
-   },
-   {
-    "n": 17,
-    "a": "imagination",
-    "tag": "名词",
-    "ex": "their 后接名词，imagine 的名词形式是 imagination。",
-    "base": "imagine"
-   },
-   {
-    "n": 18,
-    "a": "and",
-    "tag": "连词与引导词",
-    "ex": "immersive 与 interactive 是并列的两个形容词。"
-   },
-   {
-    "n": 19,
-    "a": "what",
-    "tag": "连词与引导词",
-    "ex": "understand 后的宾语从句缺宾语，用 what。"
-   },
-   {
-    "n": 20,
-    "a": "to",
-    "tag": "介词",
-    "ex": "access to 表\"获得⋯⋯的途径\"。"
-   }
-  ]
+  "id": "s37",
+  "no": "37",
+  "a": 1,
+  "stem": "小标题 <b>Come Up With a Plan</b> 下第一句：<code>______ after all, many students are attending school via videoconferencing apps.</code>",
+  "ex": "<p>选 <b>B. Not all screen time is bad.</b></p><p><b>after all（毕竟）是解释前面那句话的原因</b>：「毕竟很多学生就是靠视频会议软件上课的」—— 这句话只能用来支持「<b>并不是所有的屏幕时间都是坏事</b>」。</p><p>紧接着 <code>Step One is assessing <b>which parts</b> of screen time feel toxic</code>（先判断<b>哪一部分</b>屏幕时间是有害的）—— 「要分辨哪一部分」这个说法本身就预设了「不是全部都坏」。</p>"
  },
  {
-  "no": 3,
-  "from": 21,
-  "to": 30,
-  "words": 194,
-  "text": "Although English is not as old as Chinese, __21__ is spoken by many people around the world every day. English speakers __22__ are from all over the world always make new words and we should be able to know where most words come from. Sometimes, however, no one may really know where a word comes from. Did you ever think about why hamburgers are called hamburgers, __23__ (especial) when they are not made of ham? About a hundred years ago, some men went to America from Europe. They came from a big city __24__ (call) Hamburg in Germany. They did not speak good English, but they ate good food. Some Americans saw them eating round pieces of beef. They had never seen such __25__ strange way. They couldn't help __26__ (ask) the Germans what it was. The Germans did not understand the question and answered, \"We came from Hamburg.\" One of these Americans owned a restaurant, and had an idea. He made up __27__ (he) mind to do something new. He cooked some round __28__ (piece) of the beef like what the men from Hamburg ate and __29__ (sell) it to quite a few countries around the world. Whether this story is true or not, it is certainly __30__ (interest).",
-  "blanks": [
-   {
-    "n": 21,
-    "a": "it",
-    "tag": "代词",
-    "ex": "代替前文的 English，在主句中作主语。"
-   },
-   {
-    "n": 22,
-    "a": "who",
-    "tag": "连词与引导词",
-    "ex": "定语从句修饰 English speakers（指人），关系词在从句中作主语。",
-    "alt": [
-     "that"
-    ]
-   },
-   {
-    "n": 23,
-    "a": "especially",
-    "tag": "副词",
-    "ex": "修饰整个从句作状语，用副词。",
-    "base": "especial"
-   },
-   {
-    "n": 24,
-    "a": "called",
-    "tag": "非谓语",
-    "ex": "过去分词作后置定语，city 与 call 是被动关系：\"一座叫汉堡的城市\"。",
-    "base": "call"
-   },
-   {
-    "n": 25,
-    "a": "a",
-    "tag": "冠词",
-    "ex": "such a + 形容词 + 单数可数名词。"
-   },
-   {
-    "n": 26,
-    "a": "asking",
-    "tag": "非谓语",
-    "ex": "can't help doing 表\"忍不住做某事\"。",
-    "base": "ask"
-   },
-   {
-    "n": 27,
-    "a": "his",
-    "tag": "代词",
-    "ex": "make up one's mind 表\"下定决心\"，主语是 He。",
-    "base": "he"
-   },
-   {
-    "n": 28,
-    "a": "pieces",
-    "tag": "名词",
-    "ex": "piece 是可数名词，前有 some round 修饰，用复数。",
-    "base": "piece"
-   },
-   {
-    "n": 29,
-    "a": "sold",
-    "tag": "谓语动词",
-    "ex": "与前面的 cooked 并列作谓语，同为一般过去时。",
-    "base": "sell"
-   },
-   {
-    "n": 30,
-    "a": "interesting",
-    "tag": "形容词",
-    "ex": "主语 it 指\"这个故事\"（物），用 -ing 形容词表\"令人感兴趣的\"。",
-    "base": "interest"
-   }
-  ]
+  "id": "s38",
+  "no": "38",
+  "a": 5,
+  "stem": "<code>\"Have a charging station outside the bedroom.\" ______ The dinner table, for example, is a prime opportunity for families to agree to put phones away…</code>",
+  "ex": "<p>选 <b>F. Outside of our bedrooms, we can create other No-Phone Zones.</b></p><p>空的<b>前后各管一半</b>：前面刚说完<b>卧室</b>（把充电器放到卧室外面），后面举的例子是<b>餐桌</b>。中间这句必须完成「从卧室 → 别的地方」的过渡，F 里的 <code>Outside of our bedrooms</code> + <code><b>other</b> No-Phone Zones</code> 两个信号都对上了。</p><p>而且 <code>No-Phone Zones</code> 就是本段的小标题，属于关键词复现。</p>"
  },
  {
-  "no": 4,
-  "from": 31,
-  "to": 40,
-  "words": 184,
-  "text": "Known as the \"ice city\", Harbin in Heilongjiang Province is __31__ popular winter tourist destination. Visitors enjoy the thrill of the super ice slide at the Harbin Ice-Snow World, a well-known ice-and-snow theme park. Major hot springs resorts in Harbin are crowded __32__ traffic jams comparable to the Spring Festival travel rush and travelers from the south of China make up a large part of the tourist crowd. How do you tell the southerners from northerners? Southern Chinese people can be summarised in four __33__ (feature): a light-colored down jacket ( 羽绒服), a lovely small hat, a suitcase in hand and __34__ (shy) in public bathhouses. Southerners are less prepared for the cold, but the northerners are doting on (宠 爱) them to make their winter trip __35__ (memory). Some individuals online are providing practical suggestions for these southerners, stressing the need for clothing that __36__ (protect) them from the freezing outdoor temperatures while ensuring they don't sweat (流汗) __37__ (heavy) indoors. __38__ (promote) travel, Harbin has extended the operating hours of buses and subways. For travelers __39__ (try) to avoid peak periods, it's advisable to plan visits after New Year's Day and the Spring Festival, __40__ tourist traffic is at its peak.",
-  "blanks": [
-   {
-    "n": 31,
-    "a": "a",
-    "tag": "冠词",
-    "ex": "destination 是单数可数名词，此处泛指；popular 以辅音音素开头。"
-   },
-   {
-    "n": 32,
-    "a": "with",
-    "tag": "介词",
-    "ex": "be crowded with 表\"挤满了⋯⋯\"。"
-   },
-   {
-    "n": 33,
-    "a": "features",
-    "tag": "名词",
-    "ex": "four 后接可数名词复数。",
-    "base": "feature"
-   },
-   {
-    "n": 34,
-    "a": "shyness",
-    "tag": "名词",
-    "ex": "与前面的 a jacket、a hat、a suitcase 并列，需用名词。",
-    "base": "shy"
-   },
-   {
-    "n": 35,
-    "a": "memorable",
-    "tag": "形容词",
-    "ex": "make+宾语+形容词作宾补，\"使旅程难忘\"。",
-    "base": "memory"
-   },
-   {
-    "n": 36,
-    "a": "protects",
-    "tag": "谓语动词",
-    "ex": "定语从句修饰 clothing（视作单数），描述一般情况用一般现在时。",
-    "base": "protect"
-   },
-   {
-    "n": 37,
-    "a": "heavily",
-    "tag": "副词",
-    "ex": "修饰动词 sweat，用副词。",
-    "base": "heavy"
-   },
-   {
-    "n": 38,
-    "a": "To promote",
-    "tag": "非谓语",
-    "ex": "句首不定式作目的状语：\"为了促进旅游\"。",
-    "base": "promote",
-    "cap": true
-   },
-   {
-    "n": 39,
-    "a": "trying",
-    "tag": "非谓语",
-    "ex": "现在分词作后置定语修饰 travelers，二者是主动关系。",
-    "base": "try"
-   },
-   {
-    "n": 40,
-    "a": "when",
-    "tag": "连词与引导词",
-    "ex": "非限制性定语从句，先行词是元旦和春节（时间），关系词在从句中作时间状语。"
-   }
-  ]
+  "id": "s39",
+  "no": "39",
+  "a": 0,
+  "stem": "本空<b>独占一行</b>，位置和 <code>Come Up With a Plan</code>、<code>Create No-Phone Zones</code> 一样。",
+  "ex": "<p>选 <b>A. Resist the Hooks</b></p><p><b>先看形式再看内容</b>：这个空自己占一行，前后都是段落 —— 那它就是<b>小标题</b>。七个选项里只有 A 和 C 是小标题的样子（<b>没有句号、实词首字母大写</b>），其余五个都是完整句子。这一步就排掉了五个。</p><p>A 和 C 之间看下文：本段讲社交软件用点赞、自动播放视频这些「钩子」黏住用户，而且原句里直接出现 <code>we can <b>resist the hooks</b></code> —— 选 A。</p><p>C「对 Facebook 和 Twitter 说不」太绝对，下文说的是<b>关掉通知</b>、不是弃用。</p>"
  },
  {
-  "no": 5,
-  "from": 41,
-  "to": 50,
-  "words": 176,
-  "text": "Can drinking water contribute to __41__ (lose) weight? Some small studies have found that drinking water before meals __42__ (regular) can help certain groups of people lose weight. The idea is __43__ water makes your stomach feel full, and therefore, you eat less. However, there are many conflicting studies on __44__ topic. For example, one paper found that drinking up to 500 ml of water 30 minutes before a meal led to weight loss in a group of young men, but another paper found that the method did not work for younger people in the study — only the older ones. In a 2013 study __45__ (publish) in the American Journal of Clinical Nutrition, researchers surveyed four electronic databases. Only three studies suggested that increased water __46__ (consume) could lead to weight loss if it's part of a diet program, and work for people who are __47__ (diet). In the study, researchers asked more than 300 overweight individuals __48__ (replace) beverages (饮料) with water for 6 months and found the subjects' weight could be reduced __49__ an average of 2 to 2.5%. They concluded that drinking water cannot help with weight loss unless it replaces sugary __50__ (drink) like soda and sweet juices.",
-  "blanks": [
-   {
-    "n": 41,
-    "a": "losing",
-    "tag": "非谓语",
-    "ex": "contribute to 中 to 是介词，后接动名词。",
-    "base": "lose"
-   },
-   {
-    "n": 42,
-    "a": "regularly",
-    "tag": "副词",
-    "ex": "修饰动名词短语 drinking water before meals，用副词。",
-    "base": "regular"
-   },
-   {
-    "n": 43,
-    "a": "that",
-    "tag": "连词与引导词",
-    "ex": "表语从句结构完整、不缺成分，用 that 引导。"
-   },
-   {
-    "n": 44,
-    "a": "the",
-    "tag": "冠词",
-    "ex": "特指上文正在讨论的这个话题。"
-   },
-   {
-    "n": 45,
-    "a": "published",
-    "tag": "非谓语",
-    "ex": "过去分词作后置定语，study 与 publish 是被动关系。",
-    "base": "publish"
-   },
-   {
-    "n": 46,
-    "a": "consumption",
-    "tag": "名词",
-    "ex": "increased 后接名词，consume 的名词形式是 consumption。",
-    "base": "consume"
-   },
-   {
-    "n": 47,
-    "a": "dieting",
-    "tag": "谓语动词",
-    "ex": "定语从句修饰 people，空前已有 are，构成现在进行时，填现在分词。",
-    "base": "diet"
-   },
-   {
-    "n": 48,
-    "a": "to replace",
-    "tag": "非谓语",
-    "ex": "ask sb to do sth 表\"要求某人做某事\"。",
-    "base": "replace"
-   },
-   {
-    "n": 49,
-    "a": "by",
-    "tag": "介词",
-    "ex": "by an average of 表\"平均⋯⋯\"，为介词固定用法。"
-   },
-   {
-    "n": 50,
-    "a": "drinks",
-    "tag": "名词",
-    "ex": "sugary 后接可数名词复数，泛指含糖饮料。",
-    "base": "drink"
-   }
-  ]
- },
- {
-  "no": 6,
-  "from": 51,
-  "to": 60,
-  "words": 193,
-  "text": "Copper cash (铜钱) is the general term of Chinese ancient currency made of copper which turned up in the Qin Dynasty (221 BC — 206 BC), a dynasty leaving __51__ (vary) treasures to Chinese people, such as the Great Wall and the Terracotta Army. The copper coin originated from \"huan cash\", a kind of ancient copper coin with ring shape used in the Warring States Period __52__ lasted from 475 BC to 221 BC． __53__ (general) speaking, most of the copper coins __54__ (be) round and there is a square hole in the center of the coin-hence there is another Chinese name called \"fangkong cash\" (fangkong mean square hole). People can distinguish different kinds of copper coins by the letters __55__ (mark) on the coins. These letters always refer to the royal title in different __56__ (dynasty), such as \"Qianlong Tongbao\" and \"Yongzheng Tongbao\" in the Qing Dynasty (1616 — 1911) . The earliest copper coin is called \"ban liang qian\", or Ban Liang coins, which emerged and began to circulate (流通) in __57__ whole country following the foundation of the Qin Dynasty. Ban Liang coins were more material-economical __58__ any other coin circulating at that time and the square hole was easier __59__ (make). This revealed that people at that time valued efficiency, which could __60__ (see) in the wonder of the Terracotta Army as well.",
-  "blanks": [
-   {
-    "n": 51,
-    "a": "various",
-    "tag": "形容词",
-    "ex": "作定语修饰 treasures，vary 的形容词形式是 various。",
-    "alt": [
-     "varied"
-    ],
-    "base": "vary"
-   },
-   {
-    "n": 52,
-    "a": "which",
-    "tag": "连词与引导词",
-    "ex": "定语从句修饰 the Warring States Period，关系词作从句主语。",
-    "alt": [
-     "that"
-    ]
-   },
-   {
-    "n": 53,
-    "a": "Generally",
-    "tag": "副词",
-    "ex": "generally speaking 表\"一般来说\"；句首首字母大写。",
-    "base": "general",
-    "cap": true
-   },
-   {
-    "n": 54,
-    "a": "are",
-    "tag": "谓语动词",
-    "ex": "主语 most of the copper coins 是复数，陈述客观事实用一般现在时。",
-    "base": "be"
-   },
-   {
-    "n": 55,
-    "a": "marked",
-    "tag": "非谓语",
-    "ex": "过去分词作后置定语，letters 与 mark 是被动关系：\"刻在钱币上的文字\"。",
-    "base": "mark"
-   },
-   {
-    "n": 56,
-    "a": "dynasties",
-    "tag": "名词",
-    "ex": "different 后接可数名词复数。",
-    "base": "dynasty"
-   },
-   {
-    "n": 57,
-    "a": "the",
-    "tag": "冠词",
-    "ex": "the whole country 表\"全国\"，特指。"
-   },
-   {
-    "n": 58,
-    "a": "than",
-    "tag": "比较级最高级",
-    "ex": "与前面的 more 构成 more...than 比较结构。"
-   },
-   {
-    "n": 59,
-    "a": "to make",
-    "tag": "非谓语",
-    "ex": "be easy to do 结构，不定式用主动形式表被动含义。",
-    "base": "make"
-   },
-   {
-    "n": 60,
-    "a": "be seen",
-    "tag": "谓语动词",
-    "ex": "which 指代前句内容，与 see 是被动关系，could 后用 be+过去分词。",
-    "base": "see"
-   }
-  ]
- },
- {
-  "no": 7,
-  "from": 61,
-  "to": 70,
-  "words": 190,
-  "text": "Near the village of Hengkeng in China's Zhejiang province, there's a bamboo forest with an open-air theatre, also made of bamboo. The incredible thing, however, is __61__ no bamboo was actually cut to build the theater. Instead, living bamboo trees __62__ (bend) and roped until they formed a dome (穹顶) with a circular opening at the top. The so-called Bamboo Theater was designed by Xu Tiantian of DnA Design and Architecture to provide a space __63__ cultural activities for the local community. Together with seven other __64__ (project) from across China, it's been highlighted in an exhibition at the Museum of Modern Art in New York that seeks __65__ (change) people's understanding of the country's approach to contemporary architecture. Titled \"Reuse, Renew, Recycle: Recent Architecture from China\", the exhibition presents a new generation of Chinese architects who are promoting __66__ (society) and environmental sustainability by transforming industrial buildings, __67__ (recycle) materials, and reinterpreting ancient building techniques. Nowadays, the meaning of sustainability is often defined by a large number of standards __68__ certifications rather than the lived, spatial experience. But the exhibition introduces a more delicate definition __69__ (inspire) by the use of traditional materials and a stronger __70__ (connect) between architecture and nature.",
-  "blanks": [
-   {
-    "n": 61,
-    "a": "that",
-    "tag": "连词与引导词",
-    "ex": "表语从句结构完整，用 that 引导且不作成分。"
-   },
-   {
-    "n": 62,
-    "a": "were bent",
-    "tag": "谓语动词",
-    "ex": "bamboo trees 与 bend 是被动关系，与后面的 roped 并列，用一般过去时被动。",
-    "base": "bend"
-   },
-   {
-    "n": 63,
-    "a": "for",
-    "tag": "介词",
-    "ex": "space for 表\"用于⋯⋯的空间\"。"
-   },
-   {
-    "n": 64,
-    "a": "projects",
-    "tag": "名词",
-    "ex": "seven other 后接可数名词复数。",
-    "base": "project"
-   },
-   {
-    "n": 65,
-    "a": "to change",
-    "tag": "非谓语",
-    "ex": "seek to do sth 表\"力求做某事\"。",
-    "base": "change"
-   },
-   {
-    "n": 66,
-    "a": "social",
-    "tag": "形容词",
-    "ex": "与 environmental 并列作定语，需用形容词。",
-    "base": "society"
-   },
-   {
-    "n": 67,
-    "a": "recycling",
-    "tag": "非谓语",
-    "ex": "与 transforming、reinterpreting 并列，同为介词 by 后的动名词。",
-    "base": "recycle"
-   },
-   {
-    "n": 68,
-    "a": "and",
-    "tag": "连词与引导词",
-    "ex": "standards 与 certifications 是并列关系。"
-   },
-   {
-    "n": 69,
-    "a": "inspired",
-    "tag": "非谓语",
-    "ex": "过去分词作后置定语，definition 与 inspire 是被动关系。",
-    "base": "inspire"
-   },
-   {
-    "n": 70,
-    "a": "connection",
-    "tag": "名词",
-    "ex": "a stronger 后接名词，connect 的名词形式是 connection。",
-    "base": "connect"
-   }
-  ]
- },
- {
-  "no": 8,
-  "from": 71,
-  "to": 80,
-  "words": 193,
-  "text": "Situated on Wuzhou Mountain in Datong, Shanxi, the Yungang Grottoes stand as a monumental witness to cultural exchange between China and the Buddhist world. __71__ (list) as a UNESCO World Cultural Heritage site in 2001, they showcase \"outstanding achievements of Buddhist cave art in China. \" Today, they are not only preserved __72__ a living history book but have been renewed through cutting-edge technology and __73__ (innovate) cultural initiatives. In recent years, local authorities have stepped up efforts __74__ (protect) the grottoes. Teams of cultural relic conservators carefully examine the caves, identifying issues like weathering, erosion (侵蚀) and paint fading, and apply tailored solutions __75__ include stone strengthening and mural (壁画) restoration. Of the site's 45 major caves and 59, 000 statues, about 80 percent have been __76__ (digital) documented for precise repairs. High-resolution scans and AI-powered reconstructions allow for virtual tours, while 3D printed __77__ (copy) allow delicate artworks to \"travel\" globally. Meanwhile, the site's tourism facilities and services have been upgraded. During the 2025 May Day holiday, the Yungang Grottoes __78__ (receive) over 220, 000 visits, __79__ increase of 8. 96 percent compared to the same period last year. From the hands of 5th-century artists to today's digital guardians, the Yungang Grottoes continue to inspire many people, __80__ (prove) that even ancient stone can fuel modern artistic vision.",
-  "blanks": [
-   {
-    "n": 71,
-    "a": "Listed",
-    "tag": "非谓语",
-    "ex": "过去分词作状语置于句首，they 与 list 是被动关系：\"被列为⋯⋯\"。",
-    "base": "list",
-    "cap": true
-   },
-   {
-    "n": 72,
-    "a": "as",
-    "tag": "介词",
-    "ex": "preserve as 表\"作为⋯⋯被保存\"。"
-   },
-   {
-    "n": 73,
-    "a": "innovative",
-    "tag": "形容词",
-    "ex": "作定语修饰 initiatives，需用形容词。",
-    "base": "innovate"
-   },
-   {
-    "n": 74,
-    "a": "to protect",
-    "tag": "非谓语",
-    "ex": "efforts to do sth 表\"为做某事付出的努力\"。",
-    "base": "protect"
-   },
-   {
-    "n": 75,
-    "a": "that",
-    "tag": "连词与引导词",
-    "ex": "定语从句修饰 solutions，关系词作从句主语。",
-    "alt": [
-     "which"
-    ]
-   },
-   {
-    "n": 76,
-    "a": "digitally",
-    "tag": "副词",
-    "ex": "修饰过去分词 documented，用副词。",
-    "base": "digital"
-   },
-   {
-    "n": 77,
-    "a": "copies",
-    "tag": "名词",
-    "ex": "3D printed 后接可数名词复数。",
-    "base": "copy"
-   },
-   {
-    "n": 78,
-    "a": "received",
-    "tag": "谓语动词",
-    "ex": "时间状语 During the 2025 May Day holiday 表明是过去的动作。",
-    "base": "receive"
-   },
-   {
-    "n": 79,
-    "a": "an",
-    "tag": "冠词",
-    "ex": "increase 是单数可数名词，此处泛指，且以元音音素开头。"
-   },
-   {
-    "n": 80,
-    "a": "proving",
-    "tag": "非谓语",
-    "ex": "现在分词作结果状语，说明前面动作自然带来的结果。",
-    "base": "prove"
-   }
-  ]
- },
- {
-  "no": 9,
-  "from": 81,
-  "to": 90,
-  "words": 210,
-  "text": "The flying mud sends its blessings as the crowd has fun. This is just one scene from a famous __81__ (year) festival that takes place in Yunnan province. From the end of April __82__ the beginning of May, thousands of people both at home and abroad celebrated the Monihei Carnival (\"摸你黑\"狂欢节) in CangyuanWa autonomous county in Yunnan. \"Monihei\" is the Mandarin pronunciation of the phrase \"mohnin hei\" __83__ (use) by the Wa ethnic group, meaning \"This is __84__ we pursue and expect. Keep going!\" It is said that the Monihei Carnival __85__ (draw) its significance from the customs and beliefs of the Wa people. According to the Yunnan Provincial Department of Culture and Tourism, the Wa people have great respect for the color black, __86__ symbolizes diligence and health. During the festival, participants from the Wa ethnic group use a type of natural medicine called \"Niang Bu Luo\" to smear (涂抹) each other to ward off evil spirits (辟邪) and seek health and __87__ (safe). For this year's Monihei Carnival, everyone on the street, __88__ (include) tourists, policemen and policewomen, and dogs, appeared in black. Some participants even dressed up as Tang Sanzang from the classic novel Journey to the West and paraded (游行) on the street. \"It's a good occasion for people working in big __89__ (city) to let off some steam\", __90__ internet user commented online.",
-  "blanks": [
-   {
-    "n": 81,
-    "a": "yearly",
-    "tag": "形容词",
-    "ex": "作定语修饰 festival，yearly 表\"一年一度的\"。",
-    "base": "year"
-   },
-   {
-    "n": 82,
-    "a": "to",
-    "tag": "介词",
-    "ex": "from...to... 表时间范围\"从⋯⋯到⋯⋯\"。"
-   },
-   {
-    "n": 83,
-    "a": "used",
-    "tag": "非谓语",
-    "ex": "过去分词作后置定语，phrase 与 use 是被动关系。",
-    "base": "use"
-   },
-   {
-    "n": 84,
-    "a": "what",
-    "tag": "连词与引导词",
-    "ex": "表语从句缺宾语（pursue and expect 的宾语），用 what。"
-   },
-   {
-    "n": 85,
-    "a": "draws",
-    "tag": "谓语动词",
-    "ex": "It is said that 后的从句陈述一般事实，主语 Carnival 为单数。",
-    "base": "draw"
-   },
-   {
-    "n": 86,
-    "a": "which",
-    "tag": "连词与引导词",
-    "ex": "非限制性定语从句，先行词是 the color black，关系词作从句主语。"
-   },
-   {
-    "n": 87,
-    "a": "safety",
-    "tag": "名词",
-    "ex": "与 health 并列作 seek 的宾语，需用名词。",
-    "base": "safe"
-   },
-   {
-    "n": 88,
-    "a": "including",
-    "tag": "介词",
-    "ex": "介词 including 表\"包括\"，后接名词作插入成分。",
-    "base": "include"
-   },
-   {
-    "n": 89,
-    "a": "cities",
-    "tag": "名词",
-    "ex": "big 后接可数名词复数，泛指大城市。",
-    "base": "city"
-   },
-   {
-    "n": 90,
-    "a": "an",
-    "tag": "冠词",
-    "ex": "internet user 是单数可数名词，此处泛指，internet 以元音音素开头。"
-   }
-  ]
- },
- {
-  "no": 10,
-  "from": 91,
-  "to": 100,
-  "words": 203,
-  "text": "Ways to Beat Hair Loss It can be upsetting __91__ (find) you are losing your hair, and it can cause some people to lose confidence in themselves. It's always wise to learn the reason and come up __92__ a solution. Did you know that it could be the hair products you __93__ (use) now that are contributing to your hair loss? Although you'll be using many of these __94__ (item) to keep your hair looking good, they might actually be causing you __95__ (lose) your hair. So perhaps your losing hair is due to the chemicals used to make these products, __96__ become trapped in the hair. When this happens, hair can't grow, and the hair will fall out. The best thing to do is to use __97__ (nature) products. The fewer chemicals you put on your hair, __98__ less likely it will be to fall out. Heat is another disaster for hair health, and although you might think of hairdryers and straighteners when you think of how much heat __99__ (apply) to your hair, it could be something else that's causing the damage. The hotter the water in your shower, the more damage you are doing to your hair. Not only that, but the heat can dry out your hair, __100__ (make) it very crisp.",
-  "blanks": [
-   {
-    "n": 91,
-    "a": "to find",
-    "tag": "非谓语",
-    "ex": "It 是形式主语，真正的主语是后面的不定式短语。",
-    "base": "find"
-   },
-   {
-    "n": 92,
-    "a": "with",
-    "tag": "介词",
-    "ex": "come up with 表\"想出、提出\"。"
-   },
-   {
-    "n": 93,
-    "a": "are using",
-    "tag": "谓语动词",
-    "ex": "now 表明动作正在进行，用现在进行时。",
-    "base": "use"
-   },
-   {
-    "n": 94,
-    "a": "items",
-    "tag": "名词",
-    "ex": "many of these 后接可数名词复数。",
-    "base": "item"
-   },
-   {
-    "n": 95,
-    "a": "to lose",
-    "tag": "非谓语",
-    "ex": "cause sb to do sth 表\"导致某人做某事\"。",
-    "base": "lose"
-   },
-   {
-    "n": 96,
-    "a": "which",
-    "tag": "连词与引导词",
-    "ex": "非限制性定语从句，先行词是 the chemicals，关系词作从句主语。"
-   },
-   {
-    "n": 97,
-    "a": "natural",
-    "tag": "形容词",
-    "ex": "作定语修饰 products，nature 的形容词形式是 natural。",
-    "base": "nature"
-   },
-   {
-    "n": 98,
-    "a": "the",
-    "tag": "比较级最高级",
-    "ex": "\"the+比较级⋯, the+比较级⋯\"表\"越⋯⋯越⋯⋯\"。"
-   },
-   {
-    "n": 99,
-    "a": "is applied",
-    "tag": "谓语动词",
-    "ex": "heat 与 apply 是被动关系，陈述一般事实用一般现在时被动。",
-    "base": "apply"
-   },
-   {
-    "n": 100,
-    "a": "making",
-    "tag": "非谓语",
-    "ex": "现在分词作结果状语，说明 dry out 带来的结果。",
-    "base": "make"
-   }
-  ]
- },
- {
-  "no": 11,
-  "from": 101,
-  "to": 110,
-  "words": 226,
-  "text": "Smartphone: a smart choice? I was a smartphone addict. My eyes were always glued __101__ the little screen. Sometimes I had the uncomfortable feeling that this little machine had taken up to much of my time, and that I could have done something more meaningful. I slid into the habit easily __102__ found it hard to quit. Then the day came when I __103__ (final) realized I had to make __104__ change. Head down, eyes on my smartphone, I stepped into the road and a car shot past, nearly __105__ (knock) me off my feet!. At that very moment, I made up my mind to spend a whole week without my smartphone. The first day was the __106__ (hard). I was used to checking the news and my friends' social media updates every few minutes, but now I did not know what to do with myself. It was __107__ (scare) at first. Then somehow I began __108__ (feel) free. I finally picked up the classic novel I had always wanted to read and was soon lost in the beautiful language. The details of the scene __109__ (reveal) in front of me: the soft sunlight, the rich and earthy smell of the soil after the rain. By the end of the week, I almost did not want to turn my phone back on. Those seven days have given me a great __110__ (appreciate) for life beyond the screen.",
-  "blanks": [
-   {
-    "n": 101,
-    "a": "to",
-    "tag": "介词",
-    "ex": "be glued to 表\"紧盯着、黏在⋯⋯上\"。"
-   },
-   {
-    "n": 102,
-    "a": "and",
-    "tag": "连词与引导词",
-    "ex": "连接 slid 与 found 两个并列谓语，主语同为 I。"
-   },
-   {
-    "n": 103,
-    "a": "finally",
-    "tag": "副词",
-    "ex": "修饰谓语 realized，用副词。",
-    "base": "final"
-   },
-   {
-    "n": 104,
-    "a": "a",
-    "tag": "冠词",
-    "ex": "make a change 表\"做出改变\"，change 此处为单数可数名词。"
-   },
-   {
-    "n": 105,
-    "a": "knocking",
-    "tag": "非谓语",
-    "ex": "现在分词作结果状语，说明汽车疾驰而过带来的结果。",
-    "base": "knock"
-   },
-   {
-    "n": 106,
-    "a": "hardest",
-    "tag": "比较级最高级",
-    "ex": "空前有定冠词 the，且与其余几天相比，用最高级。",
-    "base": "hard"
-   },
-   {
-    "n": 107,
-    "a": "scary",
-    "tag": "形容词",
-    "ex": "主语 It 指\"没有手机这件事\"（物），用 scary 表\"令人害怕的\"。",
-    "base": "scare"
-   },
-   {
-    "n": 108,
-    "a": "to feel",
-    "tag": "非谓语",
-    "ex": "begin to do sth 表\"开始做某事\"。",
-    "alt": [
-     "feeling"
-    ],
-    "base": "feel"
-   },
-   {
-    "n": 109,
-    "a": "were revealed",
-    "tag": "谓语动词",
-    "ex": "details 是被展现的对象，与 reveal 构成被动关系，叙述过去用一般过去时的被动语态。",
-    "base": "reveal"
-   },
-   {
-    "n": 110,
-    "a": "appreciation",
-    "tag": "名词",
-    "ex": "a great 后接名词，appreciate 的名词形式是 appreciation。",
-    "base": "appreciate"
-   }
-  ]
- },
- {
-  "no": 12,
-  "from": 111,
-  "to": 120,
-  "words": 229,
-  "text": "The 15th edition of Vivid Sydney, Australia's largest annual celebration of light music, ideas, and food, __111__ (light) up the Harbour City under the theme Dream. From May 23 to June 14, 2025, the festival featured more than 200 events across five __112__ (creative) designed zones throughout central Sydney. Among them, Chinese artist Yannesi Siu, the first Chinese artist invited individually __113__ (participate) in Vivid Sydney's official program attracted attention with two works that combine ancient mythology with cutting-edge technology. Yannesi's work, Fly to the Moon, drew __114__ (inspire) from the legend of Chang'e, the Chinese moon goddess. In her interpretation, which used light and motion, __115__ the moon symbolized was not only poetic imagination but also the pursuit of dreams. Her second work, Telephone, explored how memory, technology, and time interacted. Inside __116__ unique and old-fashioned telephone booth (电话亭), visitors could speak into the receiver, and transform messages into animated light symbols by AI. This dialogue between past and future was enhanced by China's homegrown HDR Vivid ultra-HD visual technology. \" __117__ (root) in the Chinese traditional culture, the piece uses technique to carry meaning,\" Siu said. \"I hope audiences can reflect __118__ how technology connects us — not just functionally, but emotionally — across time and space.\" This year, Vivid Sydney covered five unique zones — Circular Quay and The rocks, Barangaroo, Martin Place and the CBD, Darling Harbour, and The Goods Line and Inner City, __119__ visitors enjoyed immersing __120__ (they) in fantastic experiences over 23 nights.",
-  "blanks": [
-   {
-    "n": 111,
-    "a": "lit",
-    "tag": "谓语动词",
-    "ex": "时间状语 From May 23 to June 14, 2025 表明动作已发生，用一般过去时。",
-    "alt": [
-     "lighted"
-    ],
-    "base": "light"
-   },
-   {
-    "n": 112,
-    "a": "creatively",
-    "tag": "副词",
-    "ex": "修饰过去分词 designed，用副词。",
-    "base": "creative"
-   },
-   {
-    "n": 113,
-    "a": "to participate",
-    "tag": "非谓语",
-    "ex": "invite sb to do sth 的被动结构中保留不定式。",
-    "base": "participate"
-   },
-   {
-    "n": 114,
-    "a": "inspiration",
-    "tag": "名词",
-    "ex": "draw inspiration from 表\"从⋯⋯汲取灵感\"。",
-    "base": "inspire"
-   },
-   {
-    "n": 115,
-    "a": "what",
-    "tag": "连词与引导词",
-    "ex": "主语从句缺宾语（symbolized 的宾语），用 what 引导。"
-   },
-   {
-    "n": 116,
-    "a": "a",
-    "tag": "冠词",
-    "ex": "telephone booth 是单数可数名词，此处泛指；unique 读音以辅音音素开头。"
-   },
-   {
-    "n": 117,
-    "a": "Rooted",
-    "tag": "非谓语",
-    "ex": "过去分词作状语置于句首，the piece 与 root 是被动关系：\"植根于⋯⋯\"。",
-    "base": "root",
-    "cap": true
-   },
-   {
-    "n": 118,
-    "a": "on",
-    "tag": "介词",
-    "ex": "reflect on 表\"思考、反思\"。"
-   },
-   {
-    "n": 119,
-    "a": "where",
-    "tag": "连词与引导词",
-    "ex": "非限制性定语从句，先行词是 five unique zones（地点），关系词作地点状语。"
-   },
-   {
-    "n": 120,
-    "a": "themselves",
-    "tag": "代词",
-    "ex": "immerse oneself in 表\"沉浸于\"，主语是 visitors。",
-    "base": "they"
-   }
-  ]
+  "id": "s40",
+  "no": "40",
+  "a": 6,
+  "stem": "全文最后：<code>Turn off notifications for all apps except those that are essential… ______.</code>",
+  "ex": "<p>选 <b>G. If you feel strongly addicted, take an extreme measure and turn the phone to gray scale mode.</b></p><p>前一句给的是<b>常规办法</b>（关掉不必要的通知），空在最后，需要一个<b>再进一步</b>的办法。G 的 <code>strongly addicted</code>（瘾很大）+ <code><b>an extreme measure</b></code>（极端手段）正好是程度上的递进，收尾也收得住。</p><p>E「在家就把手机收起来」讲的是<b>地点</b>，属于上一段 No-Phone Zones 的内容，放这儿跑题了。</p>"
  }
 ] };
 
-const STORE_KEY = "tumei-gz-yfck-jingxuan12-v1";
+const STORE_KEY = "tumei-gz-ceshi-01-seven-v1";
 let state = {};
 try { state = JSON.parse(localStorage.getItem(STORE_KEY) || "{}"); } catch(e){ state = {}; }
 const save = () => { try{ localStorage.setItem(STORE_KEY, JSON.stringify(state)); }catch(e){} };
@@ -2222,259 +1352,197 @@ function refreshTally(){
 
 
 /* ================================================================
-   语篇填空渲染器
+   七选五渲染器（点选 → 放置）
    ----------------------------------------------------------------
-   一篇短文 = 一张卡片，10 个空 = 10 个判分点（和高考一样，每空独立算分）。
-   整篇填完点一次「对答案」，下面按空逐条给出：标准答案 / 考点 / 你填的 / 解析。
+   短文里的空是一个个「空位」，七个选项摊在下面：
+     · 点一下选项       → 选中它，短文里还空着的空位全部高亮
+     · 再点一个空位     → 放进去
+     · 点一个已填的空位 → 把里面的选项拿回下面
+   一个空一个判分点；考试模式：整篇一次「本篇对答案」，判完锁死。
+
+   ⚠ 原来做过拖拽（pointer 事件 + elementFromPoint），老师试完说不好用，**已整套去掉**。
+     根本原因：短文两百多词，选项池在短文下面，手机上两头没法同时出现在屏幕上，
+     想把选项拖到第一段的空位里根本够不着。点两下反而快。
+   短文和逐题讲解的样式复用 C.CLOZE_CSS 里的 .cz-* / .czr-*。
    ================================================================ */
-function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+const SV_KEYS = "ABCDEFG";
+function svEsc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
 
-
-function fmtSec(s){ const m = Math.floor(s/60), x = s % 60; return m + ":" + (x<10?"0":"") + x; }
-/* 每空 1.5 分：7 空 → 10.5，8 空 → 12（不写成 12.0） */
-function fmtScore(n){ const v = n * SCORE_PER; return (v % 1) ? v.toFixed(1) : String(v); }
-
-/* 错题清单里显示的上下文：空的前后各截一段，其余的空还原成 ____ */
-function ctxOf(text, n){
-  const mark = "__" + n + "__";
-  const i = text.indexOf(mark);
-  if(i < 0) return mark;
-  const a = text.slice(Math.max(0, i-32), i).replace(/__\d+__/g, "____");
-  const b = text.slice(i + mark.length, i + mark.length + 26).replace(/__\d+__/g, "____");
-  return (i > 32 ? "…" : "") + a.trimStart() + " ____ " + b.trimEnd() + "…";
-}
-
-function renderCloze(p){
-  const host = document.getElementById("mount-p" + p.no);
+function renderPlace(){
+  const host = document.getElementById("mount-main");
+  const items = BANK.items;                 /* [{id, no, a, ex}] */
   const card = document.createElement("div");
-  card.className = "q cloze"; card.id = "q-p" + p.no;
+  card.className = "q cloze"; card.id = "q-sv";
 
-  /* ---- 计时条 ---- */
+  const words = SEVEN_TEXT.replace(/__\d+__/g, " ").replace(/^##/gm, " ").match(/[A-Za-z][A-Za-z'-]*/g);
   const bar = document.createElement("div"); bar.className = "cz-bar";
-  bar.innerHTML = '<span class="cz-meta">第 ' + p.from + '—' + p.to + ' 题 · ' + p.words + ' 词</span>' +
-                  '<span class="bar-spacer"></span>' +
-                  '<span class="cz-timer">用时 0:00</span>' +
-                  '<span class="cz-meta">建议 ' + CLOZE_MIN + ' 分钟</span>';
-  const tmEl = bar.querySelector(".cz-timer");
+  bar.innerHTML = '<span class="cz-meta">第 ' + items[0].no + '—' + items[items.length-1].no +
+                  ' 题 · ' + (words ? words.length : 0) + ' 词 · 七个选项有两个多余</span>' +
+                  '<span class="bar-spacer" style="flex:1"></span>' +
+                  '<span class="cz-meta">建议 ' + SEVEN_MIN + ' 分钟</span>';
   card.appendChild(bar);
 
-  /* ---- 正文：把 __n__ 换成输入框，紧跟其后的 (word) 提示词做成斜体 ---- */
-  const body = document.createElement("div"); body.className = "cz-text";
-  const inputs = {}, wraps = {};
-  let pendingHint = false;
-  p.text.split(/(__\d+__)/).forEach(seg => {
-    const m = /^__(\d+)__$/.exec(seg);
-    if(m){
-      const n = +m[1];
-      const wrap = document.createElement("span"); wrap.className = "cz-b"; wrap.id = "q-b" + n;
-      const num  = document.createElement("i"); num.className = "cz-n"; num.textContent = n;
-      const inp  = document.createElement("input");
-      inp.className = "blank cz-in"; inp.autocomplete = "off";
-      inp.autocapitalize = "off"; inp.spellcheck = false;
-      inp.setAttribute("aria-label", "第" + n + "题");
-      wrap.appendChild(num); wrap.appendChild(inp); body.appendChild(wrap);
-      inputs[n] = inp; wraps[n] = wrap; pendingHint = true;
-      return;
+  /* ---- 短文：__n__ 换成空位 ---- */
+  const body = document.createElement("div"); body.className = "cz-text sv-text";
+  const slots = [];
+  SEVEN_TEXT.split(/\n\s*\n/).forEach(para => {
+    if(para.indexOf("## ") === 0){
+      const h = document.createElement("p"); h.className = "sub-h";
+      h.textContent = para.slice(3).trim();
+      body.appendChild(h); return;
     }
-    if(pendingHint){
-      pendingHint = false;
-      const h = /^(\s*)\(([A-Za-z]+)\)/.exec(seg);
-      if(h){
-        body.appendChild(document.createTextNode(h[1]));
-        const sp = document.createElement("span"); sp.className = "cz-hint";
-        sp.textContent = "(" + h[2] + ")";
-        body.appendChild(sp);
-        seg = seg.slice(h[0].length);
-      }
-    }
-    body.appendChild(document.createTextNode(seg));
+    const pEl = document.createElement("p");
+    para.split(/(__\d+__)/).forEach(seg => {
+      const m = /^__(\d+)__$/.exec(seg);
+      if(!m){ pEl.appendChild(document.createTextNode(seg)); return; }
+      const k = items.findIndex(it => it.no === m[1]);
+      const slot = document.createElement("span");
+      slot.className = "sv-slot"; slot.id = "q-" + items[k].id; slot.dataset.k = k;
+      pEl.appendChild(slot); slots[k] = slot;
+    });
+    body.appendChild(pEl);
   });
   card.appendChild(body);
 
-  /* ---- 按钮 / 判分 / 逐空讲解 ---- */
+  /* ---- 选项池 ---- */
+  const pool = document.createElement("div"); pool.className = "sv-pool";
+  pool.innerHTML = '<div class="sv-tip"><b>先点一个选项</b>，短文里空着的空位会亮起来，' +
+                   '<b>再点你要放的那个空位</b>。点已填的空位可以把选项拿回来。</div>';
+  const list = document.createElement("div"); list.className = "sv-opts";
+  const optEls = SEVEN_OPTS.map((o, i) => {
+    const el = document.createElement("div");
+    el.className = "sv-opt"; el.dataset.i = i;
+    el.innerHTML = '<span class="k">' + SV_KEYS[i] + '</span><span class="t">' + svEsc(o) + '</span>';
+    list.appendChild(el);
+    return el;
+  });
+  pool.appendChild(list); card.appendChild(pool);
+
   const foot = document.createElement("div"); foot.className = "q-foot";
-  foot.innerHTML = '<button class="go">本篇对答案</button>' +
-                   '<span class="verdict"></span>' +
+  foot.innerHTML = '<button class="go">本篇对答案</button><span class="verdict"></span>' +
                    '<span style="flex:1"></span>' +
-                   '<button class="go ghost" data-a="clear">清空本篇</button>' +
-                   /* 考试卷每题只能交一次，不给「再做一遍」；练习册（不设 EXAM_MODE）才给 */
-                   (EXAM ? '' : '<button class="go ghost" data-a="redo" style="display:none">再做一遍</button>');
-  const btn  = foot.querySelector(".go"),
-        vd   = foot.querySelector(".verdict"),
-        clr  = foot.querySelector('[data-a="clear"]'),
-        redo = foot.querySelector('[data-a="redo"]');
+                   '<button class="go ghost" data-a="clear">清空本篇</button>';
+  const btn = foot.querySelector(".go"), vd = foot.querySelector(".verdict"),
+        clr = foot.querySelector('[data-a="clear"]');
   const ex = document.createElement("div"); ex.className = "explain";
   card.appendChild(foot); card.appendChild(ex);
 
-  /* ---- 计时：第一次点进空里才开始走 ---- */
-  let secs = (state["t" + p.no] | 0), iv = null, done = false;
-  function paint(){ tmEl.textContent = "用时 " + fmtSec(secs); tmEl.classList.toggle("over", secs > CLOZE_MIN*60); }
-  function tick(){ secs++; paint(); if(secs % 5 === 0){ state["t"+p.no] = secs; save(); } }
-  function startTimer(){ if(iv || done) return; iv = setInterval(tick, 1000); }
-  function stopTimer(){ if(iv) clearInterval(iv); iv = null; state["t"+p.no] = secs; save(); }
-  paint();
-  p.blanks.forEach(b => {
-    inputs[b.n].addEventListener("focus", startTimer);
-    inputs[b.n].addEventListener("input", startTimer);
-    /* 回车跳下一个空，最后一个空回车直接交卷 */
-    inputs[b.n].addEventListener("keydown", e => {
-      if(e.key !== "Enter") return;
-      e.preventDefault();
-      const nx = inputs[b.n + 1];
-      if(nx && !nx.disabled) nx.focus(); else grade(false);
-    });
-  });
+  /* ---- 状态 ---- */
+  const fill = items.map(() => -1);         /* 第 k 个空里放的是第几个选项 */
+  const used = SEVEN_OPTS.map(() => -1);    /* 第 i 个选项放在第几个空里 */
+  let locked = false, armed = -1;
 
+  function paint(){
+    slots.forEach((s, k) => {
+      const i = fill[k];
+      s.classList.toggle("filled", i >= 0);
+      s.innerHTML = '<i class="sv-n">' + items[k].no + '</i>' +
+        (i >= 0 ? '<b class="sv-k">' + SV_KEYS[i] + '</b><span class="sv-t">' + svEsc(SEVEN_OPTS[i]) + '</span>'
+                : '<span class="sv-t sv-ph">点这里放选项</span>');
+    });
+    optEls.forEach((el, i) => {
+      el.classList.toggle("used", used[i] >= 0);
+      el.classList.toggle("armed", armed === i);
+    });
+    /* 选中一个选项时，把还空着的空位高亮出来。
+       手机上短文长、选项池在下面，拖拽常常够不着，主要靠「先点选项、再点空位」，
+       所以这一步必须显眼。 */
+    slots.forEach((s, k) => s.classList.toggle("hot", armed >= 0 && fill[k] < 0));
+  }
+  function place(i, k){
+    if(locked) return;
+    if(fill[k] >= 0) used[fill[k]] = -1;    /* 空位里原来那个先退回去 */
+    if(used[i] >= 0) fill[used[i]] = -1;    /* 这个选项原来占的空位先空出来 */
+    fill[k] = i; used[i] = k; paint();
+  }
+
+  /* ---- 点选项：选中 / 取消选中 ---- */
+  optEls.forEach((el, i) => el.addEventListener("click", () => {
+    if(locked || used[i] >= 0) return;
+    armed = (armed === i) ? -1 : i;
+    paint();
+  }));
+
+  slots.forEach((s, k) => s.addEventListener("click", () => {
+    if(locked) return;
+    if(armed >= 0){ place(armed, k); armed = -1; paint(); return; }
+    if(fill[k] >= 0){ used[fill[k]] = -1; fill[k] = -1; paint(); }
+  }));
+
+  /* ---- 判分 ---- */
   function grade(silent){
-    done = true; stopTimer();
-    let ok = 0, near = 0, form = 0, cap = 0;
-    const rows = p.blanks.map(b => {
-      const el = inputs[b.n], val = (el.value || "");
-      const r = checkText(val, b);
-      /* 句首必须大写 —— 词填对了但小写照样判错（答题卡上就是要扣分的） */
-      const capBad = (r === "ok") && b.cap && val.trim() && val.trim()[0] !== b.a[0];
-      const good = (r === "ok") && !capBad;
-      const cls = good ? "is-ok" : (r === "near" && !capBad ? "is-near" : "is-no");
-      el.classList.remove("is-ok","is-no","is-near");
-      el.classList.add(cls);
-      el.disabled = true;
-      wraps[b.n].classList.add(cls === "is-ok" ? "r-ok" : (cls === "is-near" ? "r-near" : "r-no"));
-      if(good) ok++; else if(capBad) cap++; else if(r === "near") near++; else if(r === "form") form++;
-      const key = "b" + b.n;
-      if(!silent) record(key, good);
-      state[key] = state[key] || {}; state[key].v = val;
-      return { b: b, val: val, good: good, r: r, capBad: capBad };
+    locked = true;
+    let ok = 0;
+    items.forEach((it, k) => {
+      const good = fill[k] === it.a;
+      if(good) ok++;
+      slots[k].classList.add(good ? "r-ok" : "r-no");
+      if(!silent){ record(it.id, good); state[it.id].pick = fill[k]; }
     });
     save();
+    armed = -1;
+    optEls.forEach((el, i) => {
+      el.classList.remove("armed");
+      if(items.some(it => it.a === i)) el.classList.add("is-key");
+    });
 
-    ex.innerHTML = rows.map(r => {
-      const b = r.b;
-      const alt = (b.alt && b.alt.length)
-        ? '<span class="czr-alt">也可：' + b.alt.join(" / ") + '</span>' : "";
-      let got = "";
-      if(!r.good){
-        const yours = r.val.trim() ? '<em>' + esc(r.val.trim()) + '</em>' : "（空着）";
-        const why = r.capBad  ? "，词填对了，但<b>句首字母要大写</b>"
-                  : r.r === "form" ? "，词选对了，形式没定对"
-                  : r.r === "near" ? "，思路对了，拼写差一点" : "";
-        got = '<span class="czr-got">你填：' + yours + why + '</span>';
-      }
-      return '<div class="czr ' + (r.good ? "ok" : "no") + '">' +
-               '<b class="czr-n">' + b.n + '</b>' +
+    ex.innerHTML = items.map((it, k) => {
+      const good = fill[k] === it.a;
+      const yours = good ? "" :
+        '<span class="czr-got">你放的是：' +
+        (fill[k] >= 0 ? SV_KEYS[fill[k]] + ". " + svEsc(SEVEN_OPTS[fill[k]]) : "（空着）") + '</span>';
+      return '<div class="czr ' + (good ? "ok" : "no") + '">' +
+               '<b class="czr-n">' + it.no + '</b>' +
                '<div class="czr-b">' +
-                 '<div class="czr-h"><span class="czr-ans">' + b.a + '</span>' + alt +
-                 '<span class="czr-tag">' + b.tag + '</span>' + got + '</div>' +
-                 '<p class="czr-ex">' + b.ex + '</p>' +
-                 ((typeof flagHtml !== "undefined") ? flagHtml(b.n) : "") +
+                 '<div class="czr-h"><span class="czr-ans">' + SV_KEYS[it.a] + ". " +
+                   svEsc(SEVEN_OPTS[it.a]) + '</span>' + yours + '</div>' +
+                 '<p class="czr-ex">' + it.ex + '</p>' +
                '</div></div>';
     }).join("");
 
-    card.classList.add("locked","reveal", ok === p.blanks.length ? "correct" : "wrong");
-    vd.className = "verdict show " + (ok === p.blanks.length ? "v-ok" : (ok >= 7 ? "v-near" : "v-no"));
-    vd.innerHTML = "本篇 <b>" + ok + " / " + p.blanks.length + "</b> 空　得分 <b>" +
-      fmtScore(ok) + " / " + fmtScore(p.blanks.length) + "</b>　用时 " + fmtSec(secs) +
-      (near ? "　<span class=\"czr-warn\">有 " + near + " 空只是拼写差一点</span>" : "") +
-      (form ? "　<span class=\"czr-warn\">有 " + form + " 空是形式没定对</span>" : "") +
-      (cap  ? "　<span class=\"czr-warn\">有 " + cap + " 空是句首字母没大写</span>" : "");
+    card.classList.add("locked", "reveal", ok === items.length ? "correct" : "wrong");
+    vd.className = "verdict show " + (ok === items.length ? "v-ok" : (ok >= 3 ? "v-near" : "v-no"));
+    const extra = SEVEN_OPTS.map((o, i) => i).filter(i => !items.some(it => it.a === i));
+    vd.innerHTML = "本篇 <b>" + ok + " / " + items.length + "</b> 题" +
+      "　多余选项是 " + extra.map(i => SV_KEYS[i]).join("、");
     btn.style.display = "none"; clr.style.display = "none";
-    if(redo) redo.style.display = "";
   }
 
   btn.addEventListener("click", () => {
-    const blankLeft = p.blanks.filter(b => !inputs[b.n].value.trim()).length;
-    if(blankLeft && !card._warned){
+    const left = fill.filter(x => x < 0).length;
+    if(left && !card._warned){
       card._warned = true;
       vd.className = "verdict show v-near";
-      vd.textContent = "还有 " + blankLeft + " 个空没填，确定要对答案就再点一次。";
+      vd.textContent = "还有 " + left + " 个空没填，确定要对答案就再点一次。";
       return;
     }
     grade(false);
   });
-  clr.addEventListener("click", () => { p.blanks.forEach(b => inputs[b.n].value = ""); inputs[p.from].focus(); });
-  if(redo) redo.addEventListener("click", () => {
-    p.blanks.forEach(b => {
-      const el = inputs[b.n];
-      el.disabled = false; el.value = ""; el.classList.remove("is-ok","is-no","is-near");
-      wraps[b.n].classList.remove("r-ok","r-no","r-near");
-      resetQ("b" + b.n);
-    });
-    card.classList.remove("locked","reveal","correct","wrong");
-    vd.className = "verdict"; ex.innerHTML = "";
-    btn.style.display = ""; clr.style.display = ""; redo.style.display = "none";
-    card._warned = false; done = false; secs = 0; state["t"+p.no] = 0; paint();
-    save(); refreshTally();
+  clr.addEventListener("click", () => {
+    if(locked) return;
+    fill.fill(-1); used.fill(-1); armed = -1; card._warned = false; paint();
   });
+  card._fill = () => { if(!locked){ items.forEach((it, k) => place(it.a, k)); } };
 
-  /* 刷新回来：把上次填的原样放回去再静默判一遍 */
-  if(p.blanks.every(b => state["b"+b.n] && state["b"+b.n].done)){
-    p.blanks.forEach(b => { inputs[b.n].value = (state["b"+b.n].v) || ""; });
+  items.forEach((it, k) => registry.push({
+    key: it.id, no: it.no, sec: "七选五",
+    stemText: "第 " + it.no + " 空",
+    ansText: SV_KEYS[it.a] + ". " + SEVEN_OPTS[it.a],
+    exHtml: it.ex
+  }));
+  paint();
+  host.appendChild(card);
+
+  /* 刷新回来：把上次放的放回去再静默判一遍 */
+  if(items.every(it => state[it.id] && state[it.id].done)){
+    items.forEach((it, k) => { const pk = state[it.id].pick; if(pk >= 0) place(pk, k); });
     grade(true);
   }
-
-  /* 教师版「一键填入正确答案」 */
-  card._fill = () => p.blanks.forEach(b => { if(!inputs[b.n].disabled) inputs[b.n].value = b.a; });
-
-  p.blanks.forEach(b => registry.push({
-    key: "b" + b.n, no: String(b.n), sec: "第 " + p.no + " 篇",
-    stemText: ctxOf(p.text, b.n),
-    ansText: b.a + (b.alt && b.alt.length ? "（也可：" + b.alt.join(" / ") + "）" : ""),
-    exHtml: b.ex, tag: b.tag, hinted: !!b.base,
-    flag: (typeof FLAGS !== "undefined") ? FLAGS[b.n] : undefined
-  }));
-  host.appendChild(card);
 }
-
-/* ================================================================
-   成绩单加一块：按考点看哪一类最薄弱
-   ================================================================ */
-function renderTagStats(){
-  const box = document.getElementById("tagStats");
-  if(!box) return;
-  const by = {}, split = { y:{n:0,ok:0}, n:{n:0,ok:0} };
-  registry.forEach(r => {
-    const s = state[r.key];
-    if(!s || s.firstOk === undefined) return;
-    const t = by[r.tag] || (by[r.tag] = { n:0, ok:0 });
-    t.n++; if(s.firstOk === true) t.ok++;
-    const h = split[r.hinted ? "y" : "n"];
-    h.n++; if(s.firstOk === true) h.ok++;
-  });
-  const keys = TAG_ORDER.filter(k => by[k]);
-  if(!keys.length){
-    box.innerHTML = '<p class="empty">做完一篇之后，这里会按考点告诉你哪一类最该补。</p>';
-    return;
-  }
-  keys.sort((a,b) => (by[a].ok/by[a].n) - (by[b].ok/by[b].n));
-  const pct = t => Math.round(t.ok / t.n * 100);
-  box.innerHTML = '<div class="tagstat">' + keys.map(k => {
-    const t = by[k], r = pct(t);
-    return '<div class="tagrow' + (r < 60 ? " weak" : "") + '">' +
-             '<span class="tn">' + k + '</span>' +
-             '<span class="tb"><i style="width:' + r + '%"></i></span>' +
-             '<span class="tv">' + t.ok + '/' + t.n + '　' + r + '%</span>' +
-           '</div>';
-  }).join("") + '</div>' +
-  '<p class="tagsplit">有提示词（括号里给词，考变形）<b>' + split.y.ok + '/' + split.y.n + '</b>　·　' +
-  '无提示词（纯空，考虚词和引导词）<b>' + split.n.ok + '/' + split.n.n + '</b></p>';
-}
-
-/* 得分：每空 1.5 分，和考点分布一样按【第一次作答】算 */
-function renderScore(){
-  const el = document.getElementById("sScore");
-  if(!el) return;
-  const ok = registry.filter(r => state[r.key] && state[r.key].firstOk === true).length;
-  el.textContent = fmtScore(ok);
-  const lab = document.getElementById("sScoreLab");
-  if(lab) lab.textContent = "得分 / " + fmtScore(registry.length);
-}
-
-/* 结算函数是从样板里原样抄来的，这里包一层，让它顺便刷得分和考点分布 */
-const baseRefreshTally = refreshTally;
-refreshTally = function(){ baseRefreshTally(); renderScore(); renderTagStats(); };
 
 
 /* ---- 启动 ---- */
-BANK.passages.forEach(renderCloze);
+renderPlace();
 refreshTally();
 /* 二维码注入 + 放大 */
 (function(){
