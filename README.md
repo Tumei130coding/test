@@ -68,6 +68,7 @@
 | 初级语法-代词辨析1-other others another | [打开](https://tumei130coding.github.io/test/other-bianxi/) |
 | 初级语法-不规则动词1-过去式过去分词 | [打开](https://tumei130coding.github.io/test/verb-drill/) |
 | 初级语法-三看三定专项1-真动词填表 | [打开](https://tumei130coding.github.io/test/sjsd-zhendongci/) |
+| 高级语法填空精选12篇（按难度递增） | [打开](https://tumei130coding.github.io/test/gz-yfck-jingxuan12/) |
 
 ---
 
