@@ -938,7 +938,7 @@ function renderQ(q, host, secName){
     q.blanks.forEach((b, i) => {
       const pre = b.pre ? '<span style="font-family:var(--serif)">'+b.pre+'</span>' : "";
       html = html.replace("__"+(i+1)+"__",
-        pre+'<input class="blank'+(b.a.length>10?" wide":"")+'" data-i="'+i+'" autocomplete="off" autocapitalize="off" spellcheck="false">');
+        pre+'<input class="blank'+(b.a.length>10?" wide":"")+'" data-i="'+i+'" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">');
     });
     stem.innerHTML = html;
     stem.querySelectorAll(".blank").forEach(el => inputs.push(el));
