@@ -1,0 +1,1615 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>初级衔接前测 pre-test（电子版）</title>
+<style>
+:root{
+  --ink:#1f2328; --ink-2:#4a5158; --ink-3:#8b939b;
+  --paper:#faf9f7; --card:#ffffff; --line:#e6e2dc;
+  --accent:#c0392b; --accent-soft:#fdf1ef;
+  --ok:#15803d; --ok-soft:#eefaf1; --ok-line:#b7e4c7;
+  --no:#c62828; --no-soft:#fdf0ef; --no-line:#f2c4c0;
+  --warn:#b45309; --warn-soft:#fff8e8;
+  --radius:10px;
+  --serif:"Georgia","Times New Roman","Songti SC",serif;
+  --sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--paper); color:var(--ink);
+  font-family:var(--sans); font-size:16px; line-height:1.7;
+  -webkit-text-size-adjust:100%;
+}
+img{max-width:100%}
+
+/* ---------- 页眉 ---------- */
+.brandbar{
+  position:sticky; top:0; z-index:40;
+  background:rgba(250,249,247,.94); backdrop-filter:saturate(1.4) blur(8px);
+  border-bottom:1px solid var(--line);
+}
+.brandbar-in{
+  max-width:860px; margin:0 auto; padding:10px 18px;
+  display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+}
+.brand{font-size:13px; letter-spacing:.06em; color:var(--ink-2); white-space:nowrap}
+.brand b{color:var(--accent); font-weight:700}
+.brand span{color:var(--ink-3)}
+.bar-spacer{flex:1}
+.progwrap{display:flex; align-items:center; gap:8px; font-size:12px; color:var(--ink-2)}
+.progbar{width:110px; height:6px; border-radius:99px; background:#e9e5df; overflow:hidden}
+.progbar i{display:block; height:100%; width:0; background:var(--accent); transition:width .3s}
+.tbtn{
+  font:inherit; font-size:12px; padding:4px 10px; border-radius:99px;
+  border:1px solid var(--line); background:var(--card); color:var(--ink-2); cursor:pointer;
+}
+.tbtn:hover{border-color:var(--ink-3)}
+.tbtn.on{background:var(--ink); color:#fff; border-color:var(--ink)}
+
+/* ---------- 目录 ---------- */
+nav.toc{
+  max-width:860px; margin:0 auto; padding:0 18px;
+  display:flex; gap:6px; overflow-x:auto; scrollbar-width:none;
+  border-bottom:1px solid var(--line); background:var(--paper);
+  position:sticky; top:43px; z-index:39;
+}
+nav.toc::-webkit-scrollbar{display:none}
+nav.toc a{
+  flex:0 0 auto; padding:9px 12px; font-size:13px; color:var(--ink-2);
+  text-decoration:none; border-bottom:2px solid transparent; white-space:nowrap;
+}
+nav.toc a.active{color:var(--accent); border-bottom-color:var(--accent); font-weight:600}
+
+/* ---------- 主体 ---------- */
+main{max-width:860px; margin:0 auto; padding:26px 18px 90px}
+h1.doc{font-size:26px; margin:8px 0 4px; letter-spacing:.02em}
+.doc-sub{color:var(--ink-3); font-size:13px; margin:0 0 26px}
+
+section.chap{margin:0 0 44px; scroll-margin-top:96px}
+h2.chap-t{
+  font-size:19px; color:var(--accent); margin:0 0 4px;
+  display:flex; align-items:center; gap:10px;
+}
+h2.chap-t .n{
+  font-size:12px; font-weight:700; color:#fff; background:var(--accent);
+  border-radius:4px; padding:1px 7px; letter-spacing:.04em;
+}
+.chap-lead{color:var(--ink-2); font-size:14px; margin:0 0 18px}
+
+.block-t{
+  font-size:14px; font-weight:700; color:var(--ink-2); margin:30px 0 12px;
+  padding-bottom:6px; border-bottom:1px dashed var(--line);
+  display:flex; align-items:baseline; gap:8px;
+}
+.block-t em{font-style:normal; font-weight:400; color:var(--ink-3); font-size:12px}
+
+/* 二维码：做成右侧小胶囊，不参与正文排版，点开可放大 */
+.qr{
+  margin-left:auto; flex:0 0 auto; display:inline-flex; align-items:center; gap:7px;
+  padding:4px 10px 4px 5px; border:1px solid var(--line); border-radius:99px;
+  background:var(--card); cursor:zoom-in; align-self:center;
+}
+.qr:hover{border-color:var(--accent)}
+.qr img{width:30px; height:30px; display:block; border-radius:4px; background:#fff}
+.qr small{font-size:11.5px; color:var(--ink-3); white-space:nowrap}
+.qr:hover small{color:var(--accent)}
+.qr-modal{
+  position:fixed; inset:0; z-index:100; background:rgba(20,20,20,.72);
+  display:none; align-items:center; justify-content:center; padding:24px;
+}
+.qr-modal.show{display:flex}
+.qr-modal img{width:min(78vw,340px); background:#fff; padding:14px; border-radius:12px}
+.qr-modal p{color:#fff; font-size:13px; text-align:center; margin:14px 0 0}
+
+/* 参考卡片 */
+.ref{
+  background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+  padding:0; margin:14px 0 22px; overflow:hidden;
+}
+.ref>summary{
+  cursor:pointer; padding:12px 16px; font-size:14px; font-weight:600; color:var(--ink-2);
+  list-style:none; display:flex; align-items:center; gap:8px;
+}
+.ref>summary::-webkit-details-marker{display:none}
+.ref>summary::before{content:"▸"; color:var(--accent); transition:transform .2s; display:inline-block}
+.ref[open]>summary::before{transform:rotate(90deg)}
+.ref .ref-body{padding:0 16px 16px}
+table.g{width:100%; border-collapse:collapse; font-size:13px; margin:6px 0}
+table.g th,table.g td{border:1px solid var(--line); padding:6px 8px; text-align:center}
+table.g th{background:#f4f1ec; font-weight:600; color:var(--ink-2)}
+table.g td.lab{background:#faf8f5; font-weight:600; color:var(--ink-2)}
+table.g td.en{font-family:var(--serif)}
+.tablescroll{overflow-x:auto; -webkit-overflow-scrolling:touch; max-width:100%}
+
+/* 不规则动词挖空自测表 */
+table.drill{width:100%; min-width:470px}
+table.drill td{vertical-align:middle; padding:5px 7px}
+table.drill td.zh{color:var(--ink-2); font-size:12.5px}
+.blank.cell{width:100%; text-align:center; font-size:14.5px; padding:3px 4px}
+.corr{font-family:var(--serif); font-size:12.5px; color:var(--ok); font-weight:700; line-height:1.5; min-height:0}
+.drillbar{
+  display:flex; align-items:center; gap:8px; flex-wrap:wrap;
+  font-size:12.5px; color:var(--ink-3); margin:-4px 0 12px;
+}
+.drillbar button{
+  font:inherit; font-size:12.5px; padding:4px 12px; border-radius:99px; cursor:pointer;
+  border:1px solid var(--line); background:var(--card); color:var(--ink-2);
+}
+.drillbar button:hover{border-color:var(--accent); color:var(--accent)}
+/* 窄屏：压紧字号让四列塞进手机，不用横向滚 */
+/* 本组对答案栏 + 整块模式的选中态。
+   原来整段写在 @media(max-width:600px) 里，宽屏下这条栏没有边框、按钮和文字贴在一起，
+   而且【选中但还没判】的选项在桌面上完全没有反馈 —— 2026-08-08 移到顶层，两种宽度都生效。*/
+.blockbar{
+  display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+  margin:2px 0 20px; padding:12px 16px;
+  background:var(--card); border:1px solid var(--line); border-radius:10px;
+}
+.blockbar .go{margin:0}
+.bb-stat{font-size:13px; color:var(--ink-3)}
+.bb-stat.warn{color:var(--warn); font-weight:600}
+.bb-stat.sum{color:var(--ink); font-weight:600; font-size:13.5px}
+/* 整块模式下，选中但还没判的选项／按钮 */
+.opt.picked{border-color:var(--ink-2); background:#f4f1ec}
+.jb.sel{background:var(--ink); color:#fff; border-color:var(--ink)}
+
+@media(max-width:600px){
+  table.drill{width:100%; min-width:0; table-layout:fixed}
+
+  /* 题目插图（饼图、价目表）*/
+  .qfig{margin:10px 0 2px; text-align:center}
+  .qfig img{max-width:100%; border:1px solid var(--line); border-radius:8px; cursor:zoom-in; background:#fff}
+  .qfig figcaption{margin-top:5px; font-size:12px; color:var(--ink-3)}
+  /* 题干里的数据表 —— 一律做成两列（标签／数值），窄屏也放得下，不用横滑 */
+  table.qtab{width:100%; border-collapse:collapse; margin:10px 0 2px; font-size:13px; table-layout:fixed}
+  table.qtab td,table.qtab th{word-break:break-word}
+  table.qtab th,table.qtab td{border:1px solid var(--line); padding:5px 8px; text-align:center}
+  table.qtab th{background:#f4f1ec; font-weight:600; color:var(--ink-2)}
+  table.qtab caption{caption-side:top; text-align:left; font-size:12.5px;
+    color:var(--ink-2); font-weight:600; padding-bottom:5px}
+  table.qtab td.lab{text-align:left; background:#faf9f7; font-weight:600}
+  .qnote{font-size:12px; color:var(--ink-3); margin:3px 0 0}
+  table.drill th{padding:5px 3px; font-size:11.5px}
+  table.drill td{padding:4px 3px}
+  table.drill td.en{font-size:13.5px; word-break:break-word}
+  table.drill td.zh{font-size:11px; line-height:1.35}
+  .blank.cell{font-size:13.5px; padding:2px 1px}
+  .corr{font-size:11.5px}
+}
+.rules{font-size:13px; color:var(--ink-2); margin:12px 0 0; padding-left:20px}
+.rules li{margin:5px 0}
+.rules code{font-family:var(--serif); font-size:13px; background:#f4f1ec; padding:1px 4px; border-radius:3px}
+
+/* ---------- 题目 ---------- */
+.q{
+  background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+  padding:16px 18px; margin:0 0 12px; scroll-margin-top:96px;
+  transition:border-color .2s, box-shadow .2s;
+}
+.q.correct{border-color:var(--ok-line); background:var(--ok-soft)}
+.q.wrong{border-color:var(--no-line); background:var(--no-soft)}
+.q-head{display:flex; gap:10px; align-items:flex-start}
+.q-no{
+  flex:0 0 auto; font-size:12px; font-weight:700; color:var(--ink-3);
+  background:#f2efea; border-radius:5px; padding:2px 7px; margin-top:3px; min-width:30px; text-align:center;
+}
+.q.correct .q-no{background:#d5f0de; color:var(--ok)}
+.q.wrong .q-no{background:#f8d9d6; color:var(--no)}
+.q-stem{flex:1; min-width:0; font-family:var(--serif); font-size:16px; line-height:1.85}
+.q-stem .zh{font-family:var(--sans); font-size:14px; color:var(--ink-2)}
+.q-stem .dash{color:var(--ink-3)}
+
+/* 选择题 */
+.opts{list-style:none; margin:12px 0 0; padding:0; display:grid; gap:7px}
+.opts.two{grid-template-columns:1fr 1fr}
+@media(max-width:560px){.opts.two{grid-template-columns:1fr}}
+.opt{
+  display:flex; gap:9px; align-items:center; padding:8px 12px; cursor:pointer;
+  border:1px solid var(--line); border-radius:8px; background:#fff;
+  font-family:var(--serif); font-size:15px; transition:.15s;
+}
+.opt:hover{border-color:var(--ink-3); background:#fbfaf8}
+.opt .k{
+  flex:0 0 auto; width:21px; height:21px; border-radius:50%; border:1px solid var(--line);
+  display:grid; place-items:center; font-family:var(--sans); font-size:11px; font-weight:700; color:var(--ink-3);
+}
+.opt.picked{border-color:var(--ink); background:#f6f4f1}
+.opt.picked .k{background:var(--ink); color:#fff; border-color:var(--ink)}
+.opt.is-ok{border-color:var(--ok-line); background:var(--ok-soft)}
+.opt.is-ok .k{background:var(--ok); color:#fff; border-color:var(--ok)}
+.opt.is-no{border-color:var(--no-line); background:var(--no-soft)}
+.opt.is-no .k{background:var(--no); color:#fff; border-color:var(--no)}
+.q.locked .opt{cursor:default}
+
+/* 填空 */
+.blank{
+  font-family:var(--serif); font-size:15px; width:9.5em; padding:2px 8px;
+  border:none; border-bottom:1.5px solid var(--ink-3); background:transparent;
+  color:var(--accent); text-align:center; outline:none;
+}
+.blank:focus{border-bottom-color:var(--accent); background:#fffdf9}
+.blank.is-ok{color:var(--ok); border-bottom-color:var(--ok)}
+.blank.is-no{color:var(--no); border-bottom-color:var(--no); text-decoration:line-through}
+/* 拼写差一点：同样判错，但用橙色区别于纯粹答错，让学生一眼看出“只差一点” */
+.blank.is-near{color:var(--warn); border-bottom-color:var(--warn); text-decoration:underline wavy var(--warn) 1px; text-underline-offset:3px}
+.blank.wide{width:13em}
+.hintw{font-family:var(--sans); font-size:13px; color:var(--ink-3)}
+
+/* 选词填空的词框 */
+.wordbank{
+  display:flex; flex-wrap:wrap; gap:7px; align-items:center;
+  border:1.5px solid var(--accent); border-radius:8px; background:#fff;
+  padding:9px 11px; margin:0 0 12px;
+}
+.wordbank .wb{
+  font-family:var(--serif); font-size:15px; padding:3px 12px; border-radius:6px; cursor:pointer;
+  border:1px solid var(--line); background:var(--paper); color:var(--ink);
+}
+.wordbank .wb:hover{border-color:var(--accent); color:var(--accent); background:#fff}
+.wordbank .wb.used{opacity:.35; text-decoration:line-through}
+.q.locked .wordbank .wb{cursor:default; opacity:.5}
+.wb-tip{font-family:var(--sans); font-size:12px; color:var(--ink-3); flex-basis:100%; margin-top:2px}
+
+/* 连词成句 */
+.sentline{
+  display:block; width:100%; margin-top:12px; font-family:var(--serif); font-size:16px;
+  padding:8px 12px; border:1px solid var(--line); border-radius:8px; background:#fffdf9;
+  color:var(--accent); outline:none;
+}
+.sentline:focus{border-color:var(--accent)}
+.sentline.is-ok{color:var(--ok); border-color:var(--ok-line); background:var(--ok-soft)}
+.sentline.is-no{color:var(--no); border-color:var(--no-line); background:var(--no-soft)}
+.sentans{font-family:var(--serif); font-size:15.5px; color:var(--ok); font-weight:700; margin-top:8px; display:none}
+.q.locked .sentans{display:block}
+
+/* 判断 */
+.jrow{
+  display:flex; align-items:center; gap:12px; padding:7px 0; flex-wrap:wrap;
+  border-bottom:1px dashed #efece7;
+}
+.jrow:last-child{border-bottom:none}
+.jrow .w{font-family:var(--serif); font-size:16px; flex:1 1 auto; min-width:8em}
+.jbtns{display:flex; gap:6px; flex:0 0 auto}
+.jb{
+  font:inherit; font-size:13px; padding:3px 12px; border-radius:99px; cursor:pointer;
+  white-space:nowrap;
+  border:1px solid var(--line); background:#fff; color:var(--ink-2);
+}
+.jb:hover{border-color:var(--ink-3)}
+.jb.sel{background:var(--ink); color:#fff; border-color:var(--ink)}
+.jb.good{background:var(--ok); color:#fff; border-color:var(--ok)}
+.jb.bad{background:var(--no); color:#fff; border-color:var(--no)}
+.jrow .why{
+  font-size:13px; color:var(--ink-2); flex:1 0 100%; margin:2px 0 4px; display:none;
+  padding-left:11px; border-left:2px solid var(--line); line-height:1.7;
+}
+.jrow.done .why{display:block}
+
+/* 点词标记 */
+.marksent{font-family:var(--serif); font-size:16.5px; line-height:2.2; margin:10px 0 0}
+.tok{
+  display:inline-block; padding:0 2px; margin:0; border-radius:4px; cursor:pointer;
+  border-bottom:2px dotted var(--ink-3); transition:.15s;
+}
+.tok:hover{background:#f2efea}
+.tok.sel{background:#fff2cc; border-bottom:2px solid var(--warn); font-weight:700}
+.q.locked .tok{cursor:default}
+.tok.r-hit{background:var(--ok-soft); border-bottom:2px solid var(--ok); color:var(--ok); font-weight:700}
+.tok.r-miss{background:var(--warn-soft); border-bottom:2px dashed var(--warn); color:var(--warn); font-weight:700}
+.tok.r-over{background:var(--no-soft); border-bottom:2px solid var(--no); color:var(--no); text-decoration:line-through}
+.marklegend{font-size:12px; color:var(--ink-3); margin-top:8px; display:none}
+.q.locked .marklegend{display:block}
+
+/* 反馈 / 解析 */
+.q-foot{display:flex; align-items:center; gap:10px; margin-top:13px; flex-wrap:wrap}
+.go{
+  font:inherit; font-size:13.5px; font-weight:600; padding:6px 18px; border-radius:99px;
+  border:none; background:var(--ink); color:#fff; cursor:pointer;
+}
+.go:hover{background:#000}
+.go.ghost{background:transparent; color:var(--ink-3); border:1px solid var(--line); font-weight:400}
+.go.ghost:hover{background:#f4f1ec; color:var(--ink-2)}
+.verdict{font-size:13.5px; font-weight:700; display:none}
+.verdict.show{display:inline}
+.verdict.v-ok{color:var(--ok)}
+.verdict.v-no{color:var(--no)}
+.verdict.v-near{color:var(--warn)}
+
+
+.explain{
+  display:none; margin-top:12px; padding:13px 15px; border-radius:8px;
+  background:#f7f5f1; border-left:3px solid var(--accent); font-size:14px; line-height:1.8;
+}
+.q.reveal .explain{display:block}
+.explain .lab{
+  display:inline-block; font-size:11px; font-weight:700; color:#fff; background:var(--accent);
+  border-radius:3px; padding:0 6px; margin-right:6px; vertical-align:1px; letter-spacing:.05em;
+}
+.explain .lab.k2{background:var(--ink-2)}
+.explain .lab.k3{background:var(--warn)}
+.explain p{margin:0 0 7px}
+.explain p:last-child{margin-bottom:0}
+.explain b{color:var(--accent)}
+.yes{color:var(--ok); font-weight:700}
+.no{color:var(--no); font-weight:700}
+.rulebar{
+  background:var(--accent-soft); border-left:3px solid var(--accent); border-radius:8px;
+  padding:12px 15px; margin:0 0 14px; font-size:14px; line-height:1.8; color:var(--ink-2);
+}
+.rulebar b{color:var(--accent)}
+.rulebar code{font-family:var(--serif); background:#fff; padding:1px 5px; border-radius:3px; font-size:13.5px}
+.explain code{font-family:var(--serif); background:#eae6e0; padding:1px 5px; border-radius:3px; font-size:13.5px}
+.ansline{font-family:var(--serif); font-size:15px; color:var(--ok); font-weight:700}
+
+.flag{
+  display:none; margin-top:10px; padding:9px 13px; border-radius:8px; font-size:13px;
+  background:var(--warn-soft); border-left:3px solid var(--warn); color:#7c4a09;
+}
+
+/* ---------- 结算 ---------- */
+.tally{
+  background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+  padding:22px; margin-top:14px;
+}
+.tally h3{margin:0 0 4px; font-size:17px}
+.tally .sub{color:var(--ink-3); font-size:13px; margin:0 0 18px}
+.stats{display:flex; gap:26px; flex-wrap:wrap; margin-bottom:18px}
+.stat b{display:block; font-size:27px; line-height:1.2; font-family:var(--serif)}
+.stat span{font-size:12px; color:var(--ink-3)}
+.stat.ok b{color:var(--ok)} .stat.no b{color:var(--no)}
+.wronglist{list-style:none; padding:0; margin:0; font-size:14px}
+.wronglist li{padding:7px 0; border-top:1px dashed var(--line)}
+.wronglist a{color:var(--accent); text-decoration:none}
+.wronglist a:hover{text-decoration:underline}
+.wronglist .tag{font-size:11px; color:var(--ink-3); margin-right:8px}
+.empty{color:var(--ink-3); font-size:14px}
+
+/* 截图打卡 */
+.checkin{
+  margin-top:22px; padding:16px 18px 13px; border-radius:10px; text-align:center;
+  border:1.5px dashed var(--line); background:#fbfaf8; transition:.25s;
+}
+.checkin.ready{border-color:var(--ok); border-style:solid; background:var(--ok-soft)}
+.ci-title{font-size:15px; font-weight:700; color:var(--ink-2); margin-bottom:5px}
+.checkin.ready .ci-title{color:var(--ok)}
+.ci-text{font-size:13.5px; color:var(--ink-2); margin:0 0 13px; line-height:1.7}
+.ci-meta{
+  font-size:12px; color:var(--ink-3); display:flex; gap:6px 14px; justify-content:center;
+  flex-wrap:wrap; padding-top:11px; border-top:1px dashed var(--line);
+}
+.checkin.ready .ci-meta{border-top-color:var(--ok-line)}
+.ci-brand{font-size:11.5px; color:var(--ink-3); margin-top:7px; letter-spacing:.04em}
+.ci-brand b{color:var(--accent); font-weight:700}
+
+footer{
+  max-width:860px; margin:0 auto; padding:26px 18px 50px;
+  border-top:1px solid var(--line); color:var(--ink-3); font-size:12.5px; line-height:1.8;
+}
+footer b{color:var(--accent)}
+
+
+@media print{
+  .brandbar,nav.toc,.q-foot,.go{display:none!important}
+  .explain{display:block!important}
+  body{background:#fff}
+}
+
+  /* 短文 */
+  .psg{border:1px solid var(--line); border-radius:12px; padding:15px 18px; background:#fff;
+       font-family:var(--serif); font-size:15.5px; line-height:2.05; margin:12px 0 8px}
+  .psg p{margin:0 0 10px} .psg p:last-child{margin-bottom:0}
+  .psg p.sub-h{font-weight:700; margin:14px 0 8px}
+  .cz-text{line-height:2.4}
+  .cz-hint{font-style:italic; color:var(--ink-3)}
+  .cz-b{display:inline-block; white-space:nowrap}
+  .cz-n{font-style:normal; font-family:var(--sans); font-size:10.5px; font-weight:700; color:#fff;
+        background:var(--ink-3); border-radius:3px; padding:0 4px; vertical-align:4px; margin-right:2px}
+  .blank.cz-in{width:7.6em; font-size:15px; padding:1px 5px}
+  /* 短文工具栏：圈生词 ｜ 标证据 */
+  .pgbar{display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin:12px 0 0;
+         padding:9px 12px; border:1px solid var(--line); border-radius:10px 10px 0 0;
+         background:#faf8f5; border-bottom:none}
+  .pglab{font-size:12.5px; color:var(--ink-2); margin-left:8px}
+  .pgb{font-family:var(--sans); font-size:12.5px; padding:4px 11px; border-radius:99px;
+       border:1px solid var(--line); background:#fff; color:var(--ink-2); cursor:pointer}
+  .pgb.num{min-width:2.1em; padding:4px 7px; font-weight:700}
+  .pgb:hover{border-color:var(--accent); color:var(--accent)}
+  .pgb.on{background:var(--ink); border-color:var(--ink); color:#fff}
+  .pgb.num.on[data-c="0"]{background:#c0392b; border-color:#c0392b}
+  .pgb.num.on[data-c="1"]{background:#1f7a5a; border-color:#1f7a5a}
+  .pgb.num.on[data-c="2"]{background:#2b6cb0; border-color:#2b6cb0}
+  .pgb.num.on[data-c="3"]{background:#a05a00; border-color:#a05a00}
+  .pgb.num.on[data-c="4"]{background:#7a3fa0; border-color:#7a3fa0}
+  .pgb.num.on[data-c="5"]{background:#0f7b8a; border-color:#0f7b8a}
+  .pgtip{flex:1 0 100%; font-size:12px; color:var(--ink-3); line-height:1.8; margin-top:2px}
+  .pgbar + .psg{border-radius:0 0 12px 12px; margin-top:0}
+  /* 证据：整句高亮 + 题号角标 */
+  .psg.evmode .sn{cursor:pointer; border-radius:3px}
+  .psg.evmode .sn:hover{background:#f1ece2}
+  .psg.evmode .wd{cursor:inherit}
+  .psg.evmode .wd:hover{background:none}
+  .sn.ev{border-radius:3px; padding:1px 2px}
+  .sn.ev[data-c="0"]{background:#fbe4e1; box-shadow:inset 0 -2px 0 #c0392b}
+  .sn.ev[data-c="1"]{background:#dff0e8; box-shadow:inset 0 -2px 0 #1f7a5a}
+  .sn.ev[data-c="2"]{background:#dfe9f5; box-shadow:inset 0 -2px 0 #2b6cb0}
+  .sn.ev[data-c="3"]{background:#f6e8d2; box-shadow:inset 0 -2px 0 #a05a00}
+  .sn.ev[data-c="4"]{background:#ece0f3; box-shadow:inset 0 -2px 0 #7a3fa0}
+  .sn.ev[data-c="5"]{background:#d9eff2; box-shadow:inset 0 -2px 0 #0f7b8a}
+  .sntag{font-style:normal; font-family:var(--sans); font-size:10.5px; font-weight:700;
+         color:#fff; background:var(--ink-2); border-radius:3px; padding:0 4px;
+         margin-left:3px; vertical-align:3px}
+  /* 生词：点一下标黄 */
+  .wd{cursor:pointer; border-radius:3px; padding:0 1px}
+  .wd:hover{background:#f1ece2}
+  .wd.nw{background:#fdf0c8; box-shadow:inset 0 -2px 0 #e8c766}
+  /* 图片选项 */
+  .opts.imgopts{grid-template-columns:1fr 1fr}
+  .opts.imgopts .opt{align-items:center}
+  .opts.imgopts img{max-width:100%; background:#fff; border-radius:4px}
+  @media(max-width:600px){ .opts.imgopts{grid-template-columns:1fr} }
+  /* 「不会」按钮 */
+  .dk{font-family:var(--sans); font-size:12px; padding:3px 10px; border-radius:99px;
+      border:1px solid var(--line); background:#fff; color:var(--ink-3); cursor:pointer}
+  .dk:hover{border-color:var(--warn); color:var(--warn)}
+  .dk.on{background:var(--warn); border-color:var(--warn); color:#fff}
+  /* 完形答案区 */
+  .mc-b .mc-pick{font-family:var(--serif); font-weight:700; color:var(--ink-3);
+                 min-width:1.1em; display:inline-block; text-align:center}
+  .mc-b.filled .mc-pick{color:var(--ink)}
+  .mc-opts{margin:14px 0 2px}
+  .mc-row{display:flex; gap:10px; align-items:flex-start; padding:5px 0; flex-wrap:wrap}
+  .mc-q{flex:0 0 auto; width:26px; height:22px; border-radius:5px; font-size:12px; font-weight:700;
+        display:grid; place-items:center; background:#e8e4de; color:var(--ink-2); margin-top:3px}
+  .mc-list{flex:1; min-width:0; display:grid; grid-template-columns:repeat(4,1fr); gap:6px}
+  .mo{display:flex; gap:6px; align-items:baseline; text-align:left; font:inherit; font-size:14px;
+      padding:5px 8px; border:1px solid var(--line); border-radius:8px; background:#fff;
+      color:var(--ink); cursor:pointer}
+  .mo .k{flex:0 0 auto; font-family:var(--sans); font-size:11px; font-weight:700; color:var(--ink-3)}
+  .mo .t{font-family:var(--serif); word-break:break-word}
+  .mo:hover{border-color:var(--accent)}
+  .mo.picked{border-color:var(--ink); background:var(--ink); color:#fff}
+  .mo.picked .k{color:#fff}
+  /* 七选五 */
+  .sv-slot{display:inline; border-bottom:2px dashed var(--line); border-radius:3px;
+           background:#faf8f5; padding:1px 4px; cursor:pointer}
+  .sv-slot .sv-n{font-style:normal; font-family:var(--sans); font-size:10.5px; font-weight:700;
+                 color:#fff; background:var(--ink-3); border-radius:3px; padding:0 4px;
+                 vertical-align:3px; margin-right:4px}
+  .sv-slot .sv-k{font-family:var(--sans); font-size:11.5px; font-weight:700; color:var(--accent); margin-right:4px}
+  .sv-slot .sv-ph{font-family:var(--sans); font-size:12px; color:var(--ink-3)}
+  .sv-slot.hot{background:#fbeeec; border-bottom-color:var(--accent);
+               box-shadow:0 0 0 2px rgba(192,57,43,.14)}
+  .sv-slot.hot .sv-ph{color:var(--accent)}
+  .sv-slot.filled{background:#f3f7f4; border-bottom-style:solid}
+  .sv-pool{margin:14px 0 2px}
+  .sv-tip{font-size:12.5px; color:var(--ink-2); line-height:1.9; margin-bottom:9px}
+  .sv-tip b{color:var(--accent)}
+  .sv-opts{display:grid; gap:7px}
+  .sv-opt{display:flex; gap:9px; align-items:baseline; padding:8px 11px; border:1px solid var(--line);
+          border-radius:9px; background:#fff; cursor:pointer; user-select:none}
+  .sv-opt .k{flex:0 0 auto; font-family:var(--sans); font-size:12px; font-weight:700;
+             color:#fff; background:var(--ink-2); border-radius:4px; padding:1px 6px}
+  .sv-opt .t{font-family:var(--serif); font-size:14.5px; line-height:1.7}
+  .sv-opt.armed{border-color:var(--ink); box-shadow:0 0 0 2px rgba(31,35,40,.12)}
+  .sv-opt.armed .k{background:var(--ink)}
+  .sv-opt.used{opacity:.32; cursor:default; background:#faf8f5}
+  /* 写句子 / 写作 */
+  .freerow .zhline{font-family:var(--sans); font-size:14.5px; color:var(--ink); margin-bottom:7px}
+  .freerow .zhline.enline{font-family:var(--serif); font-size:15px; line-height:1.9}
+  .blank.freeline{width:100%; font-size:15px; text-align:left}
+  .brief{font-size:14px; line-height:1.95; color:var(--ink); margin-bottom:10px}
+  .brieftab{border-collapse:collapse; margin:9px 0; font-size:13.5px; width:100%}
+  .brieftab td{border:1px solid var(--line); padding:7px 10px; vertical-align:top; line-height:1.85}
+  .brieftab td.k{width:4.5em; background:#faf8f5; font-weight:600; color:var(--ink-2); text-align:center}
+  .essayimg{margin:10px 0 12px; text-align:center}
+  .essayimg img{max-width:100%; border:1px solid var(--line); border-radius:8px; background:#fff}
+  .essaystart{font-family:var(--serif); font-size:15px; line-height:1.9; margin:8px 0}
+  .essaybox{width:100%; box-sizing:border-box; font-family:var(--serif); font-size:15px;
+            line-height:1.95; padding:11px 13px; border:1px solid var(--line); border-radius:9px;
+            background:#fff; color:var(--ink); resize:vertical}
+  .essaybox:focus{outline:none; border-color:var(--accent)}
+  /* 教师版的答案键。凡是带教师那个 body class 的选择器都必须包在 TEACHER-ONLY 里，
+     否则 build.py 的学生版自检会当成教师功能残留报错 ——
+     注意<b>连注释里都不能出现那个选择器的字面写法</b>，自检是纯文本匹配的。 */
+  .tkey{display:none}
+  /* 作答小结 */
+  .sumbar{display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin:6px 0 20px;
+          padding:14px 16px; background:var(--card); border:1px solid var(--line); border-radius:10px}
+  .sumbar .hint{font-size:13px; color:var(--ink-3)}
+  #summary{display:none; border:1px solid var(--line); border-radius:12px; background:#fff;
+           padding:18px 20px; margin:4px 0 10px}
+  .sm-head{display:flex; align-items:baseline; gap:10px; margin-bottom:12px}
+  .sm-head b{font-size:19px}
+  .sm-head span{font-size:12.5px; color:var(--ink-3)}
+  .sm-tot{font-size:14px; line-height:2; margin-bottom:12px}
+  .sm-tot b{font-family:var(--serif); font-size:17px; color:var(--accent)}
+  .sm-tot em{display:block; font-style:normal; font-size:12px; color:var(--ink-3)}
+  .sm-tab{width:100%; border-collapse:collapse; font-size:13px; margin-bottom:6px}
+  .sm-tab th,.sm-tab td{border:1px solid var(--line); padding:6px 8px; text-align:center}
+  .sm-tab th{background:#faf8f5; font-weight:600; color:var(--ink-2); font-size:12px}
+  .sm-tab td.zh{text-align:left}
+  .sm-tab td.nolist{color:var(--no); font-weight:600}
+  .sm-t{font-size:13.5px; font-weight:700; margin:16px 0 7px; color:var(--ink)}
+  .sm-t em{font-style:normal; font-weight:400; font-size:12px; color:var(--ink-3); margin-left:6px}
+  .sm-words{display:flex; flex-wrap:wrap; gap:6px}
+  .sm-words span{font-family:var(--serif); font-size:13.5px; background:#fdf0c8;
+                 border-radius:4px; padding:2px 8px}
+  .sm-words i{font-size:13px; color:var(--ink-3)}
+  .sm-line{display:grid; grid-template-columns:1fr 1fr; gap:10px; padding:6px 0;
+           border-bottom:1px dashed var(--line); font-size:13.5px}
+  .sm-line .zh{color:var(--ink-2)}
+  .sm-line .en{font-family:var(--serif)}
+  .sm-ev{font-size:13px}
+  .sm-evrow{display:grid; grid-template-columns:8.5em 1fr; gap:10px; padding:6px 0;
+            border-bottom:1px dashed var(--line)}
+  .sm-evrow .zh{color:var(--ink-2)}
+  .sm-evrow .en{font-family:var(--serif); line-height:1.75}
+  @media(max-width:600px){ .sm-evrow{grid-template-columns:1fr; gap:2px} }
+  .sm-essay{font-family:var(--serif); font-size:14px; line-height:1.95; white-space:pre-wrap;
+            background:#faf8f5; border-radius:8px; padding:11px 13px}
+  .sm-wc{font-size:12px; color:var(--ink-3); margin-top:5px}
+  .sm-foot{display:flex; justify-content:space-between; font-size:12px; color:var(--ink-3);
+           margin-top:16px; padding-top:10px; border-top:1px dashed var(--line)}
+  @media(max-width:600px){
+    .psg{padding:13px 13px; font-size:14.5px; line-height:1.95}
+    /* 手机上一律两列，覆盖掉行内设的列数 */
+    .mc-list{grid-template-columns:repeat(2,1fr) !important; gap:5px}
+    .mo{font-size:13px; padding:4px 6px}
+    .sv-opt .t{font-size:13.5px}
+    .sm-line{grid-template-columns:1fr; gap:2px}
+    .sm-tab{font-size:12px}
+    .sm-tab th,.sm-tab td{padding:5px 4px}
+  }
+
+</style>
+</head>
+<body>
+
+<div class="brandbar">
+  <div class="brandbar-in">
+    <div class="brand"><b>土妹英语</b> <span>｜定制课程 让每一分努力都不被辜负</span></div>
+    <div class="bar-spacer"></div>
+    <div class="progwrap"><div class="progbar"><i id="pbar"></i></div><span id="ptext">0 / 0</span></div>
+    <button class="tbtn" id="btnReset">重做</button>
+  </div>
+</div>
+
+<nav class="toc" id="toc">
+  <a href="#p1" class="active">选择题</a>
+  <a href="#p2">阅读理解</a>
+  <a href="#p3">完形填空</a>
+  <a href="#p4">书面表达</a>
+  <a href="#done">作答小结</a>
+</nav>
+
+<main>
+  <h1 class="doc">初级衔接前测 pre-test</h1>
+  <p class="doc-sub">入村前测 · 四个部分 · 小学升初级衔接 · 客观题共 <span id="totalHint">—</span> 题</p>
+  <section class="chap" id="how">
+    <div class="rulebar">村民你好，欢迎加入土妹村。以下为入村前测题，旨在帮助土妹更好地<b>了解你的真实情况</b>。<br><b>不查字典，不限时</b>，平常怎么做题就怎么写。<b>不会做的题不要猜</b> —— 点那道题的「不会」按钮，或者直接空着。<br><b>短文里不认识的单词，点一下就标黄</b>（再点一下取消），做完会一并列给土妹。<br>全部做完后点最下面的「生成作答小结」，<b>截图那张卡片发给土妹</b>。<br><em style='font-style:normal;color:var(--ink-3)'>这份前测<b>全程不显示对错</b>，土妹要看的是你真实的样子，做得好不好都不要紧。</em></div>
+  </section>
+  <div id="parts"></div>
+  <section class="chap" id="done">
+    <h2 class="chap-t"><span class="n">小结</span>做完了就生成小结</h2>
+    <div class="sumbar">
+      <button class="go" id="btnSum">生成作答小结</button>
+      <span class="hint">生成后<b>截图整张卡片</b>发给土妹。中途可以随时点，进度存在本机，关掉再打开不会丢。</span>
+    </div>
+    <div id="summary"></div>
+  </section>
+</main>
+
+<footer>
+  <p>本页是《小升初衔接前测 pre-test》的电子版，题目与题号和原卷一致。前测<b>不当场判对错</b>——原卷的要求是「不会做的题留白，把生词圈出来」，看的是你真实的水平。</p>
+  <p>作答自动保存在本机浏览器里，关掉再打开不会丢；点右上角「重做」可清空重来。</p>
+  <p style="margin-top:10px"><b>土妹英语</b> ｜ 定制课程 让每一分努力都不被辜负</p>
+</footer>
+
+
+<script>
+
+/* 构建时注入 */
+const QR = {};
+const TEACHER = false;
+const STORE_KEY = "tumei-qiance-chuji-xianjie-v1";
+const TITLE = "初级衔接前测 pre-test";
+const CSV_NAME = "初级衔接前测pre-test-答案审核清单.csv";
+const PARTS = [
+ {
+  "kind": "choice",
+  "id": "p1",
+  "nav": "选择题",
+  "title": "第一部分　选择题",
+  "lead": "从每题所给的选项中选出最佳选项。<b>不会做的题点「不会」或者直接空着，不要猜。</b>",
+  "psg": "",
+  "items": [
+   {
+    "id": "a1",
+    "no": "1",
+    "stem": "We __________ up and __________ a funny play last night.",
+    "opts": [
+     "dress; make",
+     "dressed; made",
+     "dressed; to make"
+    ],
+    "a": 1
+   },
+   {
+    "id": "a2",
+    "no": "2",
+    "stem": "He __________ with his friends next weekend.",
+    "opts": [
+     "is going to watch TV",
+     "saw a film",
+     "flies kites"
+    ],
+    "a": 0
+   },
+   {
+    "id": "a3",
+    "no": "3",
+    "stem": "Move the flower pot into the room, or the strong wind _________ blow it away.",
+    "opts": [
+     "need",
+     "may",
+     "must",
+     "should"
+    ],
+    "a": 1
+   },
+   {
+    "id": "a4",
+    "no": "4",
+    "stem": "—______ are we going?<br>—To the bookstore.",
+    "opts": [
+     "What",
+     "Where",
+     "When"
+    ],
+    "a": 1
+   },
+   {
+    "id": "a5",
+    "no": "5",
+    "stem": "People often ____ trees on Tree Planting Day. Mike and his parents ____ some trees on the farm yesterday.",
+    "opts": [
+     "plants; planted",
+     "plant; plant",
+     "plant; planted",
+     "plants; plant"
+    ],
+    "a": 2
+   },
+   {
+    "id": "a6",
+    "no": "6",
+    "stem": "—Excuse me. I want to buy some stamps. Where can I find a post office?<br>—I know ________ not far from here. You can easily find ________.",
+    "opts": [
+     "that; it",
+     "it; one",
+     "one; it",
+     "its; that"
+    ],
+    "a": 2
+   },
+   {
+    "id": "a7",
+    "no": "7",
+    "stem": "I get _______ email _______ my e-friend.",
+    "opts": [
+     "an; from",
+     "a; from",
+     "an; to"
+    ],
+    "a": 0
+   },
+   {
+    "id": "a8",
+    "no": "8",
+    "stem": "______ a funny story! ______ interesting it is!",
+    "opts": [
+     "What; What",
+     "How; How",
+     "What; How"
+    ],
+    "a": 2
+   },
+   {
+    "id": "a9",
+    "no": "9",
+    "stem": "We can use water ________ things.",
+    "opts": [
+     "to clean",
+     "cleaning",
+     "clean",
+     "cleans"
+    ],
+    "a": 0
+   },
+   {
+    "id": "a10",
+    "no": "10",
+    "stem": "The children can't wait ______ the film.",
+    "opts": [
+     "for seeing",
+     "to see",
+     "see"
+    ],
+    "a": 1
+   },
+   {
+    "id": "a11",
+    "no": "11",
+    "stem": "The school authorities and the teachers ______ over the advantages of the demerit system.",
+    "opts": [
+     "were always argued",
+     "were always arguing",
+     "had always had argued",
+     "had always been argued"
+    ],
+    "a": 1
+   },
+   {
+    "id": "a12",
+    "no": "12",
+    "stem": "His family______ all very kind and friendly. His family______ a happy one.",
+    "opts": [
+     "are; is",
+     "is；is",
+     "are; are",
+     "is; are"
+    ],
+    "a": 0
+   },
+   {
+    "id": "a13",
+    "no": "13",
+    "stem": "_____ is a doctor. What about _____ father?",
+    "opts": [
+     "His，your",
+     "Her, your's",
+     "His，you"
+    ],
+    "a": 0
+   },
+   {
+    "id": "a14",
+    "no": "14",
+    "stem": "Is Liu Yun going to visit her uncle and aunt___her mother?",
+    "opts": [
+     "by",
+     "and",
+     "with",
+     "on"
+    ],
+    "a": 2
+   },
+   {
+    "id": "a15",
+    "no": "15",
+    "stem": "If I ____ you tomorrow, I will give you the receipt.",
+    "opts": [
+     "see",
+     "will see",
+     "am seeing"
+    ],
+    "a": 0
+   }
+  ]
+ },
+ {
+  "kind": "choice",
+  "id": "p2",
+  "nav": "阅读理解",
+  "title": "第二部分　阅读理解",
+  "lead": "阅读下面短文，从每题所给的四个选项中选出最佳选项。<b>看不懂的单词点一下就能标出来</b>，做完会一起交给土妹。",
+  "psg": "<p>In the Spring and Autumn period, a man from State Chu once got an unusual pearl from\na big river. He decided to sell it.</p>\n<p>The man thought, \"I will sell the pearl for more money if it has a good-looking box.\" So he made a\nwooden box at home and decorated it with precious stones and beautiful feathers. Then he put the pearl\ninto the box and went to the market.</p>\n<p>The beautiful box attracted a man from State Zheng. He liked the box and decided to buy it. He took\nout the pearl and gave it back to the man from State Chu.</p>\n<p>\"I will take the box only. The pearl is useless to me. You can keep it for yourself,\" the man from\nState Zheng said. He paid for the box and went away happily.</p>\n<p>The man from State Chu could not understand this. He wondered, the man paid so much only for the\nbox. Why didn't he take the pearl?</p>\n<p>Some people may choose in a wrong way because they can't make a good judgement.</p>",
+  "items": [
+   {
+    "id": "b1",
+    "no": "1",
+    "stem": "Why did the man from State Chu make a beautiful box?",
+    "opts": [
+     "To pay for the pearl.",
+     "To keep it for himself.",
+     "To sell the pearl for more money.",
+     "To attract the man from State Zheng."
+    ],
+    "a": 2
+   },
+   {
+    "id": "b2",
+    "no": "2",
+    "stem": "The underlined word \"it\" in Paragraph 2 refers to ________.",
+    "opts": [
+     "much money",
+     "the wooden box",
+     "the unusual pearl",
+     "a beautiful feather"
+    ],
+    "a": 2
+   },
+   {
+    "id": "b3",
+    "no": "3",
+    "stem": "The man from State Zheng gave the pearl back because he thought it ________.",
+    "opts": [
+     "useless",
+     "beautiful",
+     "cheap",
+     "expensive"
+    ],
+    "a": 0
+   },
+   {
+    "id": "b4",
+    "no": "4",
+    "stem": "How did the man from State Chu feel when the man didn't take the pearl?",
+    "opts": [
+     "Surprised",
+     "Sad",
+     "Worried",
+     "Angry"
+    ],
+    "a": 0
+   },
+   {
+    "id": "b5",
+    "no": "5",
+    "stem": "What can we learn from the story?",
+    "opts": [
+     "Actions speak louder than words.",
+     "When in Rome, do as the Romans do.",
+     "Don't judge things only by their looks.",
+     "The grass is always greener on the other side."
+    ],
+    "a": 2
+   }
+  ]
+ },
+ {
+  "kind": "mc",
+  "id": "p3",
+  "nav": "完形填空",
+  "title": "第三部分　完形填空",
+  "lead": "阅读下面短文，从短文后各题所给的三个选项中选出最佳选项。",
+  "text": "There are all kinds of __1__ in the world. There are trains to carry people, trains to carry animals and trains to __2__ things. There are __3__ trains and slow trains. Some trains go __4__ the ground and some trains go through hills. In big cities, the streets are usually very __5__. So you can find trains under the ground or on a rail above the streets. They carry people in and out of the cities.\n\nCan a train run over a river? Yes, it can. There are many bridges over the rivers. The trains can run over the river __6__. But it is not easy to build bridges. Today's trains have __7__ for people. You can eat something on the way if you are __8__. Trains are useful to men, women and children. Many children have __9__. With the model trains, they can build their own rails and enjoy the __10__ world of trains.",
+  "items": [
+   {
+    "id": "c1",
+    "no": "1",
+    "opts": [
+     "planes",
+     "trains",
+     "buses"
+    ],
+    "a": 1
+   },
+   {
+    "id": "c2",
+    "no": "2",
+    "opts": [
+     "carry",
+     "move",
+     "take"
+    ],
+    "a": 0
+   },
+   {
+    "id": "c3",
+    "no": "3",
+    "opts": [
+     "tall",
+     "long",
+     "fast"
+    ],
+    "a": 2
+   },
+   {
+    "id": "c4",
+    "no": "4",
+    "opts": [
+     "behind",
+     "under",
+     "before"
+    ],
+    "a": 1
+   },
+   {
+    "id": "c5",
+    "no": "5",
+    "opts": [
+     "dirty",
+     "old",
+     "busy"
+    ],
+    "a": 2
+   },
+   {
+    "id": "c6",
+    "no": "6",
+    "opts": [
+     "easily",
+     "sadly",
+     "quietly"
+    ],
+    "a": 0
+   },
+   {
+    "id": "c7",
+    "no": "7",
+    "opts": [
+     "dining rooms",
+     "rest rooms",
+     "bathrooms"
+    ],
+    "a": 0
+   },
+   {
+    "id": "c8",
+    "no": "8",
+    "opts": [
+     "hungry",
+     "thirsty",
+     "sleepy"
+    ],
+    "a": 0
+   },
+   {
+    "id": "c9",
+    "no": "9",
+    "opts": [
+     "model planes",
+     "model trains",
+     "model cars"
+    ],
+    "a": 1
+   },
+   {
+    "id": "c10",
+    "no": "10",
+    "opts": [
+     "wonderfully",
+     "wonder",
+     "wonderful"
+    ],
+    "a": 2
+   }
+  ]
+ },
+ {
+  "kind": "essay",
+  "id": "p4",
+  "nav": "书面表达",
+  "title": "第四部分　书面表达",
+  "lead": "",
+  "brief": "根据下表提示，以 <b>The Changes in My Hometown</b> 为题，写一篇 80 词左右的短文。\n<table class=\"brieftab\">\n  <tr><td class=\"k\">过去</td><td>1. 生活贫困，房屋破旧。<br>2. 垃圾遍地，火车、小汽车很慢。</td></tr>\n  <tr><td class=\"k\">现在</td><td>1. 生活：住房宽敞、明亮；有高铁，许多人有自己的汽车。<br>\n      2. 环境：河水干净，到处是花草树木。<br>\n      3. 旅游：每年有很多来自世界各地的游客。</td></tr>\n</table>\n<b>参考词汇：</b>hometown 家乡　poor life 贫困的生活　have one's own car 有自己的汽车",
+  "start": "<b>The Changes in My Hometown</b>",
+  "rows": 12
+ }
+];
+
+
+/* ================================================================
+   前测渲染器
+   ================================================================ */
+const KEYS = "ABCDEFG";
+function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+function fmtSecs(s){ const m = Math.floor(s/60), x = s % 60; return m + ":" + (x<10?"0":"") + x; }
+
+let state = {};
+try { state = JSON.parse(localStorage.getItem(STORE_KEY) || "{}"); } catch(e){ state = {}; }
+const save = () => { try{ localStorage.setItem(STORE_KEY, JSON.stringify(state)); }catch(e){} };
+state.ans   = state.ans   || {};    /* 客观题：题号 → 选项下标 / 填空文本 */
+state.dk    = state.dk    || {};    /* 点了「不会」的题 */
+state.free  = state.free  || {};    /* 主观题原文 */
+state.words = state.words || [];    /* 圈出来的生词 */
+
+const WORDS = new Set(state.words);
+function saveWords(){ state.words = [...WORDS]; save(); }
+
+/* ================================================================
+   短文上的两件事：圈生词 + 标证据
+   ----------------------------------------------------------------
+   两个动作用**同一片短文**，所以做成互斥的两种模式，靠短文上方的工具栏切换：
+     圈生词（默认）  点<b>单词</b> → 标黄，小结里出清单。**每篇短文都有**
+     标证据          先点一个<b>题号</b>，再点<b>整句</b> → 这句归给那道题。
+                     **只在阅读理解上开**（老师 2026-08-08 定：完形不要）
+   为什么按整句不按拖选：拖选在手机上会弹出系统的复制气泡，很难用；
+   而且拖选存的是字符偏移，短文一改就全错位。整句存的是「第几段第几句」，稳。
+   证据绑题号才有诊断价值 —— 老师能看出「答错但证据找对」和「证据就找错了」的区别。
+   ================================================================ */
+const EV = { q: null, color: 0 };          /* 当前正在标证据的题；null = 圈生词模式 */
+state.ev = state.ev || {};                 /* 题号 → ["部分-段-句", …] */
+
+function evKey(part, para, sent){ return part + "-" + para + "-" + sent; }
+function evOf(qid){ return state.ev[qid] || (state.ev[qid] = []); }
+
+/* 把文本节点里的英文单词包成 .wd（不挂监听，统一交给短文上的事件委托） */
+function wrapWords(root){
+  const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+  const nodes = []; while(w.nextNode()) nodes.push(w.currentNode);
+  nodes.forEach(n => {
+    if(!/[A-Za-z]{2}/.test(n.nodeValue)) return;
+    const frag = document.createDocumentFragment();
+    n.nodeValue.split(/([A-Za-z][A-Za-z'’-]*)/).forEach((part, i) => {
+      if(i % 2 === 1 && part.length > 1){
+        const sp = document.createElement("span");
+        sp.className = "wd" + (WORDS.has(part.toLowerCase()) ? " nw" : "");
+        sp.textContent = part;
+        frag.appendChild(sp);
+      } else frag.appendChild(document.createTextNode(part));
+    });
+    n.parentNode.replaceChild(frag, n);
+  });
+}
+
+/* 把一个段落切成句子，每句包一个 .sn。
+   不用正则的后行断言（Safari 16.4 以前不支持），改成「一句 = 若干非句末字符 + 句末标点」。 */
+const SENT_RE = /[^.!?。！？]*[.!?。！？]+["'’”]*\s*|[^.!?。！？]+$/g;
+function wrapSentences(para, partId, paraIdx){
+  const kids = Array.from(para.childNodes);
+  kids.forEach(n => n.remove());
+  let sn = null, i = 0;
+  const open = () => {
+    sn = document.createElement("span");
+    sn.className = "sn"; sn.dataset.k = evKey(partId, paraIdx, i++);
+    para.appendChild(sn);
+  };
+  open();
+  kids.forEach(n => {
+    if(n.nodeType !== 3){ sn.appendChild(n); return; }
+    (n.nodeValue.match(SENT_RE) || [n.nodeValue]).forEach(chunk => {
+      sn.appendChild(document.createTextNode(chunk));
+      if(/[.!?。！？]["'’”]*\s*$/.test(chunk)) open();
+    });
+  });
+  if(!sn.textContent.trim()) sn.remove();
+}
+
+/* 把证据的高亮和角标画出来 */
+function paintEvidence(){
+  document.querySelectorAll(".sn").forEach(sn => {
+    const hits = [];
+    Object.keys(state.ev).forEach(qid => {
+      if(state.ev[qid].indexOf(sn.dataset.k) >= 0) hits.push(qid);
+    });
+    sn.classList.toggle("ev", hits.length > 0);
+    let tag = sn.querySelector(".sntag");
+    if(!hits.length){ if(tag) tag.remove(); return; }
+    if(!tag){ tag = document.createElement("i"); tag.className = "sntag"; sn.appendChild(tag); }
+    tag.textContent = hits.map(q => EVNO[q] || "?").join("");
+    sn.dataset.c = EVC[hits[0]] || 0;
+  });
+}
+const EVNO = {};   /* 题 id → 显示的题号 */
+const EVC  = {};   /* 题 id → 配色序号 */
+
+/* 短文上方的工具栏：圈生词 ｜ 标证据：① ② ③ … */
+function evToolbar(part){
+  const bar = document.createElement("div"); bar.className = "pgbar";
+  const wd = document.createElement("button");
+  wd.type = "button"; wd.className = "pgb on"; wd.textContent = "圈生词";
+  bar.appendChild(wd);
+  const lab = document.createElement("span"); lab.className = "pglab"; lab.textContent = "标证据：";
+  bar.appendChild(lab);
+  const btns = [];
+  part.items.forEach((q, i) => {
+    EVNO[q.id] = q.no; EVC[q.id] = i % 6;
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "pgb num"; b.dataset.c = i % 6; b.textContent = q.no;
+    b.addEventListener("click", () => {
+      EV.q = (EV.q === q.id) ? null : q.id;
+      sync();
+    });
+    bar.appendChild(b); btns.push(b);
+  });
+  const tip = document.createElement("div"); tip.className = "pgtip";
+  bar.appendChild(tip);
+  function sync(){
+    wd.classList.toggle("on", EV.q === null);
+    btns.forEach((b, i) => b.classList.toggle("on", EV.q === part.items[i].id));
+    document.querySelectorAll(".psg").forEach(x => x.classList.toggle("evmode", EV.q !== null));
+    tip.textContent = EV.q === null
+      ? "点短文里不认识的单词 → 标黄；想标证据先点上面的题号。"
+      : "正在标第 " + EVNO[EV.q] + " 题的证据 —— 点短文里的「句子」，再点一次取消。";
+  }
+  wd.addEventListener("click", () => { EV.q = null; sync(); });
+  sync();
+  return bar;
+}
+
+/* 短文的统一处理：包单词、切句子、挂一个事件委托 */
+function prepPassage(root, partId, withEv){
+  Array.from(root.querySelectorAll("p")).forEach((para, k) => {
+    wrapWords(para);
+    if(withEv) wrapSentences(para, partId, k);
+  });
+  if(!withEv) wrapWords(root);
+  root.addEventListener("click", e => {
+    if(EV.q === null){                                  /* 圈生词 */
+      const w = e.target.closest && e.target.closest(".wd");
+      if(!w) return;
+      const k = w.textContent.toLowerCase();
+      if(WORDS.has(k)) WORDS.delete(k); else WORDS.add(k);
+      document.querySelectorAll(".wd").forEach(x =>
+        x.classList.toggle("nw", WORDS.has(x.textContent.toLowerCase())));
+      saveWords();
+    } else {                                            /* 标证据 */
+      const sn = e.target.closest && e.target.closest(".sn");
+      if(!sn) return;
+      const list = evOf(EV.q), i = list.indexOf(sn.dataset.k);
+      if(i >= 0) list.splice(i, 1); else list.push(sn.dataset.k);
+      save(); paintEvidence();
+    }
+  });
+  paintEvidence();
+}
+
+/* ---------------- 关掉输入框的各种「帮忙」 ----------------
+   前测测的是真实水平，任何提示都会把结果抬高：
+     spellcheck   拼写红波浪线 —— 等于告诉学生「这个词你拼错了」
+     autocorrect  iOS 的自动更正 —— 会把拼错的词悄悄改对
+     autocapitalize 手机上句首自动大写 —— 大小写也是考点
+     autocomplete 浏览器记住的历史输入
+     data-gramm   Grammarly 之类的浏览器插件
+   ⚠ 手机系统键盘上方那条**联想词条是操作系统的，网页关不掉** ——
+     要真严格，得让学生用电脑做，或者自己把输入法的联想/预测关掉。 */
+function noAssist(el){
+  el.spellcheck = false;
+  el.autocomplete = "off";
+  el.setAttribute("autocorrect", "off");
+  el.setAttribute("autocapitalize", "off");
+  el.setAttribute("data-gramm", "false");
+  el.setAttribute("data-gramm_editor", "false");
+  el.setAttribute("data-enable-grammarly", "false");
+  return el;
+}
+
+/* ---------------- 「不会」按钮 ---------------- */
+function dkButton(id, onChange){
+  const b = document.createElement("button");
+  b.type = "button"; b.className = "dk" + (state.dk[id] ? " on" : "");
+  b.textContent = state.dk[id] ? "已标：不会" : "不会";
+  b.addEventListener("click", () => {
+    state.dk[id] = !state.dk[id];
+    if(state.dk[id]) delete state.ans[id];
+    b.classList.toggle("on", !!state.dk[id]);
+    b.textContent = state.dk[id] ? "已标：不会" : "不会";
+    save(); if(onChange) onChange();
+  });
+  return b;
+}
+
+/* ---------------- 单选（阅读理解） ---------------- */
+function renderChoice(part, host){
+  if(part.psg){
+    const box = document.createElement("div"); box.className = "psg";
+    box.innerHTML = part.psg; host.appendChild(box);
+    /* 有短文的单选（阅读理解）才给证据工具栏 */
+    host.insertBefore(evToolbar(part), box);
+    prepPassage(box, part.id, true);
+  }
+  part.items.forEach(q => {
+    const card = document.createElement("div"); card.className = "q"; card.id = "q-" + q.id;
+    card.innerHTML = '<div class="q-head"><span class="q-no">' + q.no + '</span>' +
+                     '<div class="q-stem">' + q.stem + '</div></div>';
+    const ul = document.createElement("ul");
+    /* 选项可以是文字，也可以是图（通用前测那道「文章结构」题，四个选项是四张结构图） */
+    const imgs = q.optImgs || null;
+    ul.className = "opts" + (imgs ? " imgopts"
+                                  : (q.opts.every(o => o.length < 18) ? " two" : ""));
+    const lis = (imgs || q.opts).map((o, i) => {
+      const li = document.createElement("li"); li.className = "opt";
+      li.innerHTML = '<span class="k">' + KEYS[i] + '</span>' +
+        (imgs ? '<img src="' + o + '" alt="选项 ' + KEYS[i] + '">'
+              : '<span>' + esc(o) + '</span>');
+      li.addEventListener("click", () => {
+        lis.forEach(x => x.classList.remove("picked"));
+        li.classList.add("picked");
+        state.ans[q.id] = i; delete state.dk[q.id];
+        card.querySelector(".dk").classList.remove("on");
+        card.querySelector(".dk").textContent = "不会";
+        save(); refreshBar();
+      });
+      ul.appendChild(li); return li;
+    });
+    if(state.ans[q.id] !== undefined) lis[state.ans[q.id]].classList.add("picked");
+    card.querySelector(".q-stem").appendChild(ul);
+    const foot = document.createElement("div"); foot.className = "q-foot";
+    foot.appendChild(dkButton(q.id, () => {
+      lis.forEach(x => x.classList.remove("picked")); refreshBar();
+    }));
+    foot.appendChild(teacherKey(q.id, KEYS[q.a] + (q.opts[q.a] ? ". " + q.opts[q.a] : "")));
+    foot.appendChild(teacherFlag(q.flag));
+    card.appendChild(foot); host.appendChild(card);
+  });
+}
+
+/* ---------------- 完形填空：短文 + 摊开的答案区 ---------------- */
+function renderMcPart(part, host){
+  const body = document.createElement("div"); body.className = "psg cz-text";
+  part.text.split(/\n\s*\n/).forEach(para => {
+    const p = document.createElement("p");
+    para.split(/(__\d+__)/).forEach(seg => {
+      const m = /^__(\d+)__$/.exec(seg);
+      if(!m){ p.appendChild(document.createTextNode(seg)); return; }
+      const sp = document.createElement("span");
+      sp.className = "cz-b mc-b"; sp.id = "b-" + part.id + m[1];
+      sp.innerHTML = '<i class="cz-n">' + m[1] + '</i><b class="mc-pick">—</b>';
+      p.appendChild(sp);
+    });
+    body.appendChild(p);
+  });
+  /* 完形<b>不</b>标证据（老师 2026-08-08 定），短文只保留「圈生词」 */
+  host.appendChild(body); prepPassage(body, part.id, false);
+
+  const opts = document.createElement("div"); opts.className = "mc-opts";
+  part.items.forEach(q => {
+    const row = document.createElement("div"); row.className = "mc-row";
+    row.innerHTML = '<span class="mc-q">' + q.no + '</span>';
+    const list = document.createElement("div"); list.className = "mc-list";
+    /* 每题的选项个数可能不是 4（小升初那份完形是三选一），列数跟着走 */
+    list.style.gridTemplateColumns = "repeat(" + Math.min(q.opts.length, 4) + ",1fr)";
+    const chip = document.getElementById("b-" + part.id + q.no);
+    const btns = q.opts.map((o, i) => {
+      const b = document.createElement("button");
+      b.type = "button"; b.className = "mo";
+      b.innerHTML = '<span class="k">' + KEYS[i] + '</span><span class="t">' + esc(o) + '</span>';
+      b.addEventListener("click", () => {
+        btns.forEach(x => x.classList.remove("picked"));
+        b.classList.add("picked");
+        state.ans[q.id] = i; delete state.dk[q.id];
+        if(chip){ chip.querySelector(".mc-pick").textContent = KEYS[i]; chip.classList.add("filled"); }
+        row.querySelector(".dk").classList.remove("on");
+        row.querySelector(".dk").textContent = "不会";
+        save(); refreshBar();
+      });
+      list.appendChild(b); return b;
+    });
+    if(state.ans[q.id] !== undefined){
+      btns[state.ans[q.id]].classList.add("picked");
+      if(chip){ chip.querySelector(".mc-pick").textContent = KEYS[state.ans[q.id]]; chip.classList.add("filled"); }
+    }
+    row.appendChild(list);
+    row.appendChild(dkButton(q.id, () => {
+      btns.forEach(x => x.classList.remove("picked"));
+      if(chip){ chip.querySelector(".mc-pick").textContent = "—"; chip.classList.remove("filled"); }
+      refreshBar();
+    }));
+    row.appendChild(teacherKey(q.id, KEYS[q.a]));
+    opts.appendChild(row);
+  });
+  host.appendChild(opts);
+}
+
+/* ---------------- 七选五：点选项 → 点空位 ---------------- */
+function renderSeven(part, host){
+  const body = document.createElement("div"); body.className = "psg cz-text sv-text";
+  const slots = {};
+  part.text.split(/\n\s*\n/).forEach(para => {
+    /* ## 开头是小标题。**小标题里也可能有空**（本卷第 15 空就是一个小标题），
+       所以不能直接 textContent 了事，照样要走一遍挖空。 */
+    const head = para.indexOf("## ") === 0;
+    const p = document.createElement("p");
+    if(head) p.className = "sub-h";
+    (head ? para.slice(3).trim() : para).split(/(__\d+__)/).forEach(seg => {
+      const m = /^__(\d+)__$/.exec(seg);
+      if(!m){ p.appendChild(document.createTextNode(seg)); return; }
+      const sp = document.createElement("span");
+      sp.className = "sv-slot"; sp.dataset.no = m[1];
+      p.appendChild(sp); slots[m[1]] = sp;
+    });
+    body.appendChild(p);
+  });
+  host.appendChild(body); prepPassage(body, part.id, false);
+
+  const pool = document.createElement("div"); pool.className = "sv-pool";
+  pool.innerHTML = '<div class="sv-tip"><b>先点一个选项</b>，空着的空位会亮起来，' +
+                   '<b>再点你要放的那个空位</b>。点已填的空位可以把选项拿回来。' +
+                   '想不出来就<b>空着</b>，别猜。</div>';
+  const list = document.createElement("div"); list.className = "sv-opts";
+  let armed = -1;
+  const optEls = part.opts_list.map((o, i) => {
+    const el = document.createElement("div"); el.className = "sv-opt";
+    el.innerHTML = '<span class="k">' + KEYS[i] + '</span><span class="t">' + esc(o) + '</span>';
+    el.addEventListener("click", () => {
+      if(used()[i] !== undefined) return;
+      armed = (armed === i) ? -1 : i; paint();
+    });
+    list.appendChild(el); return el;
+  });
+  pool.appendChild(list); host.appendChild(pool);
+
+  const byNo = {};                     /* 题号 → item */
+  part.items.forEach(q => byNo[q.no] = q);
+  function used(){
+    const u = {};
+    part.items.forEach(q => { const v = state.ans[q.id]; if(v !== undefined) u[v] = q.no; });
+    return u;
+  }
+  function paint(){
+    const u = used();
+    Object.keys(slots).forEach(no => {
+      const q = byNo[no], v = state.ans[q.id], s = slots[no];
+      s.classList.toggle("filled", v !== undefined);
+      s.classList.toggle("hot", armed >= 0 && v === undefined);
+      s.innerHTML = '<i class="sv-n">' + no + '</i>' +
+        (v !== undefined
+          ? '<b class="sv-k">' + KEYS[v] + '</b><span class="sv-t">' + esc(part.opts_list[v]) + '</span>'
+          : '<span class="sv-t sv-ph">点这里放选项</span>');
+    });
+    optEls.forEach((el, i) => {
+      el.classList.toggle("used", u[i] !== undefined);
+      el.classList.toggle("armed", armed === i);
+    });
+    refreshBar();
+  }
+  Object.keys(slots).forEach(no => slots[no].addEventListener("click", () => {
+    const q = byNo[no];
+    if(armed >= 0){
+      /* 一个选项只能用一次：把它原来占的空位腾出来。
+         ⚠ 只能在**本部分自己的题**里找，不能扫整张 state.ans ——
+         阅读和完形的答案也是 0～3 的下标，扫全局会把它们一起删掉。 */
+      part.items.forEach(it => { if(state.ans[it.id] === armed) delete state.ans[it.id]; });
+      state.ans[q.id] = armed; delete state.dk[q.id]; armed = -1; save(); paint(); return;
+    }
+    if(state.ans[q.id] !== undefined){ delete state.ans[q.id]; save(); paint(); }
+  }));
+  paint();
+
+  /* 教师版：把答案键列在选项池下面 */
+  const tk = document.createElement("div"); tk.className = "tkey";
+  tk.innerHTML = "";
+  part.items.forEach(q => tk.appendChild(teacherKey(q.id, q.no + " → " + KEYS[q.a])));
+  host.appendChild(tk);
+}
+
+/* ---------------- 语法填空：整篇挖空 ---------------- */
+function renderClozePart(part, host){
+  const body = document.createElement("div"); body.className = "psg cz-text";
+  let pending = false;
+  part.text.split(/\n\s*\n/).forEach(para => {
+    const p = document.createElement("p");
+    para.split(/(__\d+__)/).forEach(seg => {
+      const m = /^__(\d+)__$/.exec(seg);
+      if(m){
+        const n = m[1], id = part.id + n;
+        const wrap = document.createElement("span"); wrap.className = "cz-b";
+        const num = document.createElement("i"); num.className = "cz-n"; num.textContent = n;
+        const inp = document.createElement("input");
+        inp.className = "blank cz-in"; noAssist(inp);
+        inp.value = state.ans[id] || "";
+        inp.addEventListener("input", () => {
+          state.ans[id] = inp.value; if(inp.value.trim()) delete state.dk[id];
+          save(); refreshBar();
+        });
+        wrap.appendChild(num); wrap.appendChild(inp);
+        p.appendChild(wrap); pending = true; return;
+      }
+      if(pending){
+        pending = false;
+        const h = /^(\s*)\(([A-Za-z]+)\)/.exec(seg);
+        if(h){
+          p.appendChild(document.createTextNode(h[1]));
+          const sp = document.createElement("span"); sp.className = "cz-hint";
+          sp.textContent = "(" + h[2] + ")";
+          p.appendChild(sp); seg = seg.slice(h[0].length);
+        }
+      }
+      p.appendChild(document.createTextNode(seg));
+    });
+    body.appendChild(p);
+  });
+  host.appendChild(body); prepPassage(body, part.id, false);
+  const tk = document.createElement("div"); tk.className = "tkey";
+  part.blanks.forEach(b => tk.appendChild(teacherKey(part.id + b.n, b.n + " → " + b.a)));
+  host.appendChild(tk);
+}
+
+/* ---------------- 写句子 / 翻译（不判分） ---------------- */
+function renderFree(part, host){
+  part.prompts.forEach((t, i) => {
+    const id = part.id + (i + 1);
+    const row = document.createElement("div"); row.className = "q freerow";
+    /* en:true 表示题干本身是英文（英译汉），用衬线体排，和中文提示区分开 */
+    row.innerHTML = '<div class="q-head"><span class="q-no">' + (i + 1) + '</span>' +
+                    '<div class="q-stem"><div class="zhline' + (part.en ? " enline" : "") + '">' +
+                    t + '</div></div></div>';
+    const inp = document.createElement("input");
+    inp.className = "blank freeline"; noAssist(inp);
+    inp.placeholder = "写不出来就空着";
+    inp.value = state.free[id] || "";
+    inp.addEventListener("input", () => { state.free[id] = inp.value; save(); refreshBar(); });
+    row.querySelector(".q-stem").appendChild(inp);
+    host.appendChild(row);
+  });
+}
+
+/* ---------------- 应用文写作（不判分） ---------------- */
+function renderEssay(part, host){
+  const card = document.createElement("div"); card.className = "q";
+  card.innerHTML = '<div class="brief">' + part.brief + '</div>' +
+    (part.img ? '<div class="essayimg"><img src="' + part.img + '" alt="标识图"></div>' : "") +
+    (part.start ? '<div class="essaystart">' + part.start.replace(/\n/g, "<br>") + '</div>' : "");
+  const ta = document.createElement("textarea");
+  ta.className = "essaybox"; ta.rows = part.rows || 12; noAssist(ta);
+  ta.placeholder = "在这里写。写多少算多少，写不出来也可以空着。";
+  ta.value = state.free[part.id] || "";
+  ta.addEventListener("input", () => { state.free[part.id] = ta.value; save(); refreshBar(); });
+  card.appendChild(ta);
+  if(part.end){
+    const e = document.createElement("div"); e.className = "essaystart";
+    e.innerHTML = part.end.replace(/\n/g, "<br>"); card.appendChild(e);
+  }
+  host.appendChild(card);
+}
+
+/* ---------------- 教师版：就地显示答案键 ---------------- */
+if(typeof teacherKey !== "function"){
+  teacherKey  = () => document.createTextNode("");
+  teacherFlag = () => document.createTextNode("");
+}
+
+/* ---------------- 顶部进度 ---------------- */
+function objectiveIds(){
+  const out = [];
+  PARTS.forEach(p => {
+    if(p.kind === "cloze") p.blanks.forEach(b => out.push({ id: p.id + b.n, part: p }));
+    else if(p.items) p.items.forEach(q => out.push({ id: q.id, part: p }));
+  });
+  return out;
+}
+function isAnswered(id){
+  const v = state.ans[id];
+  return v !== undefined && String(v).trim() !== "";
+}
+function refreshBar(){
+  const ids = objectiveIds();
+  const done = ids.filter(x => isAnswered(x.id)).length;
+  document.getElementById("ptext").textContent = done + " / " + ids.length;
+  document.getElementById("pbar").style.width = (ids.length ? done / ids.length * 100 : 0) + "%";
+  const t = document.getElementById("totalHint"); if(t) t.textContent = ids.length;
+}
+
+/* ---------------- 作答小结 ---------------- */
+function buildSummary(){
+  const box = document.getElementById("summary");
+  const rows = [];
+  let allT = 0, allA = 0, allNo = 0;
+  PARTS.forEach(p => {
+    if(p.kind === "free" || p.kind === "essay") return;
+    let total = 0, ans = 0, dk = 0;
+    const wrong = [], blank = [], dks = [];
+    const list = (p.kind === "cloze")
+      ? p.blanks.map(b => ({ no: b.n, id: p.id + b.n, right: v => matchText(v, b) }))
+      : p.items.map(q => ({ no: q.no, id: q.id, right: v => v === q.a }));
+    list.forEach(x => {
+      total++;
+      if(state.dk[x.id]){ dk++; dks.push(x.no); }
+      if(isAnswered(x.id)){ ans++; if(!x.right(state.ans[x.id])) wrong.push(x.no); }
+      else if(!state.dk[x.id]) blank.push(x.no);
+    });
+    allT += total; allA += ans; allNo += wrong.length;
+    rows.push({ name: p.title.replace(/^第.部分\s*/, ""), total, ans, dk, wrong, blank, dks });
+  });
+
+  const nums = a => a.length ? a.join("、") : "—";
+  let h = '<div class="sm-head"><b>作答小结</b><span>截图这一张发给土妹</span></div>';
+  h += '<div class="sm-tot">客观题共 <b>' + allT + '</b> 题　作答 <b>' + allA + '</b> 题　' +
+       '做错 <b>' + allNo + '</b> 题' +
+       '<em>（题号<b>按每个题型各自从 1 数</b>；留白和标「不会」的题不算作答，也不算错）</em></div>';
+  h += '<table class="sm-tab"><thead><tr><th>部分</th><th>题数</th><th>作答</th>' +
+       '<th>做错</th><th>错在哪几题</th><th>标「不会」</th><th>留白</th></tr></thead><tbody>' +
+       rows.map(r => '<tr><td class="zh">' + r.name + '</td><td>' + r.total + '</td><td>' + r.ans +
+         '</td><td>' + r.wrong.length + '</td><td class="zh nolist">' + nums(r.wrong) +
+         '</td><td class="zh">' + nums(r.dks) + '</td><td class="zh">' + nums(r.blank) +
+         '</td></tr>').join("") + '</tbody></table>';
+
+  /* 证据：哪一题标了哪句 */
+  const evRows = [];
+  PARTS.forEach(p => {
+    if(!(p.kind === "choice" && p.psg)) return;      /* 只有阅读理解能标证据 */
+    p.items.forEach(q => {
+      const list = state.ev[q.id] || [];
+      if(!list.length) return;
+      const txt = list.map(k => {
+        const el = document.querySelector('.sn[data-k="' + k + '"]');
+        let t = el ? el.textContent.replace(/\s+/g, " ").trim() : "";
+        t = t.replace(/[0-9]+$/, "");                    /* 去掉角标数字 */
+        return t.length > 78 ? t.slice(0, 78) + "…" : t;
+      });
+      evRows.push({ part: p.title.replace(/^第.部分\s*/, ""), no: q.no, txt });
+    });
+  });
+
+  const ws = [...WORDS].sort();
+  if(evRows.length){
+    h += '<div class="sm-t">标出来的原文证据 <em>' + evRows.length + ' 题标了</em></div>' +
+         '<div class="sm-ev">' + evRows.map(r =>
+           '<div class="sm-evrow"><span class="zh">' + r.part + ' 第 ' + r.no + ' 题</span>' +
+           '<span class="en">' + r.txt.map(t => "「" + esc(t) + "」").join("<br>") + '</span></div>'
+         ).join("") + '</div>';
+  }
+  h += '<div class="sm-t">圈出来的生词 <em>' + ws.length + ' 个</em></div>' +
+       '<div class="sm-words">' + (ws.length ? ws.map(w => '<span>' + esc(w) + '</span>').join("")
+                                             : '<i>一个都没圈</i>') + '</div>';
+
+  PARTS.filter(p => p.kind === "free" || p.kind === "essay").forEach(p => {
+    h += '<div class="sm-t">' + p.title.replace(/^第.部分\s*/, "") + '</div><div class="sm-free">';
+    if(p.kind === "free"){
+      h += p.prompts.map((t, i) => {
+        const v = (state.free[p.id + (i + 1)] || "").trim();
+        return '<div class="sm-line"><span class="zh">' + (i + 1) + '. ' + t + '</span>' +
+               '<span class="en">' + (v ? esc(v) : "（空着）") + '</span></div>';
+      }).join("");
+    } else {
+      const v = (state.free[p.id] || "").trim();
+      h += '<div class="sm-essay">' + (v ? esc(v).replace(/\n/g, "<br>") : "（空着）") + '</div>' +
+           '<div class="sm-wc">词数约 ' + (v ? (v.match(/[A-Za-z][A-Za-z'’-]*/g) || []).length : 0) + '</div>';
+    }
+    h += '</div>';
+  });
+
+  const d = new Date();
+  const pad = n => (n < 10 ? "0" : "") + n;
+  h += '<div class="sm-foot"><span>' + TITLE + '</span><span>' +
+       d.getFullYear() + "-" + pad(d.getMonth()+1) + "-" + pad(d.getDate()) + " " +
+       pad(d.getHours()) + ":" + pad(d.getMinutes()) + '</span></div>' +
+       '<div class="ci-brand"><b>土妹英语</b> ｜ 定制课程 让每一分努力都不被辜负</div>';
+  box.innerHTML = h;
+  /* 必须写成 "block" —— CSS 里 #summary 本来就是 display:none，
+     置空只会退回那条规则，卡片会「生成了但高度是 0」。 */
+  box.style.display = "block";
+  box.scrollIntoView({ block: "start" });
+}
+
+/* 填空判对：大小写、首尾空格不计；alt 里的写法也算对 */
+function matchText(v, b){
+  const norm = s => String(s || "").toLowerCase().replace(/\s+/g, " ").trim();
+  const pool = [b.a].concat(b.alt || []).map(norm);
+  return pool.indexOf(norm(v)) >= 0;
+}
+
+/* ---------------- 启动 ---------------- */
+function renderAll(){
+  PARTS.forEach(p => {
+    const sec = document.createElement("section");
+    sec.className = "chap"; sec.id = p.id;
+    sec.innerHTML = '<h2 class="chap-t"><span class="n">' +
+      p.title.replace(/\s.*$/, "") + '</span>' + p.title.replace(/^\S+\s*/, "") + '</h2>' +
+      (p.lead ? '<p class="chap-lead">' + p.lead + '</p>' : "");
+    document.getElementById("parts").appendChild(sec);
+    ({ choice: renderChoice, mc: renderMcPart, seven: renderSeven,
+       cloze: renderClozePart, free: renderFree, essay: renderEssay })[p.kind](p, sec);
+  });
+  refreshBar();
+  document.getElementById("btnSum").addEventListener("click", buildSummary);
+}
+
+
+/* 图片注入（构建时把 assets/ 下的图变成 data URI）。
+   ⚠ 必须在 renderAll() **之后**调 —— 图片是渲染时才创建的，
+   放在前面执行时页面上一个 <img> 都还没有。 */
+function injectImages(){
+  document.querySelectorAll('img[src^="qr:"]').forEach(img => {
+    const k = img.getAttribute("src").slice(3);
+    if(QR[k]) img.src = QR[k]; else img.removeAttribute("src");
+  });
+}
+
+document.getElementById("btnReset").addEventListener("click", () => {
+  if(!confirm("清空全部作答，重新开始？")) return;
+  localStorage.removeItem(STORE_KEY); location.reload();
+});
+
+
+renderAll();
+injectImages();
+
+</script>
+</body>
+</html>
