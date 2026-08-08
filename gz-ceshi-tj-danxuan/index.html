@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>测试-初级语法-简单句-反意疑问句（在线测试）</title>
+<title>天津单选一测 · 高级测试 · 天津单选一测（交互版）</title>
 <style>
 :root{
   --ink:#1f2328; --ink-2:#4a5158; --ink-3:#8b939b;
@@ -397,23 +397,197 @@ footer b{color:var(--accent)}
   body{background:#fff}
 }
 
-/* 整卷测试页专用 */
-.papertip{
-  max-width:860px; margin:0 auto; padding:12px 18px 14px; font-size:13px;
-  color:var(--ink-2); border-bottom:1px solid var(--line); line-height:1.7;
-}
-.papertip b{color:var(--accent)}
-.parthead{
-  max-width:860px; margin:26px auto 10px; padding:0 18px;
-  font-size:14px; font-weight:700; color:var(--ink-2);
-  display:flex; align-items:center; gap:10px;
-}
-.parthead::after{content:""; flex:1; height:1px; background:var(--line)}
-.parthead em{font-style:normal; font-weight:400; font-size:12.5px; color:var(--ink-3)}
-.ju{margin:0 0 6px}
-.ju b{color:var(--ink-2)}
-.fixnote{color:var(--warn); font-size:12.5px}
+  /* 短文 */
+  .psg{border:1px solid var(--line); border-radius:12px; padding:15px 18px; background:#fff;
+       font-family:var(--serif); font-size:15.5px; line-height:2.05; margin:12px 0 4px}
+  .psg p{margin:0 0 10px} .psg p:last-child{margin-bottom:0}
+  .psg p.sub-h{font-weight:700; margin:14px 0 8px}
+  .psg .bk{display:inline-block; min-width:2.1em; text-align:center; font-family:var(--sans);
+           font-size:12.5px; font-weight:700; color:var(--accent); background:#fbeeec;
+           border-radius:4px; padding:0 4px; margin:0 2px; vertical-align:1px}
+  /* 七选五的选项表 */
+  .sevenopts{margin:14px 0 4px}
+  .sevenopts .og{list-style:none; margin:0; padding:14px 16px; display:grid; gap:9px;
+                 border:1px solid var(--line); border-radius:12px; background:#faf8f5}
+  .sevenopts .og li{font-family:var(--serif); font-size:14.5px; line-height:1.75;
+                    display:flex; gap:9px; align-items:baseline}
+  .sevenopts .og .k{flex:0 0 auto; font-family:var(--sans); font-size:12px; font-weight:700;
+                    color:#fff; background:var(--ink-2); border-radius:4px; padding:1px 6px}
+  /* 七选五的字母按钮 */
+  .pickrow{display:flex; gap:7px; flex-wrap:wrap; margin:12px 0 0}
+  .pk{font-family:var(--sans); font-size:14.5px; font-weight:700; min-width:40px;
+      padding:7px 0; border:1px solid var(--line); border-radius:8px; background:#fff;
+      color:var(--ink); cursor:pointer; transition:.15s}
+  .pk:hover{border-color:var(--accent); color:var(--accent)}
+  .pk.picked{border-color:var(--ink); background:var(--ink); color:#fff}
+  .pk.is-ok{border-color:var(--ok-line); background:#d5f0de; color:var(--ok)}
+  .pk.is-no{border-color:var(--no); background:#f8d9d6; color:var(--no)}
+  /* 阅读/单选那种「一题一张卡」的页面，计时条单独成条，得自己有个框 */
+  .cz-bar.timerbar{border:1px solid var(--line); border-radius:10px; background:#faf8f5;
+                   padding:9px 14px; margin:12px 0 6px}
+  /* ---------- 七选五：点选 → 放置 ---------- */
+  /* 小标题的加粗在 .psg 里定义过，.cz-text 用的是另一套样式，要再写一遍 */
+  .cz-text p.sub-h{font-weight:700; margin:14px 0 8px}
+  .sv-text .sv-slot{
+    display:inline; border-bottom:2px dashed var(--line); border-radius:3px;
+    background:#faf8f5; padding:1px 4px; cursor:pointer; transition:.12s;
+  }
+  .sv-slot .sv-n{
+    font-style:normal; font-family:var(--sans); font-size:10.5px; font-weight:700; color:#fff;
+    background:var(--ink-3); border-radius:3px; padding:0 4px; vertical-align:3px; margin-right:4px;
+  }
+  .sv-slot .sv-k{font-family:var(--sans); font-size:11.5px; font-weight:700; color:var(--accent); margin-right:4px}
+  .sv-slot .sv-ph{font-family:var(--sans); font-size:12px; color:var(--ink-3)}
+  .sv-slot.hot{background:#fbeeec; border-bottom-color:var(--accent);
+               box-shadow:0 0 0 2px rgba(192,57,43,.14)}
+  .sv-slot.hot .sv-ph{color:var(--accent)}
+  .sv-slot.filled{background:#f3f7f4; border-bottom-style:solid}
+  .sv-slot.r-ok{background:var(--ok-soft); border-bottom-color:var(--ok)}
+  .sv-slot.r-ok .sv-n{background:var(--ok)}
+  .sv-slot.r-no{background:#fdf0ee; border-bottom-color:var(--no)}
+  .sv-slot.r-no .sv-n{background:var(--no)}
+  /* 选项池 */
+  .sv-pool{margin:16px 0 2px; border-top:1px dashed var(--line); padding-top:13px}
+  .sv-tip{font-size:12.5px; color:var(--ink-2); line-height:1.9; margin-bottom:9px}
+  .sv-tip b{color:var(--accent)}
+  .sv-opts{display:grid; gap:7px}
+  .sv-opt{
+    display:flex; gap:9px; align-items:baseline; padding:8px 11px;
+    border:1px solid var(--line); border-radius:9px; background:#fff;
+    cursor:pointer; user-select:none; transition:.12s;
+  }
+  .sv-opt .k{flex:0 0 auto; font-family:var(--sans); font-size:12px; font-weight:700;
+             color:#fff; background:var(--ink-2); border-radius:4px; padding:1px 6px}
+  .sv-opt .t{font-family:var(--serif); font-size:14.5px; line-height:1.7}
+  .sv-opt:hover{border-color:var(--accent)}
+  .sv-opt.armed{border-color:var(--ink); box-shadow:0 0 0 2px rgba(31,35,40,.12)}
+  .sv-opt.armed .k{background:var(--ink)}
+  .sv-opt.used{opacity:.32; cursor:default; background:#faf8f5}
+  .sv-opt.used:hover{border-color:var(--line)}
+  .sv-opt.is-key .k{background:var(--ok)}
+  /* ---------- 完形填空：短文里的空位 + 摊开的答案区 ---------- */
+  .mc-b{padding:0 1px}
+  .mc-b .mc-pick{font-family:var(--serif); font-weight:700; color:var(--ink-3);
+                 min-width:1.1em; display:inline-block; text-align:center}
+  .mc-b.filled .mc-pick{color:var(--ink)}
+  .mc-b.r-ok .mc-pick{color:var(--ok)}
+  .mc-b.r-no .mc-pick{color:var(--no)}
+  .mc-opts{margin:16px 0 2px; border-top:1px dashed var(--line); padding-top:14px}
+  .mc-row{display:flex; gap:10px; align-items:flex-start; padding:5px 0}
+  .mc-q{flex:0 0 auto; width:26px; height:22px; border-radius:5px; font-size:12px; font-weight:700;
+        display:grid; place-items:center; background:#e8e4de; color:var(--ink-2); margin-top:3px}
+  .mc-list{flex:1; min-width:0; display:grid; grid-template-columns:repeat(4,1fr); gap:6px}
+  .mo{display:flex; gap:6px; align-items:baseline; text-align:left; font:inherit;
+      font-size:14px; padding:5px 8px; border:1px solid var(--line); border-radius:8px;
+      background:#fff; color:var(--ink); cursor:pointer; transition:.12s}
+  .mo .k{flex:0 0 auto; font-family:var(--sans); font-size:11px; font-weight:700; color:var(--ink-3)}
+  .mo .t{font-family:var(--serif); word-break:break-word}
+  .mo:hover{border-color:var(--accent)}
+  .mo.picked{border-color:var(--ink); background:var(--ink); color:#fff}
+  .mo.picked .k{color:#fff}
+  .mo.is-ok{border-color:var(--ok-line); background:#d5f0de; color:var(--ok)}
+  .mo.is-ok .k{color:var(--ok)}
+  .mo.is-no{border-color:var(--no); background:#f8d9d6; color:var(--no)}
+  .mo.is-no .k{color:var(--no)}
+  .mo:disabled{cursor:default}
+  /* 题干里引的原句：用正文的衬线体，别落到浏览器默认的等宽字体上 */
+  .q-stem code{font-family:var(--serif); font-size:15px; background:#f7f4ef;
+               border-radius:3px; padding:1px 4px}
+  /* 短文改错 */
+  .ecline{font-family:var(--serif); font-size:15.5px; line-height:1.95; margin:0 0 9px}
+  .ecin{width:100%; font-size:14.5px; text-align:left}
+  .ansline{font-family:var(--serif); font-weight:700}
+  @media(max-width:600px){
+    .psg{padding:13px 13px; font-size:14.5px; line-height:1.95}
+    .q-stem code{font-size:14px}
+    /* 改错：行号标签独占一行，把整个宽度让给句子和输入框 */
+    #mount-main .q-head{flex-wrap:wrap}
+    #mount-main .q-head .q-stem{flex:1 0 100%; margin-top:7px}
+    .ecline{font-size:14.5px}
+    .sv-opt{padding:7px 9px}
+    .sv-opt .t{font-size:13.5px}
+    .sv-tip{font-size:12px}
+    .sv-slot .sv-ph{font-size:11.5px}
+    /* 手机上四个选项排两列；选项长的（self-conscious 那题）自己折行 */
+    .mc-list{grid-template-columns:repeat(2,1fr); gap:5px}
+    .mo{font-size:13px; padding:4px 6px}
+    .mc-q{width:22px; height:20px; font-size:11px}
+    .mc-row{gap:7px}
+    .sevenopts .og{padding:12px 12px}
+    .sevenopts .og li{font-size:13.5px}
+  }
 
+/* ---------- 语篇填空 ---------- */
+.cloze{padding:18px 20px 16px}
+.cz-bar{
+  display:flex; align-items:center; gap:10px; flex-wrap:wrap; font-size:12.5px; color:var(--ink-3);
+  padding-bottom:10px; margin-bottom:13px; border-bottom:1px dashed var(--line);
+}
+.cz-timer{font-family:var(--serif); font-size:14.5px; font-weight:700; color:var(--ink-2); font-variant-numeric:tabular-nums}
+.cz-timer.over{color:var(--warn)}
+.cz-text{font-family:var(--serif); font-size:16.5px; line-height:2.45; text-align:justify}
+.cz-text p{margin:0 0 12px}
+.cz-text p:last-child{margin-bottom:0}
+.cz-hint{font-style:italic; color:var(--ink-3)}
+.cz-b{display:inline-block; white-space:nowrap; scroll-margin-top:112px}
+.cz-n{
+  font-style:normal; font-family:var(--sans); font-size:10.5px; font-weight:700; color:#fff;
+  background:var(--ink-3); border-radius:3px; padding:0 4px; vertical-align:4px; margin-right:1px;
+}
+.cz-b.r-ok .cz-n{background:var(--ok)}
+.cz-b.r-no .cz-n{background:var(--no)}
+.cz-b.r-near .cz-n{background:var(--warn)}
+/* 宽度对所有空一律相同 —— 按答案长短给宽度会把答案有几个词泄露出去 */
+.blank.cz-in{width:7.6em; font-size:15px; padding:1px 5px}
+.q.cloze.correct,.q.cloze.wrong{background:var(--card)}   /* 整篇不整体染色，逐空看颜色 */
+
+/* 逐空讲解 */
+.czr{display:flex; gap:10px; padding:10px 0; border-top:1px dashed #e2ded7}
+.czr:first-child{border-top:none; padding-top:0}
+.czr-n{
+  flex:0 0 auto; width:26px; height:21px; border-radius:5px; font-size:12px;
+  display:grid; place-items:center; background:#e8e4de; color:var(--ink-2);
+}
+.czr.ok .czr-n{background:#d5f0de; color:var(--ok)}
+.czr.no .czr-n{background:#f8d9d6; color:var(--no)}
+.czr-b{flex:1; min-width:0}
+.czr-h{display:flex; gap:8px; align-items:baseline; flex-wrap:wrap; margin-bottom:1px}
+.czr-ans{font-family:var(--serif); font-size:15.5px; font-weight:700; color:var(--ok)}
+.czr.no .czr-ans{color:var(--accent)}
+.czr-alt{font-family:var(--serif); font-size:13px; color:var(--ink-3)}
+.czr-tag{font-size:11px; color:var(--ink-3); border:1px solid var(--line); border-radius:99px; padding:0 7px; background:#fff}
+.czr-got{font-size:12.5px; color:var(--no)}
+.czr-got em{font-family:var(--serif); font-style:normal; font-weight:700}
+.czr-warn{font-size:12.5px; color:var(--warn); font-weight:600}
+.czr-ex{margin:0; font-size:13.5px; line-height:1.75; color:var(--ink-2)}
+
+/* 得分那一格用主色，是这份练习最该先看的数 */
+.stat.score b{color:var(--accent)}
+
+/* 考点分布 */
+.tagstat{display:grid; gap:7px; font-size:13px}
+.tagrow{display:flex; align-items:center; gap:10px}
+.tagrow .tn{flex:0 0 6.2em; color:var(--ink-2)}
+.tagrow .tb{flex:1; min-width:50px; height:8px; border-radius:99px; background:#eceae5; overflow:hidden}
+.tagrow .tb i{display:block; height:100%; background:var(--ok); transition:width .3s}
+.tagrow.weak .tb i{background:var(--no)}
+.tagrow .tv{flex:0 0 auto; font-size:12px; color:var(--ink-3); font-variant-numeric:tabular-nums}
+.tagsplit{font-size:13px; color:var(--ink-2); margin:14px 0 0; line-height:1.9}
+.tagsplit b{font-family:var(--serif); color:var(--accent)}
+
+@media(max-width:600px){
+  .cloze{padding:15px 14px 14px}
+  .cz-text{font-size:16px; line-height:2.5; text-align:left}
+  .blank.cz-in{width:6.6em; font-size:14.5px}
+  /* 成绩单多了「得分」这一格，手机上 5 格要挤进一行，不然正确率会单独掉到第二行 */
+  .stats{gap:15px}
+  .stat b{font-size:23px}
+  .stat span{font-size:11.5px; white-space:nowrap}
+  /* 「比较级最高级」「连词与引导词」都是 6 个字，宽度不够就会折行、进度条起点参差 */
+  .tagrow{gap:8px}
+  .tagrow .tn{flex:0 0 6.6em; font-size:12px; white-space:nowrap}
+  .tagrow .tv{font-size:11px}
+}
 </style>
 </head>
 <body>
@@ -427,188 +601,354 @@ footer b{color:var(--accent)}
   </div>
 </div>
 
-<div class="papertip">
-  整卷 10 题，题号和纸质卷完全一致。<b>每题只能提交一次</b>，选好／填好后点「对答案」，
-  提交后不能改 —— 成绩单反映的是你的真实正确率。做完记得看错题清单。
-</div>
+<nav class="toc" id="toc">
+  <a href="#main" class="active">单项选择</a>
+  <a href="#done">成绩单</a>
+</nav>
 
 <main>
-  <h1 class="doc">测试-初级语法-简单句-反意疑问句</h1>
-  <p class="doc-sub">简单句 · 反意疑问句 · 共 <span id="totalHint">10</span> 题</p>
+  <h1 class="doc">天津单选一测</h1>
+  <p class="doc-sub">高级测试 · 天津单选一测 · 单项选择 1–20 · 共 <span id="totalHint">—</span> 个判分点</p>
 
-  <div class="parthead">单项选择<em>选好后点「对答案」，只能提交一次</em></div>
-  <div id="mount-1"></div>
-  <div class="parthead">填空 · 完成句子<em>填好后点「对答案」，只能提交一次</em></div>
-  <div id="mount-3"></div>
+  <section class="chap" id="main">
+    <h2 class="chap-t"><span class="n">单项选择</span>1–20</h2>
+    <p class="chap-lead">从每题所给的四个选项中，选出可以填入空白处的最佳选项。</p>
+    
+    <div class="block-t">题目 <em>20 题 · 每题只能提交一次</em></div>
+    <div id="mount-main"></div>
+  </section>
 
-  <div class="tally" style="margin-top:26px">
-    <h3 id="tallyTitle">还没开始</h3>
-    <p class="sub" id="tallySub">答完题目后，这里会自动汇总你的正确率和错题。</p>
-    <div class="stats">
-      <div class="stat"><b id="sDone">0</b><span>已作答</span></div>
-      <div class="stat ok"><b id="sOk">0</b><span>答对</span></div>
-      <div class="stat no"><b id="sNo">0</b><span>答错</span></div>
-      <div class="stat"><b id="sRate">—</b><span>正确率</span></div>
-    </div>
-    <div class="block-t" style="margin-top:6px">错题清单 <em>点题号跳回去重看解析</em></div>
-    <ul class="wronglist" id="wrongList"><li class="empty" style="border:none">暂无错题。</li></ul>
-
-    <div class="checkin" id="checkin">
-      <div class="ci-title" id="ciTitle">截图打卡</div>
-      <p class="ci-text" id="ciText">全部做完后截图这张成绩单发到你的学习群吧。</p>
-      <div class="ci-meta">
-        <span>土妹英语 · 在线测试</span>
-        <span>测试-初级语法-简单句-反意疑问句</span>
-        <span id="ciDate"></span>
+  <section class="chap" id="done">
+    <h2 class="chap-t"><span class="n">小结</span>成绩单</h2>
+    <div class="tally">
+      <h3 id="tallyTitle">还没开始</h3>
+      <p class="sub" id="tallySub">答完题目后，这里会自动汇总你的正确率和错题。</p>
+      <div class="stats">
+        <div class="stat"><b id="sDone">0</b><span>已作答</span></div>
+        <div class="stat ok"><b id="sOk">0</b><span>答对</span></div>
+        <div class="stat no"><b id="sNo">0</b><span>答错</span></div>
+        <div class="stat"><b id="sRate">—</b><span>正确率</span></div>
       </div>
-      <div class="ci-brand"><b>土妹英语</b> ｜ 定制课程 让每一分努力都不被辜负</div>
+      <div class="block-t" style="margin-top:6px">错题清单 <em>点题号跳回去重看解析</em></div>
+      <ul class="wronglist" id="wrongList"><li class="empty" style="border:none">暂无错题。</li></ul>
+
+      <div class="checkin" id="checkin">
+        <div class="ci-title" id="ciTitle">截图打卡</div>
+        <p class="ci-text" id="ciText">全部做完后截图这张成绩单发到你的学习群吧。</p>
+        <div class="ci-meta">
+          <span>高级测试 · 天津单选一测</span>
+          <span>单项选择 · 20 个判分点</span>
+          <span id="ciDate"></span>
+        </div>
+        <div class="ci-brand"><b>土妹英语</b> ｜ 定制课程 让每一分努力都不被辜负</div>
+      </div>
     </div>
-  </div>
+  </section>
 </main>
 
 <footer>
-  <p>整卷 10 题，题号与纸质卷「测试-初级语法-简单句-反意疑问句」完全一致；解析为原卷【详解】原文。</p>
-  <p>每题<b>只能提交一次</b>，提交后展开解析并锁定。作答进度保存在本机浏览器里，关掉再打开不会丢。</p>
+  <p>本页是「高级测试 · 天津单选一测 · 单项选择」的交互版，短文、题目、选项与答案键均照原卷抄录；<b>文字解析是电子版另写的</b>（原卷只有答案键和扫码看讲解的二维码），由老师逐题审核后定稿。</p>
+  <p>考试模式：每题只能提交一次，判分后锁死。答题进度自动保存在本机浏览器里，关掉再打开不会丢；点右上角「重做」可清空重来。同一卷的各个题型各是一页，<b>进度各记各的</b>。</p>
   <p style="margin-top:10px"><b>土妹英语</b> ｜ 定制课程 让每一分努力都不被辜负</p>
 </footer>
 
-<script>
-/* 考试模式：每题只能提交一次，判分后锁死，没有「再做一遍」 */
-const EXAM_MODE = true;
 
-/* 题库 —— 按原卷题号顺序；解析取自原卷【详解】 */
-const BANK = [
+<div class="qr-modal" id="qrModal"><div><img src="" alt="二维码"><p>用手机相机或微信扫一扫，点页面任意处关闭</p></div></div>
+
+<script>
+
+/* 构建时注入 */
+const QR = {};
+const TEACHER = false;
+const EXAM_MODE = true;   /* 每题只能提交一次，判完锁死 */
+const BLOCK_SUBMIT = true;   /* 先做完再统一对答案 */
+const PAGE_MIN = 7;
+const PAGE_META = "第 1–20 题 · 共 20 题";
+const SEC_NAME = "单项选择";
+const BANK = { items: [
  {
   "id": "q1",
-  "no": "1",
-  "ex": "<p class=\"ju\"><b>句意</b>　我认为她看待问题的方式和其他人没有什么不同，是吗？</p><p>考查反意疑问句。反意疑问句“前肯后否，前否后肯”。句中陈述部分涉及到否定前移，是否定句；疑问部分用肯定，陈述部分主语the way，后用is，疑问部分用is it。故选A。</p>",
   "type": "choice",
-  "stem": "I don’t think the way she looks at the problem is different from others, _________?",
+  "no": "1",
+  "stem": "The quality of education in this small school is better than ______ in some larger schools.",
   "opts": [
-   "is it",
-   "isn’t it",
-   "do you",
-   "does she"
+   "that",
+   "one",
+   "it",
+   "this"
   ],
-  "a": 0
+  "a": 0,
+  "ex": "<p>比较的是<b>两个学校的「教育质量」</b>。替代<b>不可数名词</b>（quality）且后面带定语时，用 <b>that</b>。</p><p>B <code>one</code> 只能替<b>可数</b>名词单数；C <code>it</code> 指<b>同一个</b>东西（那就成了「这所学校的质量比它自己好」）；D <code>this</code> 不用于这种后指比较。</p><p><b>口诀：不可数 → that，可数单数 → the one / one，可数复数 → those。</b></p>"
  },
  {
   "id": "q2",
-  "no": "2",
-  "ex": "<p class=\"ju\"><b>句意</b>　告诉我最后一段的大意，好吗？</p><p>考查反义疑问句。陈述句是祈使句时，其后的反义疑问句一般使用will you或won’t you。故选B。</p>",
   "type": "choice",
-  "stem": "Tell me the main idea of the last paragraph, ________?",
+  "no": "2",
+  "stem": "Jack is late again. It is ______ of him to keep others waiting.",
   "opts": [
-   "do you",
-   "will you",
-   "don’t you",
-   "shall you"
+   "normal",
+   "ordinary",
+   "common",
+   "typical"
   ],
-  "a": 1
+  "a": 3,
+  "ex": "<p><code>It is <b>typical of</b> sb to do sth</code> = 「某人一贯如此」，带点无奈的语气，正好接住前面的 <code>late <b>again</b></code>。</p><p>normal 正常的、ordinary 普通的、common 常见的，都<b>不跟 of sb</b> 说「这人就是这样」。</p><p><b>形容词后面跟 of sb 还是 for sb，是天津卷的常考点：</b>描述<u>人的品性</u>用 of（kind / clever / careless / typical of you），只说<u>事情本身</u>用 for（It's important <b>for</b> you to…）。</p>"
  },
  {
   "id": "q3",
-  "no": "3",
-  "ex": "<p class=\"ju\"><b>句意</b>　——她没有在上周的多哈奥运会上获得金牌，是吗？——是的，她没有，但她做得很好，而且尽了最大的努力。</p><p>考查反意疑问句。根据“She didn’t get the gold medal in the Doha Games last week, did she?”可知这是反意疑问句，反意疑问句回答应遵循实际；根据“but she did a nice job and tried her best”可知，她没有获得金牌，故应用否定回答，排除C和D；再结合“did she”可知，此处应借用助动词did来回答，排除A。故选B。</p>",
   "type": "choice",
-  "stem": "—She didn’t get the gold medal in the Doha Games last week, did she? —_________, but she did a nice job and tried her best.",
+  "no": "3",
+  "stem": "By visiting schools, the expert hopes to ______ children to come up with more ideas to protect the environment.",
   "opts": [
-   "No, she wasn’t",
-   "No, she didn’t",
-   "Yes, she was",
-   "Yes, she did"
+   "interpret",
+   "defend",
+   "inspire",
+   "present"
   ],
-  "a": 1
+  "a": 2,
+  "ex": "<p><code><b>inspire</b> sb to do sth</code> = 激励某人去做某事。专家走访学校，是为了<b>激发</b>孩子想出更多点子。</p><p>interpret 解释/口译、defend 保卫、present 呈现，<b>都不能接 sb to do</b> 这个结构 —— <b>先看搭配能不能成立，再看意思。</b></p>"
  },
  {
   "id": "q4",
-  "no": "4",
-  "ex": "<p class=\"ju\"><b>句意</b>　收音机没有任何问题，对吗？</p><p>考查反意疑问句。根据“There is nothing wrong with the radio”可知，陈述部分带有nothing，附加问句用肯定式；陈述部分是there be句型，其后的附加问句仍用there。故选A。</p>",
   "type": "choice",
-  "stem": "There is nothing wrong with the radio, ________ ?",
+  "no": "4",
+  "stem": "For many affected families, cuts to school bus service will mean a big ______ in their morning and afternoon schedules.",
   "opts": [
-   "is there",
-   "is it",
-   "isn’t there",
-   "isn’t it"
+   "settlement",
+   "recommendation",
+   "adjustment",
+   "indication"
   ],
-  "a": 0
+  "a": 2,
+  "ex": "<p>校车减班 → 家庭的早晚<b>时间安排要作大调整</b> → <b>adjustment</b>（调整）。</p><p>settlement 解决/定居、recommendation 建议、indication 迹象，放进<code>a big ______ in their schedules</code> 都讲不通。</p><p><b>名词辨析题看它跟哪个介词、修饰哪个词</b>：这里是「在日程上的……」，只能是调整。</p>"
  },
  {
   "id": "q5",
+  "type": "choice",
   "no": "5",
-  "ex": "<p class=\"ju\"><b>句意</b>　它们现在在洞穴的一部分。反意疑问句遵循 “前肯后否”原则，故此处疑问句部分用否定形式。</p><p>根据“They were...”可知，疑问句部分是weren’t they。故填weren’t； they。</p>",
-  "type": "fill",
-  "stem": "They were now in a part of the cave. <span class='zh'>（改为反意疑问句）</span> They were now in a part of the cave, __1__ ?",
-  "blanks": [
-   {
-    "a": "weren’t they"
-   }
-  ]
+  "stem": "If we had taken such effective ______ much earlier, the river would not be polluted so seriously now.",
+  "opts": [
+   "treasures",
+   "efforts",
+   "measures",
+   "actions"
+  ],
+  "a": 2,
+  "ex": "<p><code><b>take measures</b></code>「采取措施」是固定搭配，且能被 effective 修饰。</p><p>B <code>efforts</code> 要说 <code>make efforts</code>；D <code>actions</code> 常说 <code>take action</code>（多用<b>不可数</b>）；A treasures 财宝，不沾边。</p><p>顺便看一眼这句的<b>错综时间虚拟语气</b>：从句 <code>had taken</code> 是对<u>过去</u>的假设，主句 <code>would not be</code> + <code>now</code> 是对<u>现在</u>的结果。</p>"
  },
  {
   "id": "q6",
+  "type": "choice",
   "no": "6",
-  "ex": "<p class=\"ju\"><b>句意</b>　在昨天的会议上，鲍勃几乎不和你说话。反意疑问句遵循前肯后否，前否后肯，陈述句中含有否定意义词hardly，疑问部分用肯定，</p><p>根据“talked”可知此处借助助动词did，主语用代词he。故填did；he。</p>",
-  "type": "fill",
-  "stem": "Bob hardly talked with you at the meeting yesterday. <span class='zh'>（改为反义疑问句）</span> Bob hardly talked with you at the meeting yesterday, __1__ ?",
-  "blanks": [
-   {
-    "a": "did he"
-   }
-  ]
+  "stem": "She spent a lot of time helping her father to ______ the stamps which he had collected for years.",
+  "opts": [
+   "make up",
+   "pick up",
+   "sort out",
+   "put off"
+  ],
+  "a": 2,
+  "ex": "<p><code><b>sort out</b></code> = 整理、分类。帮父亲<b>整理</b>集了多年的邮票。</p><p>make up 编造/化妆/构成、pick up 捡起/搭载/学会、put off 推迟，都和「邮票」搭不上。</p>"
  },
  {
   "id": "q7",
+  "type": "choice",
   "no": "7",
-  "ex": "<p class=\"ju\"><b>句意</b>　黛西上学前对电几乎一无所知，是么？反意疑问句遵循“前肯定后否定，前否定后肯定”原则，本题中陈述部分有“hardly”，含有否定意义，所以疑问部分用肯定形式；主语“Daisy”为第三人称单数，谓语动词“knows”为一般现在时，所以反义疑问句的疑问部分主语用she，助动词用does。故填does；she。</p>",
-  "type": "fill",
-  "stem": "Daisy hardly knows anything about electricity before she goes to school. <span class='zh'>（改为反意疑问句）</span> Daisy hardly knows anything about electricity before she goes to school, __1__ ?",
-  "blanks": [
-   {
-    "a": "does she"
-   }
-  ]
+  "stem": "I want to put the photo ______ I can see it every day, because it can remind me of the happy days ______ I spent in the countryside.",
+  "opts": [
+   "in which; when",
+   "where; when",
+   "in which; which",
+   "where; which"
+  ],
+  "a": 3,
+  "ex": "<p><b>两个空分开判，各看各的从句缺什么。</b></p><p>第 1 空：<code>put the photo ______ I can see it every day</code> —— 从句 <code>I can see it</code> 主谓宾<b>齐了</b>，缺的是<b>地点状语</b>「放在……的地方」→ <b>where</b>。</p><p>第 2 空：<code>the happy days ______ I <b>spent</b></code> —— spent <b>缺宾语</b>，所以要关系代词 → <b>which</b>。<b>days 前面有 when 是常见陷阱：只有从句不缺成分时才用 when。</b></p>"
  },
  {
   "id": "q8",
+  "type": "choice",
   "no": "8",
-  "ex": "<p class=\"ju\"><b>句意</b>　今年他几乎没有买新衣服。陈述部分有hardly，表否定，结合“He has”可知改为反意疑问句时疑问部分用has he。故填has；he。</p>",
-  "type": "fill",
-  "stem": "He has hardly bought any new clothes this year. <span class='zh'>（改为反疑问句）</span> He has hardly bought any new clothes this year, __1__ ?",
-  "blanks": [
-   {
-    "a": "has he"
-   }
-  ]
+  "stem": "The young couple will have to rent a house, for their newly bought one ______.",
+  "opts": [
+   "is being decorated",
+   "was decorated",
+   "will decorate",
+   "had decorated"
+  ],
+  "a": 0,
+  "ex": "<p>要租房是因为新买的房子<b>正在装修</b>（现在进行时的<b>被动</b>）→ <b>is being decorated</b>。</p><p>房子和 decorate 是被动关系，C、D 是主动，直接排除；B 一般过去时被动「当时被装修过」解释不了「现在得去租房」。</p><p><b>时态 + 语态两步走：先由「为什么现在要租房」定现在进行，再由主语是物定被动。</b></p>"
  },
  {
   "id": "q9",
+  "type": "choice",
   "no": "9",
-  "ex": "<p class=\"ju\"><b>句意</b>　彼得昨天做饭时差点伤到自己。</p><p>分析句子结构可知，此处应为“肯定陈述+ 否定疑问”结构的反意疑问句；陈述部分主语是Peter，疑问部分应用he代替；谓语是hurt，时态为一般过去时，疑问部分助动词应用didn’t。故填didn’t；he。</p>",
-  "type": "fill",
-  "stem": "Peter almost hurt himself while cooking the meal yesterday. <span class='zh'>（改为反意疑问句）</span> Peter almost hurt himself while cooking the meal yesterday, __1__ ?",
-  "blanks": [
-   {
-    "a": "didn’t he"
-   }
-  ]
+  "stem": "The girl ______ in an orange astronaut suit was the only student at her school to join the important activity on April 20.",
+  "opts": [
+   "dressing",
+   "to be dressed",
+   "having dressed",
+   "dressed"
+  ],
+  "a": 3,
+  "ex": "<p><code>be <b>dressed in</b></code>「穿着」，这里省略了 who was，用<b>过去分词</b>作后置定语 → <b>dressed</b>。</p><p><code>dress</code> 作「给……穿衣」时是及物动词，女孩是「<b>被</b>穿上」的状态，所以用 done 不用 doing。记住三个都表「穿着」的说法：<code>dressed in / in / wearing</code>。</p>"
  },
  {
   "id": "q10",
+  "type": "choice",
   "no": "10",
-  "ex": "<p class=\"ju\"><b>句意</b>　简这个月几乎没买什么蔬菜。陈述部分hardly“几乎不”，表示否定意义，所以反问部分用肯定形式。本句时态为现在完成时，所以助动词用has，主语Jane用she指代。故填has；she。</p>",
-  "type": "fill",
-  "stem": "Jane has hardly bought any vegetables this month. <span class='zh'>（改反意疑问句）</span> Jane has hardly bought any vegetables this month, __1__ ?",
-  "blanks": [
-   {
-    "a": "has she"
-   }
-  ]
+  "stem": "Our country has become the first country in the world ______ a spaceship on the far side of the moon successfully.",
+  "opts": [
+   "to land",
+   "landed",
+   "landing",
+   "having landed"
+  ],
+  "a": 0,
+  "ex": "<p><code>the first / the second / the last / the only + 名词</code> 后面用<b>不定式</b>作定语 → <b>to land</b>。</p><p>这是固定考点：<code>He was the first person <b>to arrive</b>.</code> 序数词、最高级、the only 后面都用 to do。</p>"
+ },
+ {
+  "id": "q11",
+  "type": "choice",
+  "no": "11",
+  "stem": "Linda took a taxi and arrived at the company in twenty minutes, only ______ that the meeting had been put off.",
+  "opts": [
+   "to tell",
+   "to be told",
+   "telling",
+   "being told"
+  ],
+  "a": 1,
+  "ex": "<p><code><b>only to do</b></code> 表示<b>出乎意料的结果</b>（不料、结果却）。Linda 是<b>被</b>告知的，所以用不定式的被动 → <b>to be told</b>。</p><p><b>两步都要走对：</b>先由 only 定不定式（排除 C、D），再由「她被告知」定被动（排除 A）。</p>"
+ },
+ {
+  "id": "q12",
+  "type": "choice",
+  "no": "12",
+  "stem": "What is the most important is the way ______ people have worked with each other to protect the environment.",
+  "opts": [
+   "in which",
+   "which",
+   "where",
+   "how"
+  ],
+  "a": 0,
+  "ex": "<p>先行词是 <code>the way</code>，从句 <code>people have worked with each other</code> <b>不缺主语也不缺宾语</b>，缺的是<b>方式状语</b> → 用 <b>in which</b>。</p><p><code>the way</code> 后面的定语从句只有<b>三种</b>写法：<code>the way <b>in which</b></code>、<code>the way <b>that</b></code>、<code>the way</code>（什么都不加）。<b>the way how 是错的</b>，所以 D 出局；B which 要求从句缺主/宾；C where 用于地点先行词。</p>"
+ },
+ {
+  "id": "q13",
+  "type": "choice",
+  "no": "13",
+  "stem": "When you come across a word that you don't recognise, try to ______ the meaning from the context of the word.",
+  "opts": [
+   "pick up",
+   "work out",
+   "show off",
+   "note down"
+  ],
+  "a": 1,
+  "ex": "<p><code><b>work out</b></code> 在这里是「推断出、算出」。碰到生词，试着<b>从上下文推出</b>词义。</p><p>pick up 无意中学会（不强调「推」）、show off 炫耀、note down 记下来，都不是<code>from the context</code>（靠上下文）这个方式所指向的动作。</p>"
+ },
+ {
+  "id": "q14",
+  "type": "choice",
+  "no": "14",
+  "stem": "When my father feels annoyed, I dare not ask him any questions ______ he scolds me.",
+  "opts": [
+   "as though",
+   "in case",
+   "so that",
+   "even if"
+  ],
+  "a": 1,
+  "ex": "<p><code><b>in case</b></code> = 以免、万一。父亲心烦时不敢问问题，<b>免得</b>挨骂。</p><p>as though 好像、so that 以便（表<u>想要</u>的目的，挨骂不是想要的）、even if 即使，都不合逻辑。</p><p><b>in case 和 so that 的分水岭：怕它发生用 in case，想它发生用 so that。</b></p>"
+ },
+ {
+  "id": "q15",
+  "type": "choice",
+  "no": "15",
+  "stem": "We'd better take umbrellas—I'm sure it ______ when we arrive in London; it's always wet there at this time of year.",
+  "opts": [
+   "will rain",
+   "is raining",
+   "will be raining",
+   "would rain"
+  ],
+  "a": 2,
+  "ex": "<p>时间点是<b>将来</b>（when we arrive in London），描述的是那一刻<b>正在下</b> → <b>将来进行时 will be raining</b>。</p><p>A <code>will rain</code> 只说「会下」，接不住「我们到的时候」这个<b>时间点</b>；B 是现在进行，时间错；D 是过去将来。</p><p><b>「将来某个时刻正在发生」= will be doing</b>，这是天津卷的高频点。</p>"
+ },
+ {
+  "id": "q16",
+  "type": "choice",
+  "no": "16",
+  "stem": "—Will my car be ready by the end of this week?<br>—It ______ be, sir. I will give you a call if it is ready.",
+  "opts": [
+   "should",
+   "shall",
+   "would",
+   "must"
+  ],
+  "a": 0,
+  "ex": "<p><code><b>should</b></code> 表示「<b>按理说应该</b>」——有把握但不打包票，所以后面才补一句「好了我给你打电话」。</p><p>B <code>shall</code> 用于第二、三人称时是说话人的<b>命令或允诺</b>，口气不对；C <code>would</code> 没有这层「推测」义；D <code>must</code> 是<b>很有把握</b>的肯定推测，和后半句的不确定矛盾。</p>"
+ },
+ {
+  "id": "q17",
+  "type": "choice",
+  "no": "17",
+  "stem": "I promise to make you all proud again in ______ direction life may take me.",
+  "opts": [
+   "however",
+   "wherever",
+   "whenever",
+   "whatever"
+  ],
+  "a": 3,
+  "ex": "<p>空后面紧跟<b>名词</b> <code>direction</code>，只有 <b>whatever</b> 能当<b>限定词</b>修饰名词（＝ no matter what）。</p><p>however / wherever / whenever 都是<b>副词性</b>的，后面不能直接跟名词（however 只能修饰形容词或副词，如 however hard）。</p><p><b>先看空后面是什么词：跟名词 → whatever / whichever。</b></p>"
+ },
+ {
+  "id": "q18",
+  "type": "choice",
+  "no": "18",
+  "stem": "The place ______ the bridge is supposed to be built should be ______ the cross-river traffic is the heaviest.",
+  "opts": [
+   "which; that",
+   "at which; where",
+   "at which; that",
+   "where; in which"
+  ],
+  "a": 1,
+  "ex": "<p>第 1 空：先行词 <code>The place</code>，从句 <code>the bridge is supposed to be built</code> <b>不缺成分</b>，缺地点状语 → <b>where</b>，也就是 <b>at which</b>（介词 + 关系代词）。</p><p>第 2 空：<code>should be ______ …</code> —— 系动词 be 后面缺<b>表语从句</b>，意思是「应当在<b>……的地方</b>」→ <b>where</b>。</p><p><b>两个空考的是同一件事的两种身份</b>：前一个是定语从句（可以写成 where 或 at which），后一个是表语从句（只能用 where）。that 引导表语从句时不能充当成分，这里不行。</p>"
+ },
+ {
+  "id": "q19",
+  "type": "choice",
+  "no": "19",
+  "stem": "There was snow everywhere ______ the shapes of things were difficult to identify.",
+  "opts": [
+   "so that",
+   "now that",
+   "for fear that",
+   "on condition that"
+  ],
+  "a": 0,
+  "ex": "<p><code><b>so that</b></code> 在这里表<b>结果</b>：到处是雪，<b>以至于</b>东西的形状都难以辨认。</p><p>now that 既然（表原因）、for fear that 唯恐、on condition that 条件是，都说不通。</p><p><b>so that 有两个意思，靠时态区分</b>：从句里有 can / could / would 多半表<u>目的</u>，像这里用一般过去时陈述事实，就是<u>结果</u>。</p>"
+ },
+ {
+  "id": "q20",
+  "type": "choice",
+  "no": "20",
+  "stem": "—The drama we saw last night was very romantic.<br>—______. I found the acting too bad to be romantic.",
+  "opts": [
+   "I can't agree more",
+   "I've got no idea",
+   "That goes without saying",
+   "Well, I beg to differ"
+  ],
+  "a": 3,
+  "ex": "<p>后半句 <code>I found the acting <b>too bad</b> to be romantic</code> 是明确的<b>反对</b>，所以空处要选一句表示<b>不同意</b>的话 → <b>Well, I beg to differ</b>（恕我不能苟同）。</p><p>A <code>I can't agree more</code> 是「完全同意」（<b>不是</b>「不能再同意了」，别翻反）；C <code>That goes without saying</code> 是「那还用说」，也是同意；B「我不知道」答非所问。</p><p><b>情景交际题先看下一句的态度，再回头挑话。</b></p>"
  }
-];
+] };
 
-const STORE_KEY = "tumei-test-ceshi-fy-1-v1";
+const STORE_KEY = "tumei-gz-ceshi-tj-danxuan-v1";
 let state = {};
 try { state = JSON.parse(localStorage.getItem(STORE_KEY) || "{}"); } catch(e){ state = {}; }
 const save = () => { try{ localStorage.setItem(STORE_KEY, JSON.stringify(state)); }catch(e){} };
@@ -1255,11 +1595,131 @@ function refreshTally(){
 }
 
 
+
+/* ================================================================
+   计时条
+   ----------------------------------------------------------------
+   语法填空（renderCloze）本来就自带一个，这里把同样的东西给完形、七选五、
+   阅读/单选也配上，做法一致：
+     · **点进去才开始走**（不是打开页面就走）—— 学生可能先读题再动手
+     · 超过建议用时变橙，但不打断，只是提醒
+     · 每 5 秒存一次，刷新回来接着走；判完就停住
+   ================================================================ */
+function fmtSecs(s){ const m = Math.floor(s / 60), x = s % 60; return m + ":" + (x < 10 ? "0" : "") + x; }
+
+function mkTimerBar(metaHtml, minutes, key, extraClass){
+  const bar = document.createElement("div");
+  bar.className = "cz-bar" + (extraClass ? " " + extraClass : "");
+  bar.innerHTML = '<span class="cz-meta">' + metaHtml + '</span>' +
+                  '<span class="bar-spacer" style="flex:1"></span>' +
+                  '<span class="cz-timer">用时 0:00</span>' +
+                  '<span class="cz-meta">建议 ' + minutes + ' 分钟</span>';
+  const el = bar.querySelector(".cz-timer");
+  let secs = (state[key] | 0), iv = null, stopped = false;
+  function paint(){
+    el.textContent = "用时 " + fmtSecs(secs);
+    el.classList.toggle("over", secs > minutes * 60);
+  }
+  function tick(){ secs++; paint(); if(secs % 5 === 0){ state[key] = secs; save(); } }
+  paint();
+  return {
+    bar: bar,
+    start: function(){ if(iv || stopped) return; iv = setInterval(tick, 1000); },
+    stop:  function(){ stopped = true; if(iv) clearInterval(iv); iv = null;
+                       state[key] = secs; save(); paint(); },
+    secs:  function(){ return secs; }
+  };
+}
+
+/* 阅读理解 / 单项选择这类「一题一张卡」的页面。
+   ----------------------------------------------------------------
+   **先把题全做完，再一次对答案**（老师定的）—— 靠引擎自带的整块提交：
+   页面同时开 EXAM_MODE 和 BLOCK_SUBMIT，renderQ 就不给每题单独的「对答案」了，
+   只在题目末尾挂一条「本组对答案」，点一次判全部；EXAM 保证判完不给重做。
+   计时条单独挂在短文上面，点/滚/敲任一动作开始走，判完停住。 */
+function renderTimedList(){
+  const host = document.getElementById("mount-main");
+  const sec  = document.getElementById("main");
+  const items = BANK.items;
+  const t = mkTimerBar(PAGE_META, PAGE_MIN, "tpage", "timerbar");
+  /* 计时条放在**短文上面**（没有短文就在题目上面）—— 阅读那 7 分钟是连读带做，
+     放在短文下面学生读的时候根本看不见。 */
+  const psg = sec.querySelector(".psg");
+  sec.insertBefore(t.bar, psg || host.previousElementSibling || host);
+  items.forEach(q => renderQ(q, host, SEC_NAME));
+
+  /* 末尾挂一条「本组对答案」，一次判完整页 */
+  addBlockBar("mount-main", SEC_NAME);
+
+  const allDone = () => items.every(q => state[q.id] && state[q.id].done);
+  if(allDone()){ t.stop(); return; }
+  /* 阅读题是「先读半天再动手」，只等点击会把读的时间漏掉 ——
+     所以点一下、滚一下、敲一下键，哪个先来就从哪个开始计时。 */
+  const kick = () => t.start();
+  window.addEventListener("scroll", kick, { passive: true });
+  document.addEventListener("keydown", kick);
+  sec.addEventListener("pointerdown", kick);
+  /* 「本组对答案」在 mount-main 外面，点它不会冒泡到 host，得单独挂一下 */
+  const bar = host.nextElementSibling;
+  if(bar && bar.classList.contains("blockbar"))
+    bar.addEventListener("click", () => { if(allDone()) t.stop(); });
+}
+
+
 /* ---- 启动 ---- */
-const BYID = {}; BANK.forEach(q => BYID[q.id] = q);
-["q1", "q2", "q3", "q4"].forEach(id => renderQ(BYID[id], document.getElementById("mount-1"), "单项选择"));
-["q5", "q6", "q7", "q8", "q9", "q10"].forEach(id => renderQ(BYID[id], document.getElementById("mount-3"), "填空"));
+renderTimedList();
 refreshTally();
+/* 二维码注入 + 放大 */
+(function(){
+  /* img 的 src 写成 qr:名字 ，名字就是 assets/<讲义名>/名字.png 的文件名 */
+  document.querySelectorAll(".qr").forEach(box => {
+    const img = box.querySelector("img");
+    const k = img.getAttribute("src") || "";
+    if(k.indexOf("qr:") === 0){
+      const v = QR[k.slice(3)];
+      if(v) img.src = v; else box.style.display = "none";   /* 没配图就不显示这个胶囊 */
+    }
+    box.addEventListener("click", () => {
+      const m = document.getElementById("qrModal");
+      m.querySelector("img").src = img.src; m.classList.add("show");
+    });
+  });
+  /* 题目里的插图（饼图、价目表这类）：一样用 qr:名字 引用，但不套 .qr 胶囊，
+     所以上面那轮扫不到 —— 这里单独补一遍。点一下同样能放大看。 */
+  document.querySelectorAll('img[src^="qr:"]').forEach(img => {
+    const v = QR[img.getAttribute("src").slice(3)];
+    if(v){
+      img.src = v;
+      img.addEventListener("click", () => {
+        const m = document.getElementById("qrModal");
+        m.querySelector("img").src = img.src; m.classList.add("show");
+      });
+    } else { img.style.display = "none"; }
+  });
+  document.getElementById("qrModal").addEventListener("click", e => e.currentTarget.classList.remove("show"));
+})();
+
+document.getElementById("btnReset").addEventListener("click", () => {
+  if(!confirm("清空所有作答记录，重新开始？")) return;
+  try{ localStorage.removeItem(STORE_KEY); }catch(e){}
+  location.reload();
+});
+
+/* 目录高亮（老浏览器没有 IntersectionObserver 就跳过，不影响答题） */
+if(typeof IntersectionObserver !== "undefined"){
+  const links = [].slice.call(document.querySelectorAll("nav.toc a"));
+  const secs = links.map(a => document.querySelector(a.getAttribute("href")));
+  const io = new IntersectionObserver(es => {
+    es.forEach(e => { if(e.isIntersecting){
+      links.forEach(l=>l.classList.remove("active"));
+      const i = secs.indexOf(e.target); if(i>=0) links[i].classList.add("active");
+    }});
+  }, {rootMargin:"-40% 0px -55% 0px"});
+  secs.forEach(s => s && io.observe(s));
+}
 </script>
+</body>
+</html>
+
 </body>
 </html>

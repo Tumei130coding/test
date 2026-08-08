@@ -140,21 +140,24 @@ table.drill td.zh{color:var(--ink-2); font-size:12.5px}
 }
 .drillbar button:hover{border-color:var(--accent); color:var(--accent)}
 /* 窄屏：压紧字号让四列塞进手机，不用横向滚 */
+/* 本组对答案栏 + 整块模式的选中态。
+   原来整段写在 @media(max-width:600px) 里，宽屏下这条栏没有边框、按钮和文字贴在一起，
+   而且【选中但还没判】的选项在桌面上完全没有反馈 —— 2026-08-08 移到顶层，两种宽度都生效。*/
+.blockbar{
+  display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+  margin:2px 0 20px; padding:12px 16px;
+  background:var(--card); border:1px solid var(--line); border-radius:10px;
+}
+.blockbar .go{margin:0}
+.bb-stat{font-size:13px; color:var(--ink-3)}
+.bb-stat.warn{color:var(--warn); font-weight:600}
+.bb-stat.sum{color:var(--ink); font-weight:600; font-size:13.5px}
+/* 整块模式下，选中但还没判的选项／按钮 */
+.opt.picked{border-color:var(--ink-2); background:#f4f1ec}
+.jb.sel{background:var(--ink); color:#fff; border-color:var(--ink)}
+
 @media(max-width:600px){
   table.drill{width:100%; min-width:0; table-layout:fixed}
-  /* 本组对答案栏 */
-  .blockbar{
-    display:flex; align-items:center; gap:12px; flex-wrap:wrap;
-    margin:2px 0 20px; padding:12px 16px;
-    background:var(--card); border:1px solid var(--line); border-radius:10px;
-  }
-  .blockbar .go{margin:0}
-  .bb-stat{font-size:13px; color:var(--ink-3)}
-  .bb-stat.warn{color:var(--warn); font-weight:600}
-  .bb-stat.sum{color:var(--ink); font-weight:600; font-size:13.5px}
-  /* 整块模式下，选中但还没判的选项／按钮 */
-  .opt.picked{border-color:var(--ink-2); background:#f4f1ec}
-  .jb.sel{background:var(--ink); color:#fff; border-color:var(--ink)}
 
   /* 题目插图（饼图、价目表）*/
   .qfig{margin:10px 0 2px; text-align:center}
@@ -826,6 +829,45 @@ a.card:hover .arrow{color:var(--accent)}
       <span class="arrow">›</span>
     </a>
   </div>
+  <div class="grp">高级测试 · 二测<span>四个题型各一页　每题只能提交一次　各页进度各记各的</span></div>
+  <div class="cards">
+    <a class="card" href="gz-ceshi-02-read/">
+      <span class="idx">71</span>
+      <span class="txt"><span class="t">高级测试 · 二测 · 阅读理解</span><span class="s">32–35 · 4 个判分点</span></span>
+      <span class="arrow">›</span>
+    </a>
+    <a class="card" href="gz-ceshi-02-seven/">
+      <span class="idx">72</span>
+      <span class="txt"><span class="t">高级测试 · 二测 · 七选五</span><span class="s">36–40 · 5 个判分点</span></span>
+      <span class="arrow">›</span>
+    </a>
+    <a class="card" href="gz-ceshi-02-cloze/">
+      <span class="idx">73</span>
+      <span class="txt"><span class="t">高级测试 · 二测 · 完形填空</span><span class="s">36–55 · 20 个判分点</span></span>
+      <span class="arrow">›</span>
+    </a>
+    <a class="card" href="gz-ceshi-02-gap/">
+      <span class="idx">74</span>
+      <span class="txt"><span class="t">高级测试 · 二测 · 语法填空</span><span class="s">61–70 · 10 个判分点</span></span>
+      <span class="arrow">›</span>
+    </a>
+  </div>
+  <div class="grp">高级测试 · 三测<span>原素材里三测只有阅读理解这一张卷</span></div>
+  <div class="cards">
+    <a class="card" href="gz-ceshi-03-read/">
+      <span class="idx">75</span>
+      <span class="txt"><span class="t">高级测试 · 三测 · 阅读理解</span><span class="s">32–35 · 4 个判分点</span></span>
+      <span class="arrow">›</span>
+    </a>
+  </div>
+  <div class="grp">高级测试 · 天津单选<span>定语从句　状语从句引导词　非谓语　时态语态　情景交际</span></div>
+  <div class="cards">
+    <a class="card" href="gz-ceshi-tj-danxuan/">
+      <span class="idx">76</span>
+      <span class="txt"><span class="t">高级测试 · 天津单选一测</span><span class="s">1–20 · 20 个判分点</span></span>
+      <span class="arrow">›</span>
+    </a>
+  </div>
 
   <div class="tip">
     <b>怎么用：</b>每题做完立刻判对错并展开解析；答题进度存在你自己的手机／电脑里，关掉再打开不会丢。<br>
@@ -836,7 +878,7 @@ a.card:hover .arrow{color:var(--accent)}
 </main>
 
 <footer>
-  <p>共 70 份练习。内容依据「土妹英语」定制讲义制作。</p>
+  <p>共 76 份练习。内容依据「土妹英语」定制讲义制作。</p>
   <p style="margin-top:8px"><b>土妹英语</b> ｜ 定制课程 让每一分努力都不被辜负</p>
 </footer>
 

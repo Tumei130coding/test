@@ -140,21 +140,24 @@ table.drill td.zh{color:var(--ink-2); font-size:12.5px}
 }
 .drillbar button:hover{border-color:var(--accent); color:var(--accent)}
 /* 窄屏：压紧字号让四列塞进手机，不用横向滚 */
+/* 本组对答案栏 + 整块模式的选中态。
+   原来整段写在 @media(max-width:600px) 里，宽屏下这条栏没有边框、按钮和文字贴在一起，
+   而且【选中但还没判】的选项在桌面上完全没有反馈 —— 2026-08-08 移到顶层，两种宽度都生效。*/
+.blockbar{
+  display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+  margin:2px 0 20px; padding:12px 16px;
+  background:var(--card); border:1px solid var(--line); border-radius:10px;
+}
+.blockbar .go{margin:0}
+.bb-stat{font-size:13px; color:var(--ink-3)}
+.bb-stat.warn{color:var(--warn); font-weight:600}
+.bb-stat.sum{color:var(--ink); font-weight:600; font-size:13.5px}
+/* 整块模式下，选中但还没判的选项／按钮 */
+.opt.picked{border-color:var(--ink-2); background:#f4f1ec}
+.jb.sel{background:var(--ink); color:#fff; border-color:var(--ink)}
+
 @media(max-width:600px){
   table.drill{width:100%; min-width:0; table-layout:fixed}
-  /* 本组对答案栏 */
-  .blockbar{
-    display:flex; align-items:center; gap:12px; flex-wrap:wrap;
-    margin:2px 0 20px; padding:12px 16px;
-    background:var(--card); border:1px solid var(--line); border-radius:10px;
-  }
-  .blockbar .go{margin:0}
-  .bb-stat{font-size:13px; color:var(--ink-3)}
-  .bb-stat.warn{color:var(--warn); font-weight:600}
-  .bb-stat.sum{color:var(--ink); font-weight:600; font-size:13.5px}
-  /* 整块模式下，选中但还没判的选项／按钮 */
-  .opt.picked{border-color:var(--ink-2); background:#f4f1ec}
-  .jb.sel{background:var(--ink); color:#fff; border-color:var(--ink)}
 
   /* 题目插图（饼图、价目表）*/
   .qfig{margin:10px 0 2px; text-align:center}
@@ -419,6 +422,49 @@ footer b{color:var(--accent)}
   .pk.picked{border-color:var(--ink); background:var(--ink); color:#fff}
   .pk.is-ok{border-color:var(--ok-line); background:#d5f0de; color:var(--ok)}
   .pk.is-no{border-color:var(--no); background:#f8d9d6; color:var(--no)}
+  /* 阅读/单选那种「一题一张卡」的页面，计时条单独成条，得自己有个框 */
+  .cz-bar.timerbar{border:1px solid var(--line); border-radius:10px; background:#faf8f5;
+                   padding:9px 14px; margin:12px 0 6px}
+  /* ---------- 七选五：点选 → 放置 ---------- */
+  /* 小标题的加粗在 .psg 里定义过，.cz-text 用的是另一套样式，要再写一遍 */
+  .cz-text p.sub-h{font-weight:700; margin:14px 0 8px}
+  .sv-text .sv-slot{
+    display:inline; border-bottom:2px dashed var(--line); border-radius:3px;
+    background:#faf8f5; padding:1px 4px; cursor:pointer; transition:.12s;
+  }
+  .sv-slot .sv-n{
+    font-style:normal; font-family:var(--sans); font-size:10.5px; font-weight:700; color:#fff;
+    background:var(--ink-3); border-radius:3px; padding:0 4px; vertical-align:3px; margin-right:4px;
+  }
+  .sv-slot .sv-k{font-family:var(--sans); font-size:11.5px; font-weight:700; color:var(--accent); margin-right:4px}
+  .sv-slot .sv-ph{font-family:var(--sans); font-size:12px; color:var(--ink-3)}
+  .sv-slot.hot{background:#fbeeec; border-bottom-color:var(--accent);
+               box-shadow:0 0 0 2px rgba(192,57,43,.14)}
+  .sv-slot.hot .sv-ph{color:var(--accent)}
+  .sv-slot.filled{background:#f3f7f4; border-bottom-style:solid}
+  .sv-slot.r-ok{background:var(--ok-soft); border-bottom-color:var(--ok)}
+  .sv-slot.r-ok .sv-n{background:var(--ok)}
+  .sv-slot.r-no{background:#fdf0ee; border-bottom-color:var(--no)}
+  .sv-slot.r-no .sv-n{background:var(--no)}
+  /* 选项池 */
+  .sv-pool{margin:16px 0 2px; border-top:1px dashed var(--line); padding-top:13px}
+  .sv-tip{font-size:12.5px; color:var(--ink-2); line-height:1.9; margin-bottom:9px}
+  .sv-tip b{color:var(--accent)}
+  .sv-opts{display:grid; gap:7px}
+  .sv-opt{
+    display:flex; gap:9px; align-items:baseline; padding:8px 11px;
+    border:1px solid var(--line); border-radius:9px; background:#fff;
+    cursor:pointer; user-select:none; transition:.12s;
+  }
+  .sv-opt .k{flex:0 0 auto; font-family:var(--sans); font-size:12px; font-weight:700;
+             color:#fff; background:var(--ink-2); border-radius:4px; padding:1px 6px}
+  .sv-opt .t{font-family:var(--serif); font-size:14.5px; line-height:1.7}
+  .sv-opt:hover{border-color:var(--accent)}
+  .sv-opt.armed{border-color:var(--ink); box-shadow:0 0 0 2px rgba(31,35,40,.12)}
+  .sv-opt.armed .k{background:var(--ink)}
+  .sv-opt.used{opacity:.32; cursor:default; background:#faf8f5}
+  .sv-opt.used:hover{border-color:var(--line)}
+  .sv-opt.is-key .k{background:var(--ok)}
   /* ---------- 完形填空：短文里的空位 + 摊开的答案区 ---------- */
   .mc-b{padding:0 1px}
   .mc-b .mc-pick{font-family:var(--serif); font-weight:700; color:var(--ink-3);
@@ -458,6 +504,10 @@ footer b{color:var(--accent)}
     #mount-main .q-head{flex-wrap:wrap}
     #mount-main .q-head .q-stem{flex:1 0 100%; margin-top:7px}
     .ecline{font-size:14.5px}
+    .sv-opt{padding:7px 9px}
+    .sv-opt .t{font-size:13.5px}
+    .sv-tip{font-size:12px}
+    .sv-slot .sv-ph{font-size:11.5px}
     /* 手机上四个选项排两列；选项长的（self-conscious 那题）自己折行 */
     .mc-list{grid-template-columns:repeat(2,1fr); gap:5px}
     .mo{font-size:13px; padding:4px 6px}
@@ -466,7 +516,6 @@ footer b{color:var(--accent)}
     .sevenopts .og{padding:12px 12px}
     .sevenopts .og li{font-size:13.5px}
   }
-
 
 /* ---------- 语篇填空 ---------- */
 .cloze{padding:18px 20px 16px}
@@ -477,6 +526,8 @@ footer b{color:var(--accent)}
 .cz-timer{font-family:var(--serif); font-size:14.5px; font-weight:700; color:var(--ink-2); font-variant-numeric:tabular-nums}
 .cz-timer.over{color:var(--warn)}
 .cz-text{font-family:var(--serif); font-size:16.5px; line-height:2.45; text-align:justify}
+.cz-text p{margin:0 0 12px}
+.cz-text p:last-child{margin-bottom:0}
 .cz-hint{font-style:italic; color:var(--ink-3)}
 .cz-b{display:inline-block; white-space:nowrap; scroll-margin-top:112px}
 .cz-n{
@@ -574,10 +625,8 @@ footer b{color:var(--accent)}
         <div class="stat"><b id="sDone">0</b><span>已作答</span></div>
         <div class="stat ok"><b id="sOk">0</b><span>答对</span></div>
         <div class="stat no"><b id="sNo">0</b><span>答错</span></div>
-
         <div class="stat"><b id="sRate">—</b><span>正确率</span></div>
       </div>
-
       <div class="block-t" style="margin-top:6px">错题清单 <em>点题号跳回去重看解析</em></div>
       <ul class="wronglist" id="wrongList"><li class="empty" style="border:none">暂无错题。</li></ul>
 
@@ -596,8 +645,8 @@ footer b{color:var(--accent)}
 </main>
 
 <footer>
-  <p>本页是「一测 · 完形填空」的交互版，短文、题目、选项与答案键均照原卷抄录；<b>文字解析是电子版另写的</b>（原卷只有答案键和扫码看讲解的二维码），由老师逐题审核后定稿。</p>
-  <p>考试模式：每题只能提交一次，判分后锁死。答题进度自动保存在本机浏览器里，关掉再打开不会丢；点右上角「重做」可清空重来。一测的各个题型各是一页，<b>进度各记各的</b>。</p>
+  <p>本页是「高级测试 · 一测 · 完形填空」的交互版，短文、题目、选项与答案键均照原卷抄录；<b>文字解析是电子版另写的</b>（原卷只有答案键和扫码看讲解的二维码），由老师逐题审核后定稿。</p>
+  <p>考试模式：每题只能提交一次，判分后锁死。答题进度自动保存在本机浏览器里，关掉再打开不会丢；点右上角「重做」可清空重来。同一卷的各个题型各是一页，<b>进度各记各的</b>。</p>
   <p style="margin-top:10px"><b>土妹英语</b> ｜ 定制课程 让每一分努力都不被辜负</p>
 </footer>
 
@@ -610,7 +659,7 @@ footer b{color:var(--accent)}
 const QR = {};
 const TEACHER = false;
 const EXAM_MODE = true;   /* 每题只能提交一次，判完锁死 */
-const MC_MIN = 15;
+const MC_MIN = 8;
 const MC_TEXT = "I went to the beach nearby for some quality time with myself. After a __41__ week, all I wanted was a book and a good snack.\n\nIt was a lovely time watching kids __42__ playing in the water, building sandcastles and sharing __43__ with their families.\n\nAfter a few hours, as I was leaving, I noticed a little girl playing by herself on the beach. She had built a little __44__ with a moat（护城河）around it and was now trying to fill the canal with __45__.\n\nUnfortunately, there was no container around to carry water. She was playing __46__, unlike most of the other kids. She would go to the waves, __47__ her hands and then walk back to her little castle. __48__ not much of the water was making it to the moat. But she kept trying and was still smiling and hopeful. I wished I could help her out, but I didn't have a container with me.\n\nAs I was standing there watching her, feeling __49__, I had an aha moment. I realized that I had a bottle of water in my bag. I quickly __50__ in, took it out, and handed it to her.\n\nConfused at first, she smiled but shook her head __51__. I reassured her that it would make getting the water much faster. She finally took it from my hands after I insisted. Not wanting her to feel __52__, I walked off the beach right away, glancing back just once to see her running over to the sea merrily, equipped with a __53__ in hand.\n\nIn the larger scheme of things, it was a __54__ gesture. But in my heart, I also know that when she notices that someone needs help in her life, maybe she would recall this little random act of kindness by a stranger. And maybe that would make her more likely to jump in and help create a little __55__ world around her.";
 const BANK = { items: [
  {
@@ -1459,6 +1508,75 @@ function refreshTally(){
 
 
 /* ================================================================
+   计时条
+   ----------------------------------------------------------------
+   语法填空（renderCloze）本来就自带一个，这里把同样的东西给完形、七选五、
+   阅读/单选也配上，做法一致：
+     · **点进去才开始走**（不是打开页面就走）—— 学生可能先读题再动手
+     · 超过建议用时变橙，但不打断，只是提醒
+     · 每 5 秒存一次，刷新回来接着走；判完就停住
+   ================================================================ */
+function fmtSecs(s){ const m = Math.floor(s / 60), x = s % 60; return m + ":" + (x < 10 ? "0" : "") + x; }
+
+function mkTimerBar(metaHtml, minutes, key, extraClass){
+  const bar = document.createElement("div");
+  bar.className = "cz-bar" + (extraClass ? " " + extraClass : "");
+  bar.innerHTML = '<span class="cz-meta">' + metaHtml + '</span>' +
+                  '<span class="bar-spacer" style="flex:1"></span>' +
+                  '<span class="cz-timer">用时 0:00</span>' +
+                  '<span class="cz-meta">建议 ' + minutes + ' 分钟</span>';
+  const el = bar.querySelector(".cz-timer");
+  let secs = (state[key] | 0), iv = null, stopped = false;
+  function paint(){
+    el.textContent = "用时 " + fmtSecs(secs);
+    el.classList.toggle("over", secs > minutes * 60);
+  }
+  function tick(){ secs++; paint(); if(secs % 5 === 0){ state[key] = secs; save(); } }
+  paint();
+  return {
+    bar: bar,
+    start: function(){ if(iv || stopped) return; iv = setInterval(tick, 1000); },
+    stop:  function(){ stopped = true; if(iv) clearInterval(iv); iv = null;
+                       state[key] = secs; save(); paint(); },
+    secs:  function(){ return secs; }
+  };
+}
+
+/* 阅读理解 / 单项选择这类「一题一张卡」的页面。
+   ----------------------------------------------------------------
+   **先把题全做完，再一次对答案**（老师定的）—— 靠引擎自带的整块提交：
+   页面同时开 EXAM_MODE 和 BLOCK_SUBMIT，renderQ 就不给每题单独的「对答案」了，
+   只在题目末尾挂一条「本组对答案」，点一次判全部；EXAM 保证判完不给重做。
+   计时条单独挂在短文上面，点/滚/敲任一动作开始走，判完停住。 */
+function renderTimedList(){
+  const host = document.getElementById("mount-main");
+  const sec  = document.getElementById("main");
+  const items = BANK.items;
+  const t = mkTimerBar(PAGE_META, PAGE_MIN, "tpage", "timerbar");
+  /* 计时条放在**短文上面**（没有短文就在题目上面）—— 阅读那 7 分钟是连读带做，
+     放在短文下面学生读的时候根本看不见。 */
+  const psg = sec.querySelector(".psg");
+  sec.insertBefore(t.bar, psg || host.previousElementSibling || host);
+  items.forEach(q => renderQ(q, host, SEC_NAME));
+
+  /* 末尾挂一条「本组对答案」，一次判完整页 */
+  addBlockBar("mount-main", SEC_NAME);
+
+  const allDone = () => items.every(q => state[q.id] && state[q.id].done);
+  if(allDone()){ t.stop(); return; }
+  /* 阅读题是「先读半天再动手」，只等点击会把读的时间漏掉 ——
+     所以点一下、滚一下、敲一下键，哪个先来就从哪个开始计时。 */
+  const kick = () => t.start();
+  window.addEventListener("scroll", kick, { passive: true });
+  document.addEventListener("keydown", kick);
+  sec.addEventListener("pointerdown", kick);
+  /* 「本组对答案」在 mount-main 外面，点它不会冒泡到 host，得单独挂一下 */
+  const bar = host.nextElementSibling;
+  if(bar && bar.classList.contains("blockbar"))
+    bar.addEventListener("click", () => { if(allDone()) t.stop(); });
+}
+
+/* ================================================================
    完形填空渲染器
    ----------------------------------------------------------------
    整篇一张卡，和语法填空那页一个路子：
@@ -1480,12 +1598,9 @@ function renderMc(){
 
   /* ---- 顶部信息条 ---- */
   const words = MC_TEXT.replace(/__\d+__/g, " ").match(/[A-Za-z][A-Za-z'-]*/g);
-  const bar = document.createElement("div"); bar.className = "cz-bar";
-  bar.innerHTML = '<span class="cz-meta">第 ' + items[0].no + '—' + items[items.length-1].no +
-                  ' 题 · ' + (words ? words.length : 0) + ' 词</span>' +
-                  '<span class="bar-spacer" style="flex:1"></span>' +
-                  '<span class="cz-meta">建议 ' + MC_MIN + ' 分钟</span>';
-  card.appendChild(bar);
+  const tm = mkTimerBar('第 ' + items[0].no + '—' + items[items.length-1].no +
+                        ' 题 · ' + (words ? words.length : 0) + ' 词', MC_MIN, "tmc");
+  card.appendChild(tm.bar);
 
   /* ---- 短文：__n__ 换成空位标签，选完显示你选的字母 ---- */
   const body = document.createElement("div"); body.className = "cz-text";
@@ -1520,6 +1635,7 @@ function renderMc(){
       b.innerHTML = '<span class="k">' + MC_KEYS[i] + '</span><span class="t">' + mcEsc(o) + '</span>';
       b.addEventListener("click", () => {
         if(card.classList.contains("locked")) return;
+        tm.start();
         btns.forEach(x => x.classList.remove("picked"));
         b.classList.add("picked");
         picked[it.id] = i;
@@ -1544,6 +1660,7 @@ function renderMc(){
   card.appendChild(foot); card.appendChild(ex);
 
   function grade(silent){
+    tm.stop();
     let ok = 0;
     items.forEach(it => {
       const pk = (it.id in picked) ? picked[it.id] : -1;
@@ -1579,7 +1696,7 @@ function renderMc(){
 
     card.classList.add("locked", "reveal", ok === items.length ? "correct" : "wrong");
     vd.className = "verdict show " + (ok === items.length ? "v-ok" : (ok >= items.length * 0.7 ? "v-near" : "v-no"));
-    vd.innerHTML = "本篇 <b>" + ok + " / " + items.length + "</b> 题";
+    vd.innerHTML = "本篇 <b>" + ok + " / " + items.length + "</b> 题　用时 " + fmtSecs(tm.secs());
     btn.style.display = "none"; clr.style.display = "none";
   }
 

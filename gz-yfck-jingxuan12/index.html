@@ -140,21 +140,24 @@ table.drill td.zh{color:var(--ink-2); font-size:12.5px}
 }
 .drillbar button:hover{border-color:var(--accent); color:var(--accent)}
 /* 窄屏：压紧字号让四列塞进手机，不用横向滚 */
+/* 本组对答案栏 + 整块模式的选中态。
+   原来整段写在 @media(max-width:600px) 里，宽屏下这条栏没有边框、按钮和文字贴在一起，
+   而且【选中但还没判】的选项在桌面上完全没有反馈 —— 2026-08-08 移到顶层，两种宽度都生效。*/
+.blockbar{
+  display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+  margin:2px 0 20px; padding:12px 16px;
+  background:var(--card); border:1px solid var(--line); border-radius:10px;
+}
+.blockbar .go{margin:0}
+.bb-stat{font-size:13px; color:var(--ink-3)}
+.bb-stat.warn{color:var(--warn); font-weight:600}
+.bb-stat.sum{color:var(--ink); font-weight:600; font-size:13.5px}
+/* 整块模式下，选中但还没判的选项／按钮 */
+.opt.picked{border-color:var(--ink-2); background:#f4f1ec}
+.jb.sel{background:var(--ink); color:#fff; border-color:var(--ink)}
+
 @media(max-width:600px){
   table.drill{width:100%; min-width:0; table-layout:fixed}
-  /* 本组对答案栏 */
-  .blockbar{
-    display:flex; align-items:center; gap:12px; flex-wrap:wrap;
-    margin:2px 0 20px; padding:12px 16px;
-    background:var(--card); border:1px solid var(--line); border-radius:10px;
-  }
-  .blockbar .go{margin:0}
-  .bb-stat{font-size:13px; color:var(--ink-3)}
-  .bb-stat.warn{color:var(--warn); font-weight:600}
-  .bb-stat.sum{color:var(--ink); font-weight:600; font-size:13.5px}
-  /* 整块模式下，选中但还没判的选项／按钮 */
-  .opt.picked{border-color:var(--ink-2); background:#f4f1ec}
-  .jb.sel{background:var(--ink); color:#fff; border-color:var(--ink)}
 
   /* 题目插图（饼图、价目表）*/
   .qfig{margin:10px 0 2px; text-align:center}
@@ -403,6 +406,8 @@ footer b{color:var(--accent)}
 .cz-timer{font-family:var(--serif); font-size:14.5px; font-weight:700; color:var(--ink-2); font-variant-numeric:tabular-nums}
 .cz-timer.over{color:var(--warn)}
 .cz-text{font-family:var(--serif); font-size:16.5px; line-height:2.45; text-align:justify}
+.cz-text p{margin:0 0 12px}
+.cz-text p:last-child{margin-bottom:0}
 .cz-hint{font-style:italic; color:var(--ink-3)}
 .cz-b{display:inline-block; white-space:nowrap; scroll-margin-top:112px}
 .cz-n{
@@ -2262,6 +2267,8 @@ function renderCloze(p){
   const body = document.createElement("div"); body.className = "cz-text";
   const inputs = {}, wraps = {};
   let pendingHint = false;
+  /* 原文里空一行 = 分段。只有一段的短文也照样包一个 <p>，版面一致。 */
+  let para = document.createElement("p"); body.appendChild(para);
   p.text.split(/(__\d+__)/).forEach(seg => {
     const m = /^__(\d+)__$/.exec(seg);
     if(m){
@@ -2272,7 +2279,7 @@ function renderCloze(p){
       inp.className = "blank cz-in"; inp.autocomplete = "off";
       inp.autocapitalize = "off"; inp.spellcheck = false;
       inp.setAttribute("aria-label", "第" + n + "题");
-      wrap.appendChild(num); wrap.appendChild(inp); body.appendChild(wrap);
+      wrap.appendChild(num); wrap.appendChild(inp); para.appendChild(wrap);
       inputs[n] = inp; wraps[n] = wrap; pendingHint = true;
       return;
     }
@@ -2280,14 +2287,17 @@ function renderCloze(p){
       pendingHint = false;
       const h = /^(\s*)\(([A-Za-z]+)\)/.exec(seg);
       if(h){
-        body.appendChild(document.createTextNode(h[1]));
+        para.appendChild(document.createTextNode(h[1]));
         const sp = document.createElement("span"); sp.className = "cz-hint";
         sp.textContent = "(" + h[2] + ")";
-        body.appendChild(sp);
+        para.appendChild(sp);
         seg = seg.slice(h[0].length);
       }
     }
-    body.appendChild(document.createTextNode(seg));
+    seg.split(/\n\s*\n/).forEach((chunk, i) => {
+      if(i){ para = document.createElement("p"); body.appendChild(para); }
+      para.appendChild(document.createTextNode(chunk));
+    });
   });
   card.appendChild(body);
 

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>测试-初级语法-简单句-反意疑问句（在线测试）</title>
+<title>二测 · 完形填空 · 高级测试 · 二测（交互版）</title>
 <style>
 :root{
   --ink:#1f2328; --ink-2:#4a5158; --ink-3:#8b939b;
@@ -397,23 +397,197 @@ footer b{color:var(--accent)}
   body{background:#fff}
 }
 
-/* 整卷测试页专用 */
-.papertip{
-  max-width:860px; margin:0 auto; padding:12px 18px 14px; font-size:13px;
-  color:var(--ink-2); border-bottom:1px solid var(--line); line-height:1.7;
-}
-.papertip b{color:var(--accent)}
-.parthead{
-  max-width:860px; margin:26px auto 10px; padding:0 18px;
-  font-size:14px; font-weight:700; color:var(--ink-2);
-  display:flex; align-items:center; gap:10px;
-}
-.parthead::after{content:""; flex:1; height:1px; background:var(--line)}
-.parthead em{font-style:normal; font-weight:400; font-size:12.5px; color:var(--ink-3)}
-.ju{margin:0 0 6px}
-.ju b{color:var(--ink-2)}
-.fixnote{color:var(--warn); font-size:12.5px}
+  /* 短文 */
+  .psg{border:1px solid var(--line); border-radius:12px; padding:15px 18px; background:#fff;
+       font-family:var(--serif); font-size:15.5px; line-height:2.05; margin:12px 0 4px}
+  .psg p{margin:0 0 10px} .psg p:last-child{margin-bottom:0}
+  .psg p.sub-h{font-weight:700; margin:14px 0 8px}
+  .psg .bk{display:inline-block; min-width:2.1em; text-align:center; font-family:var(--sans);
+           font-size:12.5px; font-weight:700; color:var(--accent); background:#fbeeec;
+           border-radius:4px; padding:0 4px; margin:0 2px; vertical-align:1px}
+  /* 七选五的选项表 */
+  .sevenopts{margin:14px 0 4px}
+  .sevenopts .og{list-style:none; margin:0; padding:14px 16px; display:grid; gap:9px;
+                 border:1px solid var(--line); border-radius:12px; background:#faf8f5}
+  .sevenopts .og li{font-family:var(--serif); font-size:14.5px; line-height:1.75;
+                    display:flex; gap:9px; align-items:baseline}
+  .sevenopts .og .k{flex:0 0 auto; font-family:var(--sans); font-size:12px; font-weight:700;
+                    color:#fff; background:var(--ink-2); border-radius:4px; padding:1px 6px}
+  /* 七选五的字母按钮 */
+  .pickrow{display:flex; gap:7px; flex-wrap:wrap; margin:12px 0 0}
+  .pk{font-family:var(--sans); font-size:14.5px; font-weight:700; min-width:40px;
+      padding:7px 0; border:1px solid var(--line); border-radius:8px; background:#fff;
+      color:var(--ink); cursor:pointer; transition:.15s}
+  .pk:hover{border-color:var(--accent); color:var(--accent)}
+  .pk.picked{border-color:var(--ink); background:var(--ink); color:#fff}
+  .pk.is-ok{border-color:var(--ok-line); background:#d5f0de; color:var(--ok)}
+  .pk.is-no{border-color:var(--no); background:#f8d9d6; color:var(--no)}
+  /* 阅读/单选那种「一题一张卡」的页面，计时条单独成条，得自己有个框 */
+  .cz-bar.timerbar{border:1px solid var(--line); border-radius:10px; background:#faf8f5;
+                   padding:9px 14px; margin:12px 0 6px}
+  /* ---------- 七选五：点选 → 放置 ---------- */
+  /* 小标题的加粗在 .psg 里定义过，.cz-text 用的是另一套样式，要再写一遍 */
+  .cz-text p.sub-h{font-weight:700; margin:14px 0 8px}
+  .sv-text .sv-slot{
+    display:inline; border-bottom:2px dashed var(--line); border-radius:3px;
+    background:#faf8f5; padding:1px 4px; cursor:pointer; transition:.12s;
+  }
+  .sv-slot .sv-n{
+    font-style:normal; font-family:var(--sans); font-size:10.5px; font-weight:700; color:#fff;
+    background:var(--ink-3); border-radius:3px; padding:0 4px; vertical-align:3px; margin-right:4px;
+  }
+  .sv-slot .sv-k{font-family:var(--sans); font-size:11.5px; font-weight:700; color:var(--accent); margin-right:4px}
+  .sv-slot .sv-ph{font-family:var(--sans); font-size:12px; color:var(--ink-3)}
+  .sv-slot.hot{background:#fbeeec; border-bottom-color:var(--accent);
+               box-shadow:0 0 0 2px rgba(192,57,43,.14)}
+  .sv-slot.hot .sv-ph{color:var(--accent)}
+  .sv-slot.filled{background:#f3f7f4; border-bottom-style:solid}
+  .sv-slot.r-ok{background:var(--ok-soft); border-bottom-color:var(--ok)}
+  .sv-slot.r-ok .sv-n{background:var(--ok)}
+  .sv-slot.r-no{background:#fdf0ee; border-bottom-color:var(--no)}
+  .sv-slot.r-no .sv-n{background:var(--no)}
+  /* 选项池 */
+  .sv-pool{margin:16px 0 2px; border-top:1px dashed var(--line); padding-top:13px}
+  .sv-tip{font-size:12.5px; color:var(--ink-2); line-height:1.9; margin-bottom:9px}
+  .sv-tip b{color:var(--accent)}
+  .sv-opts{display:grid; gap:7px}
+  .sv-opt{
+    display:flex; gap:9px; align-items:baseline; padding:8px 11px;
+    border:1px solid var(--line); border-radius:9px; background:#fff;
+    cursor:pointer; user-select:none; transition:.12s;
+  }
+  .sv-opt .k{flex:0 0 auto; font-family:var(--sans); font-size:12px; font-weight:700;
+             color:#fff; background:var(--ink-2); border-radius:4px; padding:1px 6px}
+  .sv-opt .t{font-family:var(--serif); font-size:14.5px; line-height:1.7}
+  .sv-opt:hover{border-color:var(--accent)}
+  .sv-opt.armed{border-color:var(--ink); box-shadow:0 0 0 2px rgba(31,35,40,.12)}
+  .sv-opt.armed .k{background:var(--ink)}
+  .sv-opt.used{opacity:.32; cursor:default; background:#faf8f5}
+  .sv-opt.used:hover{border-color:var(--line)}
+  .sv-opt.is-key .k{background:var(--ok)}
+  /* ---------- 完形填空：短文里的空位 + 摊开的答案区 ---------- */
+  .mc-b{padding:0 1px}
+  .mc-b .mc-pick{font-family:var(--serif); font-weight:700; color:var(--ink-3);
+                 min-width:1.1em; display:inline-block; text-align:center}
+  .mc-b.filled .mc-pick{color:var(--ink)}
+  .mc-b.r-ok .mc-pick{color:var(--ok)}
+  .mc-b.r-no .mc-pick{color:var(--no)}
+  .mc-opts{margin:16px 0 2px; border-top:1px dashed var(--line); padding-top:14px}
+  .mc-row{display:flex; gap:10px; align-items:flex-start; padding:5px 0}
+  .mc-q{flex:0 0 auto; width:26px; height:22px; border-radius:5px; font-size:12px; font-weight:700;
+        display:grid; place-items:center; background:#e8e4de; color:var(--ink-2); margin-top:3px}
+  .mc-list{flex:1; min-width:0; display:grid; grid-template-columns:repeat(4,1fr); gap:6px}
+  .mo{display:flex; gap:6px; align-items:baseline; text-align:left; font:inherit;
+      font-size:14px; padding:5px 8px; border:1px solid var(--line); border-radius:8px;
+      background:#fff; color:var(--ink); cursor:pointer; transition:.12s}
+  .mo .k{flex:0 0 auto; font-family:var(--sans); font-size:11px; font-weight:700; color:var(--ink-3)}
+  .mo .t{font-family:var(--serif); word-break:break-word}
+  .mo:hover{border-color:var(--accent)}
+  .mo.picked{border-color:var(--ink); background:var(--ink); color:#fff}
+  .mo.picked .k{color:#fff}
+  .mo.is-ok{border-color:var(--ok-line); background:#d5f0de; color:var(--ok)}
+  .mo.is-ok .k{color:var(--ok)}
+  .mo.is-no{border-color:var(--no); background:#f8d9d6; color:var(--no)}
+  .mo.is-no .k{color:var(--no)}
+  .mo:disabled{cursor:default}
+  /* 题干里引的原句：用正文的衬线体，别落到浏览器默认的等宽字体上 */
+  .q-stem code{font-family:var(--serif); font-size:15px; background:#f7f4ef;
+               border-radius:3px; padding:1px 4px}
+  /* 短文改错 */
+  .ecline{font-family:var(--serif); font-size:15.5px; line-height:1.95; margin:0 0 9px}
+  .ecin{width:100%; font-size:14.5px; text-align:left}
+  .ansline{font-family:var(--serif); font-weight:700}
+  @media(max-width:600px){
+    .psg{padding:13px 13px; font-size:14.5px; line-height:1.95}
+    .q-stem code{font-size:14px}
+    /* 改错：行号标签独占一行，把整个宽度让给句子和输入框 */
+    #mount-main .q-head{flex-wrap:wrap}
+    #mount-main .q-head .q-stem{flex:1 0 100%; margin-top:7px}
+    .ecline{font-size:14.5px}
+    .sv-opt{padding:7px 9px}
+    .sv-opt .t{font-size:13.5px}
+    .sv-tip{font-size:12px}
+    .sv-slot .sv-ph{font-size:11.5px}
+    /* 手机上四个选项排两列；选项长的（self-conscious 那题）自己折行 */
+    .mc-list{grid-template-columns:repeat(2,1fr); gap:5px}
+    .mo{font-size:13px; padding:4px 6px}
+    .mc-q{width:22px; height:20px; font-size:11px}
+    .mc-row{gap:7px}
+    .sevenopts .og{padding:12px 12px}
+    .sevenopts .og li{font-size:13.5px}
+  }
 
+/* ---------- 语篇填空 ---------- */
+.cloze{padding:18px 20px 16px}
+.cz-bar{
+  display:flex; align-items:center; gap:10px; flex-wrap:wrap; font-size:12.5px; color:var(--ink-3);
+  padding-bottom:10px; margin-bottom:13px; border-bottom:1px dashed var(--line);
+}
+.cz-timer{font-family:var(--serif); font-size:14.5px; font-weight:700; color:var(--ink-2); font-variant-numeric:tabular-nums}
+.cz-timer.over{color:var(--warn)}
+.cz-text{font-family:var(--serif); font-size:16.5px; line-height:2.45; text-align:justify}
+.cz-text p{margin:0 0 12px}
+.cz-text p:last-child{margin-bottom:0}
+.cz-hint{font-style:italic; color:var(--ink-3)}
+.cz-b{display:inline-block; white-space:nowrap; scroll-margin-top:112px}
+.cz-n{
+  font-style:normal; font-family:var(--sans); font-size:10.5px; font-weight:700; color:#fff;
+  background:var(--ink-3); border-radius:3px; padding:0 4px; vertical-align:4px; margin-right:1px;
+}
+.cz-b.r-ok .cz-n{background:var(--ok)}
+.cz-b.r-no .cz-n{background:var(--no)}
+.cz-b.r-near .cz-n{background:var(--warn)}
+/* 宽度对所有空一律相同 —— 按答案长短给宽度会把答案有几个词泄露出去 */
+.blank.cz-in{width:7.6em; font-size:15px; padding:1px 5px}
+.q.cloze.correct,.q.cloze.wrong{background:var(--card)}   /* 整篇不整体染色，逐空看颜色 */
+
+/* 逐空讲解 */
+.czr{display:flex; gap:10px; padding:10px 0; border-top:1px dashed #e2ded7}
+.czr:first-child{border-top:none; padding-top:0}
+.czr-n{
+  flex:0 0 auto; width:26px; height:21px; border-radius:5px; font-size:12px;
+  display:grid; place-items:center; background:#e8e4de; color:var(--ink-2);
+}
+.czr.ok .czr-n{background:#d5f0de; color:var(--ok)}
+.czr.no .czr-n{background:#f8d9d6; color:var(--no)}
+.czr-b{flex:1; min-width:0}
+.czr-h{display:flex; gap:8px; align-items:baseline; flex-wrap:wrap; margin-bottom:1px}
+.czr-ans{font-family:var(--serif); font-size:15.5px; font-weight:700; color:var(--ok)}
+.czr.no .czr-ans{color:var(--accent)}
+.czr-alt{font-family:var(--serif); font-size:13px; color:var(--ink-3)}
+.czr-tag{font-size:11px; color:var(--ink-3); border:1px solid var(--line); border-radius:99px; padding:0 7px; background:#fff}
+.czr-got{font-size:12.5px; color:var(--no)}
+.czr-got em{font-family:var(--serif); font-style:normal; font-weight:700}
+.czr-warn{font-size:12.5px; color:var(--warn); font-weight:600}
+.czr-ex{margin:0; font-size:13.5px; line-height:1.75; color:var(--ink-2)}
+
+/* 得分那一格用主色，是这份练习最该先看的数 */
+.stat.score b{color:var(--accent)}
+
+/* 考点分布 */
+.tagstat{display:grid; gap:7px; font-size:13px}
+.tagrow{display:flex; align-items:center; gap:10px}
+.tagrow .tn{flex:0 0 6.2em; color:var(--ink-2)}
+.tagrow .tb{flex:1; min-width:50px; height:8px; border-radius:99px; background:#eceae5; overflow:hidden}
+.tagrow .tb i{display:block; height:100%; background:var(--ok); transition:width .3s}
+.tagrow.weak .tb i{background:var(--no)}
+.tagrow .tv{flex:0 0 auto; font-size:12px; color:var(--ink-3); font-variant-numeric:tabular-nums}
+.tagsplit{font-size:13px; color:var(--ink-2); margin:14px 0 0; line-height:1.9}
+.tagsplit b{font-family:var(--serif); color:var(--accent)}
+
+@media(max-width:600px){
+  .cloze{padding:15px 14px 14px}
+  .cz-text{font-size:16px; line-height:2.5; text-align:left}
+  .blank.cz-in{width:6.6em; font-size:14.5px}
+  /* 成绩单多了「得分」这一格，手机上 5 格要挤进一行，不然正确率会单独掉到第二行 */
+  .stats{gap:15px}
+  .stat b{font-size:23px}
+  .stat span{font-size:11.5px; white-space:nowrap}
+  /* 「比较级最高级」「连词与引导词」都是 6 个字，宽度不够就会折行、进度条起点参差 */
+  .tagrow{gap:8px}
+  .tagrow .tn{flex:0 0 6.6em; font-size:12px; white-space:nowrap}
+  .tagrow .tv{font-size:11px}
+}
 </style>
 </head>
 <body>
@@ -427,188 +601,330 @@ footer b{color:var(--accent)}
   </div>
 </div>
 
-<div class="papertip">
-  整卷 10 题，题号和纸质卷完全一致。<b>每题只能提交一次</b>，选好／填好后点「对答案」，
-  提交后不能改 —— 成绩单反映的是你的真实正确率。做完记得看错题清单。
-</div>
+<nav class="toc" id="toc">
+  <a href="#main" class="active">完形填空</a>
+  <a href="#done">成绩单</a>
+</nav>
 
 <main>
-  <h1 class="doc">测试-初级语法-简单句-反意疑问句</h1>
-  <p class="doc-sub">简单句 · 反意疑问句 · 共 <span id="totalHint">10</span> 题</p>
+  <h1 class="doc">二测 · 完形填空</h1>
+  <p class="doc-sub">高级测试 · 二测 · 完形填空 36–55 · 共 <span id="totalHint">—</span> 个判分点</p>
 
-  <div class="parthead">单项选择<em>选好后点「对答案」，只能提交一次</em></div>
-  <div id="mount-1"></div>
-  <div class="parthead">填空 · 完成句子<em>填好后点「对答案」，只能提交一次</em></div>
-  <div id="mount-3"></div>
+  <section class="chap" id="main">
+    <h2 class="chap-t"><span class="n">完形填空</span>36–55</h2>
+    <p class="chap-lead">阅读下面短文，从每题所给的四个选项中选出可以填入空白处的最佳选项。</p>
+    <div id="mount-main"></div>
+  </section>
 
-  <div class="tally" style="margin-top:26px">
-    <h3 id="tallyTitle">还没开始</h3>
-    <p class="sub" id="tallySub">答完题目后，这里会自动汇总你的正确率和错题。</p>
-    <div class="stats">
-      <div class="stat"><b id="sDone">0</b><span>已作答</span></div>
-      <div class="stat ok"><b id="sOk">0</b><span>答对</span></div>
-      <div class="stat no"><b id="sNo">0</b><span>答错</span></div>
-      <div class="stat"><b id="sRate">—</b><span>正确率</span></div>
-    </div>
-    <div class="block-t" style="margin-top:6px">错题清单 <em>点题号跳回去重看解析</em></div>
-    <ul class="wronglist" id="wrongList"><li class="empty" style="border:none">暂无错题。</li></ul>
-
-    <div class="checkin" id="checkin">
-      <div class="ci-title" id="ciTitle">截图打卡</div>
-      <p class="ci-text" id="ciText">全部做完后截图这张成绩单发到你的学习群吧。</p>
-      <div class="ci-meta">
-        <span>土妹英语 · 在线测试</span>
-        <span>测试-初级语法-简单句-反意疑问句</span>
-        <span id="ciDate"></span>
+  <section class="chap" id="done">
+    <h2 class="chap-t"><span class="n">小结</span>成绩单</h2>
+    <div class="tally">
+      <h3 id="tallyTitle">还没开始</h3>
+      <p class="sub" id="tallySub">答完题目后，这里会自动汇总你的正确率和错题。</p>
+      <div class="stats">
+        <div class="stat"><b id="sDone">0</b><span>已作答</span></div>
+        <div class="stat ok"><b id="sOk">0</b><span>答对</span></div>
+        <div class="stat no"><b id="sNo">0</b><span>答错</span></div>
+        <div class="stat"><b id="sRate">—</b><span>正确率</span></div>
       </div>
-      <div class="ci-brand"><b>土妹英语</b> ｜ 定制课程 让每一分努力都不被辜负</div>
+      <div class="block-t" style="margin-top:6px">错题清单 <em>点题号跳回去重看解析</em></div>
+      <ul class="wronglist" id="wrongList"><li class="empty" style="border:none">暂无错题。</li></ul>
+
+      <div class="checkin" id="checkin">
+        <div class="ci-title" id="ciTitle">截图打卡</div>
+        <p class="ci-text" id="ciText">全部做完后截图这张成绩单发到你的学习群吧。</p>
+        <div class="ci-meta">
+          <span>高级测试 · 二测</span>
+          <span>完形填空 · 20 个判分点</span>
+          <span id="ciDate"></span>
+        </div>
+        <div class="ci-brand"><b>土妹英语</b> ｜ 定制课程 让每一分努力都不被辜负</div>
+      </div>
     </div>
-  </div>
+  </section>
 </main>
 
 <footer>
-  <p>整卷 10 题，题号与纸质卷「测试-初级语法-简单句-反意疑问句」完全一致；解析为原卷【详解】原文。</p>
-  <p>每题<b>只能提交一次</b>，提交后展开解析并锁定。作答进度保存在本机浏览器里，关掉再打开不会丢。</p>
+  <p>本页是「高级测试 · 二测 · 完形填空」的交互版，短文、题目、选项与答案键均照原卷抄录；<b>文字解析是电子版另写的</b>（原卷只有答案键和扫码看讲解的二维码），由老师逐题审核后定稿。</p>
+  <p>考试模式：每题只能提交一次，判分后锁死。答题进度自动保存在本机浏览器里，关掉再打开不会丢；点右上角「重做」可清空重来。同一卷的各个题型各是一页，<b>进度各记各的</b>。</p>
   <p style="margin-top:10px"><b>土妹英语</b> ｜ 定制课程 让每一分努力都不被辜负</p>
 </footer>
 
+
+<div class="qr-modal" id="qrModal"><div><img src="" alt="二维码"><p>用手机相机或微信扫一扫，点页面任意处关闭</p></div></div>
+
 <script>
-/* 考试模式：每题只能提交一次，判分后锁死，没有「再做一遍」 */
-const EXAM_MODE = true;
 
-/* 题库 —— 按原卷题号顺序；解析取自原卷【详解】 */
-const BANK = [
+/* 构建时注入 */
+const QR = {};
+const TEACHER = false;
+const EXAM_MODE = true;   /* 每题只能提交一次，判完锁死 */
+const MC_MIN = 8;
+const MC_TEXT = "My mother is 92. Unless I have to be out of town, each week I take my mother to do her __36__ and visit the doctor, providing __37__ and transportation. During the week, however, she likes to go to a nearby store to __38__ some small things she needs.\n\nLast week she walked up to the store, but when she went to pay for her groceries, she was __39__ about three dollars. The only __40__ to pay for the groceries was to take off the __41__ she could do without: a bottle of rubbing alcohol（医用酒精）and a bar of soap. By taking off these, she was able to __42__ the new total to the amount of cash she had with her.\n\nAt this store, people __43__ and then go off to the side to __44__ their own groceries. My mother was putting her groceries into shopping bags when a __45__ came up to her and said, \"Here are the things that you __46__,\" handing her the rubbing alcohol and the __47__. My mother, who is never speechless, was speechless. She __48__ for the woman's name and address so that she could __49__ her. The woman told her it was her __50__.\n\nMy mother was so __51__ by her gesture that she decided to go back to the store and give the cashier（收银员）a five-dollar bill to keep on hand __52__ the same happened to someone else if they didn't have enough __53__ for all of their groceries.\n\nSo, whoever you are, thank you for the random act of __54__ that not only helped my mother out, but __55__ too.";
+const BANK = { items: [
  {
-  "id": "q1",
-  "no": "1",
-  "ex": "<p class=\"ju\"><b>句意</b>　我认为她看待问题的方式和其他人没有什么不同，是吗？</p><p>考查反意疑问句。反意疑问句“前肯后否，前否后肯”。句中陈述部分涉及到否定前移，是否定句；疑问部分用肯定，陈述部分主语the way，后用is，疑问部分用is it。故选A。</p>",
-  "type": "choice",
-  "stem": "I don’t think the way she looks at the problem is different from others, _________?",
+  "id": "m36",
+  "no": "36",
   "opts": [
-   "is it",
-   "isn’t it",
-   "do you",
-   "does she"
+   "exercise",
+   "housework",
+   "cooking",
+   "shopping"
   ],
-  "a": 0
+  "a": 3,
+  "stem": "<code>each week I take my mother to do her ______ and visit the doctor</code>",
+  "ex": "<p>和 <code>visit the doctor</code> 并列的每周固定安排；全文写的就是她<b>在杂货店买东西</b>的事 → <b>shopping</b>。</p><p>exercise / housework / cooking 都不需要「我开车带她去」。</p>"
  },
  {
-  "id": "q2",
-  "no": "2",
-  "ex": "<p class=\"ju\"><b>句意</b>　告诉我最后一段的大意，好吗？</p><p>考查反义疑问句。陈述句是祈使句时，其后的反义疑问句一般使用will you或won’t you。故选B。</p>",
-  "type": "choice",
-  "stem": "Tell me the main idea of the last paragraph, ________?",
+  "id": "m37",
+  "no": "37",
   "opts": [
-   "do you",
-   "will you",
-   "don’t you",
-   "shall you"
+   "reward",
+   "medicine",
+   "company",
+   "shelter"
   ],
-  "a": 1
+  "a": 2,
+  "stem": "<code>providing ______ and transportation</code>",
+  "ex": "<p>我给母亲提供的两样：<code>transportation</code>（车）和 —— <b>company</b>（陪伴）。</p><p>reward 报酬、medicine 药、shelter 住处，都不是「每周陪她出门」这件事里能提供的。<b>并列结构里，已知的那一项决定了未知的那一项是同一层面的东西。</b></p>"
  },
  {
-  "id": "q3",
-  "no": "3",
-  "ex": "<p class=\"ju\"><b>句意</b>　——她没有在上周的多哈奥运会上获得金牌，是吗？——是的，她没有，但她做得很好，而且尽了最大的努力。</p><p>考查反意疑问句。根据“She didn’t get the gold medal in the Doha Games last week, did she?”可知这是反意疑问句，反意疑问句回答应遵循实际；根据“but she did a nice job and tried her best”可知，她没有获得金牌，故应用否定回答，排除C和D；再结合“did she”可知，此处应借用助动词did来回答，排除A。故选B。</p>",
-  "type": "choice",
-  "stem": "—She didn’t get the gold medal in the Doha Games last week, did she? —_________, but she did a nice job and tried her best.",
+  "id": "m38",
+  "no": "38",
   "opts": [
-   "No, she wasn’t",
-   "No, she didn’t",
-   "Yes, she was",
-   "Yes, she did"
+   "return",
+   "collect",
+   "order",
+   "buy"
   ],
-  "a": 1
+  "a": 3,
+  "stem": "<code>she likes to go to a nearby store to ______ some small things she needs</code>",
+  "ex": "<p>去店里买些她需要的小东西 → <b>buy</b>。</p><p>return 是退货、collect 是取货、order 是订购（那就不用亲自去店里了）。</p>"
  },
  {
-  "id": "q4",
-  "no": "4",
-  "ex": "<p class=\"ju\"><b>句意</b>　收音机没有任何问题，对吗？</p><p>考查反意疑问句。根据“There is nothing wrong with the radio”可知，陈述部分带有nothing，附加问句用肯定式；陈述部分是there be句型，其后的附加问句仍用there。故选A。</p>",
-  "type": "choice",
-  "stem": "There is nothing wrong with the radio, ________ ?",
+  "id": "m39",
+  "no": "39",
   "opts": [
-   "is there",
-   "is it",
-   "isn’t there",
-   "isn’t it"
+   "short",
+   "cautious",
+   "wrong",
+   "concerned"
   ],
-  "a": 0
+  "a": 0,
+  "stem": "<code>when she went to pay for her groceries, she was ______ about three dollars</code>",
+  "ex": "<p><code>be <b>short</b> (of)</code> = 差、不够。她结账时<b>差了大约三美元</b>。</p><p>下一句「只好把可以不要的东西拿掉」就是证据 —— 钱不够才要拿掉东西。</p>"
  },
  {
-  "id": "q5",
-  "no": "5",
-  "ex": "<p class=\"ju\"><b>句意</b>　它们现在在洞穴的一部分。反意疑问句遵循 “前肯后否”原则，故此处疑问句部分用否定形式。</p><p>根据“They were...”可知，疑问句部分是weren’t they。故填weren’t； they。</p>",
-  "type": "fill",
-  "stem": "They were now in a part of the cave. <span class='zh'>（改为反意疑问句）</span> They were now in a part of the cave, __1__ ?",
-  "blanks": [
-   {
-    "a": "weren’t they"
-   }
-  ]
+  "id": "m40",
+  "no": "40",
+  "opts": [
+   "aim",
+   "way",
+   "advice",
+   "reason"
+  ],
+  "a": 1,
+  "stem": "<code>The only ______ to pay for the groceries was to take off the…</code>",
+  "ex": "<p><code>the only <b>way</b> to do sth</code> = 唯一的办法。</p><p>后面的 <code>was to take off…</code> 是在说<b>怎么做</b>，不是目的（aim）或原因（reason）。</p>"
  },
  {
-  "id": "q6",
-  "no": "6",
-  "ex": "<p class=\"ju\"><b>句意</b>　在昨天的会议上，鲍勃几乎不和你说话。反意疑问句遵循前肯后否，前否后肯，陈述句中含有否定意义词hardly，疑问部分用肯定，</p><p>根据“talked”可知此处借助助动词did，主语用代词he。故填did；he。</p>",
-  "type": "fill",
-  "stem": "Bob hardly talked with you at the meeting yesterday. <span class='zh'>（改为反义疑问句）</span> Bob hardly talked with you at the meeting yesterday, __1__ ?",
-  "blanks": [
-   {
-    "a": "did he"
-   }
-  ]
+  "id": "m41",
+  "no": "41",
+  "opts": [
+   "weight",
+   "things",
+   "mask",
+   "glasses"
+  ],
+  "a": 1,
+  "stem": "<code>take off the ______ she could do without: a bottle of rubbing alcohol and a bar of soap</code>",
+  "ex": "<p><b>冒号后面就是答案</b>：一瓶酒精 + 一块肥皂，两样<b>东西</b> → <b>things</b>。</p><p><code>do without</code> = 没有也行。</p>"
  },
  {
-  "id": "q7",
-  "no": "7",
-  "ex": "<p class=\"ju\"><b>句意</b>　黛西上学前对电几乎一无所知，是么？反意疑问句遵循“前肯定后否定，前否定后肯定”原则，本题中陈述部分有“hardly”，含有否定意义，所以疑问部分用肯定形式；主语“Daisy”为第三人称单数，谓语动词“knows”为一般现在时，所以反义疑问句的疑问部分主语用she，助动词用does。故填does；she。</p>",
-  "type": "fill",
-  "stem": "Daisy hardly knows anything about electricity before she goes to school. <span class='zh'>（改为反意疑问句）</span> Daisy hardly knows anything about electricity before she goes to school, __1__ ?",
-  "blanks": [
-   {
-    "a": "does she"
-   }
-  ]
+  "id": "m42",
+  "no": "42",
+  "opts": [
+   "raise",
+   "add",
+   "bring",
+   "switch"
+  ],
+  "a": 2,
+  "stem": "<code>she was able to ______ the new total to the amount of cash she had with her</code>",
+  "ex": "<p><code>bring the total <b>to</b> …</code> = 把总额<b>降到</b>某个数。拿掉两样东西，新总额正好等于她身上的现金。</p><p>raise 是抬高，方向反了；add 要跟 to 一起说「加到…上」，意思也反；switch 换、切换，不搭配。</p>"
  },
  {
-  "id": "q8",
-  "no": "8",
-  "ex": "<p class=\"ju\"><b>句意</b>　今年他几乎没有买新衣服。陈述部分有hardly，表否定，结合“He has”可知改为反意疑问句时疑问部分用has he。故填has；he。</p>",
-  "type": "fill",
-  "stem": "He has hardly bought any new clothes this year. <span class='zh'>（改为反疑问句）</span> He has hardly bought any new clothes this year, __1__ ?",
-  "blanks": [
-   {
-    "a": "has he"
-   }
-  ]
+  "id": "m43",
+  "no": "43",
+  "opts": [
+   "show up",
+   "call in",
+   "check out",
+   "sit down"
+  ],
+  "a": 2,
+  "stem": "<code>At this store, people ______ and then go off to the side to ______ their own groceries</code>",
+  "ex": "<p>这家店的流程：先<b>结账</b>（check out），再到旁边自己装袋。</p><p>这个细节是后面情节的前提 —— 正因为顾客自己在旁边装袋，那位陌生人才知道母亲拿掉了什么。</p>"
  },
  {
-  "id": "q9",
-  "no": "9",
-  "ex": "<p class=\"ju\"><b>句意</b>　彼得昨天做饭时差点伤到自己。</p><p>分析句子结构可知，此处应为“肯定陈述+ 否定疑问”结构的反意疑问句；陈述部分主语是Peter，疑问部分应用he代替；谓语是hurt，时态为一般过去时，疑问部分助动词应用didn’t。故填didn’t；he。</p>",
-  "type": "fill",
-  "stem": "Peter almost hurt himself while cooking the meal yesterday. <span class='zh'>（改为反意疑问句）</span> Peter almost hurt himself while cooking the meal yesterday, __1__ ?",
-  "blanks": [
-   {
-    "a": "didn’t he"
-   }
-  ]
+  "id": "m44",
+  "no": "44",
+  "opts": [
+   "store",
+   "select",
+   "deliver",
+   "bag"
+  ],
+  "a": 3,
+  "stem": "<code>go off to the side to ______ their own groceries</code>",
+  "ex": "<p>下一句直接给了答案：<code>My mother was <b>putting her groceries into shopping bags</b></code> → <b>bag</b>（动词，装袋）。</p>"
  },
  {
-  "id": "q10",
-  "no": "10",
-  "ex": "<p class=\"ju\"><b>句意</b>　简这个月几乎没买什么蔬菜。陈述部分hardly“几乎不”，表示否定意义，所以反问部分用肯定形式。本句时态为现在完成时，所以助动词用has，主语Jane用she指代。故填has；she。</p>",
-  "type": "fill",
-  "stem": "Jane has hardly bought any vegetables this month. <span class='zh'>（改反意疑问句）</span> Jane has hardly bought any vegetables this month, __1__ ?",
-  "blanks": [
-   {
-    "a": "has she"
-   }
-  ]
+  "id": "m45",
+  "no": "45",
+  "opts": [
+   "stranger",
+   "cashier",
+   "friend",
+   "doctor"
+  ],
+  "a": 0,
+  "stem": "<code>a ______ came up to her and said…</code>",
+  "ex": "<p>末段点题：<code>whoever you are, thank you for the random act of kindness</code>（不管你是谁）—— 说明这人母亲<b>并不认识</b> → <b>stranger</b>。</p><p>而且下文母亲还要问她姓名地址，也说明是陌生人。</p>"
+ },
+ {
+  "id": "m46",
+  "no": "46",
+  "opts": [
+   "looked for",
+   "talked about",
+   "threw away",
+   "put back"
+  ],
+  "a": 3,
+  "stem": "<code>\"Here are the things that you ______,\" handing her the rubbing alcohol and the ______</code>",
+  "ex": "<p>她递过来的正是母亲刚才因为钱不够<b>放回去</b>的那两样 → <b>put back</b>。</p>"
+ },
+ {
+  "id": "m47",
+  "no": "47",
+  "opts": [
+   "receipt",
+   "soap",
+   "cash",
+   "bottle"
+  ],
+  "a": 1,
+  "stem": "<code>handing her the rubbing alcohol and the ______</code>",
+  "ex": "<p>拿掉的两样是 <code>a bottle of rubbing alcohol <b>and a bar of soap</b></code>，酒精已经说了，另一样就是 <b>soap</b>。</p>"
+ },
+ {
+  "id": "m48",
+  "no": "48",
+  "opts": [
+   "asked",
+   "waited",
+   "cared",
+   "searched"
+  ],
+  "a": 0,
+  "stem": "<code>She ______ for the woman's name and address so that she could ______ her</code>",
+  "ex": "<p><code><b>ask</b> for sb's name and address</code> = 问她的姓名和地址。</p><p>wait for 是等，cared for 是照顾，searched for 是寻找，都不是「问」。</p>"
+ },
+ {
+  "id": "m49",
+  "no": "49",
+  "opts": [
+   "repay",
+   "trust",
+   "recognize",
+   "help"
+  ],
+  "a": 0,
+  "stem": "<code>so that she could ______ her</code>",
+  "ex": "<p>要姓名地址的目的是<b>把钱还给人家</b> → <b>repay</b>。</p><p>下一句 <code>The woman told her it was her gift</code>（这是我送你的）正是对「还钱」的回绝。</p>"
+ },
+ {
+  "id": "m50",
+  "no": "50",
+  "opts": [
+   "luck",
+   "chance",
+   "gift",
+   "turn"
+  ],
+  "a": 2,
+  "stem": "<code>The woman told her it was her ______</code>",
+  "ex": "<p>不用还 —— 这是我<b>送</b>你的 → <b>gift</b>。</p><p><code>it's my treat / my gift</code> 都是「我请客、我送的」。</p>"
+ },
+ {
+  "id": "m51",
+  "no": "51",
+  "opts": [
+   "surprised",
+   "amused",
+   "touched",
+   "convinced"
+  ],
+  "a": 2,
+  "stem": "<code>My mother was so ______ by her gesture that she decided to go back to the store…</code>",
+  "ex": "<p>被这个举动<b>打动</b>，所以回头也想帮下一个人 → <b>touched</b>。</p><p>surprised 只是吃惊，解释不了「回店里放五美元」这个后续动作；amused 是觉得好笑；convinced 是被说服。<b>so…that 结构里，空处必须能推出 that 后面的行为。</b></p>"
+ },
+ {
+  "id": "m52",
+  "no": "52",
+  "opts": [
+   "in case",
+   "even if",
+   "as though",
+   "so that"
+  ],
+  "a": 0,
+  "stem": "<code>give the cashier a five-dollar bill to keep on hand ______ the same happened to someone else</code>",
+  "ex": "<p><code><b>in case</b></code> = 以防万一。留五美元在收银台，<b>万一</b>别人也遇到同样的事。</p><p>even if 即使、as though 好像、so that 以便（后面要跟目的，不跟「万一发生」）。</p>"
+ },
+ {
+  "id": "m53",
+  "no": "53",
+  "opts": [
+   "energy",
+   "money",
+   "space",
+   "time"
+  ],
+  "a": 1,
+  "stem": "<code>if they didn't have enough ______ for all of their groceries</code>",
+  "ex": "<p>和母亲的处境一样 —— 买单的<b>钱</b>不够 → <b>money</b>。</p>"
+ },
+ {
+  "id": "m54",
+  "no": "54",
+  "opts": [
+   "faith",
+   "courage",
+   "kindness",
+   "honor"
+  ],
+  "a": 2,
+  "stem": "<code>thank you for the random act of ______</code>",
+  "ex": "<p><code>a random act of <b>kindness</b></code>（随手行善）是英语里的固定说法，也是这篇文章的主题词。</p>"
+ },
+ {
+  "id": "m55",
+  "no": "55",
+  "opts": [
+   "made her day",
+   "changed her mind",
+   "caught her eye",
+   "met her demand"
+  ],
+  "a": 0,
+  "stem": "<code>that not only helped my mother out, but ______ too</code>",
+  "ex": "<p><code><b>make one's day</b></code> = 让某人开心一整天。not only…but…too 是递进：不只解了围，还让她开心。</p><p>changed her mind 改变主意、caught her eye 引起注意、met her demand 满足要求，都接不住 <code>not only helped my mother out</code> 这半句。</p>"
  }
-];
+] };
 
-const STORE_KEY = "tumei-test-ceshi-fy-1-v1";
+const STORE_KEY = "tumei-gz-ceshi-02-cloze-v1";
 let state = {};
 try { state = JSON.parse(localStorage.getItem(STORE_KEY) || "{}"); } catch(e){ state = {}; }
 const save = () => { try{ localStorage.setItem(STORE_KEY, JSON.stringify(state)); }catch(e){} };
@@ -1255,11 +1571,294 @@ function refreshTally(){
 }
 
 
+
+/* ================================================================
+   计时条
+   ----------------------------------------------------------------
+   语法填空（renderCloze）本来就自带一个，这里把同样的东西给完形、七选五、
+   阅读/单选也配上，做法一致：
+     · **点进去才开始走**（不是打开页面就走）—— 学生可能先读题再动手
+     · 超过建议用时变橙，但不打断，只是提醒
+     · 每 5 秒存一次，刷新回来接着走；判完就停住
+   ================================================================ */
+function fmtSecs(s){ const m = Math.floor(s / 60), x = s % 60; return m + ":" + (x < 10 ? "0" : "") + x; }
+
+function mkTimerBar(metaHtml, minutes, key, extraClass){
+  const bar = document.createElement("div");
+  bar.className = "cz-bar" + (extraClass ? " " + extraClass : "");
+  bar.innerHTML = '<span class="cz-meta">' + metaHtml + '</span>' +
+                  '<span class="bar-spacer" style="flex:1"></span>' +
+                  '<span class="cz-timer">用时 0:00</span>' +
+                  '<span class="cz-meta">建议 ' + minutes + ' 分钟</span>';
+  const el = bar.querySelector(".cz-timer");
+  let secs = (state[key] | 0), iv = null, stopped = false;
+  function paint(){
+    el.textContent = "用时 " + fmtSecs(secs);
+    el.classList.toggle("over", secs > minutes * 60);
+  }
+  function tick(){ secs++; paint(); if(secs % 5 === 0){ state[key] = secs; save(); } }
+  paint();
+  return {
+    bar: bar,
+    start: function(){ if(iv || stopped) return; iv = setInterval(tick, 1000); },
+    stop:  function(){ stopped = true; if(iv) clearInterval(iv); iv = null;
+                       state[key] = secs; save(); paint(); },
+    secs:  function(){ return secs; }
+  };
+}
+
+/* 阅读理解 / 单项选择这类「一题一张卡」的页面。
+   ----------------------------------------------------------------
+   **先把题全做完，再一次对答案**（老师定的）—— 靠引擎自带的整块提交：
+   页面同时开 EXAM_MODE 和 BLOCK_SUBMIT，renderQ 就不给每题单独的「对答案」了，
+   只在题目末尾挂一条「本组对答案」，点一次判全部；EXAM 保证判完不给重做。
+   计时条单独挂在短文上面，点/滚/敲任一动作开始走，判完停住。 */
+function renderTimedList(){
+  const host = document.getElementById("mount-main");
+  const sec  = document.getElementById("main");
+  const items = BANK.items;
+  const t = mkTimerBar(PAGE_META, PAGE_MIN, "tpage", "timerbar");
+  /* 计时条放在**短文上面**（没有短文就在题目上面）—— 阅读那 7 分钟是连读带做，
+     放在短文下面学生读的时候根本看不见。 */
+  const psg = sec.querySelector(".psg");
+  sec.insertBefore(t.bar, psg || host.previousElementSibling || host);
+  items.forEach(q => renderQ(q, host, SEC_NAME));
+
+  /* 末尾挂一条「本组对答案」，一次判完整页 */
+  addBlockBar("mount-main", SEC_NAME);
+
+  const allDone = () => items.every(q => state[q.id] && state[q.id].done);
+  if(allDone()){ t.stop(); return; }
+  /* 阅读题是「先读半天再动手」，只等点击会把读的时间漏掉 ——
+     所以点一下、滚一下、敲一下键，哪个先来就从哪个开始计时。 */
+  const kick = () => t.start();
+  window.addEventListener("scroll", kick, { passive: true });
+  document.addEventListener("keydown", kick);
+  sec.addEventListener("pointerdown", kick);
+  /* 「本组对答案」在 mount-main 外面，点它不会冒泡到 host，得单独挂一下 */
+  const bar = host.nextElementSibling;
+  if(bar && bar.classList.contains("blockbar"))
+    bar.addEventListener("click", () => { if(allDone()) t.stop(); });
+}
+
+/* ================================================================
+   完形填空渲染器
+   ----------------------------------------------------------------
+   整篇一张卡，和语法填空那页一个路子：
+     短文在上（空位是可点的小标签，选完直接显示你选的字母）
+     答案区在下（15 题 × 4 个选项，**点一下就算选中**，不用再点别的）
+     整篇一次「本篇对答案」，然后逐题给出标准答案 / 你选的 / 解析
+   一题一个判分点；考试模式：只能交一次，判完锁死。
+   短文和逐题讲解的样式复用 C.CLOZE_CSS 里的 .cz-* / .czr-*。
+   ================================================================ */
+const MC_KEYS = "ABCD";
+function mcEsc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+
+
+function renderMc(){
+  const host = document.getElementById("mount-main");
+  const items = BANK.items;
+  const card = document.createElement("div");
+  card.className = "q cloze"; card.id = "q-mc";
+
+  /* ---- 顶部信息条 ---- */
+  const words = MC_TEXT.replace(/__\d+__/g, " ").match(/[A-Za-z][A-Za-z'-]*/g);
+  const tm = mkTimerBar('第 ' + items[0].no + '—' + items[items.length-1].no +
+                        ' 题 · ' + (words ? words.length : 0) + ' 词', MC_MIN, "tmc");
+  card.appendChild(tm.bar);
+
+  /* ---- 短文：__n__ 换成空位标签，选完显示你选的字母 ---- */
+  const body = document.createElement("div"); body.className = "cz-text";
+  const chips = {}, wraps = {};
+  MC_TEXT.split(/\n\s*\n/).forEach(para => {
+    const pEl = document.createElement("p");
+    para.split(/(__\d+__)/).forEach(seg => {
+      const m = /^__(\d+)__$/.exec(seg);
+      if(!m){ pEl.appendChild(document.createTextNode(seg)); return; }
+      const n = m[1];
+      const wrap = document.createElement("span");
+      wrap.className = "cz-b mc-b"; wrap.id = "q-c" + n;
+      wrap.innerHTML = '<i class="cz-n">' + n + '</i><b class="mc-pick">—</b>';
+      pEl.appendChild(wrap);
+      chips[n] = wrap.querySelector(".mc-pick"); wraps[n] = wrap;
+    });
+    body.appendChild(pEl);
+  });
+  card.appendChild(body);
+
+  /* ---- 答案区：直接摊开，点一下即选中 ---- */
+  const opts = document.createElement("div"); opts.className = "mc-opts";
+  const picked = {}, rows = {};
+  items.forEach(it => {
+    const row = document.createElement("div"); row.className = "mc-row";
+    row.innerHTML = '<span class="mc-q">' + it.no + '</span>';
+    const ul = document.createElement("div"); ul.className = "mc-list";
+    const btns = [];
+    it.opts.forEach((o, i) => {
+      const b = document.createElement("button");
+      b.type = "button"; b.className = "mo";
+      b.innerHTML = '<span class="k">' + MC_KEYS[i] + '</span><span class="t">' + mcEsc(o) + '</span>';
+      b.addEventListener("click", () => {
+        if(card.classList.contains("locked")) return;
+        tm.start();
+        btns.forEach(x => x.classList.remove("picked"));
+        b.classList.add("picked");
+        picked[it.id] = i;
+        chips[it.no].textContent = MC_KEYS[i];
+        wraps[it.no].classList.add("filled");
+      });
+      ul.appendChild(b); btns.push(b);
+    });
+    row.appendChild(ul); opts.appendChild(row);
+    rows[it.id] = btns;
+  });
+  card.appendChild(opts);
+
+  /* ---- 判分 ---- */
+  const foot = document.createElement("div"); foot.className = "q-foot";
+  foot.innerHTML = '<button class="go">本篇对答案</button><span class="verdict"></span>' +
+                   '<span style="flex:1"></span>' +
+                   '<button class="go ghost" data-a="clear">清空本篇</button>';
+  const btn = foot.querySelector(".go"), vd = foot.querySelector(".verdict"),
+        clr = foot.querySelector('[data-a="clear"]');
+  const ex = document.createElement("div"); ex.className = "explain";
+  card.appendChild(foot); card.appendChild(ex);
+
+  function grade(silent){
+    tm.stop();
+    let ok = 0;
+    items.forEach(it => {
+      const pk = (it.id in picked) ? picked[it.id] : -1;
+      const good = pk === it.a;
+      if(good) ok++;
+      rows[it.id].forEach((b, i) => {
+        b.classList.remove("picked");
+        b.disabled = true;
+        if(i === it.a) b.classList.add("is-ok");
+        else if(i === pk) b.classList.add("is-no");
+      });
+      chips[it.no].textContent = MC_KEYS[it.a];
+      wraps[it.no].classList.add(good ? "r-ok" : "r-no");
+      if(!silent){ record(it.id, good); state[it.id].pick = pk; }
+    });
+    save();
+
+    ex.innerHTML = items.map(it => {
+      const pk = (it.id in picked) ? picked[it.id] : -1;
+      const good = pk === it.a;
+      const yours = good ? "" :
+        '<span class="czr-got">你选：' +
+        (pk >= 0 ? MC_KEYS[pk] + ". " + mcEsc(it.opts[pk]) : "（没选）") + '</span>';
+      return '<div class="czr ' + (good ? "ok" : "no") + '">' +
+               '<b class="czr-n">' + it.no + '</b>' +
+               '<div class="czr-b">' +
+                 '<div class="czr-h"><span class="czr-ans">' + MC_KEYS[it.a] + ". " +
+                   mcEsc(it.opts[it.a]) + '</span>' + yours + '</div>' +
+                 '<p class="czr-ex">' + it.ex + '</p>' +
+                 ((typeof mcFlagHtml !== "undefined") ? mcFlagHtml(it.flag) : "") +
+               '</div></div>';
+    }).join("");
+
+    card.classList.add("locked", "reveal", ok === items.length ? "correct" : "wrong");
+    vd.className = "verdict show " + (ok === items.length ? "v-ok" : (ok >= items.length * 0.7 ? "v-near" : "v-no"));
+    vd.innerHTML = "本篇 <b>" + ok + " / " + items.length + "</b> 题　用时 " + fmtSecs(tm.secs());
+    btn.style.display = "none"; clr.style.display = "none";
+  }
+
+  btn.addEventListener("click", () => {
+    const left = items.filter(it => !(it.id in picked)).length;
+    if(left && !card._warned){
+      card._warned = true;
+      vd.className = "verdict show v-near";
+      vd.textContent = "还有 " + left + " 题没选，确定要对答案就再点一次。";
+      return;
+    }
+    grade(false);
+  });
+  clr.addEventListener("click", () => {
+    items.forEach(it => {
+      delete picked[it.id];
+      rows[it.id].forEach(b => b.classList.remove("picked"));
+      chips[it.no].textContent = "—";
+      wraps[it.no].classList.remove("filled");
+    });
+    card._warned = false;
+  });
+  card._fill = () => {
+    if(card.classList.contains("locked")) return;
+    items.forEach(it => rows[it.id][it.a].click());
+  };
+
+  items.forEach(it => registry.push({
+    key: it.id, no: it.no, sec: "完形填空",
+    stemText: it.stem.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim(),
+    ansText: MC_KEYS[it.a] + ". " + it.opts[it.a],
+    exHtml: it.ex, flag: it.flag
+  }));
+  host.appendChild(card);
+
+  /* 刷新回来：把上次选的放回去再静默判一遍 */
+  if(items.every(it => state[it.id] && state[it.id].done)){
+    items.forEach(it => { const pk = state[it.id].pick; if(pk >= 0) picked[it.id] = pk; });
+    grade(true);
+  }
+}
+
+
 /* ---- 启动 ---- */
-const BYID = {}; BANK.forEach(q => BYID[q.id] = q);
-["q1", "q2", "q3", "q4"].forEach(id => renderQ(BYID[id], document.getElementById("mount-1"), "单项选择"));
-["q5", "q6", "q7", "q8", "q9", "q10"].forEach(id => renderQ(BYID[id], document.getElementById("mount-3"), "填空"));
+renderMc();
 refreshTally();
+/* 二维码注入 + 放大 */
+(function(){
+  /* img 的 src 写成 qr:名字 ，名字就是 assets/<讲义名>/名字.png 的文件名 */
+  document.querySelectorAll(".qr").forEach(box => {
+    const img = box.querySelector("img");
+    const k = img.getAttribute("src") || "";
+    if(k.indexOf("qr:") === 0){
+      const v = QR[k.slice(3)];
+      if(v) img.src = v; else box.style.display = "none";   /* 没配图就不显示这个胶囊 */
+    }
+    box.addEventListener("click", () => {
+      const m = document.getElementById("qrModal");
+      m.querySelector("img").src = img.src; m.classList.add("show");
+    });
+  });
+  /* 题目里的插图（饼图、价目表这类）：一样用 qr:名字 引用，但不套 .qr 胶囊，
+     所以上面那轮扫不到 —— 这里单独补一遍。点一下同样能放大看。 */
+  document.querySelectorAll('img[src^="qr:"]').forEach(img => {
+    const v = QR[img.getAttribute("src").slice(3)];
+    if(v){
+      img.src = v;
+      img.addEventListener("click", () => {
+        const m = document.getElementById("qrModal");
+        m.querySelector("img").src = img.src; m.classList.add("show");
+      });
+    } else { img.style.display = "none"; }
+  });
+  document.getElementById("qrModal").addEventListener("click", e => e.currentTarget.classList.remove("show"));
+})();
+
+document.getElementById("btnReset").addEventListener("click", () => {
+  if(!confirm("清空所有作答记录，重新开始？")) return;
+  try{ localStorage.removeItem(STORE_KEY); }catch(e){}
+  location.reload();
+});
+
+/* 目录高亮（老浏览器没有 IntersectionObserver 就跳过，不影响答题） */
+if(typeof IntersectionObserver !== "undefined"){
+  const links = [].slice.call(document.querySelectorAll("nav.toc a"));
+  const secs = links.map(a => document.querySelector(a.getAttribute("href")));
+  const io = new IntersectionObserver(es => {
+    es.forEach(e => { if(e.isIntersecting){
+      links.forEach(l=>l.classList.remove("active"));
+      const i = secs.indexOf(e.target); if(i>=0) links[i].classList.add("active");
+    }});
+  }, {rootMargin:"-40% 0px -55% 0px"});
+  secs.forEach(s => s && io.observe(s));
+}
 </script>
+</body>
+</html>
+
 </body>
 </html>
