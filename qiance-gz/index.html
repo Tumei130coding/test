@@ -408,6 +408,29 @@ footer b{color:var(--accent)}
   .cz-n{font-style:normal; font-family:var(--sans); font-size:10.5px; font-weight:700; color:#fff;
         background:var(--ink-3); border-radius:3px; padding:0 4px; vertical-align:4px; margin-right:2px}
   .blank.cz-in{width:7.6em; font-size:15px; padding:1px 5px}
+
+  /* 语法填空的页面小键盘（只有触屏设备会弹出来） */
+  .kbd{position:fixed; left:0; right:0; bottom:0; z-index:60; display:none;
+       background:#e9e6e1; border-top:1px solid #cfc9c1; padding:5px 4px 8px;
+       box-shadow:0 -3px 14px rgba(0,0,0,.13);
+       padding-bottom:calc(8px + env(safe-area-inset-bottom))}
+  .kbd.on{display:block}
+  .kbd-tip{display:flex; align-items:center; gap:8px; font-size:11.5px; color:var(--ink-3);
+           padding:1px 6px 5px}
+  .kbd-done{margin-left:auto; flex:0 0 auto; white-space:nowrap;
+            border:1px solid var(--line); background:#fff; color:var(--ink-2);
+            border-radius:7px; padding:3px 12px; font-size:12.5px; font-family:inherit;
+            cursor:pointer}
+  .kbd-row{display:flex; gap:5px; justify-content:center; margin-bottom:5px}
+  .kk{flex:1 1 0; min-width:0; height:40px; border:0; border-radius:6px; background:#fff;
+      color:var(--ink); font-size:17px; font-family:inherit; cursor:pointer;
+      box-shadow:0 1px 0 #b9b2a9; text-transform:none}
+  .kk:active{background:#d6d1ca}
+  .kk-fn{flex:0 0 12%; background:#c9c3bb; font-size:15px}
+  .kk-p{flex:0 0 13%}
+  .kk-sp{flex:1 1 auto; font-size:13px; color:var(--ink-3)}
+  .kbd.caps .kk-fn[data-a="caps"]{background:var(--ink); color:#fff}
+  .kbd.caps .kk:not(.kk-fn):not(.kk-sp){text-transform:uppercase}
   /* 第 0 部分：信息表 */
   .infocard{padding:6px 18px 14px}
   .inforow{display:grid; grid-template-columns:13.5em 1fr; gap:12px; align-items:start;
@@ -627,7 +650,7 @@ footer b{color:var(--accent)}
   <h1 class="doc">高级前测题 pre-test</h1>
   <p class="doc-sub">入村前测 · 六个部分 · 对照新高考 2024–2026 命题标准 · 客观题共 <span id="totalHint">—</span> 题</p>
   <section class="chap" id="how">
-    <div class="rulebar">村民你好，欢迎加入土妹村。以下为入村前测题，旨在帮助土妹更好地<b>了解你的真实情况</b>。<br><b>① 按考试纪律来做</b> —— 不查字典、不用单词笔、不用手机搜；页面已经把拼写检查和自动更正都关掉了。<br><b>② 不限时</b>，平常怎么做题就怎么写。<br><b>③ 不会的题不要猜</b> —— 点那道题的「不会」按钮，或者直接空着。这不是为了考高分，是为了让土妹清楚你的问题在哪。<br><b>④ 不认识的单词点一下就标黄</b>（再点一下取消）。有很多词不认识也没关系 —— <b>这只是我们的起点，不是终点</b>。<br>全部做完后点最下面的「生成作答小结」，<b>截图那张卡片发给土妹</b>。<br><em style='font-style:normal;color:var(--ink-3)'>这份前测<b>全程不显示对错</b>，土妹要看的是你真实的样子，做得好不好都不要紧。</em></div>
+    <div class="rulebar">村民你好，欢迎加入土妹村。以下为入村前测题，旨在帮助土妹更好地<b>了解你的真实情况</b>。<br><b>① 按考试纪律来做</b> —— 不查字典、不用单词笔、不用手机搜。页面已经把拼写检查和自动更正关掉了，但<b>手机键盘上方那排候选词是输入法给的，网页关不掉</b>，写英文的时候它等于在替你拼单词。<br><em style='font-style:normal;color:var(--ink-3)'>动手前请顺手关掉：iPhone 进「设置 › 通用 › 键盘」，把<b>预测</b>和<b>自动更正</b>都关了；安卓在输入法（搜狗／百度／Gboard）自己的设置里关掉<b>联想／预测</b>。用电脑做最省事，一行候选词都不会有。</em><br><b>② 不限时</b>，平常怎么做题就怎么写。<br><b>③ 不会的题不要猜</b> —— 点那道题的「不会」按钮，或者直接空着。这不是为了考高分，是为了让土妹清楚你的问题在哪。<br><b>④ 不认识的单词点一下就标黄</b>（再点一下取消）。有很多词不认识也没关系 —— <b>这只是我们的起点，不是终点</b>。<br>全部做完后点最下面的「生成作答小结」，<b>截图那张卡片发给土妹</b>。<br><em style='font-style:normal;color:var(--ink-3)'>这份前测<b>全程不显示对错</b>，土妹要看的是你真实的样子，做得好不好都不要紧。</em></div>
   </section>
   <div id="parts"></div>
   <section class="chap" id="done">
@@ -1309,6 +1332,131 @@ function noAssist(el){
   return el;
 }
 
+/* 第 0 部分的信息表是另一回事 —— 那里填的是姓名、省市、教材版本，
+   全是中文，没有对错可言，把提示关掉只会让学生填得更费劲。
+   所以问卷区一律用**常规键盘、常规输入体验**：不设 inputmode（免得弹数字小键盘
+   打不出「1 小时」这种带字的），姓名和手机号还给浏览器正常的自动填充。
+   拼写提示只在做题区关 —— 语法填空、翻译、作文那些要写英文的地方。 */
+function formInput(el, f){
+  el.setAttribute("autocomplete",
+    f.k === "name" ? "name" : f.k === "phone" ? "tel" : "on");
+  return el;
+}
+
+/* ---------------- 语法填空专用的页面小键盘 ----------------
+   手机输入法上方那排候选词是操作系统画的，网页关不掉；打到一半就把 studied
+   摆在学生眼前，语法填空恰恰最怕这个（一个候选词等于直接送答案）。
+   所以**只在语法填空**把系统键盘挡掉（inputmode="none"），改用页面自己画的键盘。
+   翻译和作文照旧用系统键盘 —— 那里要打整段英文，页面键盘太难受，
+   而且候选词对整段写作帮不上什么忙，起作用的是词汇量本身。
+
+   所有设备都接管 —— 电脑上物理键盘照样能打，页面键盘只是多一条路，
+   这样老师在电脑上点一下就能看到学生手机上是什么样。
+   真嫌它挡地方，网址后面加 #nokbd 就不出来。 */
+var KBD_ON = location.hash !== "#nokbd";
+var kbdTarget = null, kbdCaps = false;
+
+function kbdEdit(fn){
+  const el = kbdTarget; if(!el) return;
+  const len = el.value.length;
+  let s = el.selectionStart == null ? len : el.selectionStart;
+  let e = el.selectionEnd   == null ? s   : el.selectionEnd;
+  const r = fn(el.value, s, e); if(!r) return;
+  el.value = r[0];
+  try { el.setSelectionRange(r[1], r[1]); } catch(_){}
+  el.dispatchEvent(new Event("input", { bubbles: true }));
+}
+function kbdType(ch){
+  kbdEdit((v, s, e) => [v.slice(0, s) + ch + v.slice(e), s + ch.length]);
+}
+function kbdBack(){
+  kbdEdit((v, s, e) => {
+    if(s === e){ if(!s) return null; s--; }
+    return [v.slice(0, s) + v.slice(e), s];
+  });
+}
+
+function buildKbd(){
+  const k = document.createElement("div"); k.className = "kbd"; k.id = "kbd";
+  k.innerHTML = '<div class="kbd-tip">语法填空用这个键盘打，手机输入法会替你拼单词'
+              + '<button type="button" class="kbd-done" data-a="done">完成</button></div>';
+  const rows = ["qwertyuiop", "asdfghjkl", "zxcvbnm"];
+  rows.forEach((r, i) => {
+    const line = document.createElement("div"); line.className = "kbd-row";
+    if(i === 2){
+      const sh = document.createElement("button");
+      sh.type = "button"; sh.className = "kk kk-fn"; sh.dataset.a = "caps";
+      sh.textContent = "⇧"; line.appendChild(sh);
+    }
+    r.split("").forEach(c => {
+      const b = document.createElement("button");
+      b.type = "button"; b.className = "kk"; b.dataset.c = c; b.textContent = c;
+      line.appendChild(b);
+    });
+    if(i === 2){
+      const bk = document.createElement("button");
+      bk.type = "button"; bk.className = "kk kk-fn"; bk.dataset.a = "back";
+      bk.textContent = "⌫"; line.appendChild(bk);
+    }
+    k.appendChild(line);
+  });
+  const last = document.createElement("div"); last.className = "kbd-row";
+  [["'", "'"], ["-", "-"]].forEach(([c, t]) => {
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "kk kk-p"; b.dataset.c = c; b.textContent = t;
+    last.appendChild(b);
+  });
+  const sp = document.createElement("button");
+  sp.type = "button"; sp.className = "kk kk-sp"; sp.dataset.c = " "; sp.textContent = "空格";
+  last.appendChild(sp);
+  k.appendChild(last);
+
+  /* 按下去不能把焦点从输入框上抢走，不然光标位置就丢了 */
+  k.addEventListener("mousedown", ev => ev.preventDefault());
+  k.addEventListener("touchstart", ev => {
+    if(ev.target.closest(".kk, .kbd-done")) ev.preventDefault();
+  }, { passive: false });
+  k.addEventListener("click", ev => {
+    const b = ev.target.closest("button"); if(!b) return;
+    if(b.dataset.a === "done"){ hideKbd(); if(kbdTarget) kbdTarget.blur(); return; }
+    if(b.dataset.a === "back"){ kbdBack(); return; }
+    if(b.dataset.a === "caps"){
+      kbdCaps = !kbdCaps; k.classList.toggle("caps", kbdCaps); return;
+    }
+    const c = b.dataset.c; if(c == null) return;
+    kbdType(kbdCaps ? c.toUpperCase() : c);
+    if(kbdCaps){ kbdCaps = false; k.classList.remove("caps"); }   /* 大写只管一个字母 */
+  });
+  document.body.appendChild(k);
+  return k;
+}
+
+function showKbd(el){
+  const k = document.getElementById("kbd") || buildKbd();
+  kbdTarget = el;
+  k.classList.add("on");
+  document.body.style.paddingBottom = k.offsetHeight + 20 + "px";
+  /* 被键盘挡住的话，把那个空滚上来 */
+  setTimeout(() => {
+    const r = el.getBoundingClientRect(), top = window.innerHeight - k.offsetHeight;
+    if(r.bottom > top - 8) window.scrollBy({ top: r.bottom - top + 60, behavior: "smooth" });
+  }, 60);
+}
+function hideKbd(){
+  const k = document.getElementById("kbd"); if(!k) return;
+  k.classList.remove("on"); k.classList.remove("caps"); kbdCaps = false;
+  document.body.style.paddingBottom = "";
+}
+function attachKbd(el){
+  if(!KBD_ON) return;
+  el.setAttribute("inputmode", "none");     /* 系统键盘不弹出来 */
+  el.addEventListener("focus", () => showKbd(el));
+  el.addEventListener("blur", () => setTimeout(() => {
+    const a = document.activeElement;
+    if(!a || !a.classList || !a.classList.contains("cz-in")) hideKbd();
+  }, 120));
+}
+
 /* ---------------- 「不会」按钮 ---------------- */
 function dkButton(id, onChange){
   const b = document.createElement("button");
@@ -1521,7 +1669,7 @@ function renderClozePart(part, host){
         const wrap = document.createElement("span"); wrap.className = "cz-b";
         const num = document.createElement("i"); num.className = "cz-n"; num.textContent = n;
         const inp = document.createElement("input");
-        inp.className = "blank cz-in"; noAssist(inp);
+        inp.className = "blank cz-in"; noAssist(inp); attachKbd(inp);
         inp.value = state.ans[id] || "";
         inp.addEventListener("input", () => {
           state.ans[id] = inp.value; if(inp.value.trim()) delete state.dk[id];
@@ -1577,7 +1725,7 @@ function renderForm(part, host){
       if(f.other){                       /* 选了「其他」才冒出补充输入框 */
         const t = document.createElement("input");
         t.className = "blank iother"; t.placeholder = "其他，请写";
-        noAssist(t); t.value = state.info[f.k + "_o"] || "";
+        formInput(t, f); t.value = state.info[f.k + "_o"] || "";
         t.addEventListener("input", () => { state.info[f.k + "_o"] = t.value; save(); });
         box.appendChild(t);
         const syncOther = () => { t.style.display = (state.info[f.k] === "其他") ? "" : "none"; };
@@ -1588,8 +1736,7 @@ function renderForm(part, host){
       const t = document.createElement("input");
       t.className = "blank iline" + (f.type === "num" ? " inum" : "");
       t.placeholder = f.ph || "";
-      if(f.type === "num" || f.type === "tel") t.setAttribute("inputmode", "numeric");
-      noAssist(t);
+      formInput(t, f);
       t.value = state.info[f.k] || "";
       t.addEventListener("input", () => { state.info[f.k] = t.value; save(); });
       box.appendChild(t);
