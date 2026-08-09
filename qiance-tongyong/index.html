@@ -408,6 +408,41 @@ footer b{color:var(--accent)}
   .cz-n{font-style:normal; font-family:var(--sans); font-size:10.5px; font-weight:700; color:#fff;
         background:var(--ink-3); border-radius:3px; padding:0 4px; vertical-align:4px; margin-right:2px}
   .blank.cz-in{width:7.6em; font-size:15px; padding:1px 5px}
+  /* 第 0 部分：信息表 */
+  .infocard{padding:6px 18px 14px}
+  .inforow{display:grid; grid-template-columns:13.5em 1fr; gap:12px; align-items:start;
+           padding:11px 0; border-bottom:1px dashed var(--line)}
+  .inforow:last-child{border-bottom:none}
+  .infolab{font-size:14px; color:var(--ink); line-height:1.7; padding-top:4px}
+  .infolab .must{font-style:normal; font-size:11px; color:var(--no); background:#fdf0ee;
+                 border-radius:3px; padding:1px 5px; margin-left:6px; vertical-align:2px}
+  .infoval{display:flex; flex-wrap:wrap; gap:6px; align-items:center}
+  .blank.iline{flex:1 1 15em; font-size:15px; text-align:left}
+  .blank.inum{flex:0 0 7em; text-align:center}
+  .blank.iother{flex:1 1 9em; font-size:14px; text-align:left}
+  .ipk{font-family:var(--sans); font-size:13px; padding:5px 13px; border-radius:99px;
+       border:1px solid var(--line); background:#fff; color:var(--ink-2); cursor:pointer}
+  .ipk:hover{border-color:var(--accent); color:var(--accent)}
+  .ipk.on{background:var(--ink); border-color:var(--ink); color:#fff}
+  .infonote{flex:1 0 100%; font-size:12px; color:var(--ink-3); line-height:1.75}
+  @media(max-width:600px){
+    .inforow{grid-template-columns:1fr; gap:5px; padding:10px 0}
+    .infolab{padding-top:0; font-size:13.5px}
+    .blank.iline{flex:1 1 100%}
+  }
+  /* 小结顶部的信息 */
+  .sm-info{display:grid; grid-template-columns:1fr 1fr; gap:4px 16px; font-size:13px}
+  .sm-icell{display:grid; grid-template-columns:9.5em 1fr; gap:8px; padding:4px 0;
+            border-bottom:1px dashed var(--line)}
+  .sm-icell .zh{color:var(--ink-2)}
+  .sm-icell .en{font-family:var(--serif); word-break:break-word}
+  .sm-todo{margin-top:16px; padding:10px 13px; background:#faf8f5; border-radius:8px;
+           font-size:13px; color:var(--ink); line-height:1.8}
+  .sm-todo em{font-style:normal; color:var(--ink-3); font-size:12px}
+  @media(max-width:600px){
+    .sm-info{grid-template-columns:1fr}
+    .sm-icell{grid-template-columns:8em 1fr}
+  }
   /* 短文工具栏：圈生词 ｜ 标证据 */
   .pgbar{display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin:12px 0 0;
          padding:9px 12px; border:1px solid var(--line); border-radius:10px 10px 0 0;
@@ -578,7 +613,8 @@ footer b{color:var(--accent)}
 </div>
 
 <nav class="toc" id="toc">
-  <a href="#p1" class="active">单项选择</a>
+  <a href="#p0" class="active">你的情况</a>
+  <a href="#p1">单项选择</a>
   <a href="#p2">阅读理解</a>
   <a href="#p3">完形填空</a>
   <a href="#p4">英译汉</a>
@@ -591,7 +627,7 @@ footer b{color:var(--accent)}
   <h1 class="doc">通用前测题</h1>
   <p class="doc-sub">入村前测 · 六个部分 · 不分学段 · 客观题共 <span id="totalHint">—</span> 题</p>
   <section class="chap" id="how">
-    <div class="rulebar">村民你好，欢迎加入土妹村。以下为入村前测题，旨在帮助土妹更好地<b>了解你的真实情况</b>。<br><b>不查字典，不限时</b>，平常怎么做题就怎么写。<b>不会做的题不要猜</b> —— 点那道题的「不会」按钮，或者直接空着。<br><b>短文里不认识的单词，点一下就标黄</b>（再点一下取消），做完会一并列给土妹。<br>全部做完后点最下面的「生成作答小结」，<b>截图那张卡片发给土妹</b>。<br><em style='font-style:normal;color:var(--ink-3)'>这份前测<b>全程不显示对错</b>，土妹要看的是你真实的样子，做得好不好都不要紧。</em></div>
+    <div class="rulebar">村民你好，欢迎加入土妹村。以下为入村前测题，旨在帮助土妹更好地<b>了解你的真实情况</b>。<br><b>① 按考试纪律来做</b> —— 不查字典、不用单词笔、不用手机搜；页面已经把拼写检查和自动更正都关掉了。<br><b>② 不限时</b>，平常怎么做题就怎么写。<br><b>③ 不会的题不要猜</b> —— 点那道题的「不会」按钮，或者直接空着。这不是为了考高分，是为了让土妹清楚你的问题在哪。<br><b>④ 不认识的单词点一下就标黄</b>（再点一下取消）。有很多词不认识也没关系 —— <b>这只是我们的起点，不是终点</b>。<br>全部做完后点最下面的「生成作答小结」，<b>截图那张卡片发给土妹</b>。<br><em style='font-style:normal;color:var(--ink-3)'>这份前测<b>全程不显示对错</b>，土妹要看的是你真实的样子，做得好不好都不要紧。</em></div>
   </section>
   <div id="parts"></div>
   <section class="chap" id="done">
@@ -620,6 +656,110 @@ const STORE_KEY = "tumei-qiance-tongyong-v1";
 const TITLE = "通用前测题";
 const CSV_NAME = "通用前测-答案审核清单.csv";
 const PARTS = [
+ {
+  "kind": "form",
+  "id": "p0",
+  "nav": "你的情况",
+  "title": "第0部分　你的情况",
+  "lead": "做题之前先填一下，土妹要据此给你配学习内容。<b>这些只存在你自己的手机／电脑上，不会自动发给任何人</b> —— 最后连同作答小结一起截图发给土妹就行。",
+  "fields": [
+   {
+    "k": "name",
+    "label": "学生姓名",
+    "type": "text",
+    "must": true
+   },
+   {
+    "k": "grade",
+    "label": "年级",
+    "type": "text",
+    "must": true,
+    "ph": "如：初二"
+   },
+   {
+    "k": "book",
+    "label": "英语教材版本",
+    "type": "text",
+    "ph": "如：人教版 / 外研版 / 牛津译林 / 北师大"
+   },
+   {
+    "k": "place",
+    "label": "所在省市",
+    "type": "text",
+    "ph": "如：江苏 南京"
+   },
+   {
+    "k": "phone",
+    "label": "后面学习用的微信手机号",
+    "type": "tel",
+    "must": true,
+    "note": "<b>特别重要</b> —— 后面的课程权限要绑这个号码，填错了课听不了。这一栏只存在你自己的设备上，页面不会把它发到任何地方。"
+   },
+   {
+    "k": "full",
+    "label": "目前考试满分是多少分",
+    "type": "num",
+    "ph": "如 150"
+   },
+   {
+    "k": "now",
+    "label": "现在的分数是",
+    "type": "num"
+   },
+   {
+    "k": "goal",
+    "label": "要提升到的目标分数是",
+    "type": "num"
+   },
+   {
+    "k": "read",
+    "label": "有没有读过教材、试卷以外的英语素材",
+    "type": "pick",
+    "opts": [
+     "读过",
+     "没有"
+    ]
+   },
+   {
+    "k": "readwhat",
+    "label": "读过哪些？请列举",
+    "type": "text",
+    "ph": "如：《书虫二级》、Harry Potter、China Daily…",
+    "showIf": [
+     "read",
+     "读过"
+    ]
+   },
+   {
+    "k": "live",
+    "label": "住校还是走读",
+    "type": "pick",
+    "opts": [
+     "住校",
+     "走读"
+    ]
+   },
+   {
+    "k": "phonefreq",
+    "label": "多久接触一次手机",
+    "type": "pick",
+    "opts": [
+     "随时可用",
+     "每天有固定时间",
+     "每周一两次",
+     "只有假期能用",
+     "其他"
+    ],
+    "other": true
+   },
+   {
+    "k": "time",
+    "label": "每天能分配的学习时间",
+    "type": "text",
+    "ph": "如：1 小时"
+   }
+  ]
+ },
  {
   "kind": "choice",
   "id": "p1",
@@ -991,6 +1131,7 @@ state.ans   = state.ans   || {};    /* 客观题：题号 → 选项下标 / 填
 state.dk    = state.dk    || {};    /* 点了「不会」的题 */
 state.free  = state.free  || {};    /* 主观题原文 */
 state.words = state.words || [];    /* 圈出来的生词 */
+state.info  = state.info  || {};    /* 第 0 部分填的情况 */
 
 const WORDS = new Set(state.words);
 function saveWords(){ state.words = [...WORDS]; save(); }
@@ -1394,6 +1535,70 @@ function renderClozePart(part, host){
   host.appendChild(tk);
 }
 
+/* ---------------- 第 0 部分：你的情况（信息表） ----------------
+   学生填的东西**只存在他自己这台设备上**，页面没有服务器、不往任何地方提交；
+   最后靠「作答小结」那张卡片截图发给老师。手机号这类信息因此不经过第三方。 */
+function renderForm(part, host){
+  const card = document.createElement("div"); card.className = "q infocard";
+  part.fields.forEach(f => {
+    const row = document.createElement("div"); row.className = "inforow"; row.dataset.k = f.k;
+    const lab = document.createElement("div"); lab.className = "infolab";
+    lab.innerHTML = f.label + (f.must ? '<i class="must">必填</i>' : "");
+    row.appendChild(lab);
+    const box = document.createElement("div"); box.className = "infoval";
+
+    if(f.type === "pick"){
+      const btns = f.opts.map(o => {
+        const b = document.createElement("button");
+        b.type = "button"; b.className = "ipk" + (state.info[f.k] === o ? " on" : "");
+        b.textContent = o;
+        b.addEventListener("click", () => {
+          state.info[f.k] = (state.info[f.k] === o) ? "" : o;
+          btns.forEach(x => x.classList.toggle("on", x.textContent === state.info[f.k]));
+          save(); syncShowIf();
+        });
+        box.appendChild(b); return b;
+      });
+      if(f.other){                       /* 选了「其他」才冒出补充输入框 */
+        const t = document.createElement("input");
+        t.className = "blank iother"; t.placeholder = "其他，请写";
+        noAssist(t); t.value = state.info[f.k + "_o"] || "";
+        t.addEventListener("input", () => { state.info[f.k + "_o"] = t.value; save(); });
+        box.appendChild(t);
+        const syncOther = () => { t.style.display = (state.info[f.k] === "其他") ? "" : "none"; };
+        btns.forEach(b => b.addEventListener("click", syncOther));
+        syncOther();
+      }
+    } else {
+      const t = document.createElement("input");
+      t.className = "blank iline" + (f.type === "num" ? " inum" : "");
+      t.placeholder = f.ph || "";
+      if(f.type === "num" || f.type === "tel") t.setAttribute("inputmode", "numeric");
+      noAssist(t);
+      t.value = state.info[f.k] || "";
+      t.addEventListener("input", () => { state.info[f.k] = t.value; save(); });
+      box.appendChild(t);
+    }
+    if(f.note){
+      const n = document.createElement("div"); n.className = "infonote"; n.innerHTML = f.note;
+      box.appendChild(n);
+    }
+    row.appendChild(box); card.appendChild(row);
+  });
+  host.appendChild(card);
+
+  /* 「有没有读过课外素材」选「没有」时，把「请列举」那一行收起来 */
+  function syncShowIf(){
+    part.fields.forEach(f => {
+      if(!f.showIf) return;
+      const [k, v] = f.showIf;
+      const row = card.querySelector('.inforow[data-k="' + f.k + '"]');
+      row.style.display = (state.info[k] === v) ? "" : "none";
+    });
+  }
+  syncShowIf();
+}
+
 /* ---------------- 写句子 / 翻译（不判分） ---------------- */
 function renderFree(part, host){
   part.prompts.forEach((t, i) => {
@@ -1465,7 +1670,7 @@ function buildSummary(){
   const rows = [];
   let allT = 0, allA = 0, allNo = 0;
   PARTS.forEach(p => {
-    if(p.kind === "free" || p.kind === "essay") return;
+    if(p.kind === "free" || p.kind === "essay" || p.kind === "form") return;
     let total = 0, ans = 0, dk = 0;
     const wrong = [], blank = [], dks = [];
     const list = (p.kind === "cloze")
@@ -1483,6 +1688,24 @@ function buildSummary(){
 
   const nums = a => a.length ? a.join("、") : "—";
   let h = '<div class="sm-head"><b>作答小结</b><span>截图这一张发给土妹</span></div>';
+
+  /* 信息表放最上面 —— 老师拿到的是「这个人 + 他做成什么样」，一张图就够 */
+  const fm = PARTS.find(p => p.kind === "form");
+  if(fm){
+    const miss = [];
+    const cells = fm.fields.filter(f => !f.showIf || state.info[f.showIf[0]] === f.showIf[1])
+      .map(f => {
+        let v = state.info[f.k] || "";
+        if(f.other && v === "其他" && state.info[f.k + "_o"]) v = state.info[f.k + "_o"];
+        if(!v && f.must) miss.push(f.label.replace(/<[^>]+>/g, ""));
+        return '<div class="sm-icell"><span class="zh">' + f.label.replace(/<[^>]+>/g, "") +
+               '</span><span class="en">' + (v ? esc(v) : "（没填）") + '</span></div>';
+      }).join("");
+    h += '<div class="sm-t">你的情况' +
+         (miss.length ? '<em style="color:var(--no)">还有 ' + miss.length + ' 项必填没写：' +
+                        esc(miss.join("、")) + '</em>' : "") + '</div>' +
+         '<div class="sm-info">' + cells + '</div>';
+  }
   h += '<div class="sm-tot">客观题共 <b>' + allT + '</b> 题　作答 <b>' + allA + '</b> 题　' +
        '做错 <b>' + allNo + '</b> 题' +
        '<em>（题号<b>按每个题型各自从 1 数</b>；留白和标「不会」的题不算作答，也不算错）</em></div>';
@@ -1538,6 +1761,9 @@ function buildSummary(){
     h += '</div>';
   });
 
+  h += '<div class="sm-todo">□ 最近一次考试的试卷已经拍照发给土妹了' +
+       '<em>（要求：<b>有做题笔迹、有作文</b>。没有的话，后面学习过程中再发）</em></div>';
+
   const d = new Date();
   const pad = n => (n < 10 ? "0" : "") + n;
   h += '<div class="sm-foot"><span>' + TITLE + '</span><span>' +
@@ -1567,7 +1793,7 @@ function renderAll(){
       p.title.replace(/\s.*$/, "") + '</span>' + p.title.replace(/^\S+\s*/, "") + '</h2>' +
       (p.lead ? '<p class="chap-lead">' + p.lead + '</p>' : "");
     document.getElementById("parts").appendChild(sec);
-    ({ choice: renderChoice, mc: renderMcPart, seven: renderSeven,
+    ({ form: renderForm, choice: renderChoice, mc: renderMcPart, seven: renderSeven,
        cloze: renderClozePart, free: renderFree, essay: renderEssay })[p.kind](p, sec);
   });
   refreshBar();
