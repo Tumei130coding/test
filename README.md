@@ -80,6 +80,7 @@
 | 高级测试 · 二测 · 语法填空 | [打开](https://tumei130coding.github.io/test/gz-ceshi-02-gap/) |
 | 高级测试 · 三测 · 阅读理解 | [打开](https://tumei130coding.github.io/test/gz-ceshi-03-read/) |
 | 高级测试 · 天津单选一测 | [打开](https://tumei130coding.github.io/test/gz-ceshi-tj-danxuan/) |
+| 口语发音专项 · 基础连读 | [打开](https://tumei130coding.github.io/test/kouyu-fayin-liandu/) |
 | 通用前测题 | [打开](https://tumei130coding.github.io/test/qiance-tongyong/) |
 | 初级衔接前测（小学升初级） | [打开](https://tumei130coding.github.io/test/qiance-cj-xianjie/) |
 | 初级定制前测题（二） | [打开](https://tumei130coding.github.io/test/qiance-cj-dingzhi2/) |
