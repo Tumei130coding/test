@@ -81,6 +81,14 @@
 | 高级测试 · 三测 · 阅读理解 | [打开](https://tumei130coding.github.io/test/gz-ceshi-03-read/) |
 | 高级测试 · 天津单选一测 | [打开](https://tumei130coding.github.io/test/gz-ceshi-tj-danxuan/) |
 | 口语发音专项 · 基础连读 | [打开](https://tumei130coding.github.io/test/kouyu-fayin-liandu/) |
+| 口语发音专项 · H-dropping | [打开](https://tumei130coding.github.io/test/kouyu-fayin-h-dropping/) |
+| 口语发音专项 · 删音 | [打开](https://tumei130coding.github.io/test/kouyu-fayin-shanyin/) |
+| 口语发音专项 · 语法词尾 | [打开](https://tumei130coding.github.io/test/kouyu-fayin-yufa-ciwei/) |
+| 口语发音专项 · 词尾不加元音 | [打开](https://tumei130coding.github.io/test/kouyu-fayin-ciwei-bujia-yuanyin/) |
+| 口语发音专项 · 辅音群 | [打开](https://tumei130coding.github.io/test/kouyu-fayin-fuyinqun/) |
+| 口语发音专项 · TR / DR / TS / DZ | [打开](https://tumei130coding.github.io/test/kouyu-fayin-tr-dr-ts-dz/) |
+| 口语发音专项 · V / W | [打开](https://tumei130coding.github.io/test/kouyu-fayin-v-w/) |
+| 口语发音专项 · Dark L | [打开](https://tumei130coding.github.io/test/kouyu-fayin-dark-l/) |
 | 通用前测题 | [打开](https://tumei130coding.github.io/test/qiance-tongyong/) |
 | 初级衔接前测（小学升初级） | [打开](https://tumei130coding.github.io/test/qiance-cj-xianjie/) |
 | 初级定制前测题（二） | [打开](https://tumei130coding.github.io/test/qiance-cj-dingzhi2/) |
