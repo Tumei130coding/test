@@ -89,6 +89,7 @@
 | 口语发音专项 · TR / DR / TS / DZ | [打开](https://tumei130coding.github.io/test/kouyu-fayin-tr-dr-ts-dz/) |
 | 口语发音专项 · V / W | [打开](https://tumei130coding.github.io/test/kouyu-fayin-v-w/) |
 | 口语发音专项 · Dark L | [打开](https://tumei130coding.github.io/test/kouyu-fayin-dark-l/) |
+| 口语发音专项 · 英语语调 | [打开](https://tumei130coding.github.io/test/kouyu-fayin-yudiao/) |
 | 通用前测题 | [打开](https://tumei130coding.github.io/test/qiance-tongyong/) |
 | 初级衔接前测（小学升初级） | [打开](https://tumei130coding.github.io/test/qiance-cj-xianjie/) |
 | 初级定制前测题（二） | [打开](https://tumei130coding.github.io/test/qiance-cj-dingzhi2/) |
