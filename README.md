@@ -92,6 +92,9 @@
 | 口语发音专项 · 英语语调 | [打开](https://tumei130coding.github.io/test/kouyu-fayin-yudiao/) |
 | 口语发音专项 · 单词重音规律 | [打开](https://tumei130coding.github.io/test/kouyu-fayin-danci-zhongyin/) |
 | 口语发音专项 · 音节重音与弱读 | [打开](https://tumei130coding.github.io/test/kouyu-fayin-yinjie-zhongyin-ruodu/) |
+| 口语发音专项 · 易混元音 | [打开](https://tumei130coding.github.io/test/kouyu-fayin-yihun-yuanyin/) |
+| 口语发音专项 · 鼻音对比 | [打开](https://tumei130coding.github.io/test/kouyu-fayin-biyin/) |
+| 口语发音专项 · /θ/ 与 /s/ | [打开](https://tumei130coding.github.io/test/kouyu-fayin-th-s/) |
 | 通用前测题 | [打开](https://tumei130coding.github.io/test/qiance-tongyong/) |
 | 初级衔接前测（小学升初级） | [打开](https://tumei130coding.github.io/test/qiance-cj-xianjie/) |
 | 初级定制前测题（二） | [打开](https://tumei130coding.github.io/test/qiance-cj-dingzhi2/) |
