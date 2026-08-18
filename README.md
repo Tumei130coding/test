@@ -70,6 +70,7 @@
 | 初级语法-三看三定专项1-真动词填表 | [打开](https://tumei130coding.github.io/test/sjsd-zhendongci/) |
 | 初级语法-代冠名专项1-人称代词表默写 | [打开](https://tumei130coding.github.io/test/dgm-renchengbiao/) |
 | 高级语法填空精选12篇（按难度递增） | [打开](https://tumei130coding.github.io/test/gz-yfck-jingxuan12/) |
+| 高级应用文 · 初阶 | [打开](https://tumei130coding.github.io/test/gz-writing-beginner/) |
 | 高级测试 · 一测 · 阅读理解 | [打开](https://tumei130coding.github.io/test/gz-ceshi-01-read/) |
 | 高级测试 · 一测 · 七选五 | [打开](https://tumei130coding.github.io/test/gz-ceshi-01-seven/) |
 | 高级测试 · 一测 · 完形填空 | [打开](https://tumei130coding.github.io/test/gz-ceshi-01-cloze/) |
@@ -92,6 +93,7 @@
 | 口语发音专项 · 英语语调 | [打开](https://tumei130coding.github.io/test/kouyu-fayin-yudiao/) |
 | 口语发音专项 · 单词重音规律 | [打开](https://tumei130coding.github.io/test/kouyu-fayin-danci-zhongyin/) |
 | 口语发音专项 · 音节重音与弱读 | [打开](https://tumei130coding.github.io/test/kouyu-fayin-yinjie-zhongyin-ruodu/) |
+| 口语发音专项 · 音标 × 字母组合 | [打开](https://tumei130coding.github.io/test/kouyu-fayin-zimu-zuhe/) |
 | 口语发音专项 · 易混元音 | [打开](https://tumei130coding.github.io/test/kouyu-fayin-yihun-yuanyin/) |
 | 口语发音专项 · 鼻音对比 | [打开](https://tumei130coding.github.io/test/kouyu-fayin-biyin/) |
 | 口语发音专项 · /θ/ 与 /s/ | [打开](https://tumei130coding.github.io/test/kouyu-fayin-th-s/) |
