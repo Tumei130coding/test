@@ -100,6 +100,7 @@
 | 初级定制前测题（二） | [打开](https://tumei130coding.github.io/test/qiance-cj-dingzhi2/) |
 | 高级衔接前测（初级升高级） | [打开](https://tumei130coding.github.io/test/qiance-gz-xianjie/) |
 | 高级前测题 | [打开](https://tumei130coding.github.io/test/qiance-gz/) |
+| 高级应用文 · 初阶 | [打开](https://tumei130coding.github.io/test/gz-writing-beginner/) |
 
 ---
 
